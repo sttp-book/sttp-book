@@ -14,7 +14,7 @@ if [ -d "$GITBOOK_REP" ]; then
     rsvg-convert -f pdf -o temp/$(basename "${file%.*}").pdf $file
   done
   # Convert drawio files to pdf
-  drawio --crop -xtrf pdf -o temp/ drawio/
+  draw.io --crop -xtrf pdf -o temp/ drawio/
   # Add pre-existing pdf files
   find temp -type f -name '*.drawio.pdf' | while read file; do
     mv $file ${file%.*.*}.pdf
