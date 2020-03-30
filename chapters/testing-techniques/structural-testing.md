@@ -519,7 +519,7 @@ the figure below how the relationship among all the coverage criteria we studied
 
 You can see that, for example, branch coverage subsumes line coverage. This means that 100% of branch coverage always implies in 100% line coverage; however, 100% of line coverage does not imply in 100% branch coverage. 100% of branch + condition coverage imply in 100% branch coverage and 100% of line coverage.
 
-![Criteria subsumption](img/structural-testing/subsumption.png)
+![Criteria subsumption](img/structural-testing/subsumption.png)<!--{width=50%}-->
 
 {% hint style='working' %}
 record a video about the criteria subsumption
