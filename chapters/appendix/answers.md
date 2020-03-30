@@ -607,7 +607,7 @@ In this case we need to test each explicit decision in the decision table.
 **Exercise 10**
 
 
-![](img/model-based-testing/exercises/ads.png)
+![](img/model-based-testing/exercises/ads.svg)
 
 
 **Exercise 11**
