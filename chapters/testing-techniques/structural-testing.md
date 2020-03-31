@@ -2,13 +2,13 @@
 
 # Structural-Based Testing
 
-In a previous chapter, we discussed how to test software using requirements as the main artefact for guidance.
-In this chapter, we will use a different source of information to create tests: the source code itself.
-We can call the set of techniques that use the structure of the source code as a way to guide the testing, 
-**structural-based testing** techniques.
+In a previous chapter, we discussed how to test software using requirements as the main element to guide the testing. 
+In this chapter, we will use the source code itself as a source of information to create tests. 
+We call the set of techniques that use the structure of the source code as a way to guide the testing **structural-based testing** techniques.
 
-Understanding structural-based testing techniques boils down to understand the different coverage criteria. These coverage criteria
-are highly related to test coverage, a concept that many developers know.
+
+Understanding structural-based testing techniques means understanding the different *coverage criteria*. These coverage criteria relate closely to *test coverage*, a concept that many developers know.
+
 By test coverage, we mean the amount (or percentage) of production code that is exercised by the tests.
 
 We will cover the following coverage criteria:
@@ -20,17 +20,49 @@ We will cover the following coverage criteria:
 - Path coverage
 - MC/DC coverage
 
-Watch a summary of one of our lectures in structural testing!
+Watch a summary of one of our lectures in structural testing:
 
 {% set video_id = "busfqNkpgKI" %}
 {% include "/includes/youtube.md" %}
+
+## Why do we need structural-based testing?
+
+In a nutshell, for two reasons: 1) to systematically
+derive tests out of source code, 2) to know when to stop testing.
+
+As a tester, when performing specification-based testing, 
+your goal was clear: to derive classes out of the requirements specifications, and then to derive test cases for each of the
+classes. You were satisfied once all the classes and boundaries
+were systematically exercised.
+
+The same idea applies to structural testing. First, it gives
+us a systematic way to devise tests. As we will see, a tester
+might focus on testing all the lines of a program; or focus
+on the branches and conditions of the program. Different
+criteria produce different test cases. 
+
+Second, to know
+when to stop. It is easy to imagine that the number of possible paths in a mildly complex piece of code is just too large, and exhaustive testing is impossible. Therefore, having a 
+clear criteria on when to stop helps testers in understanding
+the costs of their testing.
+
 
 ## Line (and statement) coverage
 
 As the name suggests, when determining the line coverage, we look at the amount of lines of code that are covered by the tests (more specifically,
 by at least one test).
 
-See the following example: We consider a piece of code that returns the points of the person that wins a game of [Black jack]("https://en.wikipedia.org/wiki/Blackjack").
+See the following example: 
+
+> **Requirement**: Black-jack
+>
+> The program receives the amount of points of two black jack players.
+> The program must return the amount of points of the winner.
+> In blackjack, whoever gets closer to 21 points wins. 
+> If a player goes over 21 points,
+> the player loses. If both player loses, the program must return 0.
+
+See the following implementation for the requirement above:
 
 ```java
 public class BlackJack {
@@ -49,56 +81,50 @@ public class BlackJack {
 }
 ```
 
-The `play(int left, int right)` method receives the amount of points of two players and returns the value like specified.
-Now let's make two tests for this method.
+Let us now devise and implement two test cases for this method:
 
 ```java
 public class BlackJackTests {
   @Test
-  public void bothPlayersGoTooHigh() {
+  void bothPlayersGoTooHigh() {
     int result = new BlackJack().play(30, 30);
     assertThat(result).isEqualTo(0);
   }
 
   @Test
-  public void leftPlayerWins() {
+  void leftPlayerWins() {
     int result = new BlackJack().play(10, 9);
     assertThat(result).isEqualTo(10);
   }
 }
 ```
 
-Try to follow each test method and mark which lines of the production code are exercised by it.
+Follow the execution of each test method, and mark which lines of the production code are exercised by it.
 The first test executes lines 1-7, 9, and 10 as both values are higher than 21 and when the program arrives at line 7.
-`ln` equals `rn` so the statement `ln > rn` is `false`.
-This means that 9 out of the 10 lines are covered and the line coverage is $$\frac{9}{10}\cdot100\% = 90\%$$ (after all, the test
-exercised 9 out of the 10 lines of that method).
+This means that, after the `bothPlayersGoTooHigh` test, 9 out of the 10 lines are covered. Thus, line coverage is $$\frac{9}{10}\cdot100\% = 90\%$$.
+
 Line 8 is therefore the only line that the first test does not cover.
 The second test, `leftPlayerWins`, complements the first test, and executes lines 1-3, 5, 7 and 8.
-So when we execute both of our tests, the line coverage is $$100\%$$.
-
-
+Both tests together now achieve a line coverage of $$100\%$$, as together they cover
+all the 10 different lines of the program.
 
 More formally, we can compute line coverage as: 
 
 $$\text{line coverage} = \frac{\text{lines covered}}{\text{lines total}} \cdot 100\%$$
 
-Note: Defining what constitutes a line is up to the tester. One might count, for example, the method declaration as a code line. 
-We prefer not to count the method declaration line.
 
 {% set video_id = "rkLsvlPlOHc" %}
 {% include "/includes/youtube.md" %}
 
 
-## Why is line coverage a bit problematic?
+## Why is line coverage problematic?
 
 Using lines of code as a way to determine line coverage is a simple and straightforward idea.
 However, counting the covered lines is not always a good way of calculating the coverage.
-The amount of lines in a piece of code is heavily dependent on the programmer that writes the code.
-In Java, for example, you can often write a whole method in just one line (for your future colleagues' sake, please don't).
-In that case, the line coverage would always be $$100\%$$ if you test the method.
+The number of lines in a piece of code depends on the 
+decisions taken by the programmer who writes the code. 
 
-We are again looking at Black Jack example.
+Let us look again at the Black Jack example.
 The `play` method can also be written in 6 lines, instead of 10:
 
 ```java
@@ -112,19 +138,20 @@ public int play(int left, int right) {
 }
 ```
 
-The same `leftPlayerWins` test covered $$\frac{6}{10}$$ lines in the first `play` method.
-Now, it covers lines 1-5, so $$\frac{5}{6}$$ lines.
-The line coverage went up from $$60\%$$ to $$83\%$$, while testing the same method with the same test.
-This is definitely not ideal.
+The `leftPlayerWins` test covered $$\frac{6}{10}$$ lines in the previous
+implementation of the `play` method.
+In this new implementation, it covers lines 1-5, or $$\frac{5}{6}$$ lines.
+The line coverage went up from $$60\%$$ to $$83\%$$, 
+while testing the same method with the same input.
 
+This urges for a better representation of source code. One that is 
+independent of the developers' personal code styles.
 
-
-We need a better representation for source code. One that is independent of the developers' personal
-code styles.
-
-Note: Some coverage tools measure coverage as statement level. Statements are the unique instructions that your
+{% hint style='tip' %}
+Some coverage tools measure coverage as statement level. Statements are the unique instructions that your
 JVM, for example, executes. This is a bit better, as splitting one line code in two would not make a difference, 
 but still not good enough.
+{% endhint %}
 
 {% set video_id = "iQECMbKLez0" %}
 {% include "/includes/youtube.md" %}
@@ -133,23 +160,69 @@ but still not good enough.
 
 ## Blocks and Control-Flow Graph
 
-A Control-Flow Graph (or CFG) is an agnostic representation of a piece of code. 
-It consists of basic blocks, decision blocks, and arrows that connect these blocks.
+A **Control-Flow Graph** (or CFG) is an agnostic representation of a piece of code. 
+It consists of *basic blocks*, *decision blocks*, and *arrows/edges* that connect these blocks.
 
-A basic block is composed of "all statements that are executed together", with no if or for conditions that might
-create different branches in the code. Basic blocks are often represented with a square.
+Let us use the Black Jack implementation to illustrate the difference between them:
+
+```java
+public class BlackJack {
+  public int play(int left, int right) {
+1.  int ln = left;
+2.  int rn = right;
+3.  if (ln > 21)
+4.    ln = 0;
+5.  if (rn > 21)
+6.    rn = 0;
+7.  if (ln > rn)
+8.    return ln;
+9.  else
+10.   return rn;
+  }
+}
+```
+
+A basic block is composed of "maximum number of statements that are executed together no matter what happens". Note how lines 1-2 are always executed together, as if they were a single block. Basic blocks are often represented with a square.
+
+At this moment, our control flow graph looks like the following:
+
+![Black Jack - CFG part 1](img/structural-testing/examples/bj-p1.png)
+
+
 A decision block, on the other hand, represents all the statements in the source
-code that can create different branches. Decision blocks are often represented as diamonds.
+code that can create different branches. See line 3 (`if (ln > 21)`). This _if_
+statement creates a decision moment in the appliction; after all, if it is evaluated
+as true, the program will do something, otherwise the program will do something else. Decision blocks are often represented as diamonds. This decision block happens right 
+after the basic block we created above, and thus, they are connected by means of
+an edge.
 
-We then connect the blocks according to the flow of the program. A basic block has always a single outgoing edge; a decision block has
+![Black Jack - CFG part 2](img/structural-testing/examples/bj-p2.png)
+
+Note that a basic block has always a single outgoing edge. A decision block, 
+on othe other hand, has
 always two outgoing edges (where you go in case of the decision being evaluated to true, and where you go in case the decision being evaluated
 to false).
 
-You can see an example of a CFG below.
+In case of the decision block being evaluated to `true`, line 4 is executed, and the
+program continues to line 5.
+Otherwise, it proceeds straight to line 5, which is another decision block:
 
-We write a program for the following problem:
-Given a sentence, you should count the number of words that end with either an "s" or an "r".
-A word ends when a non-letter appears.
+![Black Jack - CFG part 3](img/structural-testing/examples/bj-p3.png)
+
+If you repeat the approach up to the end of the program, you end up with the
+following CFG:
+
+![Black Jack - CFG part 4](img/structural-testing/examples/bj-p4.png)
+
+Let us see an example of a more complex CFG:
+
+> **Requirement**: Counting words
+>
+> Given a sentence, the program should count the number of words 
+> that end with either an "s" or an "r".
+> A word ends when a non-letter appears.
+
+A possible implementation for this program is:
 
 ```java
 public class CountLetters {
@@ -174,62 +247,65 @@ The corresponding CFG:
 
 ![Control flow graph example](img/structural-testing/examples/CFG-branch-example.svg)
 
-Note that we split the for-loop into two blocks (variable initialization, and increment) and a decision.
-Every decision has one outgoing arrow for true and one for false, indicating what the program will do based on the condition.
-`return words;` does not have an outgoing arrow as the program stops after that statement.
-
+Note that we split the for-loop into three blocks: the variable initialization, the decision block, and the increment.
 
 
 Note how agnostic this CFG representation is. You can even build CFGs of program written in different
-languages. They might even look the same!
-
-{% hint style='working' %}
-record a video explaining how to build CFGs
-{% endhint %}
-
+languages. They might even look the same.
 
 
 ## Block coverage
 
-We can use blocks as a coverage criteria, in the same way we did with lines: instead of aiming at covering
+With the control-flow graph in hands, we can use it to derive tests.
+A first idea would be to use *blocks* as a coverage criterion, in the same way we did with lines, but instead of aiming at covering
 100% of the lines, we aim at covering 100% of the blocks.
 
-The formula to measure block coverage is similar:
+The formula that measures block coverage is similar to
+the line coverage formula:
 
 $$\text{block coverage} = \frac{\text{blocks covered}}{\text{blocks total}} \cdot 100\%$$
 
-Note that blocks do not depend on how the developer wrote the code. Thus, we will not suffer from
-having different coverage numbers just because the developer wrote the code in a different way.
+Note that blocks do not depend on how the developer wrote the code. Thus, it does not suffer from
+having different coverage numbers due to different
+programming styles.
 
 For the `CountLetters` program, a test T1 = "cats and dogs" exercises all the blocks, and thus,
-reaches 100% block coverage.
+reaches 100% block coverage (follow the input in the control-flow graph and see all the blocks being executed):
 
+```java
+@Test
+void multipleWords() {
+  int words = new CountLetters().count("cats|dogs");
+  assertEquals(2, words);
+}
+```
 
 
 
 ## Branch/Decision coverage
 
-Complex programs often use a lot of conditions (e.g. if-statements).
+Complex programs often rely on lots of complex conditions (e.g. if-statements composed of many conditions).
 When testing these programs, aiming at 100% line or block coverage might not be enough to cover all the cases we want.
 We need a stronger criteria.
 
-Branch coverage works the same as line and statement coverage.
-This time, however, we do not count lines or blocks, but the number of possible decision outcomes our program has.
-Whenever you have a decision block, that decision block has two outcomes. We consider our test suite to achieve
-100% branch coverage (or decision coverage, as both terms mean the same) whenever we have tests exercising all the possible outcomes.
+Branch coverage (or decision coverage) works in the same way as line and statement coverage does, except with branch coverage, we count (or aim at covering) all the possible decision outcomes.
+
+
+A test suite will then achieve 100% branch (or decision) coverage, when tests exercise all the possible outcomes of
+decision blocks:
 
 $$\text{branch coverage} = \frac{\text{decision outcomes covered}}{\text{decision outcomes total}} \cdot 100\%$$
 
-In practice, these decisions (or branches) are easy to find in a CFG.
-Each arrow with true of false (so each arrow going out of a decision) is a branch.
+Decisions (or branches) are easy to identify in a CFG. 
+Each arrow with true or false (i.e., both the arrows going out of a decision block) is a branch, and therefore, must be
+exercised.
 
-
-Let's aim at 100% branch coverage for the `count` method above. 
+Let's aim at 100% branch coverage for the Count Letter's `count` implementation above: 
 
 ```java
 public class CountLettersTests {
   @Test
-  public void multipleMatchingWords() {
+  void multipleMatchingWords() {
 
     int words = new CountLetters()
         .count("cats|dogs");
@@ -238,7 +314,7 @@ public class CountLettersTests {
   }
 
   @Test
-  public void lastWordDoesntMatch() {
+  void lastWordDoesntMatch() {
 
     int words = new CountLetters()
         .count("cats|dog");
@@ -248,73 +324,96 @@ public class CountLettersTests {
 }
 ```
 
-The first test (by providing `cats|dogs` as input) covers all the branches in the left part of the CFG.
-At the right part, it covers the top false branch, because at some point `i` will be equals to `str.length()`.
-Then the word `dogs` ends with an `s`, so it also covers the true branch on the right side of the CFG.
+* The first test (by providing `cats|dogs` as input) covers all the branches in the left part of the CFG.
+The right part covers the top false branch, because at some point `i` will be equal to `str.length()`.
+The word `dogs` ends with an `s`, so it also covers the true branch on the right side of the CFG.
 This gives the test $$\frac{5}{6} \cdot 100\% = 83\%$$ branch coverage.
 
-The only branch that is not covered is the false branch at the bottom right of the CFG.
+* The only branch that is now not covered is the _false branch_ at the bottom right of the CFG.
 This branch is executed when the last word does not end with an `r` or an `s`.
-The second test executes this branch (by giving the word `cats|dog`) so the two tests together have a branch/decision coverage of $$100\%$$.
+The second test executes this branch, by providing the word `cats|dog` as an input. Thus, the two tests together achieve a branch/decision coverage of $$100\%$$.
+
+{% hint style='tip' %}
+In the video, we use _squares_ to represent decision blocks. We did it just because otherwise the control flow graph would not fit in the video. When doing control flow graphs, please use _diamonds_ to represent decision blocks.
+{% endhint %}
 
 {% set video_id = "XiWtG8PKH-A" %}
 {% include "/includes/youtube.md" %}
 
 
-
-_Note:_ In the video, we use _squares_ to represent decision blocks. We did it just because otherwise the control flow graph would not fit in the video. When doing control flow graphs, please use _diamonds_ to represent decision blocks.
-
 ## (Basic) condition coverage
 
-Branch coverage gives two branches for each decision, no matter how complicated this decision is.
+Branch coverage gives two branches for each decision, no matter how complicated or complex the decision is.
 When a decision gets complicated, i.e., it contains more than one condition like `a > 10 && b < 20 && c < 10`, 
-branch coverage might not be enough to test all the possible outcomes of all these decisions. Look at this example:
-a test T1 (a=20, b=10, c=5) and a test T2 (a=5, b=10, c=5) already covers this decision block. However, look how many
-other possibilities we have for this branch to be evaluated to false (e.g., T3 (a=20, b=30, c=5), ...).
+branch coverage might not be enough to test all the possible outcomes of all these decisions. 
 
-When using condition coverage as criteria, we split the decisions into single conditions. 
-Instead of having one big decision block with the entire condition, we have multiple decision blocks, each one
-of one condition only. In practice, now we will exercise each condition separately, and not only the "big decision block".
+For example, suppose one aims at testing the decision
+above.
+A test T1 (a=20, b=10, c=5), which makes the decision block to be true, and a test T2 (a=5, b=10, c=5), which makes the decision block to be false, already fully cover this decision block, in terms of branch coverage. 
+However, these two tests do not cover all the
+possibilities/different combinations for this decision to be evaluated to false (e.g., T3 (a=20, b=30, c=5), etc).
 
-As soon as you have the new CFG, it works the same as branch coverage. The formula is basically the same, but now we just have more
-decision outcomes to count: 
+When using *condition coverage* as criteria, we split each
+existing condition in a decision block. 
+Instead of having one big decision block with the entire condition, we have multiple decision blocks, where each block
+contains only one condition. This means each of the single conditions will be tested separately, and not only the "big decision block".
+
+It is common to then re-design the CFG and make sure each decision block is now composed of a single condition.
+With the same CFG in hands (and with it new edges to explore), it works the same as branch coverage. The formula is basically the same, but now there are more decision outcomes to count:
 
 $$\text{condition coverage} = \frac{\text{conditions outcome covered}}{\text{conditions outcome total}} \cdot 100\%$$
 
-We achieve 100% condition coverage whenever all the outcomes of all the conditions in our program have been exercised.
+We achieve 100% condition coverage when all of the outcomes of
+all the conditions in our program have been exercised.
 In other words, whenever all the conditions have been `true` and `false` at least once.
 
 
-Once again we look at the program that counts the words ending with an "r" or an "s".
-Instead of branch coverage, we are interested in the condition coverage that the tests give.
-We start by building the more fine-grained CFG:
+Once again we look at the program that counts the words ending with an "r" or an "s". Let us now focus on achieving
+100% (basic) condition coverage.
+
+We start by building a more granular CFG:
 
 ![Control Flow Graph example with conditions](img/structural-testing/examples/CFG-condition-example.svg)
 
-You can see that this new CFG has way more decision blocks than the previous one.
+You can see that this new CFG has more decision blocks than the previous one (six instead of three).
 
-The first test we wrote before now covers 7 conditions and the total amount of conditions is 12.
-So the condition coverage is now: $$\frac{7}{12} \cdot 100\% = 58\%$$.
-This is significantly less than the $$83\%$$ branch coverage, so we need more tests to get to 100% condition coverage.
+The `multipleMatchingWords` test now covers 7 out of 12 different decision outcomes.
+Condition coverage is thus $$\frac{7}{12} \cdot 100\% = 58\%$$.
+This is significantly less than the $$83\%$$ branch coverage that we obtain from the same `multipleMatchingWords` test, 
+showing how many more tests one would need 
+to achieve 100% condition coverage.
 
-
-
-Condition coverage is an improvement over the branch coverage.
-However, we will try to do even better in the next section.
 
 ## Condition + Branch coverage
 
 Let's think carefully about condition coverage. If we only focus on exercising the individual conditions themselves, but do not
 think of the overall decision, we might end up in a situation like the one below.
 
-Imagine a `if(a > 10 && b > 20)` condition. A test `T1 = (20, 10)` makes the first condition `a > 10` to be true, and the
+Imagine the following program and its respective CFG:
+
+```java
+void hello(int a, int b) {
+  if(a > 10 && b > 20) {
+    System.out.println("Hello");
+  } else {
+    System.out.println("Hi");
+  }
+}
+```
+
+![Example of why condition+branch coverage is needed, when compared to basic condition coverage](img/structural-testing/examples/cond_plus_branch.png)
+
+
+A test `T1 = (20, 10)` makes the first condition `a > 10` to be true, and the
 second condition `b > 20` to be false. A test `T2 = (5, 30)` makes the first condition to be false, and the second condition to
-be true. Note that T1 and T2 together achieve 100% **basic condition** coverage; after all, both conditions have been exercised
-as true and false. However, the final outcome of the entire decision was also false! This means, we found a case where
-we achieved 100% basic condition coverage, but only 50% branch coverage! This is no good. This is way we called it
+be true. Note that T1 and T2 together achieve 100% **basic condition** coverage. After all, both `a` and `b` conditions have been exercised
+as true and false. 
+
+However, the final outcome of the entire decision was false in both tests. Note that we actually never saw this program printing "Hello". We found a case where
+we achieved 100% basic condition coverage, but only 50% branch coverage. This is not a smart testing strategy. This is why looking only at the conditions themselves while ignoring the overall outcome of the decision block is called
 **basic condition coverage**.
 
-In practice, whenever we use condition coverage, we actually do **branch + condition coverage**. In other words, we make sure
+In practice, whenever we use condition coverage, we actually perform **branch + condition coverage**. In other words, we make sure
 that we achieve 100% condition coverage (i.e., all the outcomes of all conditions are exercised) and 100% branch coverage (all the outcomes
 of the decisions are exercised).
 
@@ -325,25 +424,20 @@ From now on, whenever we mention **condition coverage**, we mean **condition + b
 {% include "/includes/youtube.md" %}
 
 
-{% hint style='working' %}
-record a video showing, in a explicit way, the difference between basic condition coverage and full condition coverage
-{% endhint %}
-
-
 ## Path coverage
 
-Finally, with condition coverage, we looked at each condition individually. This gives us way more branches
-to generate tests. However, note that, although we are testing each condition to be evaluated to true and to false,
-this does not ensure that we are testing all the paths that a program can have.
+With branch+condition coverage, we looked at each condition and branch individually. Such criterion gives testers more branches to generate tests, especially when compared to the first criterion we discussed, line coverage.
 
-Path coverage does not consider the conditions individually; rather, it considers the (full) combination of the conditions in a decision.
+However, although we are testing each condition to be evaluated as true and false, this does not ensure testing of *all the paths* that a program can have.
+
+Path coverage does not consider the conditions individually. Rather, it considers the (full) combination of the conditions in a decision.
 Each of these combinations is a path. You might see a path as a unique way to traverse the CFG.
+
 The calculation is the same as the other coverages: 
 
 $$\text{path coverage} = \frac{\text{paths covered}}{\text{paths total}} \cdot 100\%$$
 
-See the following example.
-In this example we focus on a small piece of the `count` method:
+See the following example that focus on a small piece of the `count` method:
 
 ```java
 if (!Character.isLetter(str.charAt(i)) 
@@ -352,9 +446,11 @@ if (!Character.isLetter(str.charAt(i))
 }
 ```
 
-The decision of this if-statement contains three conditions and can be generalized to (A && ( B || C)), with A = `!Character.isLetter(str.charAt(i))`, B = `last == 's'` and C = `last == 'r'`.
+The decision in this if-statement contains three conditions and can be generalized to `(A && ( B || C))`, with A = `!Character.isLetter(str.charAt(i))`, B = `last == 's'` and C = `last == 'r'`.
+
 To get $$100\%$$ path coverage, we would have to test all the possible combinations of these three conditions.
-We construct a truth table to find the combinations:
+
+We make a truth table to find the combinations:
 
 <table>
     <tr><th>Tests</th><th>A</th><th>B</th><th>C</th><th>Outcome</th></tr>
@@ -369,11 +465,10 @@ We construct a truth table to find the combinations:
 </table>
 
 This means that, for full path coverage, we would need 8 tests just to cover this if-statement.
-That is quite a lot for just a single statement!
+That is quite a lot for just a single statement.
 
-By thinking about the path coverage of our test suite, we can come up of quite some good tests.
-The main issue is that achieving 100% path coverage might not always be feasible. The number of combinations
-might be too big!
+By aiming at achieving good path coverage of our program, testers can indeed come up with good tests.
+However, the main issue is that achieving 100% path coverage might not always be feasible or too costly.
 The amount of tests needed for full path coverage will grow exponentially with the amount of conditions in a decision.
 
 {% set video_id = "hpE-aZYulmk" %}
@@ -382,23 +477,22 @@ The amount of tests needed for full path coverage will grow exponentially with t
 
 ## MC/DC (Modified Condition/Decision Coverage)
 
-Modified condition/decision coverage (MC/DC from now on), looks at the combinations of conditions like path coverage does.
-However, instead of aiming at testing all the possible combinations, we take a certain selection process in order 
-to identify the "important ones". Clearly, the goal of focusing on the important ones is to tackle the large amount
-of test cases that one needs to devise when aiming at 100% path coverage.
+Modified condition/decision coverage, or MC/DC, looks at the combinations of conditions like path coverage does.
+However, instead of aiming at testing all the possible combinations, we follow a process in order to identify the "important" combinations. The goal of focusing on these important combinations is to manage the large number of test cases that one needs to devise when aiming for 100% path coverage.
 
-The idea of MC/DC is to simply exercise each condition in a way that it can, independently of the other conditions,
-affect the outcome of the entire decision. This might sound a bit complicated, but the example will clarify it.
-And interestingly, if our conditions have only a binary outcome, which is our case here, as conditions
-either return true or false, the number of tests we will need for that is always "only" $$N+1$$, where $$N$$ is the number of conditions in the program. 
+The idea of MC/DC is to *exercise each condition 
+in a way that it can, independently of the other conditions,
+affect the outcome of the entire decision*. The example that is about to come will clarify it.
+
+Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., true or false), the number of tests required to achieve 100% MC/DC coverage is $$N+1$$, where $$N$$ is the number of conditions in the decision. 
 $$N+1$$ is definitely smaller than $$2^N$$!
 
-Again, to devise a test suite that achieves 100% MC/DC coverage, we should select $$N+1$$ combinations of inputs where all the conditions
-can independently affect the outcome.
+Again, to devise a test suite that achieves 100% MC/DC coverage, we should devise $$N+1$$ test cases that, when combined, 
+exercise all the combinations independently from the others.
 
-Let's do it in a mechanical way. See the example below.
+The question is how to select such test cases. See the example below.
 
-Let's test the decision block we have in the previous example, with its corresponding truth table. Note how each row
+Let's test the decision block from the previous example, `(A && ( B || C))`, with its corresponding truth table. Note how each row
 represents a test $$T_n$$. In this case, tests go from 1 to 8, as we have 3 decisions, and $$2^3$$ is 8:
 
 <table>
@@ -414,39 +508,37 @@ represents a test $$T_n$$. In this case, tests go from 1 to 8, as we have 3 deci
 </table>
 
 Our goal will be to select $$N+1$$, in this case, $$3+1=4$$, tests.
-We go condition by condition.
+
+
+Let us go condition by condition.
 In this case, we start with selecting the pairs of combinations (or tests) for condition A:
 
-* In test 1: A, B and C are all true and the outcome is true as well. We should look for another test in this
-table, where the value of A is flipped in comparison to test 1, but all others (B and C) are the same. In this case,
-we should look for a row where A=False, B=True, C=True. We find it in test 5. Now, look at the outcome of test 5: it's false.
-This means we just found a pair of tests, T1 and T5, where A is the only condition that changed, and the outcome also changed.
-This means, we just found a pair of tests where A independently affect the outcome. Let's keep the pair {T1, T5} in our list of tests.
+* In test 1: A, B and C are all true and the outcome is true as well. We now look for another test in this table, where the value of A is flipped in comparison to test 1, but the others (B and C) are the same. In this case, we should look for a row where A=False, B=True, C=True. We find this in test 5. When we look at the outcome of test 5, we find it is false.
+
+  This means we just found a pair of tests, T1 and T5, where A is the only condition that changed, and the outcome also changed. In other words, a pair of tests where A independently influences the outcome. Let's keep the pair {T1, T5} in our list of tests.
 
 * Now we look at the next test.
 In test 2, A is again true, B is true, and C is false. We repeat the process: we search for a test where A is flipped
 in comparison to test 2, but B and C are the same (B=True, C=False).
-We find test 6.
-The outcome from test 6 (false) is not the same as the outcome of test 2 (true), so this means that the pair of tests {T2, T6} is also able
-to independently show how A can affect the final outcome.
 
-* We repeat the process for test 3. We will find that the pair {T3, T7} is also a good one.
+  We find this in test 6. The outcome from test 6 (false) is not the same as the outcome of test 2 (true), so this means that the pair of tests {T2, T6} is also able to independently show how A can affect the final outcome.
 
-* We repeat the process for test 4 (A=True, B=False, C=False). Its pair is test 8 (A=False, B=False, C=False). However, note that
-the outcome of both tests is false. This means that the pair {T4, T8} does not really show how A can independently affect the outcome; after all,
-A is the only thing that changes, but the outcome is still the same...
+* We repeat the process for test 3. We will find here that the pair {T3, T7} also independently test how the condition A affects the outcome.
 
-* We now repeat it up to test 8. We will not find any other suitable pair. 
+* We repeat the process for test 4 (A=True, B=False, C=False). Its pair is test 8 (A=False, B=False, C=False). We note that
+the outcome of both tests is the same, i.e., false. This means that the pair {T4, T8} does not show how A can independently affect the overall outcome; after all,
+A is the only thing that changes in these two tests, but the outcome is still the same.
 
-* Now that we are done with condition A, we can go to condition B. And we repeat the same process, but now flipping the input of B, and keeping
-A and C the same.
+* We do not find another suitable pairs when we repeat the process for tests 5, 6, 7 and 8.
+
+* Now that we have tested condition A, we move to condition B. We repeat the same process, but now we flip the input of B, and keep A and C the same.
 
 * For T1 (A=true, B=true, C=true), we search for a test where (A=true, B=false, C=true). We find test 3. However, the outcome is the same,
-so the pair {T1, T3} is not a good one to show the independence of B.
+so the pair {T1, T3} does not show how B can independently affect the overall outcome.
 
 * You will only find the pair {T2, T4} for condition B.
 
-* The final condition is C. Here also only one pair of combinations will work, which is {T3, T4}. (To practice, you should do the entire process!)
+* The final condition is C. There is only one pair of combinations that will work, which is {T3, T4}. (You should carry out the entire process to practise how the process works!)
 
 * We now have all the pairs for each of the conditions:
 
@@ -454,24 +546,21 @@ so the pair {T1, T3} is not a good one to show the independence of B.
   - B: {2, 4}
   - C: {3, 4}
 
-* Now we are ready to select the combinations that we want to test.
-For each condition (A, B, and C), we have to have at least one of the pairs. Moreover, we want to minimize the total amount of tests, and we know
-that we can do it with N+1 tests.
+* To select the combinations that we want to test, we have to have at least one of the pairs for each condition (A, B, and C). We want to minimize the total amount of tests, and we know for a fact that we can achieve this with N+1 tests.
 
 * We do not have any choices with conditions B and C, as we only found one pair for each.
-This means that we have to test combinations 2, 3 and 4.
+This means that we have to test combinations 2, 3, and 4.
 
-* Now we need to make sure to cover a pair of A.
-To do so we can either add combination 6 or 7. Both are good.
-Let's pick, for example, 6. (Note: You can indeed have more than one set of tests that achieve 100% MC/DC; all solutions are equally valid and good!)
+* We need to find the appropriate pair of A. Note that any
+of them would fit. However, we want to reduce the total amount
+of tests in the test suite (and again, we know we only need 4 in this case).
+To do so we can either add tests 6 or 7. 
+We pick 6, randomly. You can indeed have more than one set of tests that achieve 100% MC/DC; all solutions are equally acceptable.
 
-* The combinations that we need for 100% MC/DC coverage are {2, 3, 4, 6}.
-These are only 4 combinations/tests we should focus.
-This is a lot better than the 8 tests we needed for the path coverage.
+* Therefore, the tests that we need for 100% MC/DC coverage are {2, 3, 4, 6}.
+These are the only 4 tests we need.
+This is a indeed cheaper when compared to the 8 tests we would needed for the path coverage.
 
-
-
-Indeed, in the example above, we saw that we need fewer tests when using MC/DC instead of path coverage.
 
 {% set video_id = "HzmnCVaICQ4" %}
 {% include "/includes/youtube.md" %}
@@ -479,55 +568,51 @@ Indeed, in the example above, we saw that we need fewer tests when using MC/DC i
 
 ## Loop boundary adequacy
 
-What to do when we have loops? After all, whenever there is a loop, the block inside of the loop might be executed many
-times; this would make testing more complicated.
+In terms of coverage criterion, what to do when we have loops? When there is a loop, the block inside of the loop might be executed many times, making testing more complicated.
 
-Think of a `while(true)` loop. It can go forever. If we wanted to be rigorous about it, we would have to test the program
-where the loop block is executed one time, two times, three times, ... Imagine a `for(i = 0; i < 10; i++)` loop with a `break` inside
-of the body. We would have to test what happens if the loop body executes one time, two times, three times, ..., up to ten times.
-It might be impossible to exhaustively test all the combinations!
+Think of a `while(true)` loop which can be unending. If we wanted to be rigorous about it, we would have to test the program where the loop block is executed one time, two times, three times, etc. Imagine a `for(i = 0; i < 10; i++)` loop with a `break` inside of the body. We would have to test what happens if the loop body executes one time, two times, three times, ..., up to ten times.
+It might be impossible to test exhaustively all the combinations.
 
-What trade-off can we make? And, more specifically, for unbounded loops, where we do not really know how many times it will
-be executed. We can define a **loop boundary adequacy criteria**:
+How can we handle long lasting loops (a loop that runs for many iterations), or unbounded loops (where we do not know how many times it will be executed)? 
+
+Given that exhaustive testing is impossible,
+testers often rely on the **loop boundary adequacy criterion**
+to decide when to stop testing a loop:
 
 A test suite satisfies this criterion if and only if for every loop:
 
-* A test case exercises the loop zero times
-* A test case exercises the loop once
-* A test case exercises the loop multiple times
+* A test case exercises the loop zero times;
+* A test case exercises the loop once;
+* A test case exercises the loop multiple times.
 
-Pragmatically speaking, the main challenge is devising tests where the loop is exercised multiple times. Devising tests that can 
-indeed explore the space efficiently requires a good understanding of the program itself. Our tip is for you to make a little use of
-specification-based techniques here. If you understand the specs, you might be able to devise good tests for the particular loop.
+The idea behind the criterion is to make sure the program
+is tested when the loop is never executed (does the program
+behave correctly when the loop is simply 'skipped'?), when it only iterates once (as we empirically know that algorithms may not handle single cases correctly), and many times.
 
-{% hint style='working' %}
-record a video about the loop boundary adequacy
-{% endhint %}
+Pragmatically speaking, the main challenge comes when devising
+the test case for the loop being executed multiple times.
+Should the test case force the loop to iterate for 2, 5, or 10 times?
+That requires a good understanding of the program/requirement itself. 
+Our suggestion for testers is to rely on specification-based techniques. With optimal understanding of the specs, one should be able to devise good tests for the particular loop.
+
 
 ## Criteria subsumption
 
-You might have noticed that, the more criteria we studied, the more "rigorous" they became. We started our discussion
-with line coverage. Then we discussed branch coverage, and we noticed that we could generate more tests if we focused
-on branches. Then, we discussed branch + condition coverage, and we noticed that we could generate even more tests
-if we also focused on the conditions. And we kept doing that up to here.
+You might have noticed that the criteria we studied became more rigorous and demanding throughout this chapter.
 
-There is indeed a relationship between all these criteria. Some strategies **subsume** other strategies.
-More formally, a strategy X subsumes strategy Y if all elements that Y exercises are also exercised by X. You can see in 
-the figure below how the relationship among all the coverage criteria we studied.
+You might have noticed that, the more criteria we studied, the more "rigorous" they became. We started our discussion with line coverage. Then we discussed branch coverage, and we noticed that we could generate more tests if we focused on branches. Then, we discussed branch + condition coverage, and we noticed that we could generate even more tests, if we also focused on the conditions.
 
-
-You can see that, for example, branch coverage subsumes line coverage. This means that 100% of branch coverage always implies in 100% line coverage; however, 100% of line coverage does not imply in 100% branch coverage. 100% of branch + condition coverage imply in 100% branch coverage and 100% of line coverage.
+There is a relationship between these criteria. Some strategies **subsume** other strategies. 
+So formally, a strategy X subsumes strategy Y if all elements that Y exercises are also exercised by X. You can see in the figure below the relationship between the coverage criteria we studied.
 
 ![Criteria subsumption](img/structural-testing/subsumption.png)
 
-{% hint style='working' %}
-record a video about the criteria subsumption
-{% endhint %}
+For example, in the picture, one can see that branch coverage subsumes line coverage. This means that 100% of branch coverage always implies in 100% line coverage. However, 100% line coverage does not imply 100% branch coverage. Moreover, 100% of branch + condition coverage always implies 100% branch coverage and 100% line coverage.
 
 
 ## More examples of Control-Flow Graphs
 
-We can do Control-Flow Graphs for programs in any programming language. For example, see the piece of
+We can devise control-flow graphs for programs in any programming language. For example, see the piece of
 Python code below:
 
 ```python
@@ -559,22 +644,27 @@ A CFG for this piece of code would look like:
 
 ![CFG in Python](img/structural-testing/examples/cfg-python.png)
 
-*Study tip:* Note how we modelled the `for each` loop.
+We applied the same idea we have seen for Java programs in Python programs. The notion of basic and decision blocks are the same. A small difference to note is in the `for each` loop. Given that `for each` loops do not follow the standard format of the `for` loops, we modelled it differently: the `for each` loop is fully represented by a single decision block (i.e., no blocks for the increment, or condition). As with any decision blocks, it has two outcomes, true and false.
 
 
-## How to use structural testing in practice
+## The effectiveness of structural testing
 
-As a tester, you use the different coverage criteria to derive tests. If you decide that your goal is to achieve
-at least 80% branch + condition coverage, you derive tests until you reach it.
+A common question among practitioners is whether
+structural testing or, in their words, test coverage,
+matters.
 
-Is there any advantage in using structural testing? We refer to two papers:
+While researchers have not yet found a magical coverage
+number that one should aim for, they have been finding
+interesting evidence pointing towards the benefits
+of perfoming structural testing.
+
+We quote two of these studies:
 
 * Hutchins et al.: "Within the limited domain of our experiments, test sets achieving coverage levels over 90% usually showed significantly better fault detection than randomly chosen test sets of the same size. In addition, significant improvements in the effectiveness of coverage-based tests usually occurred as coverage increased from 90% to 100%. However, the results also indicate that 100% code coverage alone is not a reliable indicator of the effectiveness of a test set."
-* Namin and Andrews: "Our experiments indicate that coverage is sometimes correlated with effectiveness when size is controlled for, and that using both size and coverage yields a more accurate prediction of effectiveness than size alone. This in turn suggests that both size and coverage are important to test suite effectiveness."
+* Namin and Andrews: "Our experiments indicate that coverage is sometimes correlated with effectiveness when [test suite] size is controlled for, and that using both size and coverage yields a more accurate prediction of effectiveness than [test suite] size alone. This in turn suggests that both size and coverage are important to test suite effectiveness."
 
 For interested readers, a extensive literature review on the topic can be found in
 Zhu, H., Hall, P. A., & May, J. H. (1997). Software unit test coverage and adequacy. ACM computing surveys (csur), 29(4), 366-427.
-
 
 
 ## Exercises
