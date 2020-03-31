@@ -42,13 +42,13 @@ software development process.
 
 More specifically, we discuss:
 
-* **Specification-based testing**: We will discuss techniques to derive tests from textual requirements. We will discuss the _category/partition method_ and what _equivalent partition_ means.
+* **Specification-based testing**: We will discuss techniques to derive tests from textual requirements. We will discuss the _category/partition method_ and what _equivalence partitioning_ means.
 
 * **Boundary testing**: We will discuss how to derive tests that exercise the boundaries of our requirement.
 
 * **Structural-based testing**: We will derive test cases based on the structure of the source code.
 
-* **Model-based testing**: We will leverage more formal documentation, such as state machines and decision tables to derive tests. 
+* **Model-based testing**: We will leverage more formal documentation such as state machines and decision tables to derive tests. 
 
 * **Design-by-contracts and property-based testing**: We will devise explicit contracts to methods and classes to ensure that they behave correctly when these contracts are (and are not) met.
 
