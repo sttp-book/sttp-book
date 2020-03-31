@@ -1,11 +1,6 @@
-
 # Specification-Based Testing
 
-In this chapter, we explore **specification-based testing** techniques.
-These use the *requirements* (often written as text; think of user stories
-and/or UML use cases) 
-of the program as input
-for testing.
+In this chapter, we explore **specification-based testing** techniques. These use the *requirements* of the program (often written as text; think of user stories and/or UML use cases) as input for testing.
 
 In simple terms, we devise a set
 of inputs, where each input tackles one part (or *partition*)
@@ -24,14 +19,12 @@ There are different cases in which the program is executed
 and its execution often depends on various factors, such as the input
 to the program.
 
-Let's use a small program as an example. The specification below talks
-about a program that decides
-whether a year is leap or not. 
+Let's use a small program as an example. The specification below talks about a program that decides whether a given year is a leap year or not. 
 
 > **Requirement: Leap year**
 >
->Given a specific year as an input, the program should return *true* if the 
->the provided year is leap and false if it is not.
+>Given a specific year as an input, the program should return *true* if 
+>the provided year is a leap year and *false* if it is not.
 >
 >A year is a leap year if:
 >
@@ -68,12 +61,9 @@ Note how each class above exercises the program in different ways.
 
 The partitions above are not test cases that we can implement directly because
 each partition might be instantiated by an infinite number of inputs. For example,
-for the partition "year not divisible by 4", there are infinite options of numbers
-which are not divisible by 4 that we could use as concrete inputs
-to the program.
-It is impractical to test all of these numbers.
-So how do we know which concrete input to instantiate for each
-of the partitions?
+for the partition "year not divisible by 4", there are infinitely many numbers
+that are not divisible by 4 which we could use as concrete inputs to the program.
+So how do we know which concrete input to instantiate for each of the partitions?
 
 As we discussed earlier, each partition exercises the program in a certain way.
 In other words, all input values from one specific partition will make the program
@@ -168,7 +158,7 @@ Note that each test method covers one of the partitions and the naming of the me
 
 For those who are learning JUnit: Note that the `setup` method is executed 
 before each test, thanks to the `BeforeEach` annotation.
-It creates the `LeapYear`.
+For each test, it creates a `LeapYear` object.
 This is then used by the tests to execute the method under test.
 In each test we first determine the result of the method.
 After the method returns a value, we assert that this is the expected value.
@@ -179,7 +169,7 @@ After the method returns a value, we assert that this is the expected value.
 
 ## Category-Partition Method
 
-So far we derived partitions by just looking at the specification of the program.
+So far we have derived partitions by just looking at the specification of the program.
 We basically used our experience and knowledge to derive the test cases.
 We now go over a more systematic way of deriving these partitions: the **Category-Partition** method.
 
@@ -194,7 +184,7 @@ We set out now the steps of this method and then we illustrate the process with 
       - Others might not be found from specifications. For example, an input cannot be `null` if the method does not handle that well.
 
 3. Add constraints in order to minimize the test suite.
-      - Identify invalid combinations. For example, some characteristics might not be able to be combined with other characteristics.
+      - Identify invalid combinations. For some characteristics it might not be possible to combine them with other characteristics.
       - Exceptional behaviour does not always have to be combined with all the different values of the other inputs. For example, trying a single `null` input might be enough to test that corner case.
 
 4. Generate combinations of the input values. These are the test cases.
@@ -203,7 +193,7 @@ Let's apply the technique in the following program:
 
 > **Requirement: Christmas discount**
 > 
-> The system should give 25% discount on the cart when it is Christmas.
+> The system should give a 25% discount on the cart when it is Christmas.
 > The method has two input parameters: the total price of the products in the cart, and the date.
 > When it is not Christmas it just returns the original price, otherwise it applies the discount.
 
@@ -217,8 +207,7 @@ Following the category-partition method:
       - Based on the requirements, the only important characteristic is that the date can be either Christmas or not.
       - The price can be a positive number, or in certain circumstances it may be 0. Technically the price can also be a negative number. This is an exceptional case, as you cannot pay a negative amount.
 
-3. The amount of characteristics and parameters is not too large in this case.
-As the negative price is an exceptional case, we can test this with just one combination, instead of with a date that is Christmas and a date that is not Christmas.
+3. The amount of characteristics and parameters is not too large in this case. As the negative price is an exceptional case, we can test this with just one combination, instead of with a date that is Christmas and a date that is not Christmas.
 
 4. We combine the other characteristics to get the following test cases:
       - Positive price on Christmas
