@@ -35,7 +35,7 @@ In general a decision table looks like the following:
 <table>
   <tr><th></th><th></th><th colspan="4">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
   <tr><td>&lt;Condition2&gt;</td><td>T<br></td><td>F</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value2</td><td>value3</td><td>value4</td></tr>
 </table>
@@ -63,7 +63,7 @@ The decision tables is the following:
 <table>
   <tr><th></th><th></th><th colspan="4">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>International</td><td>F</td><td>F</td><td>T<br></td><td>T</td></tr>
+  <td>International</td><td>F</td><td>F</td><td>T<br></td><td>T</td></tr>
   <tr><td>Auto-renewal</td><td>T<br></td><td>F</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>price/month</td><td>10<br></td><td>15</td><td>30</td><td>32</td></tr>
 </table>
@@ -82,7 +82,7 @@ Only the condition that had the dc value has different values in the expanded fo
 <table>
   <tr><th></th><th></th><th colspan="3">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>&lt;Condition1&gt;</td><td>T</td><td>dc</td><td>F<br></td></tr>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>dc</td><td>F<br></td></tr>
   <tr><td>&lt;Condition2&gt;</td><td>dc</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value1</td><td>value2</td></tr>
 </table>
@@ -90,7 +90,7 @@ can be expanded to:
 <table>
   <tr><th></th><th></th><th colspan="5">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>T<br></td><td>F</td><td>F</td></tr>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>T<br></td><td>F</td><td>F</td></tr>
   <tr><td>&lt;Condition2&gt;</td><td>T<br></td><td>F</td><td>T</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value1</td><td>value1</td><td>value1</td><td>value2</td></tr>
 </table>
@@ -99,7 +99,7 @@ We end up with the decision table below:
 <table>
   <tr><th></th><th></th><th colspan="4">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
   <tr><td>&lt;Condition2&gt;</td><td>T<br></td><td>F</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value1</td><td>value1</td><td>value2</td></tr>
 </table>
@@ -111,7 +111,7 @@ The new decision table is below:
 <table>
   <tr><th></th><th></th><th colspan="6">Variants</th></tr>
   <tr><td rowspan="3"><br><i>Conditions</i></td>
-      <td>International</td><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+  <td>International</td><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
   <tr><td>Auto-renewal</td><td>T</td><td>dc</td><td>F</td><td>T</td><td>dc</td><td>F</td></tr>
   <tr><td>Loyal</td><td>dc</td><td>T</td><td>F</td><td>dc</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>price/month</td><td>10</td><td>10</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
@@ -131,7 +131,7 @@ If we set the default charge rate to 10 per month the new decision table can be 
 <table>
   <tr><th></th><th></th><th colspan="4">Variants</th></tr>
   <tr><td rowspan="3"><br><i>Conditions</i></td>
-      <td>International</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+  <td>International</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
   <tr><td>Auto-renewal</td><td>F</td><td>T</td><td>dc</td><td>F</td></tr>
   <tr><td>Loyal</td><td>F</td><td>dc</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>price/month</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
@@ -177,7 +177,7 @@ To derive the tests we expand and rearrange the decision table of the previous e
 <table>
   <tr><th></th><th></th><th>v1</th><th>v2</th><th>v3</th><th>v4</th><th>v5</th><th>v6</th><th>v7</th><th>v8</th></tr>
   <tr><td rowspan="3"><br><i>Conditions</i></td>
-      <td>International</td><td>T</td><td>T</td><td>T</td><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+  <td>International</td><td>T</td><td>T</td><td>T</td><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
   <tr><td>Auto-renewal</td><td>T</td><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
   <tr><td>Loyal</td><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>price/month</td><td>30</td><td>30</td><td>30</td><td>32</td><td>10</td><td>10</td><td>10</td><td>15</td></tr>
