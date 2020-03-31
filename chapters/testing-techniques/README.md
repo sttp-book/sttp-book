@@ -1,12 +1,11 @@
 # Testing techniques
 
-
 In a simplified view of a software testing process, 
 developers perform two distinct tasks: **designing
 test cases**, and **executing test cases**.
 
 The first task, as we just mentioned, 
-is about analyzing and designing test cases. In simple words, the goal of this stage
+is about analysing and designing test cases. In simple words, the goal of this stage
 is to systematically devise different test cases that together will give us a certain level
 of confidence as to whether the software is ready to be shipped or not.
 Devising test cases is an activity that is often done by humans (although we will explore the state-of-the-art in software testing research, where machines also try to 
@@ -20,11 +19,8 @@ and checking whether the system responded in the way we expected.
 Although this phase can also be done by humans, this is an activity that we can easily automate.
 As we discussed before, we can (and should) write a program that runs our software and executes the test cases. 
 
-{% hint style='tip' %}
-As a side note, in industry, the term _automated software testing_ is 
-often related to the execution of test cases; in other words, JUnit code. 
-In academia, whenever a research paper says _automated software testing_, 
-it means automatically designing test cases (and not only the JUnit code).
+{% hint style='info' %}
+As a side note, in industry, the term "automated software testing" is often related to the automatic *execution* of test cases (that were manually devised). In academia, whenever a research paper says "automated software testing", it means automatically *creating* test cases (by means of artificial intelligence techniques, for instance).
 {% endhint %}
 
 
@@ -34,16 +30,14 @@ it means automatically designing test cases (and not only the JUnit code).
 
 When it comes to devising test cases, while our experience indeed helps us deeply in finding bugs, it might not be enough: 
 
-* Experience-based testing is highly prone to mistakes. 
-The developer might forget to test a corner case.
+* Experience-based testing is highly prone to mistakes. The developer might forget to test a corner case.
 * It varies from person to person. Our goal is to define techniques such that any developer in the world is able to test any software.
-* Without a clear criteria, it is hard to know when to stop testing. Our gut feelings might not be precise enough.
+* Without clear criteria, it is difficult to know when to stop testing. Our gut feelings might not be precise enough.
 
 The following chapters aim at exploring different techniques to effectively,
 rigorously, and systematically test a 
-software system, and how to, as much as possible, 
-automate every step on the way. 
-These techniques will rely on the different artifacts that are present during the 
+software system, and how to automate as many steps on the way as possible.
+These techniques will rely on the different artefacts that are present during the 
 software development process. 
 
 More specifically, we discuss:
@@ -68,6 +62,5 @@ More specifically, we discuss:
 ## References
 
 
-* Yu, C. S., Treude, C., & Aniche, M. (2019, July). Comprehending Test Code: An Empirical Study. In 2019 IEEE International Conference on Software Maintenance and Evolution (ICSME) (pp. 501-512). IEEE.
-Chicago	
+* Yu, C. S., Treude, C., & Aniche, M. (2019, July). Comprehending Test Code: An Empirical Study. In 2019 IEEE International Conference on Software Maintenance and Evolution (ICSME) (pp. 501-512). IEEE. Chicago	
 
