@@ -23,8 +23,8 @@ if [ -d "$GITBOOK_REP" ]; then
       perl -pe 's/{% endhint %}/\n***/g' | \
       perl -pe 's/{% include "\/includes\/youtube.md" %}//g' | \
       perl -pe 's/{% set video_id = "([A-Za-z0-9-_]*)" %}/***\nWatch our video on YouTube:\n\nhttp:\/\/www.youtube.com\/embed\/\1\n\n***/g' | \
-      pandoc -f markdown -t html --filter ./filter.py | \
-      pandoc -f html \
+      pandoc -f markdown -t html --mathjax --filter ./filter.py | \
+      pandoc -f html+tex_math_single_backslash \
               --variable fontsize=11pt \
               --variable=geometry:b5paper \
               --variable mainfont="Georgia" \
