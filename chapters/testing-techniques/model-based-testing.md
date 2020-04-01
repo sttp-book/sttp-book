@@ -178,7 +178,7 @@ MC/DC has the two characteristics of All divisions and Each condition T/F with a
 2. Each unique action should be tested at least once
 3. Each condition should individually determine the action or outcome
 
-The third point is realized by making two test cases for each condition.
+The third point is realised by making two test cases for each condition.
 In these two test cases, the condition under test should have a different value, the outcome should be different, and the other conditions should have the same value in both test cases.
 This way the condition that is under test individually influences the outcome, as the other conditions stay the same and therefore do not influence the outcome.
 
@@ -270,7 +270,7 @@ We discuss more about such contracts in the design-by-contracts chapter.
 
 As you can see in the example above, the different tests for the different combinations are very similar.
 The tests do the exact same thing, but just with different values.
-To avoid the code duplication that comes with this approach to implementing decision table tests, we can use parameterized tests (as we have done before):
+To avoid the code duplication that comes with this approach to implementing decision table tests, we can use parameterised tests (as we have done before):
 
 ```java
 @ParameterizedTest
@@ -673,7 +673,7 @@ We can choose to show the super state fully or we can collapse it.
 A collapsed super state is just a normal state in the state machine.
 This state has the super state's name and the same incoming and outgoing transitions as the super state.
 
-With the super states and the collapsing of super states we can modularize and combine state machines.
+With the super states and the collapsing of super states we can modularise and combine state machines.
 This allows us to shift the state machine's focus to different parts of the system's behaviour.
 
 
@@ -859,7 +859,7 @@ Our product team defined the following rules:
 * The company provides information about the ad. More specifically, the company defines an image, a description, and how many times it should appear. When all these information is set, the ad then needs to wait for approval.
 * An administrator checks the content of the ad. If it follows all the rules, the ad then waits for payment. If the ad contains anything illegal, it then goes back to the very beginning.
 * As soon as the company makes the payment, the ad becomes available to users.
-* When the number of visualizations is reached, the ad is then considered done. At this moment, the company might consider running the campaign again, which moves the ad to wait for payment again. The company might also decide to simply end the campaign at that moment, which puts the ad in a finalized state.  
+* When the number of visualisations is reached, the ad is then considered done. At this moment, the company might consider running the campaign again, which moves the ad to wait for payment again. The company might also decide to simply end the campaign at that moment, which puts the ad in a finalised state.  
 * While appearing for the users, if more than 10\% of the users complain about the ad, the ad is then marked as blocked. Cute Babies then gets in contact with the company. After understanding the case, the ad either starts to appear again for the users, or gets marked as inappropriate. An inappropriate ad will never be shown again to the users.
 
 Devise a state diagram that describes the life cycle of an ad.

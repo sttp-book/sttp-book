@@ -130,7 +130,7 @@ In this case, the input values and test oracle of the `testGetValuesDifferent()`
 
 ## Hypotheses for Mutation Testing
 
-We are now ready to generalize the idea.
+We are now ready to generalise the idea.
 The idea of mutation testing is to **assess the quality of the test suite**.
 This is done by manipulating the source code a bit and running the tests with this manipulated source code.
 If we have a good test suite, at least one of the tests will fail on this changed (buggy) code.

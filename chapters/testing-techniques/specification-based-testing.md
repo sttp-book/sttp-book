@@ -173,7 +173,7 @@ So far we have derived partitions by just looking at the specification of the pr
 We basically used our experience and knowledge to derive the test cases.
 We now go over a more systematic way of deriving these partitions: the **Category-Partition** method.
 
-The method gives us 1) a systematic way of deriving test cases, based on the characteristics of the input parameters, 2) minimize the amount of tests
+The method gives us 1) a systematic way of deriving test cases, based on the characteristics of the input parameters, 2) minimise the amount of tests
 to a feasible amount.
 
 We set out now the steps of this method and then we illustrate the process with an example.
@@ -183,7 +183,7 @@ We set out now the steps of this method and then we illustrate the process with 
       - Some of these characteristics can be found directly in the specification of the program.
       - Others might not be found from specifications. For example, an input cannot be `null` if the method does not handle that well.
 
-3. Add constraints in order to minimize the test suite.
+3. Add constraints in order to minimise the test suite.
       - Identify invalid combinations. For some characteristics it might not be possible to combine them with other characteristics.
       - Exceptional behaviour does not always have to be combined with all the different values of the other inputs. For example, trying a single `null` input might be enough to test that corner case.
 

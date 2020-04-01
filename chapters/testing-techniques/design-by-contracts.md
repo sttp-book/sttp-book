@@ -116,7 +116,7 @@ both is what we desire.
 ## Pre- and Postconditions
 
 We briefly mentioned pre- and postcondition in an example.
-Now it is time to formalize the idea and see how to create good pre- and postconditions and their influence on the code that we are writing.
+Now it is time to formalise the idea and see how to create good pre- and postconditions and their influence on the code that we are writing.
 
 Tony Hoare pioneered reasoning about programs with assertions.
 He proposed the now so-called **Hoare Triples**.
@@ -244,7 +244,7 @@ Note that, although we increased the complexity of method by removing some of it
 ### Post-conditions
 
 The pre-conditions of a method hold when the method is called. At the end of the method, its **post-conditions** should hold.
-In other words, the post-conditions formalize the effects that a method guarantees to have when it is done with its execution.
+In other words, the post-conditions formalise the effects that a method guarantees to have when it is done with its execution.
 
 
 The `merge` method of the previous examples does two things.
@@ -272,7 +272,7 @@ public class FavoriteBooks {
 ```
 
 The other effect of the method is the notification that is sent.
-Unfortunately, we cannot easily formalize it as a post-condition.
+Unfortunately, we cannot easily formalise it as a post-condition.
 In a test suite, we would probably mock the `pushNotification` and then use `Mockito.verify` to verify that `booksAdded` was called.
 
 
@@ -392,7 +392,7 @@ Moreover, methods can assume that, when they start, the class invariant holds.
 A private method invoked by a public method can leave the object with the class invariant being false.
 However, the public method that invoked the private method should then fix this and end with the class invariant again being true.
 
-This is all formalized by Bertrand Meyer as: _"The class variant indicates that a proposition P can be a class invariant if it holds after construction, and before and after any call to a public method assuming that the public methods are called with their preconditions being true."_
+This is all formalised by Bertrand Meyer as: _"The class variant indicates that a proposition P can be a class invariant if it holds after construction, and before and after any call to a public method assuming that the public methods are called with their preconditions being true."_
 
 Of course, we want to know how to implement these class invariants.
 To implement simple class invariant in Java, we can use the Boolean method that checks if the representation is okay.
@@ -518,7 +518,7 @@ This notion of behavioural subtyping is now known as the Liskov Substitution Pri
 
 
 In other words, the LSP states that if you use a class, you should be able to replace this class by one of its subclasses.
-The sub-contracting we discussed earlier is just a formalization of this principle.
+The sub-contracting we discussed earlier is just a formalisation of this principle.
 Proper class hierarchies follow the Liskov Substitution Principle.
 Keep the LSP in mind when designing and implementing a software system.
 

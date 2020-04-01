@@ -1,6 +1,6 @@
 # Structure of the book
 
-Testing software is a a multifaceted activity, which requires developers to understand and apply a broad range of different techniques. This book is organized as follows:
+Testing software is a a multifaceted activity, which requires developers to understand and apply a broad range of different techniques. This book is organised as follows:
 
 * **Getting started with software testing**: Why is software testing such a challenging task? Why can't we find all the bugs in a software system? How expensive and/or feasible would it be if a developer decides to test all the possible scenarios in a software system? In this section, we explain to the reader the so-called _principles of software testing_. Moreover, we introduce the reader to the idea of automating the test cases with the help of JUnit, the standard Java testing framework. JUnit (and later other tools such as Mockito and Selenium) are used throughout this book.
 

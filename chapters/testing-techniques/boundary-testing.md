@@ -92,7 +92,7 @@ the partition it belongs to also changes (let us call this test B1).
 remaining life is smaller than 3, it belongs to partition 2; otherwise, it belongs
 to partition 3. Thus, we just identified another boundary there (let us call this test B2).
 
-We can visualize these partitions with their boundaries in a diagram.
+We can visualise these partitions with their boundaries in a diagram.
 
 ![Partitions with their boundaries](img/boundary-testing/examples/partition_boundaries.svg)
 
@@ -144,7 +144,7 @@ how to choose values for the "boundaries that we do not care".
 
 ## On and off points
 
-Given some initial intuition on how to analyze boundaries, let us define some
+Given some initial intuition on how to analyse boundaries, let us define some
 terminology:
 
 - **On-point:** The on-point is the value that is exactly on the boundary. This is the value we see in the condition itself. 
@@ -200,12 +200,8 @@ The idea of this strategy is to test each boundary separately, i.e. independent 
 To do so, **for each boundary**:
 
 * We pick the on- and off-point and we create one test case for each of these two points.
-* As we want to test each boundary independently, we choose in-points for the other variables/conditions. Note that we always choose in points, regardless
-of the boolean expression being connected by means of ANDs or ORs. In practice, we want all the other conditions to return true, so that
-we can evaluate the outcome of the condition under test independently.
-* It is important to vary the chosen in-points in the different tests, and to not choose the on- or off-point.
-This gives us the ability to partially check that the program gives the correct results for some in-points.
-If we would set the in-point to the on- or off-point, we would be testing two boundaries at once.
+* As we want to test each boundary independently, we choose in-points for the other variables/conditions. Note that we always choose in points, regardless of the Boolean expression being connected by means of ANDs or ORs. In practice, we want all the other conditions to return true, so that we can evaluate the outcome of the condition under test independently.
+* It is important to vary the chosen in-points in the different tests, and to not choose the on- or off-point. This gives us the ability to partially check that the program gives the correct results for some in-points. If we would set the in-point to the on- or off-point, we would be testing two boundaries at once.
 
 To find these values and display the test cases in a structured manner, we use a **domain matrix**.
 In general, the table looks like the following:
@@ -218,11 +214,11 @@ Each condition has two rows: one for the on-point and one for the off-point.
 Each variable has an additional row for the typical (in-) values.
 These are used when testing the other boundary.
 
-Each column that corresponds to a test case has two colored cells.
-In the colored cells you have to fill in the correct values.
+Each column that corresponds to a test case has two coloured cells.
+In the coloured cells you have to fill in the correct values.
 Each of these pairs of values will then give a test case.
 If we implement all the test cases that the domain matrix gives us, 
-we exerise each boundary both for the on- and off-point independent of the other parameters.
+we exercise each boundary both for the on- and off-point independent of the other parameters.
 
 Let us walk through another example:
 
@@ -413,7 +409,7 @@ A partition might make boundaries with more than just one single another partiti
 The **only small bars** partition has boundaries not only with the **not enough bars** partition (as we saw above), but also with the **only big bars** partition:
 
 * `(4, 2, 4)` returns 4. We need only small bars here, and therefore, this input belongs to the **only small bars** partition.
-* `(4, 2, 5)` returns 0. We need only bigs bars here, and therefore, this input belongs to the **only big bars** partition.
+* `(4, 2, 5)` returns 0. We need only big bars here, and therefore, this input belongs to the **only big bars** partition.
 
 A lesson we learn from this example is that boundary bugs may not 
 only emerge out of "clear if conditions" we
@@ -425,21 +421,21 @@ interactions among partitions.
 
 
 
-## Automating boundary testing with JUnit (via Parameterized Tests)
+## Automating boundary testing with JUnit (via Parameterised Tests)
 
 You might have noticed that in the domain matrix we always have a certain amount of input values and, implicitly, an expected output value.
 We could just implement the boundary tests by making a separate method for each test, or by
 grouping them per boundary, as we have been doing so far.
 
 However, the amount of test methods can quickly become large and unmanageable.
-Moreoever, the code in these test methods will be largely the same,
+Moreover, the code in these test methods will be largely the same,
 as they all have the same structure, only with different input and output values.
 
-Luckily, JUnit offers a solution where we can generalize the implementation of a test
-method, and run it different inputs and outputs: **Parameterized Tests**.
-As the name suggests, with a parameterized test, developers 
+Luckily, JUnit offers a solution where we can generalise the implementation of a test
+method, and run it different inputs and outputs: **Parameterised Tests**.
+As the name suggests, with a parameterised test, developers 
 can define a test method with parameters.
-To define a parameterized test, you make use of the `@ParameterizedTest` annotation, 
+To define a parameterised test, you make use of the `@ParameterizedTest` annotation, 
 instead of the usual `@Test` annotation.
 
 For each parameter you want to pass to the "template test method", you define a 
@@ -460,7 +456,7 @@ The `CsvSource` is an annotation itself, so in an implementation
 it would like like the following: `@CsvSource({"value11, value12", "value21, value22", "value31, value32", ...})`
 
 
-Let us implement the boundary test cases that we derived in the _Pizza or Pasta_ example, using the parameterized test.
+Let us implement the boundary test cases that we derived in the _Pizza or Pasta_ example, using the parameterised test.
 
 
 To automate the tests we create a test method with three parameters: `x`, `y`, `expectedResult`.
@@ -489,10 +485,10 @@ with a much smaller amount of code.
 JUnit will run the `boundary` test six times: one for each line in the `@CsvSource`. 
 In your IDE, you might even see JUnit showing each of the test cases being executed:
 
-![Parameterized tests in JUnit](img/boundary-testing/junit.png)
+![Parameterised tests in JUnit](img/boundary-testing/junit.png)
 
 
-JUnit's Parameterized tests have more functionalities and ways of providing input data.
+JUnit's Parameterised tests have more functionalities and ways of providing input data.
 We point the reader to JUnit's manual.
 
 

@@ -124,7 +124,7 @@ One of the participants was even more precise in his statement. According to him
 
 Participants also commented that one difference they perceived when they practiced TDD was the constant feedback. In traditional testing, the time between the production code writing and test code writing is too long. When practicing TDD, developers are forced to write the test first, and thus receive the feedback a test can provide sooner.
 
-One participant commented that, from the test, developers observe and criticize the code they are designing. As the tests are done constantly, developers end up continuously thinking about the code and its quality:
+One participant commented that, from the test, developers observe and criticise the code they are designing. As the tests are done constantly, developers end up continuously thinking about the code and its quality:
 
 *"When you write the test, you soon perceive what you don’t like in it (...). You don’t perceive that until you start using tests."*
 

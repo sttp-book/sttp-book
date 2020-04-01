@@ -65,7 +65,7 @@ The output of the program is: `25, 4`. This means the implementation works as ex
 No, we can not. The current implementation does not work for all the possible cases. **There's a bug in there!** (Can you find the bug? Look at the implementation above and try to find it!)
 
 The program does not work properly for the following input: an array with values 4, 3, 2, and 1. For this input, the program returns the following output: `-2147483648, 1`.
-In a more generalized way, the implementation does not handle "numbers in decreasing order" well enough. 
+In a more generalised way, the implementation does not handle "numbers in decreasing order" well enough. 
 
 We just found a bug. That is maybe the right time for a reflection: if bugs can occur
 even in simple programs like the ones above, imagine what happens in the large complex

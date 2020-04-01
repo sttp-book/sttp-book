@@ -61,7 +61,7 @@ Validation concerns the features that our software system offers, and the custom
   * is the system actually useful? 
 
   Validation techniques, thus, focus on understanding
-whether the software system is delivering the business values it should deliver. In this book, we only briefly cover validation techniques (see chapters on Continuous Experimentation and on Behavior-Driven Development).
+whether the software system is delivering the business value it should deliver. In this book, we only briefly cover validation techniques (see chapters on Continuous Experimentation and on Behaviour-Driven Development).
 
 
 * **Verification: Are we building the system right?** 
@@ -87,7 +87,7 @@ if we want our systems to be well-tested, all we need to do is to keep adding mo
 Indeed, a very important part of any software testing process is 
 to know _when to stop testing_.
 After all, resources (e.g., money, developers, infrastructure) are limited. Therefore,
-the goal should always be to maximize the number of bugs found while minimising the 
+the goal should always be to maximise the number of bugs found while minimising the 
 amount of resources we had to spend in finding those bugs.
 Creating too few tests might leave us with a software system that does not behave as intended (i.e., _full of bugs_).
 On the other hand, creating tests after tests, without proper consideration might lead to ineffective tests (besides costing too much time and money).
@@ -103,7 +103,7 @@ of comparison, this number is higher than the estimated number of atoms in the u
 In other words, this software system has more possible combinations to be tested than the universe has atoms.
 
 Given that exhaustive testing is impossible,
-software testers have to then prioritize the tests they will perform.
+software testers have to then prioritise the tests they will perform.
 
 When prioritizing the test cases, we note that **bugs are not uniformly distributed**.
 Empirically, we observe that some components in some software systems present more
@@ -132,7 +132,7 @@ A concrete example might be a team that solely relies on unit testing techniques
 At some point, maybe all the bugs that can be captured at unit test level will be found
 by the team; however, the team might miss bugs that only occur at integration level.
 From the pesticide paradox, we thus conclude that testers have to use 
-different testing strategies to minimize the number of bugs left in the software.
+different testing strategies to minimise the number of bugs left in the software.
 When studying the various testing strategies that we present in this book, 
 keep in mind that combining them all might be a wise decision.
 

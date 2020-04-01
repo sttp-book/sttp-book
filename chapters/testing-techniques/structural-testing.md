@@ -191,7 +191,7 @@ At this moment, our control flow graph looks like the following:
 
 A decision block, on the other hand, represents all the statements in the source
 code that can create different branches. See line 3 (`if (ln > 21)`). This _if_
-statement creates a decision moment in the appliction; after all, if it is evaluated
+statement creates a decision moment in the application; after all, if it is evaluated
 as true, the program will do something, otherwise the program will do something else. Decision blocks are often represented as diamonds. This decision block happens right 
 after the basic block we created above, and thus, they are connected by means of
 an edge.
@@ -199,7 +199,7 @@ an edge.
 ![Black Jack - CFG part 2](img/structural-testing/examples/bj-p2.png)
 
 Note that a basic block has always a single outgoing edge. A decision block, 
-on othe other hand, has
+on the other hand, has
 always two outgoing edges (where you go in case of the decision being evaluated to true, and where you go in case the decision being evaluated
 to false).
 
@@ -247,7 +247,7 @@ The corresponding CFG:
 
 ![Control flow graph example](img/structural-testing/examples/CFG-branch-example.svg)
 
-Note that we split the for-loop into three blocks: the variable initialization, the decision block, and the increment.
+Note that we split the for-loop into three blocks: the variable initialisation, the decision block, and the increment.
 
 
 Note how agnostic this CFG representation is. You can even build CFGs of program written in different
@@ -446,7 +446,7 @@ if (!Character.isLetter(str.charAt(i))
 }
 ```
 
-The decision in this if-statement contains three conditions and can be generalized to `(A && ( B || C))`, with A = `!Character.isLetter(str.charAt(i))`, B = `last == 's'` and C = `last == 'r'`.
+The decision in this if-statement contains three conditions and can be generalised to `(A && ( B || C))`, with A = `!Character.isLetter(str.charAt(i))`, B = `last == 's'` and C = `last == 'r'`.
 
 To get $$100\%$$ path coverage, we would have to test all the possible combinations of these three conditions.
 
@@ -546,7 +546,7 @@ so the pair {T1, T3} does not show how B can independently affect the overall ou
   - B: {2, 4}
   - C: {3, 4}
 
-* To select the combinations that we want to test, we have to have at least one of the pairs for each condition (A, B, and C). We want to minimize the total amount of tests, and we know for a fact that we can achieve this with N+1 tests.
+* To select the combinations that we want to test, we have to have at least one of the pairs for each condition (A, B, and C). We want to minimise the total amount of tests, and we know for a fact that we can achieve this with N+1 tests.
 
 * We do not have any choices with conditions B and C, as we only found one pair for each.
 This means that we have to test combinations 2, 3, and 4.
@@ -656,7 +656,7 @@ matters.
 While researchers have not yet found a magical coverage
 number that one should aim for, they have been finding
 interesting evidence pointing towards the benefits
-of perfoming structural testing.
+of performing structural testing.
 
 We quote two of these studies:
 

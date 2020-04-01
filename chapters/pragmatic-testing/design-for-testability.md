@@ -393,7 +393,7 @@ To increase the testability, the team has budget to work on two out of the four 
 Which items should Sarah recommend them to tackle first?
 
 Note: All of the four issues should obviously be fixed.
-However, try to prioritize the two most important ones: Which influence the testability the most?
+However, try to prioritise the two most important ones: Which influence the testability the most?
 
 
 **Exercise 4.**
