@@ -50,7 +50,9 @@ More specifically, we discuss:
 
 * **Model-based testing**: We will leverage more formal documentation such as state machines and decision tables to derive tests. 
 
-* **Design-by-contracts and property-based testing**: We will devise explicit contracts to methods and classes to ensure that they behave correctly when these contracts are (and are not) met.
+* **Design-by-contracts**: We will devise explicit contracts to methods and classes to ensure that they behave correctly when these contracts are (and are not) met.
+
+* **Property-based testing**: We will learn how to derive properties of the system (similar to contracts) and use them to automatically generate test cases.
 
 
 
