@@ -70,6 +70,8 @@
 	* Code metrics
 	* Ethics and testing (soon)
 
+--- 
+
 * Appendix
 	* [Answers to the exercises](chapters/appendix/answers.md)
 	* [Change log](chapters/appendix/changelog.md)
