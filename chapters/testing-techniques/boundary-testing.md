@@ -335,7 +335,7 @@ And these were the classes we derived after applying the category/partition meth
 * **Not enough bars**. A case in which it's not possible, because there are not enough bars.
 * **Not from the specs**: An exceptional case.
 
-A developer implemented the following code for the requirement, and all the tests pass.
+As we saw in the previous chapter, the following code passes all the tests we derived:
 
 ```java
 public class ChocolateBars {
@@ -353,9 +353,14 @@ public class ChocolateBars {
 }
 ```
 
-However, another developer tried `(2,3,17)` as an input and the program crashed. After some debugging,
-they noticed that the if statement should had been `if(small < total)` instead of
-`if(small <= total)`. This smells like a bug that could had been found via boundary testing.
+However, the following input makes the program to fail: `(2,3,17)`! 
+
+Note that the input `(2,3,17)` belongs to the **need small + big bars** partition. In this case,
+the program should make use of all the big bars (there are 3 available) and then *all* the small bars available (there are 
+2 available). Note that the buggy program would work if we had 3 available small bars (having `(3, 3, 17)` as input).
+
+The bug lies on the `if` condition. It should be a `if(small < total)` instead of
+`if(small <= total)`:
 
 ```java
 public class ChocolateBars {
@@ -374,18 +379,16 @@ public class ChocolateBars {
 }
 ```
 
-Note that the test `(2,3,17)` belongs to the **need small + big bars** partition. In this case,
-the program will make use of all the big bars (there are 3 available) and then *all* the small bars available (there are 
-2 available). Note that the buggy program would work if we had 3 available small bars (having `(3, 3, 17)` as input).
-This is a boundary that is just a bit less explicit from the requirements.
-
-![Partitions and boundaries](img/boundary-testing/partition-boundary.png)
+This bug is clearly an instance of a bug that should have been detected by boundary testing.
+The problem is that this boundary is just less explicit from the requirements.
 
 As we defined at the beginning of this chapter,
 boundaries also happen when we are going from "one partition" to 
 another. There is a "single condition" that we can use as clear source.
 In these cases, what we should do is to devise test cases for a sequence of inputs that move
 from one partition to another.
+
+![Partitions and boundaries](img/boundary-testing/partition-boundary.png)
 
 Let us focus on the bug caused by the `(2,3,17)` input:
 
