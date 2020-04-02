@@ -174,8 +174,7 @@ understand. In such cases, we recommend developers to 1) write their own customi
 assert instructions that abstract away part of the complexity of the assertion code itself,
 2) when expressing it in code it not enough, write code comments that quickly explain, in natural language, what those assertions are about.
 
-Interestingly, a common best practice that is often found in the test best practice literature is the "one assertion per method" strategy. While forcing developers to have just a single assertion per test method is too extremist, 
-the idea of minimising, as much as possible, the number of assertions in a test method is valid.
+Interestingly, a common best practice that is often found in the test best practice literature is the "one assertion per method" strategy. While forcing developers to have just a single assertion per test method is too extremist, the idea of minimising the number of assertions in a test method is valid.
 
 Note that a high number of simple assertions in a single test might be as harmful as a complex
 set of assertions. In such cases, we provide a similar recommendation: write a customised
