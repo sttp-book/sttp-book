@@ -66,8 +66,8 @@
 --- 
 
 * Software Quality
-	* Code reviews
-	* Code metrics
+	* Code reviews (soon)
+	* Code metrics (soon)
 	* Ethics and testing (soon)
 
 --- 
