@@ -62,9 +62,13 @@
 * [Non-functional testing](chapters/non-functional-testing/README.md)
 	* Security testing (soon)
 	* Performance testing (soon)
-	* Ethical testing (soon)
 
 --- 
+
+* Software Quality
+	* Code reviews
+	* Code metrics
+	* Ethics and testing (soon)
 
 * Appendix
 	* [Answers to the exercises](chapters/appendix/answers.md)
