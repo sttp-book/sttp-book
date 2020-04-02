@@ -217,7 +217,7 @@ By devising interfaces that represent the abstract interaction that domains and 
 the developer ends up better separating the concerns, reducing the coupling between both layers, and devising simpler 
 flows of interactions between both layers.
 
-The dependency inversion principle (note the _inversion_ and not _injection_) help us in formalizing
+The dependency inversion principle (note the _inversion_ and not _injection_) help us in formalising
 these concepts:
 
 * High-level modules should not depend on low-level modules. Both should depend on abstractions (e.g. interfaces).

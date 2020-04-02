@@ -97,7 +97,7 @@ more than usual (due to small variations we often do not control in
 real-life scenarios; Tomcat decided to do a full garbage collection at 
 that very second, for example). The test was not expecting it to happen, and thus,
 it failed. If the test is executed again, the web app might now take its usual time to respond,
-and now the test will pass. There are just too many uncertanties in a system test that
+and now the test will pass. There are just too many uncertainties in a system test that
 can lead to unexpected behaviour.
 
 {% hint style='tip' %}
@@ -165,7 +165,7 @@ web services, file reads and writes.
 ## The Testing Pyramid
 
 We discussed three different test levels: unit, system, and integration. 
-A question that a pragmatic software developer might be asking themself is:
+A question that pragmatic software developers might be asking themselves is:
 _How much should I do of each?_
 
 Testers have to decide whether to invest more in unit testing or in system testing. Or to 
@@ -195,11 +195,11 @@ The reasons for this have been discussed before: they are fast, require less eff
 to be written, and gives developers easier control.
 
 Going up in the diagram, we see that the next level is integration tests. The area
-is a bit smalle, indicating that, in practice, we should do integration tests "a bit less"
+is a bit smaller, indicating that, in practice, we should do integration tests "a bit less"
 than unit tests.
 Given the extra effort that integration tests require,
 testers should make sure to write tests only for the integrations they indeed need.
-The diagram continues, showing that testers should then favor system tests a bit less than
+The diagram continues, showing that testers should then favour system tests a bit less than
 integration tests, and even less manual tests.
 
 It is really clear that this diagram has a focus in **costs**. Unit tests are cheaper than
@@ -250,7 +250,7 @@ _pesticide paradox_: a single technique is usually not enough to identify all th
 Manual testing has lots of disadvantages, but sometimes impossible to avoid. However,
 even in cases where automation is fully possible, manual exploratory testing can
 be useful. 
-The wikipedia page on [Exploratory Testing](https://en.wikipedia.org/wiki/Exploratory_testing)
+The Wikipedia page on [Exploratory Testing](https://en.wikipedia.org/wiki/Exploratory_testing)
 is well written and we point the reader to it.
 
 
@@ -276,13 +276,13 @@ We will discuss design for testability in future chapters.
 ## A remark on the testing pyramid
 
 We have no scientific evidence that the testing pyramid or, the idea
-of prioritizing design for testability and focusing on unit tests, is efficient.
+of prioritising design for testability and focusing on unit tests, is efficient.
 However, the software development community of practice has been relying on it
 for years and companies, from small to large sizes, have been advocating it.
 
 That being said, in our point of view, the testing pyramid approach is viable
 in most of enterprise / business systems. Imagine an [ERP](https://en.wikipedia.org/wiki/Enterprise_resource_planning) or a [CRM](https://en.wikipedia.org/wiki/Customer_relationship_management) system. Most business rules there can be expressed
-by classes/units exchanging messages and tranforming data. Unit tests will then pay off
+by classes/units exchanging messages and transforming data. Unit tests will then pay off
 as testers can easily gain control and observability of the actions of the system.
 
 However, in many other systems, unit testing might not be enough. Imagine the
@@ -368,7 +368,7 @@ an integration test for this class?
 1. Reset the database state before each test.
 2. Apply the correct schema to the database under test.
 3. Assert that any database constraints are met.
-4. Set the transaction autocommit to true.
+4. Set the transaction auto-commit to true.
 
 
 

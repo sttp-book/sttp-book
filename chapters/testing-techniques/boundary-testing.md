@@ -193,7 +193,7 @@ each of the conditions, and make sure we test all the possible combinations amon
 we end up with $$4^5=1024$$ tests. This is simply too much.
 
 To effectively test the boundaries in these more complicated decisions, while
-minimizing the number of required tests,
+minimising the number of required tests,
 we can use the **simplified domain testing strategy**, proposed by Jeng and Weyuker.
 The idea of this strategy is to test each boundary separately, i.e. independent of the other conditions.
 

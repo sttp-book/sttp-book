@@ -340,7 +340,7 @@ Clearly, at first, one might argue that writing test code might feel like a loss
 After all, developers now have to not only write production code, but also test code.
 Developers now have to not only maintain production code, but also maintain test code.
  _This could not be further from the truth_.
- Once you master the tools and techniques, formalizing test cases as JUnit methods
+ Once you master the tools and techniques, formalising test cases as JUnit methods
 will actually save you time; imagine how many times you have executed the same 
 manual test over and over. How much time have you lost by doing 
 the same task repeatedly? 

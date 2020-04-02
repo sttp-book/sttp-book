@@ -105,7 +105,7 @@ In other words, this software system has more possible combinations to be tested
 Given that exhaustive testing is impossible,
 software testers have to then prioritise the tests they will perform.
 
-When prioritizing the test cases, we note that **bugs are not uniformly distributed**.
+When prioritising the test cases, we note that **bugs are not uniformly distributed**.
 Empirically, we observe that some components in some software systems present more
 bugs than other components.
 

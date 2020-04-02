@@ -215,7 +215,7 @@ public class FavoriteBooks {
 }
 ```
 
-By generalizing the `merge` method, we have removed one of the pre-conditions.
+By generalising the `merge` method, we have removed one of the pre-conditions.
 
 We can even remove the `!favorites.containsAll(books)` assertion by adding some more functionality to the method.
 
