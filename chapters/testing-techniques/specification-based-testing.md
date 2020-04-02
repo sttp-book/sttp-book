@@ -29,8 +29,8 @@ Let's use a small program as an example. The specification below talks about a p
 >A year is a leap year if:
 >
 >- the year is divisible by 4;
->- the year is not divisible by 100;
->- exceptions are years that are divisible by 400, which are also leap years.
+>- and the year is not divisible by 100;
+>- except when the year is divisible by 400 (because then it is still a leap year)
 
 To find a good set of test cases, often referred to as a *test suite*,
 we split the program into *classes*.
@@ -173,10 +173,9 @@ So far we have derived partitions by just looking at the specification of the pr
 We basically used our experience and knowledge to derive the test cases.
 We now go over a more systematic way of deriving these partitions: the **Category-Partition** method.
 
-The method gives us 1) a systematic way of deriving test cases, based on the characteristics of the input parameters, 2) minimise the amount of tests
-to a feasible amount.
+The method gives us a systematic way of deriving test cases, based on the characteristics of the input parameters. It also brings down the number of tests to a feasible number.
 
-We set out now the steps of this method and then we illustrate the process with an example.
+We now set out the steps of this method and then we illustrate the process with an example.
 
 1. Identify the parameters, or the input of the program. For example, the parameters your classes and methods receive.
 2. Derive characteristics of each parameter. For example, an `int year` should be a positive integer number between 0 and infinite. 
@@ -195,7 +194,7 @@ Let's apply the technique in the following program:
 > 
 > The system should give a 25% discount on the cart when it is Christmas.
 > The method has two input parameters: the total price of the products in the cart, and the date.
-> When it is not Christmas it just returns the original price, otherwise it applies the discount.
+> When it is not Christmas it just returns the original price; otherwise it applies the discount.
 
 Following the category-partition method:
 
@@ -261,7 +260,7 @@ The classes/partitions are:
 
 * **Need only small bars**. A solution that only uses the provided small bars.
 * **Need only big bars**. A solution that only uses the provided big bars.
-* **Need Small + big bars**. A solution that has to use both small and big bars.
+* **Need small + big bars**. A solution that has to use both small and big bars.
 * **Not enough bars**. A case in which it is impossible, because there are not enough bars.
 * **Not from the specs**: An exceptional case.
 
@@ -269,7 +268,7 @@ For each of these classes, we can devise concrete test cases:
 
 * **Need only small bars**. small = 4, big = 2, total = 3
 * **Need only big bars**. small = 5, big = 3, total = 10
-* **Need Small + big bars**. small = 5, big = 3, total = 17
+* **Need small + big bars**. small = 5, big = 3, total = 17
 * **Not enough bars**. small = 1, big = 1, total = 10
 * **Not from the specs**: small = -1, big = -1, total = -1
 
@@ -485,7 +484,7 @@ A tester, after reading the specs and following the Category-Partition method, d
 * Occurrences in the file: none, exactly one, more than one.
 * Occurrences in a single line, assuming line contains the pattern: one, more than one.
 
-However, the number of combinations is now too high. What actions could we take to reduce the number of combinations?
+However, the number of combinations is too high now. What actions could we take to reduce the number of combinations?
 
 
 
