@@ -49,15 +49,15 @@ the costs of their testing.
 
 ## Line (and statement) coverage
 
-As the name suggests, when determining the line coverage, we look at the amount of lines of code that are covered by the tests (more specifically,
+As the name suggests, when determining the line coverage, we look at the number of lines of code that are covered by the tests (more specifically,
 by at least one test).
 
 See the following example: 
 
 > **Requirement**: Black-jack
 >
-> The program receives the amount of points of two black jack players.
-> The program must return the amount of points of the winner.
+> The program receives the number of points of two black jack players.
+> The program must return the number of points of the winner.
 > In blackjack, whoever gets closer to 21 points wins. 
 > If a player goes over 21 points,
 > the player loses. If both player loses, the program must return 0.
@@ -469,7 +469,7 @@ That is quite a lot for just a single statement.
 
 By aiming at achieving good path coverage of our program, testers can indeed come up with good tests.
 However, the main issue is that achieving 100% path coverage might not always be feasible or too costly.
-The amount of tests needed for full path coverage will grow exponentially with the amount of conditions in a decision.
+The number of tests needed for full path coverage will grow exponentially with the number of conditions in a decision.
 
 {% set video_id = "hpE-aZYulmk" %}
 {% include "/includes/youtube.md" %}
@@ -546,7 +546,7 @@ so the pair {T1, T3} does not show how B can independently affect the overall ou
   - B: {2, 4}
   - C: {3, 4}
 
-* To select the combinations that we want to test, we have to have at least one of the pairs for each condition (A, B, and C). We want to minimise the total amount of tests, and we know for a fact that we can achieve this with N+1 tests.
+* To select the combinations that we want to test, we have to have at least one of the pairs for each condition (A, B, and C). We want to minimise the total number of tests, and we know for a fact that we can achieve this with N+1 tests.
 
 * We do not have any choices with conditions B and C, as we only found one pair for each.
 This means that we have to test combinations 2, 3, and 4.
@@ -746,7 +746,7 @@ Consider the decision `(A or C) and B` with the corresponding decision table:
     <tr><td>8</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
 </table>
 
-What is the set with the minimum amount of tests needed for $$100\%$$ MC/DC (Modified Condition / Decision Coverage)?
+What is the set with the minimum number of tests needed for $$100\%$$ MC/DC (Modified Condition / Decision Coverage)?
 
 
 ----

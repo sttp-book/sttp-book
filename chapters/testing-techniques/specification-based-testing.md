@@ -206,7 +206,7 @@ Following the category-partition method:
       - Based on the requirements, the only important characteristic is that the date can be either Christmas or not.
       - The price can be a positive number, or in certain circumstances it may be 0. Technically the price can also be a negative number. This is an exceptional case, as you cannot pay a negative amount.
 
-3. The amount of characteristics and parameters is not too large in this case. As the negative price is an exceptional case, we can test this with just one combination, instead of with a date that is Christmas and a date that is not Christmas.
+3. The number of characteristics and parameters is not too large in this case. As the negative price is an exceptional case, we can test this with just one combination, instead of with a date that is Christmas and a date that is not Christmas.
 
 4. We combine the other characteristics to get the following test cases:
       - Positive price on Christmas
@@ -231,7 +231,7 @@ Let's explore another example:
 > assuming we always use big bars before small bars. Return -1 if it is impossible.
 >
 > The input of the program is thus the number of small bars, the number of big bars,
-> and the total amount of kilos to store.
+> and the total number of kilos to store.
 
 A possible implementation for this program is:
 

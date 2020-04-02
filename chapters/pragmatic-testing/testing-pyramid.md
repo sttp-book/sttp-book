@@ -43,7 +43,7 @@ Of course, unit testing also has some disadvantages:
 
 * **The lack of "reality"**.
 A software system is rarely composed of a single class.
-The large amount of classes in a system and the interaction between these classes can make the system to behave differently in its real application than in the unit tests.
+The large number of classes in a system and the interaction between these classes can cause the system to behave differently in its real application than in the unit tests.
 Hence, unit tests do not perfectly represent the real execution of a software system.
 
 * Another disadvantage that follows from this is that **some bugs simply cannot be caught at unit test level**. Different types of bugs only happen in the integration of the different components (which we are not exercising in a pure unit test).
@@ -187,7 +187,7 @@ Note that the more you go to the top of the diagram, the more
 real the test is (as we discuss, system tests are more real than unit tests); 
 however, the more complex it is to devise it.
 
-**How much should we do of each then?** The common practice in industry is also represented in the diagram. The size of the pyramid slice represents the the amount of test one would want of each test level. 
+**How much should we do of each then?** The common practice in industry is also represented in the diagram. The size of the pyramid slice represents the number of tests one would want of each test level. 
 
 Unit test is at the bottom of the pyramid, and has the largest area of them all. This means 
 that testers should favour unit testing.
@@ -264,7 +264,7 @@ should put more effort in manual testing (!!).
 At this point, we do not have to explain why fully relying on manual testing is a bad.
 Unfortunately, it is common to see development teams 
 mostly relying on manual tests in their quality assurance processes. 
-Often, these teams also have a small amount of system tests. Not because they 
+Often, these teams also have a small number of system tests. Not because they 
 believe on the efficiency of system tests, but because the system was so badly 
 designed, that unit and integration tests are just impossible to be done.
 We will discuss design for testability in future chapters.

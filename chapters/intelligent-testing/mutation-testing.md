@@ -448,7 +448,7 @@ This process is illustrated in the diagram below:
 ![Mutation Testing Process](img/mutation-testing/mutation_analysis_process.png)
 
 When performing mutation testing, we count the number of mutants our test suite killed and the number of mutants that were still alive.
-By counting the amount of each of these mutant groups, we can give a value to the quality of our test suite.
+By counting the number of each of these mutant groups, we can give a value to the quality of our test suite.
 
 We define the **Mutation Score** as:
 
@@ -527,7 +527,7 @@ The new formula becomes:
 
 $$\text{Mutation score} = \frac{\text{killed mutants}}{\text{non-equivalent mutants}}$$
 
-For the denominator, we just count the amount of non-equivalent mutants, instead of all the mutants.
+For the denominator, we just count the number of non-equivalent mutants, instead of all the mutants.
 To compute this new mutation score automatically, we would need a way to automatically determine whether a mutant is an equivalent mutant.
 Unfortunately, we cannot do this automatically.
 **Detecting equivalent mutations is an undecidable problem**. We can never be sure that a mutant behaves the same as the original program for every possible input.
@@ -576,7 +576,7 @@ Based on some observations, they came up with a couple of heuristics.
 
 * The first observation is that a test case can never kill a mutant if it does not cover the statement that changed (also known as the *reachability condition*).
 Based on this observation, we only have to run the test cases that cover the changed statement.
-This reduces the amount of test cases to run and, with that, the execution time.
+This reduces the number of test cases to run and, with that, the execution time.
 Furthermore, once a test case kills a mutant, we do not have to run the other test cases anymore.
 This is because the test suite needs at least one test case that kills the mutant.
 The exact number of test cases killing the mutant does not really matter.

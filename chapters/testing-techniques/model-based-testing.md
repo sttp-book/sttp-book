@@ -38,7 +38,7 @@ In general, a decision table looks like the following:
 </table>
 
 For now, the table contains all the combinations of conditions explicitly.
-Later we will look at ways to reduce the amount of combinations present in the table 
+Later we will look at ways to reduce the number of combinations present in the table 
 (and, thus, reducing the test of costing all the combinations).
 
 The chosen conditions should always be independent from one another.
@@ -163,9 +163,9 @@ If we set the default charge rate to 10 per month the new decision table can be 
 We can derive tests based on the decision tables, such that we test whether the expected logic is implemented correctly.
 There are multiple ways to derive tests for a decision table:
 
-- **All explicit variants:** Derive one test case for each column. The amount of tests is the amount of columns in the decision table.
+- **All explicit variants:** Derive one test case for each column. The number of tests is the number of columns in the decision table.
 - **All possible variants:** Derive a test case for each possible combination of condition values. For $$N$$ conditions this leads to $$2^N$$ test cases. Often, this approach is unrealistic because of the exponential relation between the number of conditions and the number of test cases.
-- **Every unique outcome / All decisions:** One test case for each unique outcome or action. The amount of tests depends on the actions in the decision table.
+- **Every unique outcome / All decisions:** One test case for each unique outcome or action. The number of tests depends on the actions in the decision table.
 - **Each condition T/F:** Make sure that each condition is true and false at least once in the test suite. This often results in two tests: All conditions true and all conditions false.
 
 One more way to derive test cases from a decision table is by using the **Modified Condition / Decision Coverage (MC/DC)**. 
@@ -369,7 +369,7 @@ The notation for conditions and actions is as follows:
 
 
 When a user types the wrong password for four times in a row, the phone gets blocked.
-We use `n` in the model to represent the amount of failed attempts.
+We use `n` in the model to represent the number of failed attempts.
 Let us look at the conditional transitions that we need to model this behaviour first.
 
 ![](img/model-based-testing/examples/blocked_condition_machine.svg)
@@ -448,11 +448,11 @@ A logical thought might be: Let's test all the paths in the state machine!
 While this looks like a good objective, the number of paths will most likely be too high.
 Take a state machine that has a loop, i.e., a transition from state X to Y and a transition from state Y to X.
 When creating paths we can keep going back and forth these two states.
-This leads to an infinite amount of paths.
+This leads to an infinite number of paths.
 Obviously, we cannot test all the paths. We will need to take a different approach.
 
 The idea is that when using paths to derive test cases, we want each loop to be executed once.
-This way we have a finite amount of paths to create test cases for.
+This way we have a finite number of paths to create test cases for.
 We derive these tests by using a transition tree, which spans the graph of the state machine.
 Such a transition tree is created as follows:
 
@@ -513,7 +513,7 @@ The tests for the other three paths can be derived in similar fashion.
 
 
 Using the transition tree, each loop that is in the state machine is executed once.
-Now the amount of tests are manageable, while testing most of the important paths in the state machine.
+Now the number of tests is manageable, while testing most of the important paths in the state machine.
 
 {% set video_id = "pvFPzvp5Dk0" %}
 {% include "/includes/youtube.md" %}
@@ -640,7 +640,7 @@ As discussed earlier, we can use the transition table to derive tests for sneak 
 Usually, we want the system to remain in its current state when we trigger an event that has an empty cell in the transition table.
 To test for all possible sneak paths, we create a test case for each empty cell in the transition table.
 The test will first bring the system to the state corresponding to the empty cell's row (you can use the transition table to find a suitable path), then triggers the event that corresponds to the empty cell's column, and finally the test asserts that the system is in the same state as before triggering the event.
-The amount of 'sneak path tests' is the amount of empty cells in the transition table.
+The number of 'sneak path tests' is the number of empty cells in the transition table.
 
 With these tests we can verify both existing and non-existing paths.
 These techniques combined give a good testing suite from a state machine.

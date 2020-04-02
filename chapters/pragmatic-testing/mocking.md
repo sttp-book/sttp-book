@@ -153,7 +153,7 @@ public class InvoiceFilterTest {
 ```
 
 This test is not even complete... We also need to reset the database after every test. Otherwise, 
-the test will break in its second run, as there will be now four invoices with an amount smaller than 100 stored in the database! 
+the test will break in its second run, as there will now be four invoices with an amount smaller than 100 stored in the database! 
 Remember that the database stores data permanently. So far, we never had to "clean our messes" in a test code, as all the objects we have created were always stored in-memory only.
 
 {% hint style='tip'%}

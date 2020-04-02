@@ -142,7 +142,7 @@ from devising test cases for a web application, or for software used in a rocket
 In other words: **testing is context-dependent**.
 
 Again, while this book mostly focuses on verification techniques, 
-let us not forget that having a low amount of bugs is not enough for good software.
+let us not forget that having a low number of bugs is not enough for good software.
 As we have said before, a program that works flawlessly but is of no use for its users, 
 is still not a good program.
 That is a common fallacy (also known as the **absence-of-errors fallacy**) that software testers face when they decide to focus solely

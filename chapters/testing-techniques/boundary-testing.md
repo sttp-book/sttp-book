@@ -27,7 +27,7 @@ input values $$[p_1,p_2]$$, where $$p_1$$ belongs to partition A, and $$p_2$$ be
 
 Let us apply boundary testing in a concrete example:
 
-> **Requirement: Calculating the amount of points of the player**
+> **Requirement: Calculating the number of points of the player**
 > 
 > Given the score of the player and the remaining life of the player, we program returns:
 > - If the player's score is below 50, then it always adds 50 points on top of the current points.
@@ -136,7 +136,7 @@ You might be questioning yourself whether you also need to devise another test c
 condition would be exercised now as false. 
 
 As a tester, if you are looking for testing all possible combinations, then the answer is yes. However, in longer
-conditions, full of boundaries, the amount of combinations might be too high, making it unfeasible for the developer
+conditions, full of boundaries, the number of combinations might be too high, making it unfeasible for the developer
 to test them all. Later in this chapter, we will learn
 how to choose values for the "boundaries that we do not care".
 
@@ -193,7 +193,7 @@ each of the conditions, and make sure we test all the possible combinations amon
 we end up with $$4^5=1024$$ tests. This is simply too much.
 
 To effectively test the boundaries in these more complicated decisions, while
-minimizing the amount of required tests,
+minimizing the number of required tests,
 we can use the **simplified domain testing strategy**, proposed by Jeng and Weyuker.
 The idea of this strategy is to test each boundary separately, i.e. independent of the other conditions.
 
@@ -314,7 +314,7 @@ void boundary_y() {
 ## Boundaries that are not so explicit
 
 Let's revisit the example from the a previous chapter. There, we had a program
-where the goal was to return the amount of bars needed in order to build some boxes of chocolates:
+where the goal was to return the number of bars needed in order to build some boxes of chocolates:
 
 
 > **Chocolate bars**
@@ -325,7 +325,7 @@ where the goal was to return the amount of bars needed in order to build some bo
 > assuming we always use big bars before small bars. Return -1 if it can't be done.
 >
 > The input of the program is thus the number of small bars, the number of big bars,
-> and the total amount of kilos to store.
+> and the total number of kilos to store.
 
 And these were the classes we derived after applying the category/partition method:
 
@@ -426,11 +426,11 @@ interactions among partitions.
 
 ## Automating boundary testing with JUnit (via Parameterised Tests)
 
-You might have noticed that in the domain matrix we always have a certain amount of input values and, implicitly, an expected output value.
+You might have noticed that in the domain matrix we always have a certain number of input values and, implicitly, an expected output value.
 We could just implement the boundary tests by making a separate method for each test, or by
 grouping them per boundary, as we have been doing so far.
 
-However, the amount of test methods can quickly become large and unmanageable.
+However, the number of test methods can quickly become large and unmanageable.
 Moreover, the code in these test methods will be largely the same,
 as they all have the same structure, only with different input and output values.
 

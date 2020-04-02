@@ -926,7 +926,7 @@ The large tables and lack of indices do not really influence the testability, es
 There we end up mocking the classes interacting with the database anyway.
 
 Too many attributes/fields can hurt testability as we might need to create a lot of mocks for just one class under test.
-However, the static methods and mixed domain and infrastructure are worse for the testability than a large amount of attributes/fields.
+However, the static methods and mixed domain and infrastructure are worse for the testability than a large number of attributes/fields.
 
 
 **Exercise 4**

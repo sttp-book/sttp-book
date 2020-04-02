@@ -239,13 +239,13 @@ Cohesive classes tend to be easier to test. After all, less responsibilities imp
 often imply in less dependencies (as you need less to compose the required functionality) which implies in less testing costs.
 
 A non-cohesive class, on the other hand, tends to consume a great amount of testing effort from developers. You might notice
-that a non-cohesive class requires a great amount of test cases, and you often feel "you are never done in testing it".
+that a non-cohesive class requires a great number of test cases, and you often feel "you are never done in testing it".
 Refactoring non-cohesive classes is therefore an important task when it comes to testability. 
 A common way to do this is by splitting the non-cohesive class into several smaller-but-cohesive classes. Each small class can
 then be tested separately, and the class that combines them both might either rely on mock objects to assert the correctness
 of the interactions among the dependencies and/or by means of an integration test.
 
-- **Coupling and testability**: Coupling is about the amount of classes that a class depends on. A highly coupled class requires several other 
+- **Coupling and testability**: Coupling is about the number of classes that a class depends on. A highly coupled class requires several other 
 classes to do its work. As one could expect, coupling hurts testability. A tester trying to test a highly dependent class ends up
 having to test all its dependencies together. If the tester then decides to use stubs/mocks, the costs of setting them up will
 also be higher than it needed to be (just imagine yourself setting up 10 or 15 stubs/mocks to test a single class). Moreover, the
