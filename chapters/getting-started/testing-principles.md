@@ -25,7 +25,7 @@ Failures are generally caused by _faults_.
 **Faults** are also called _defects_ or _bugs_.
 A fault is the flaw in the component of the system that caused the 
 system to behave incorrectly. A fault is technical and, in our world, usually refers to 
-source code, such as a comparison in an `if` statement that uses a `<` instead of a `>`. 
+source code, such as a comparison in an `if` statement that uses a "less than" operator (`<`) instead of a "greater than" operator (`>`). 
 A broken connection is an example of a hardware fault.
 
 > Note that the existence of a fault in the source code does not necessarily lead to a failure.

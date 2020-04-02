@@ -1,12 +1,10 @@
 # Boundary testing
 
 Off-by-one mistakes are a common cause for bugs in software systems.
-As developers, we have all made mistakes such as using a > where it had to be a >=. 
-Interestingly, programs with such a bug tend to work well for most of the provided inputs;
-it fails, however, when the input is "near the boundary of condition".
+As developers, we have all made mistakes such as using a "greater than" operator (`>`) where it had to be a "greater than or equal" operator (`>=`). 
+Interestingly, programs with such a bug tend to work well for most of the provided inputs. They fail, however, when the input is "near the boundary of condition".
 
-In this chapter, we explore **boundary testing** techniques
-often occur because of the lack of boundary testing.
+In this chapter, we explore **boundary testing** techniques.
 
 ## Boundaries in between classes/partitions
 
