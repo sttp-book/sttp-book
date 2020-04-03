@@ -51,7 +51,7 @@
 ----
 
 * [Testing in the context](chapters/testing-into-context/README.md)
-	* Web testing (soon)
+	* [Web testing (soon)](chapters/testing-into-context/web-testing.md)
 	* Database testing (soon)
 	* Mobile testing (soon)
 	* Continuous experimentation (soon)
@@ -60,7 +60,7 @@
 ----
 
 * [Non-functional testing](chapters/non-functional-testing/README.md)
-	* Security testing (soon)
+	* [Security testing (soon)](chapters/non-functional-testing/security-testing.md)
 	* Performance testing (soon)
 
 --- 
