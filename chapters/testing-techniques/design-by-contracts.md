@@ -766,4 +766,4 @@ Which of the following is a valid reason to use assertions in your code?
 
 * "Polymorphic Server Test" in Binder, R. V. (1994). Object-oriented software testing. Communications of the ACM, 37(9), 28-30.
 
-
+* Regehr, John. Use of Assertions. https://blog.regehr.org/archives/1091
