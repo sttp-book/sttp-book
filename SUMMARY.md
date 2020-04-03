@@ -35,7 +35,7 @@
 
 * [Pragmatic software testing](chapters/pragmatic-testing/README.md)
 	* [The testing pyramid](chapters/pragmatic-testing/testing-pyramid.md)
-	* [Mock objects](chapters/pragmatic-testing/mocking.md)
+	* [Mock objects](chapters/pragmatic-testing/mock-objects.md)
 	* [Design for testability](chapters/pragmatic-testing/design-for-testability.md)
 	* [Test-driven development](chapters/pragmatic-testing/tdd.md)
 	* [Test code quality and engineering](chapters/pragmatic-testing/test-code-quality.md)

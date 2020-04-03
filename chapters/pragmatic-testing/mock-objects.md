@@ -68,7 +68,7 @@ In the rest of this chapter, we introduce the reader to Mockito, a popular mocki
 in the name, Mockito can be used for stubbing and spying as well. We also show, by means
 of a few examples, how simulations can help developers in writing unit tests more effectively.
 
-{% hint style='tip'%}
+{% hint style='tip' %}
 You can read more about the history of Mock Objects at http://www.mockobjects.com.
 {% endhint %}
 
