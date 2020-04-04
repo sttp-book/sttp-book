@@ -16,7 +16,7 @@ In other words, if we keep performing small changes
 to an input that belongs to some partition (e.g., by adding +1 to it), 
 at some point this input will now belong to another class. 
 The precise point where the input changes from one class to another is what we call a *boundary*.
-And this is precisely what boundary testing is about: to make the program behaves correctly
+And this is precisely what boundary testing is about: to make the program behave correctly
 when inputs are near a boundary.
 
 More formally,
@@ -27,11 +27,11 @@ Let us apply boundary testing in a concrete example:
 
 > **Requirement: Calculating the number of points of the player**
 > 
-> Given the score of the player and the remaining life of the player, we program returns:
+> Given the score of the player and the number of remaining lives of the player, the program does the following:
 > - If the player's score is below 50, then it always adds 50 points on top of the current points.
 > - If the player's score is greater than or equals to 50, then:
->   - if remaining life is greater than or equal to 3 lives: triple the score of the player
->   - otherwise, add 30 points on top of the current points.
+>   - if the number of remaining lives is greater than or equal to 3: it triples the score of the player.
+>   - otherwise, it adds 30 points on top of the current points.
 
 A possible implementation for this method can be:
 
@@ -50,8 +50,8 @@ public class PlayerPoints {
 When devising the partitions to test this method, a tester might come up with the following partitions:
 
 1. **Less points**: Score < 50
-2. **Many points but little lives**: Score >= 50 and remaining life < 3
-3. **Many points and many lives**: Score >= 50 and remaining life >= 3
+2. **Many points but little lives**: Score >= 50 and remaining lives < 3
+3. **Many points and many lives**: Score >= 50 and remaining lives >= 3
 
 Those partitions would lead testers to devise at least three test cases, one per partition:
 
@@ -77,17 +77,12 @@ public class PlayerPointsTest {
 }
 ```
 
-However, a tester aware of boundaries, also devise test cases that explore
-the boundaries of the domain.
+However, a tester who is aware of boundaries also devises test cases that explore the boundaries of the domain.
 Let us explore them: 
 
-* **Boundary 1:** When the score is strictly smaller than 50, it belongs to partition 1.
-If the score is greater than or equals to 50, it belongs to partitions 2 and 3.
-Therefore, we observe the following boundary: when the scores changes from 49 to 50,
-the partition it belongs to also changes (let us call this test B1).
+* **Boundary 1:** When the score is strictly smaller than 50, it belongs to partition 1. If the score is greater than or equal to 50, it belongs to partitions 2 and 3. Therefore, we observe the following boundary: when the score changes from 49 to 50, the partition it belongs to also changes (let us call this test B1).
 
-* **Boundary 2:** Given a score that is greater than or equal to 50, we observe that if
-remaining life is smaller than 3, it belongs to partition 2; otherwise, it belongs
+* **Boundary 2:** Given a score that is greater than or equal to 50, we observe that if the number of remaining lives is smaller than 3, it belongs to partition 2; otherwise, it belongs
 to partition 3. Thus, we just identified another boundary there (let us call this test B2).
 
 We can visualise these partitions with their boundaries in a diagram.
@@ -99,12 +94,12 @@ devise and automate test cases B1 and B2. Given that a boundary is composed of t
 each boundary will require *at least* two test cases:
 
 For B1:
-* B1.1 = input={score=49, remaining life=5}, output={99}
-* B1.2 = input={score=50, remaining life=5}, output={100}
+* B1.1 = input={score=49, remaining lives=5}, output={99}
+* B1.2 = input={score=50, remaining lives=5}, output={100}
 
 For B2:
-* B2.1 = input={score 500, remaining life=3}, output={200}
-* B2.2 = input={score 500, remaining life=2}, output={130}
+* B2.1 = input={score 500, remaining lives=3}, output={200}
+* B2.2 = input={score 500, remaining lives=2}, output={130}
 
 In JUnit code (and note how we wrote the two test cases for a boundary in a single test (and not splitting it into two
 test methods). That makes the test more cohesive; if
@@ -126,17 +121,16 @@ void betweenLessAndManyLives() {
 
 {% hint style='tip' %}
 
-You might have noticed that, for B1, in case of score < 50, `remaining life` makes no difference.
-However, for score >= 50, remaining life makes a difference, as the output can vary, according to it. 
-And for the B1.2 test case, we chose remaining life = 5, which makes the
+You might have noticed that, for B1, in case of score < 50, `remaining lives` makes no difference.
+However, for score >= 50, `remaining lives` does make a difference, as the output can vary according to its value. 
+And for the B1.2 test case, we chose `remaining lives` = 5, which makes the
 condition true. 
-You might be questioning yourself whether you also need to devise another test case, B1.3, where the remaining life
-condition would be exercised now as false. 
+You might wondering whether you also need to devise another test case, B1.3, where the remaining lives condition would be exercised as false. 
 
-As a tester, if you are looking for testing all possible combinations, then the answer is yes. However, in longer
+If you are looking to test all possible combinations, then the answer is yes. However, in longer
 conditions, full of boundaries, the number of combinations might be too high, making it unfeasible for the developer
 to test them all. Later in this chapter, we will learn
-how to choose values for the "boundaries that we do not care".
+how to choose values for the "boundaries that we do not care about".
 
 {% endhint %}
 
@@ -146,7 +140,7 @@ Given some initial intuition on how to analyse boundaries, let us define some
 terminology:
 
 - **On-point:** The on-point is the value that is exactly on the boundary. This is the value we see in the condition itself. 
-- **Off-point**: The off-point is the value that is closest to the boundary and that flips the conditions. If the on-point makes the condition true, the off point makes it false and vice versa. Note that when dealing with equalities or non equalities (e.g. $$x == 6$$ or $$x != 6$$), there are two off-points; one in each direction.
+- **Off-point**: The off-point is the value that is closest to the boundary and that flips the condition. If the on-point makes the condition true, the off point makes it false and vice versa. Note that when dealing with equalities or inequalities (e.g. $$x = 6$$ or $$x \neq 6$$), there are two off-points; one in each direction.
 - **In-points**: In-points are all the values that make the condition true.
 - **Out-points**: Out-points are all the values that make the condition false.
 
@@ -163,7 +157,7 @@ We show all these points in the diagram below.
 
 ![On- and off-points, in- and out-points](img/boundary-testing/examples/on_off_points.svg)
 
-Let us now study a similar but slightly different condition: $$x <= 100$$ (note how similar they are; the only difference is that, in this one, we use smaller than or equals to):
+Let us now study a similar but slightly different condition: $$x \leq 100$$ (note how similar they are; the only difference is that, in this one, we use smaller than or equals to):
 
 - The on-point is still $$100$$: this is the value that is precisely in the condition.
 - The condition is evaluated as true for the on-point. So, the off-point should be the closest number to the on-point, but making the condition false. The off-point is thus $$101$$.
@@ -174,15 +168,15 @@ Note that, depending on the condition, an on-point can be either an in- or an ou
 
 As a tester, you devise test cases for these different points: a test case for the 
 on-point, a test case for the off-point, a test case for a single in-point (as all in-points
-belong to the same equivalent partition), and a test case for a single out-point (as all
-out-points also belong to the same equivalent partition).
+belong to the same equivalence partition), and a test case for a single out-point (as all
+out-points also belong to the same equivalence partition).
 
 ## Deriving tests for multiple conditions
 
 In the previous example, we looked at one condition and its boundary.
 However, in most programs you will find statements that consist of multiple conditions,
 e.g., `a > 10 && b < 20 && c == 10 && d >= 50`. (Note that these conditions might be
-expressed in a single `if` statement, but also spread all other a method or a class; it
+expressed in a single `if` statement, but also spread all over a method or a class; it
 is up to the tester to identify how these different conditions interact with each other).
 
 In such cases, the number of boundary tests might explode. Imagine a program composed
@@ -198,7 +192,7 @@ The idea of this strategy is to test each boundary separately, i.e. independent 
 To do so, **for each boundary**:
 
 * We pick the on- and off-point and we create one test case for each of these two points.
-* As we want to test each boundary independently, we choose in-points for the other variables/conditions. Note that we always choose in points, regardless of the Boolean expression being connected by means of ANDs or ORs. In practice, we want all the other conditions to return true, so that we can evaluate the outcome of the condition under test independently.
+* As we want to test each boundary independently, we choose in-points for the other variables/conditions. Note that we always choose in-points, regardless of the Boolean expression being connected by means of ANDs or ORs. In practice, we want all the other conditions to return true, so that we can evaluate the outcome of the condition under test independently.
 * It is important to vary the chosen in-points in the different tests, and to not choose the on- or off-point. This gives us the ability to partially check that the program gives the correct results for some in-points. If we would set the in-point to the on- or off-point, we would be testing two boundaries at once.
 
 To find these values and display the test cases in a structured manner, we use a **domain matrix**.
@@ -329,11 +323,11 @@ And these were the classes we derived after applying the category/partition meth
 
 * **Need only small bars**. A solution that only uses the provided small bars.
 * **Need only big bars**. A solution that only uses the provided big bars.
-* **Need Small + big bars**. A solution that has to use both small and big bars.
+* **Need small + big bars**. A solution that has to use both small and big bars.
 * **Not enough bars**. A case in which it's not possible, because there are not enough bars.
 * **Not from the specs**: An exceptional case.
 
-As we saw in the previous chapter, the following code passes all the tests we derived:
+As we saw in the previous chapter, the following code passed all the tests we derived:
 
 ```java
 public class ChocolateBars {
@@ -357,7 +351,7 @@ Note that the input `(2,3,17)` belongs to the **need small + big bars** partitio
 the program should make use of all the big bars (there are 3 available) and then *all* the small bars available (there are 
 2 available). Note that the buggy program would work if we had 3 available small bars (having `(3, 3, 17)` as input).
 
-The bug lies on the `if` condition. It should be a `if(small < total)` instead of
+The bug lies on the `if` condition. It should be `if(small < total)` instead of
 `if(small <= total)`:
 
 ```java
@@ -393,7 +387,7 @@ Let us focus on the bug caused by the `(2,3,17)` input:
 * `(1,3,17)` should return *not possible* (1 small bar is not enough). This test case belongs to the **not enough bars** partition.
 * `(2,3,17)` should return 2. This test case belongs to **need for small + big bars** partition.
 
-There is a boundary between the `(1,3,17)` and the `(2,3,17)`. We should make sure the software still behaves correctly in these cases.
+There is a boundary between `(1,3,17)` and `(2,3,17)`. We should make sure the software still behaves correctly in these cases.
 
 Looking at the **only big bars** partition, we should find inputs that transition from this
 partition to another one:
@@ -413,7 +407,7 @@ The **only small bars** partition has boundaries not only with the **not enough 
 * `(4, 2, 5)` returns 0. We need only big bars here, and therefore, this input belongs to the **only big bars** partition.
 
 A lesson we learn from this example is that boundary bugs may not 
-only emerge out of "clear if conditions" we
+only emerge out of "clear `if` conditions" we
 see in the implementation. Boundary bugs also happen in more subtle
 interactions among partitions.
 
@@ -433,7 +427,7 @@ Moreover, the code in these test methods will be largely the same,
 as they all have the same structure, only with different input and output values.
 
 Luckily, JUnit offers a solution where we can generalise the implementation of a test
-method, and run it different inputs and outputs: **Parameterised Tests**.
+method, and run it with different inputs and expected outputs: **Parameterised Tests**.
 As the name suggests, with a parameterised test, developers 
 can define a test method with parameters.
 To define a parameterised test, you make use of the `@ParameterizedTest` annotation, 
@@ -442,7 +436,7 @@ instead of the usual `@Test` annotation.
 For each parameter you want to pass to the "template test method", you define a 
 parameter in the method's parameter list (note that so far, all our JUnit methods had
 no parameters). For example, a test method `t1(int a, int b)` receives two parameters,
-`int a`, and `int b`. The developer uses these two variables in the body of the test
+`int a` and `int b`. The developer uses these two variables in the body of the test
 method, often in places where the developer would have a hard-coded value.
 
 The next step is to feed JUnit with a list of inputs which it will pass
@@ -457,7 +451,7 @@ The `CsvSource` is an annotation itself, so in an implementation
 it would like like the following: `@CsvSource({"value11, value12", "value21, value22", "value31, value32", ...})`
 
 
-Let us implement the boundary test cases that we derived in the _Pizza or Pasta_ example, using the parameterised test.
+Let us implement the boundary test cases that we derived in the _Pizza or Pasta_ example, using a parameterised test.
 
 
 To automate the tests we create a test method with three parameters: `x`, `y`, `expectedResult`.
@@ -480,8 +474,7 @@ void boundary(int x, int y, String expectedResult) {
 ```
 
 The behaviour
-of this single test method is the same as the six test methods we declared before. However, now
-with a much smaller amount of code.
+of this single test method is the same as the six test methods we declared before. However, this time we achieve the same result with a much smaller amount of code.
 
 JUnit will run the `boundary` test six times: one for each line in the `@CsvSource`. 
 In your IDE, you might even see JUnit showing each of the test cases being executed:
@@ -500,20 +493,19 @@ We point the reader to JUnit's manual.
 
 ## The CORRECT way
 
-The *Pragmatic Unit Testing in Java 8 with JUnit*, by Langr, Hunt, and Thomas, has an interesting discussion about boundary conditions.
+The book *Pragmatic Unit Testing in Java 8 with JUnit*, by Langr, Hunt, and Thomas, has an interesting discussion about boundary conditions.
 Authors call it the **CORRECT** way, as each letter represents one boundary condition to consider:
 
 * **Conformance:**
-  * Many data elements must conform to a specific format. Example: e-mail (always name@domain). If you expect an e-mail, and you do not
-  receive an e-mail, your software might crash.
-  * Required action: test when your input is not in conformance with what is expected.
+  * Many data elements must conform to a specific format. Example: e-mail addresses (always name@domain). If you expect an e-mail address, and you do not receive one, your software might crash.
+  * Required action: Test what happens when your input is not in conformance with what is expected.
 
 * **Ordering:**
-  * Some inputs might come in specific orders. Imagine a system that receives different products to be inserted in a basket. The order of the data might influence the output. What happens if the list is ordered? Unordered?
+  * Some inputs might come in a specific order. Imagine a system that receives different products to be inserted in a basket. The order of the data might influence the output. What happens if the list is ordered? Unordered?
   * Required action: Make sure our program works even if the data comes in an unordered manner (or return an elegant failure to user, avoiding the crash).
 
 * **Range:**
-  * Inputs should usually be within a certain range. Example: Age should always be greater than 0 and smaller than 120.
+  * Inputs should usually be within a certain range. Example: Age should always be greater than 0 and smaller than 125.
   * Required action: Test what happens when we provide inputs that are outside of the expected range.
 
 * **Reference:**
@@ -525,7 +517,7 @@ Authors call it the **CORRECT** way, as each letter represents one boundary cond
     * Any other conditions that must exist
 
 * **Existence:**
-  * Does "something" really exist? What if it does not? Imagine you query a database, and your database returns empty. Will our software behave correctly?
+  * Does "something" really exist? What if it does not? Imagine you query a database, and your database returns an empty result. Will our software behave correctly?
   * Required action: Does the system behave correctly when something that is expected to exist, does not?
 
 
