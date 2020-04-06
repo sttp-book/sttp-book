@@ -579,7 +579,7 @@ You might have noticed that the criteria we studied became more rigorous and dem
 There is a relationship between these criteria. Some strategies **subsume** other strategies. 
 Formally, a strategy X subsumes strategy Y if all elements that Y exercises are also exercised by X. You can see in the figure below the relationship between the coverage criteria we studied.
 
-![Criteria subsumption](img/structural-testing/subsumption.png)
+![Criteria subsumption](img/structural-testing/subsumption.png)<!--{width=50%}-->
 
 For example, in the picture, one can see that branch coverage subsumes line coverage. This means that 100% of branch coverage always implies in 100% line coverage. However, 100% line coverage does not imply 100% branch coverage. Moreover, 100% of branch + condition coverage always implies 100% branch coverage and 100% line coverage.
 
