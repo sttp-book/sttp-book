@@ -46,7 +46,7 @@ More specifically, we discuss:
 
 * **Boundary testing**: We will discuss how to derive tests that exercise the boundaries of our requirement.
 
-* **Structural-based testing**: We will derive test cases based on the structure of the source code.
+* **Structural testing**: We will derive test cases based on the structure of the source code.
 
 * **Model-based testing**: We will leverage more formal documentation such as state machines and decision tables to derive tests. 
 

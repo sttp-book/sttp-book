@@ -524,7 +524,7 @@ Authors call it the **CORRECT** way, as each letter represents one boundary cond
 * **Cardinality:**
   * In simple words, our loop performed one step less (or more) than it should.
   * Required action: Test loops in different situations, such as when it actually performs zero iterations,
-  one iterations, or many. (Loops are further discussed in the structural-based testing chapter).
+  one iterations, or many. (Loops are further discussed in the structural testing chapter).
 
 * **Time**
   * Systems rely on dates and times. What happens if the system receives inputs that are not

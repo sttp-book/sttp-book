@@ -26,7 +26,7 @@
 * [Testing techniques](chapters/testing-techniques/README.md)
 	* [Specification-based testing](chapters/testing-techniques/specification-based-testing.md)
 	* [Boundary testing](chapters/testing-techniques/boundary-testing.md)
-	* [Structural-based testing](chapters/testing-techniques/structural-testing.md)
+	* [Structural testing](chapters/testing-techniques/structural-testing.md)
 	* [Model-based testing](chapters/testing-techniques/model-based-testing.md)
 	* [Design-by-contracts](chapters/testing-techniques/design-by-contracts.md)
 	* [Property-based testing](chapters/testing-techniques/property-based-testing.md)

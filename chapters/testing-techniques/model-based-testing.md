@@ -171,7 +171,7 @@ There are multiple ways to derive tests for a decision table:
 One more way to derive test cases from a decision table is by using the **Modified Condition / Decision Coverage (MC/DC)**. 
 This is a combination of the last two ways of deriving tests shown above.
 
-We have already discussed MC/DC in the Structural-Based Testing chapter.
+We have already discussed MC/DC in the Structural Testing chapter.
 MC/DC has the two characteristics of All divisions and Each condition T/F with an additional characteristic that makes MC/DC special:
 
 1. Each condition is at least once true and once false in the test suite

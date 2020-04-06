@@ -2,7 +2,7 @@
 
 In previous chapters, we studied different techniques to derive test cases.
 However, most of requirements we tested via specification-based techniques had a single responsibility. Most of the source code
-we tested via structural-based techniques could fit in a single unit/class.
+we tested via structural techniques could fit in a single unit/class.
 
 A large software system, however, is composed of many of those units/responsibilities. Together, they compose
 the complex behaviour of our software system. 

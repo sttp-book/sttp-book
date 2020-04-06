@@ -1,7 +1,7 @@
 # Mutation testing
 
 *How do we know if we tested enough?*
-In the structural-based testing chapter, we discussed line coverage, branch coverage, and MC/DC.
+In the structural testing chapter, we discussed line coverage, branch coverage, and MC/DC.
 In the model-based testing chapter, we discussed transition coverage and path coverage.
 All these *adequacy criteria* measure how much of the program is exercised 
 by the tests we devised.

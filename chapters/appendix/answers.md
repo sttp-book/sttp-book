@@ -191,7 +191,7 @@ We should always test the behaviour of our program when any expected data actual
 
 
 
-## Structural-based testing
+## Structural testing
 
 **Exercise 1**
 
