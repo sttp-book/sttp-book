@@ -65,7 +65,7 @@ The decision tables is the following:
   <tr><td rowspan="2"><br><i>Conditions</i></td>
   <td>International</td><td>F</td><td>F</td><td>T<br></td><td>T</td></tr>
   <tr><td>Auto-renewal</td><td>T<br></td><td>F</td><td>T</td><td>F</td></tr>
-  <tr><td><i>Action</i></td><td>price/month</td><td>10<br></td><td>15</td><td>30</td><td>32</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>10<br></td><td>15</td><td>30</td><td>32</td></tr>
 </table>
 
 You can see the different prices for the combinations of international and auto-renewal.
@@ -114,7 +114,7 @@ The new decision table is below:
   <td>International</td><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
   <tr><td>Auto-renewal</td><td>T</td><td>dc</td><td>F</td><td>T</td><td>dc</td><td>F</td></tr>
   <tr><td>Loyal</td><td>dc</td><td>T</td><td>F</td><td>dc</td><td>T</td><td>F</td></tr>
-  <tr><td><i>Action</i></td><td>price/month</td><td>10</td><td>10</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>10</td><td>10</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
 </table>
 Note that when auto-renewal is true, the loyal condition does not change the outcome anymore and vice versa.
 
@@ -134,7 +134,7 @@ If we set the default charge rate to 10 per month the new decision table can be 
   <td>International</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
   <tr><td>Auto-renewal</td><td>F</td><td>T</td><td>dc</td><td>F</td></tr>
   <tr><td>Loyal</td><td>F</td><td>dc</td><td>T</td><td>F</td></tr>
-  <tr><td><i>Action</i></td><td>price/month</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
 </table>
 
 
@@ -180,7 +180,7 @@ To derive the tests we expand and rearrange the decision table of the previous e
   <td>International</td><td>T</td><td>T</td><td>T</td><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
   <tr><td>Auto-renewal</td><td>T</td><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
   <tr><td>Loyal</td><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td></tr>
-  <tr><td><i>Action</i></td><td>price/month</td><td>30</td><td>30</td><td>30</td><td>32</td><td>10</td><td>10</td><td>10</td><td>15</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>30</td><td>30</td><td>30</td><td>32</td><td>10</td><td>10</td><td>10</td><td>15</td></tr>
 </table>
 
 First, we look at the first condition and we try to find pairs of combinations that would cover this condition according to MC/DC.
