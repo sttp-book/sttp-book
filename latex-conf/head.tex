@@ -1,6 +1,4 @@
-% change background color for inline code in
-% markdown files. The following code does not work well for
-% long text as the text will exceed the page boundary
+% change background color for inline code in markdown files. 
 \usepackage{soul}
 \definecolor{bgcolor}{HTML}{E0E0E0}
 \sethlcolor{bgcolor}
@@ -11,8 +9,13 @@
   \oldtexttt{\hl{#1}}
 }
 
+% Make all images that have a caption float
 \usepackage{float}
 \floatplacement{figure}{H}
+
+% Wrap code blocks
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
 
 \usepackage{titlesec}
 \newcommand{\sectionbreak}{\clearpage}
