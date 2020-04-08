@@ -7,6 +7,7 @@ rm -rf answers
 rm -rf includes 
 rm -rf latex-conf
 rm *.sh
+git pull
 git add -A
 git commit -am "deploy"
 git push origin master
