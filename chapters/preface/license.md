@@ -10,4 +10,3 @@ terms:
 For commercial use, please contact us.
 
 Main cover picture by [Agence Olloweb](https://unsplash.com/photos/d9ILr-dbEdg).
-

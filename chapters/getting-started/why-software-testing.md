@@ -1,4 +1,3 @@
-
 # Why software testing?
 
 

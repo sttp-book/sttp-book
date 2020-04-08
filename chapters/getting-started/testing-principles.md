@@ -203,4 +203,3 @@ Which of the following **is the least related** when we want to convince John to
 ## References
 
 * Graham, D., Van Veenendaal, E., & Evans, I. (2008). Foundations of software testing: ISTQB certification. Cengage Learning EMEA. Chapters 1, 2, 3.
-

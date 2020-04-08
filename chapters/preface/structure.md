@@ -13,4 +13,3 @@ Testing software is a a multifaceted activity, which requires developers to unde
 * **Testing in the context**: Context is king. In this chapter, we discuss some techniques and tools to test software systems in specific contexts, such as web applications, mobile applications, and embedded systems. We also cover the more recent idea of Continuous Experimentation (which can be seen as validation strategy).
 
 * **Non-functional testing**: Non-functional requirements are extremely important in some software systems. In this section, we cover different testing techniques to ensure that security and performance requirements of the systems are met. Moreover, and highly timely, we discuss the role of software testers in building ethical software systems.
-
