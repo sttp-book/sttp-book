@@ -97,7 +97,7 @@ Testing frameworks enable us to write test cases in a way that they can be easil
 
 The steps to create a JUnit class/test is often the following:
 
-* Create a Java class under `/src/test/java` directory (or whatever test directory your project structure uses). As a convention, the name of the test class is similar to the name of the class under test. For example, a class that tests the `RomanNumeral` class is often called `RomanNumeralTest`. In terms of package structure, the test class also inherits the same package as the class under test. In our case, `tudelft.roman`.
+* Create a Java class under `/src/test/java/roman/` directory (or whatever test directory your project structure uses). As a convention, the name of the test class is similar to the name of the class under test. For example, a class that tests the `RomanNumeral` class is often called `RomanNumeralTest`. In terms of package structure, the test class also inherits the same package as the class under test. In our case, `tudelft.roman`.
 
 * For each test case we devise for the program/class, we write a test method. A JUnit test method returns `void` and is annotated with `@Test` (an annotation that comes from JUnit 5's `org.junit.jupiter.api.Test`). The name of the test method does not matter to JUnit, but it does matter to us. A best practice is to name the test after the case it tests. 
 
