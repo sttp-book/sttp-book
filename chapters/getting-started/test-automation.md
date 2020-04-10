@@ -4,7 +4,7 @@ Before we dive into the different testing techniques, let us first get used
 to software testing automation frameworks. In this book, we will use JUnit, as
 all our code examples are written in Java. If you are using a different programming language in your daily work, note that testing frameworks in other languages offer similar functionalities.
 
-We will now introduce an example program and then use it to demonstrate how to write JUnit tests.
+We will now introduce an example program and then use it to demonstrate how to write JUnit tests. The code implemented in this chapter can be found at the `roman` package in the [code examples](https://github.com/sttp-book/code-examples/) repository.
 
 > **Requirement: Roman numerals**
 >
@@ -357,9 +357,6 @@ from small and big companies to big open source projects, they all rely on exten
 test suites to ensure quality. **Testing (and test automation) pays off.**
 
 ## Exercises
-
-The code implemented in this chapter can be found at the `roman` package in
-the [code examples](https://github.com/sttp-book/code-examples/) repository.
 
 **Exercise 1.**
 Implement the `RomanNumeral` class. Then, write as many tests as you
