@@ -45,9 +45,8 @@ if [ -d "$GITBOOK_REP" ]; then
       perl -pe 's/{% endhint %}/\n***/g' | \
       perl -pe 's/{% include "\/includes\/youtube.md" %}//g' | \
       perl -pe 's/{% set video_id = "([A-Za-z0-9-_]*)" %}/***\nWatch our video on YouTube:\n\nhttp:\/\/www.youtube.com\/embed\/\1\n\n***/g' | \
-      perl -pe "s/img.*\/(.*)\.(svg|png|jpg)/temp\/\1.pdf/g" | \
       perl -pe "s/(\!\[.*\]\(.*\))<\!--(.*)-->/\1\2/g" | \
-      pandoc -f commonmark -t html --mathjax --filter ./filter.py | \
+      pandoc -f markdown -t html --mathjax --filter ./filter.py | \
       pandoc -f html+tex_math_single_backslash -t latex \
               --variable fontsize=11pt \
               --variable=geometry:b5paper \
@@ -57,6 +56,7 @@ if [ -d "$GITBOOK_REP" ]; then
               -V subparagraph \
               --resource-path="./:chapters/getting-started/:chapters/intelligent-testing:chapters/pragmatic-testing:chapters/testing-techniques:chapters/appendix" \
               --toc --toc-depth=3 | \
+      perl -pe "s/img.*\/(.*)\.(svg|png|jpg)/temp\/\1.pdf/g" | \
       perl -pe 's/\\ / /g' | \
       perl -pe 's/(\\\^\{\})/\{\1\}/g' > book.tex
     lualatex --shell-escape book.tex
