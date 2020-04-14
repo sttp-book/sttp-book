@@ -19,8 +19,8 @@ if [ -d "$GITBOOK_REP" ]; then
   find temp -type f -name '*.drawio.pdf' | while read file; do
     mv $file ${file%.*.*}.pdf
   done
-  # Convert PNGs
-  find chapters -type f -name '*.png' | while read file; do
+  # Convert PNGs and JPGs
+  find chapters -type f \( -name '*.png' -o -name '*.jpg' \) | while read file; do
     if ! [ -f "temp/$(basename "${file%.*}")" ]; then
       convert $file temp/$(basename "${file%.*}").pdf
     fi
@@ -31,6 +31,10 @@ if [ -d "$GITBOOK_REP" ]; then
     # we replace: 
     #   hint tip and working by --- markdown block
     #   $$ -> $ (for latex math mode)
+    #   old image paths to temp folder
+    #   html comments -> their content (for image widths)
+    #   escaped spaces -> normal spaces (for soul)
+    #   \^{} -> {\^{}} (for soul)
     pandoc $SUMMARY_FILE -t html | \
       grep -o '<a href=['"'"'"][^"'"'"']*['"'"'"]' | \
       sed -e 's/^<a href=["'"'"']//' -e 's/["'"'"']$//'| \
@@ -41,9 +45,9 @@ if [ -d "$GITBOOK_REP" ]; then
       perl -pe 's/{% endhint %}/\n***/g' | \
       perl -pe 's/{% include "\/includes\/youtube.md" %}//g' | \
       perl -pe 's/{% set video_id = "([A-Za-z0-9-_]*)" %}/***\nWatch our video on YouTube:\n\nhttp:\/\/www.youtube.com\/embed\/\1\n\n***/g' | \
-      perl -pe "s/img.*\/(.*)\.(svg|png)/temp\/\1.pdf/g" | \
+      perl -pe "s/img.*\/(.*)\.(svg|png|jpg)/temp\/\1.pdf/g" | \
       perl -pe "s/(\!\[.*\]\(.*\))<\!--(.*)-->/\1\2/g" | \
-      pandoc -f markdown \
+      pandoc -f markdown -t latex \
               --variable fontsize=11pt \
               --variable=geometry:b5paper \
               --variable mainfont="Georgia" \
@@ -51,7 +55,11 @@ if [ -d "$GITBOOK_REP" ]; then
               -H latex-conf/head.tex \
               -V subparagraph \
               --resource-path="./:chapters/getting-started/:chapters/intelligent-testing:chapters/pragmatic-testing:chapters/testing-techniques:chapters/appendix" \
-             --toc --toc-depth=3 --pdf-engine=xelatex -o book.pdf
+              --toc --toc-depth=3 | \
+      perl -pe 's/\\ / /g' | \
+      perl -pe 's/(\\\^\{\})/\{\1\}/g' > book.tex
+    latexmk -pdf -c book.tex
+    rm book.tex book.dvi book.out.ps
   else
     echo "File '$SUMMARY_FILE' does not exist"
   fi
