@@ -46,7 +46,7 @@ if [ -d "$GITBOOK_REP" ]; then
       perl -pe 's/{% include "\/includes\/youtube.md" %}//g' | \
       perl -pe 's/{% set video_id = "([A-Za-z0-9-_]*)" %}/***\nWatch our video on YouTube:\n\nhttp:\/\/www.youtube.com\/embed\/\1\n\n***/g' | \
       perl -pe "s/(\!\[.*\]\(.*\))<\!--(.*)-->/\1\2/g" | \
-      pandoc -f markdown+lists_without_preceding_blankline -t html --mathjax --filter ./filter.py | \
+      pandoc -f markdown-blank_before_header+lists_without_preceding_blankline -t html --mathjax --filter ./filter.py | \
       pandoc -f html+tex_math_single_backslash -t latex \
               --variable fontsize=11pt \
               --variable=geometry:b5paper \
