@@ -28,7 +28,7 @@ As a side note, in industry, the term "automated software testing" is often rela
 {% include "/includes/youtube.md" %}
 
 
-When it comes to devising test cases, while our experience indeed helps us deeply in finding bugs, it might not be enough: 
+When it comes to devising test cases, while our experience helps us deeply in finding bugs, it might not be enough: 
 
 * Experience-based testing is highly prone to mistakes. The developer might forget to test a corner case.
 * It varies from person to person. Our goal is to define techniques such that any developer in the world is able to test any software.
@@ -40,7 +40,7 @@ software system, and how to automate as many steps on the way as possible.
 These techniques will rely on the different artefacts that are present during the 
 software development process. 
 
-More specifically, we discuss:
+More specifically, in :
 
 * **Specification-based testing**: We will discuss techniques to derive tests from textual requirements. We will discuss the _category/partition method_ and what _equivalence partitioning_ means.
 
