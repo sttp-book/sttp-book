@@ -43,7 +43,7 @@ making them less productive. Therefore, good tests are fast.
 		It is not uncommon to see developers having sets of unit tests that run fast, and these they run all day long, and sets of slower integration and system tests that run once or twice a day in the Continuous Integration server. 
 
 - **Isolated**: Tests should be as cohesive, as independent, and as isolated as possible. 
-Ideally, a single test method should test just a single functionality or behavior of the system.
+Ideally, a single test method should test just a single functionality or behaviour of the system.
 Having fat tests (or, as the test smells community calls it, an eager test) that tests
 multiple functionalities are often complex in terms of implementation. Complex test code reduces
 the ability of developers to understand what it tests in a glance, and makes future maintenance
@@ -64,9 +64,9 @@ code is always better.
 
 
 - **Repeatable**: A repeatable test is a test that gives the same result, no matter how many times it is executed.
-Developers tend to lose their trust in tests that present a flaky behavior (i.e., it sometimes passes, and sometimes fails without any changes in the system and/or in the test code).
+Developers tend to lose their trust in tests that present a flaky behaviour (i.e., it sometimes passes, and sometimes fails without any changes in the system and/or in the test code).
 Flaky tests might happen for different reasons, and some of the causes can be tricky
-to be identified (companies have reported extreme examples where a test presented a flaky behavior
+to be identified (companies have reported extreme examples where a test presented a flaky behaviour
 only once in a month). Common causes are dependencies on external resources, not waiting
 enough for an external resource to finish its task, and concurrency.
 
@@ -75,8 +75,8 @@ enough for an external resource to finish its task, and concurrency.
 The tests should validate/assert the result themselves. This might seem an unnecessary
 principle to mention. However, it is not uncommon for developers to make mistakes and not writing
 assertions in the test, making the test to always pass. In other more complex cases,
-writing the assertions or, in other words, verifying the expected behavior, might not be possible.
-In cases where observing the outcome of a behavior is not easily achievable, we suggest
+writing the assertions or, in other words, verifying the expected behaviour, might not be possible.
+In cases where observing the outcome of a behaviour is not easily achievable, we suggest
 the developer to refactor the class or method under test to increase its observability (revisit
 our chapter on design for testability).
 
@@ -84,7 +84,7 @@ our chapter on design for testability).
 - **Timely**: 
 Developers should be _test infected_. They should write and run tests as often
 as possible. While less technical than the other principles in this list, changing
-the behavior of development teams towards writing automated test code can still be challenging.
+the behaviour of development teams towards writing automated test code can still be challenging.
 
 	Leaving the test phase to the very end of the development process, as commonly done
 	in the past, might incur in
@@ -111,7 +111,7 @@ are also part of the FIRST principles.
 * [Inspiring](https://www.youtube.com/watch?v=2Q1O8XBVbZQ): passing the tests should inspire confidence
 * [Writable](https://www.youtube.com/watch?v=CAttTEUE9HM): tests should be cheap to write relative to the cost of the code being tested.
 * [Readable](https://www.youtube.com/watch?v=bDaFPACTjj8): tests should be comprehensible for reader, invoking the motivation for writing this particular test.
-* [Behavioral](https://www.youtube.com/watch?v=5LOdKDqdWYU): tests should be sensitive to changes in the behavior of the code under test. If the behavior changes, the test result should change.
+* [Behavioural](https://www.youtube.com/watch?v=5LOdKDqdWYU): tests should be sensitive to changes in the behaviour of the code under test. If the behaviour changes, the test result should change.
 * [Structure-insensitive](https://www.youtube.com/watch?v=bvRRbWbQwDU): tests should not change their result if the structure of the code changes.
 * [Automated](https://www.youtube.com/watch?v=YQlmP08dj6g): tests should run without human intervention.
 * [Specific](https://www.youtube.com/watch?v=8lTfrCtPPNE): if a test fails, the cause of the failure should be obvious.
@@ -143,7 +143,7 @@ list can be found in the xUnit Test Patterns book, by Meszaros.
 It is not surprising that code duplication might also happen in test code, 
 as it is very common in production code.
 Tests are often similar in structure. You might have noticed it in several of the code
-examples throughout this book. We even made use of JUnit's Parameterized Tests feature
+examples throughout this book. We even made use of JUnit's Parameterised Tests feature
 to reduce some of the duplication.
 A less attentive developer might end up writing duplicated code 
 (copying and pasting often happens in real life) instead of putting
@@ -157,7 +157,7 @@ In practice, it is easy to skip one of these places, ending up with
 problematic test code.
 Note that the effects are similar to the effects of code duplication in production code.
 
-We suggest developers to ruthelessly refactor their test code. The extraction of a duplicated
+We suggest developers to ruthlessly refactor their test code. The extraction of a duplicated
 code to private methods or external classes is often a good solution for the problem.
 
 **Assertion Roulette**:
@@ -168,25 +168,22 @@ The test smell emerges when developers have a hard time in figuring out the
 assertions themselves, or why they are failing.
 
 There are several reasons for the smell to happen. Some features or business rules
-are simply too complex and require a complex set of assertions to ensure their behavior.
+are simply too complex and require a complex set of assertions to ensure their behaviour.
 Suddenly, developers end up writing complex assert instructions that are not easy to
-understand. In such cases, we recommend developers to 1) write their own customized
+understand. In such cases, we recommend developers to 1) write their own customised
 assert instructions that abstract away part of the complexity of the assertion code itself,
 2) when expressing it in code it not enough, write code comments that quickly explain, in natural language, what those assertions are about.
 
-Interestingly, a common best practice that is often found in the test best practice literature 
-is the "one assertion per method" strategy. While forcing developers to have just a single
-assertion per test method is too extremist,  
-the idea of minimizing, as much as possible, the amount of assertions in a test method is valid.
+Interestingly, a common best practice that is often found in the test best practice literature is the "one assertion per method" strategy. While forcing developers to have just a single assertion per test method is too extremist, the idea of minimising the number of assertions in a test method is valid.
 
 Note that a high number of simple assertions in a single test might be as harmful as a complex
-set of assertions. In such cases, we provide a similar recommendation: write a customized
+set of assertions. In such cases, we provide a similar recommendation: write a customised
 assertion instruction to abstract away the need for long sequences of assertions.
 
 Empirically, we also observe that the number of assertions in a test is often large, because
 developers tend to write more than one test case in a single test method. We also have done
 that in this book (see the boundary testing chapter, where we test both sides of the boundary
-in a single test method). However, parcimony is fundamental. Splitting up a large test method
+in a single test method). However, parsimony is fundamental. Splitting up a large test method
 that contains multiple test cases might reduce the cognitive load required by the developer
 to understand it.
 
@@ -224,12 +221,12 @@ making sure that tests are being run in the correct environment.
 The war is an analogy for when two tests are "fighting" for the same resources.
 One can observe a test run war when tests start to fail as soon as more than one developer
 runs their test suites.
-Imagine a test suite that uses to a centralized database. When developer A runs the test, the test changes the state of the database. At the same time, 
+Imagine a test suite that uses to a centralised database. When developer A runs the test, the test changes the state of the database. At the same time, 
 developer 2 runs the same test, which also goes to the same database. 
 Thus, both tests are touching the same database at the same time. 
 This unexpected situation might make the test to fail.
 
-_Isolation_ is key to avoid this test smell. In the example of a centralized database,
+_Isolation_ is key to avoid this test smell. In the example of a centralised database,
 one solution would be make sure each developer has its own instance of a database. That would
 avoid the fight for the same resource. (Related to this example, we discuss more about 
 database testing in a specific chapter).
@@ -262,11 +259,11 @@ developers in comprehending the essence of a test (which is often highly relevan
 the test starts fail).
 
 Build patterns, with the focus of building test data, 
-might help developers in avoiding such a smell. More especifically, 
+might help developers in avoiding such a smell. More specifically, 
 the **[Test Data Builder](http://www.natpryce.com/articles/000714.html)** is
 a often used design pattern in test code of enterprise applications (we give an example
 of a Test Data Builder later in this chapter). Such applications
-often have to deal with the creation of complex sets of interelated 
+often have to deal with the creation of complex sets of interrelated 
 business entities, which can easily
 lead developers to write general fixtures.
 
@@ -292,8 +289,8 @@ by the class under test) are clearly indicated in the outcome of the test method
 
 Similar to what we have discussed when talking about the excessive number of assertions
 in a single test, avoiding _eager tests_, or tests that exercise more than a unique
-behavior of the component is also a best practice. Test methods that exercise multiple
-behaviors at once tend to be overly long and complex, making it harder for developers
+behaviour of the component is also a best practice. Test methods that exercise multiple
+behaviours at once tend to be overly long and complex, making it harder for developers
 to comprehend them in a quick glance.
 
 **Sensitive Equality**:
@@ -340,7 +337,7 @@ public class Item {
 ```
 
 Suppose now that a less attentive developer writes the following test as to exercise
-the `finalAmount` behavior:
+the `finalAmount` behaviour:
 
 ```java
 public class ItemTest {
@@ -360,7 +357,7 @@ public class ItemTest {
 
 The test above indeed exercises the calculation of the final amount. However,
 one can see that the developer took a shortcut. S/he decided to assert the overall
-behavior by making use of the `toString()` method of the class. Maybe because
+behaviour by making use of the `toString()` method of the class. Maybe because
 the developer felt that this assertion was more strict, as it asserts not only
 the final price, but also the name of the product and its quantity. 
 
@@ -388,7 +385,7 @@ Expected :Product Playstation IV with 64 GB and super wi-fi times 3 = 1799.97
 Actual   :Product Playstatio times 3 = 1799.97
 ```
 
-A better assertion for this would be to assert precisely what is wanted from that behavior.
+A better assertion for this would be to assert precisely what is wanted from that behaviour.
 In this case, assert that the final amount of the item is correctly calculated. A better
 implementation for the test would be:
 
@@ -415,7 +412,7 @@ difference between a good and a bad test case. While we have discussed how to de
 good test cases (and thus, good assertions), choosing the right implementation strategy
 for writing the assertion can impact the maintenance of the test on the long run.
 The wrong choice of an assertion instruction might give developers less information
-about the failure, difficulting the debugging process.
+about the failure, making the debugging process more difficult.
 
 Imagine a very simplistic implementation of a `Cart` that receives products
 to be inserted into it. Products can not be repeated. A simple implementation might be:
@@ -434,7 +431,7 @@ public class Cart {
 }
 ```
 
-Now, a developer decided to test the `numberOfItems` behavior. S/he then wrote the following
+Now, a developer decided to test the `numberOfItems` behaviour. S/he then wrote the following
 test cases:
 
 ```java
@@ -474,7 +471,7 @@ Actual   :<false>
 The error message does not explicitly show the difference in the values. In this
 simple example, it might seem that it is not too important, but take this to more 
 complicated test cases. In the real world, a developer would have to add some debugging
-code (System.out.printlns) to print the actual value that was produced by the method.
+code (`System.out.println`s) to print the actual value that was produced by the method.
 
 The test could help the developer by giving as much information as possible. To that aim,
 choosing the right assertions is important, as they tend to give more information. 
@@ -546,7 +543,7 @@ A test that makes use of a guest, but hides it from the developer (making it
 a "mystery guest") is simply harder to comprehend.
 
 Make sure your test gives proper error messages, differentiating between a fail in the
-expected behavior, or a fail due to a problem in the guest. Having assertions dedicated
+expected behaviour, or a fail due to a problem in the guest. Having assertions dedicated
 to ensure that the guest is in the right state before running the tests is often
 the remedy that is applied to this smell.
 
@@ -574,13 +571,13 @@ As you have seen earlier, tests all follow the same structure: the Arrange, Act 
 structure.
 When **these three parts are clearly separated, it is easier for a developer to see what is happening in the test**.
 Your tests should make sure that a developer can quickly glance and identify these 
-three different parts. Where is the fixture? Where is the behavior/method under test? 
+three different parts. Where is the fixture? Where is the behaviour/method under test? 
 Where are the assertions?
 
 A second tip concerns the **comprehensibility of the information** in a test code.
 Test code is full of information, i.e., the input values that will be provided
 to the class under test, how the information flows up to the method under test, 
-how the output comes back from the exercise behavior, and what are the expected outcomes.
+how the output comes back from the exercise behaviour, and what are the expected outcomes.
 
 However, we often have to deal with complex data structures and information, making 
 the test code naturally complex.
@@ -655,7 +652,7 @@ void taxesForCompanies() {
 Note how our `InvoiceBuilder` (which we show the code soon) clearly expresses what
 this invoice is about: it is an invoice for a company (as clearly stated by the `asCompany()` 
 method), "NL" is the country of that invoice, and the invoice has a value of 2500. The
-result of the behavior now goes to a variable whose name says it all (`calculatedValue`). 
+result of the behaviour now goes to a variable whose name says it all (`calculatedValue`). 
 The assertion now explicitly mentions that, given this is a float number, the best we can do
 is to compare whether they are close enough.
 
@@ -694,7 +691,7 @@ public class InvoiceBuilder {
 }
 ``` 
 
-Developers should feel free to customize their builders as much as they want. A common
+Developers should feel free to customise their builders as much as they want. A common
 trick is to make the builder to build a "common" version of the class, without requiring
 the call of all the setup methods. This way, a developer can do:
 
@@ -703,7 +700,7 @@ var invoice = new InvoiceBuilder().build();
 ```
 
 In such case, the `build` method, without any setup, will always build an invoice
-for a person, with a value of 500.0, and having NL as country (see the initialized
+for a person, with a value of 500.0, and having NL as country (see the initialised
 values in the `InvoiceBuilder`). 
 
 Other developers might even give the build several shortcut methods that build other
@@ -738,17 +735,17 @@ comprehending test code.
 ## Flaky tests
 
 Flaky tests (or _erratic tests_, as Mezsaros calls in his book)
-are tests that present a "flaky" behavior: 
+are tests that present a "flaky" behaviour: 
 they sometimes passes and sometimes fails, even though
 developers have not performed any changes in their software systems.
 
 Such tests negatively impact the productivity of software development teams.
-First, it is hard to know whether a flaky test is failing because the behavior
+First, it is hard to know whether a flaky test is failing because the behaviour
 is buggy, or because it is simply flaky. From the social side, the excessive
 presence of flaky tests make developers to lose their confidence in their test
 suites, little by little. The lack of confidence might lead them to deploy their
 systems even though the tests are red (after all, they might be broken just because
-of flakyness, and not because the system is misbehaving).
+of flakiness, and not because the system is misbehaving).
 
 The prevalence, and thus, the impact of flaky tests in the software development
 world has been increasing over time. Companies like Google and Facebook as well
@@ -792,7 +789,7 @@ If you want to read more about flaky tests, we suggest the following papers and 
 
 - Luo, Q., Hariri, F., Eloussi, L., & Marinov, D. (2014, November). An empirical analysis of flaky tests. In Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering (pp. 643-653). ACM. 
 Authors' version: [http://mir.cs.illinois.edu/~eloussi2/publications/fse14.pdf](http://mir.cs.illinois.edu/~eloussi2/publications/fse14.pdf)
-- Bell, J., Legunsen, O., Hilton, M., Eloussi, L., Yung, T., & Marinov, D. (2018, May). D e F laker: automatically detecting flaky tests. In Proceedings of the 40th International Conference on Software Engineering (pp. 433-444). ACM. 
+- Bell, J., Legunsen, O., Hilton, M., Eloussi, L., Yung, T., & Marinov, D. (2018, May). DeFlaker: automatically detecting flaky tests. In Proceedings of the 40th International Conference on Software Engineering (pp. 433-444). ACM. 
 Authors' version: [http://mir.cs.illinois.edu/legunsen/pubs/BellETAL18DeFlaker.pdf](http://mir.cs.illinois.edu/legunsen/pubs/BellETAL18DeFlaker.pdf)
 - Lam, W., Oei, R., Shi, A., Marinov, D., & Xie, T. (2019, April). iDFlakies: A Framework for Detecting and Partially Classifying Flaky Tests. In 2019 12th IEEE Conference on Software Testing, Validation and Verification (ICST) (pp. 312-322). IEEE. 
 Authors' version: [http://taoxie.cs.illinois.edu/publications/icst19-idflakies.pdf](http://taoxie.cs.illinois.edu/publications/icst19-idflakies.pdf)
@@ -992,7 +989,7 @@ Link: https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.ht
 - Fowler, M. Eradicating Non-Determinism in Tests. Link: https://martinfowler.com/articles/nonDeterminism.html, 2011.
 - Bavota, G., Qusef, A., Oliveto, R., De Lucia, A., & Binkley, D. (2012, September). An empirical analysis of the distribution of unit test smells and their impact on software maintenance. In 2012 28th IEEE International Conference on Software Maintenance (ICSM) (pp. 56-65). IEEE.
 - Luo, Q., Hariri, F., Eloussi, L., & Marinov, D. (2014, November). An empirical analysis of flaky tests. In Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering (pp. 643-653). ACM. 
-- Bell, J., Legunsen, O., Hilton, M., Eloussi, L., Yung, T., & Marinov, D. (2018, May). D e F laker: automatically detecting flaky tests. In Proceedings of the 40th International Conference on Software Engineering (pp. 433-444). ACM. 
+- Bell, J., Legunsen, O., Hilton, M., Eloussi, L., Yung, T., & Marinov, D. (2018, May). DeFlaker: automatically detecting flaky tests. In Proceedings of the 40th International Conference on Software Engineering (pp. 433-444). ACM. 
 - Lam, W., Oei, R., Shi, A., Marinov, D., & Xie, T. (2019, April). iDFlakies: A Framework for Detecting and Partially Classifying Flaky Tests. In 2019 12th IEEE Conference on Software Testing, Validation and Verification (ICST) (pp. 312-322). IEEE. 
 
 

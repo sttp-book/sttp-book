@@ -4,7 +4,7 @@
 </center>
 {% else %}
 {% hint style='tip' %}
-Watch our video on Youtube: https://www.youtube.com/embed/{{ video_id }}
+Watch our video on YouTube: https://www.youtube.com/embed/{{ video_id }}
 {% endhint %}
 
 {% endif %}

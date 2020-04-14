@@ -1,11 +1,6 @@
-
 # Specification-Based Testing
 
-In this chapter, we explore **specification-based testing** techniques.
-These use the *requirements* (often written as text; think of user stories
-and/or UML use cases) 
-of the program as input
-for testing.
+In this chapter, we explore **specification-based testing** techniques. These use the *requirements* of the program (often written as text; think of user stories and/or UML use cases) as input for testing.
 
 In simple terms, we devise a set
 of inputs, where each input tackles one part (or *partition*)
@@ -24,28 +19,26 @@ There are different cases in which the program is executed
 and its execution often depends on various factors, such as the input
 to the program.
 
-Let's use a small program as an example. The specification below talks
-about a program that decides
-whether a year is leap or not. 
+Let's use a small program as an example. The specification below talks about a program that decides whether a given year is a leap year or not. 
 
 > **Requirement: Leap year**
 >
->Given a specific year as an input, the program should return *true* if the 
->the provided year is leap and false if it is not.
+>Given a specific year as an input, the program should return *true* if 
+>the provided year is a leap year and *false* if it is not.
 >
 >A year is a leap year if:
 >
 >- the year is divisible by 4;
->- the year is not divisible by 100;
->- exceptions are years that are divisible by 400, which are also leap years.
+>- and the year is not divisible by 100;
+>- except when the year is divisible by 400 (because then it is still a leap year)
 
 To find a good set of test cases, often referred to as a *test suite*,
 we split the program into *classes*.
 In other words, we divide the input space of
 the program in such a way that each class is 1)
 different, i.e. it is unique, where
-no two partitions represent/exercise the same behavior,
-2) can easily verify whether that behavior is correct or not.
+no two partitions represent/exercise the same behaviour,
+2) can easily verify whether that behaviour is correct or not.
 
 
 By looking at the requirements above, we can derive the
@@ -68,12 +61,9 @@ Note how each class above exercises the program in different ways.
 
 The partitions above are not test cases that we can implement directly because
 each partition might be instantiated by an infinite number of inputs. For example,
-for the partition "year not divisible by 4", there are infinite options of numbers
-which are not divisible by 4 that we could use as concrete inputs
-to the program.
-It is impractical to test all of these numbers.
-So how do we know which concrete input to instantiate for each
-of the partitions?
+for the partition "year not divisible by 4", there are infinitely many numbers
+that are not divisible by 4 which we could use as concrete inputs to the program.
+So how do we know which concrete input to instantiate for each of the partitions?
 
 As we discussed earlier, each partition exercises the program in a certain way.
 In other words, all input values from one specific partition will make the program
@@ -168,7 +158,7 @@ Note that each test method covers one of the partitions and the naming of the me
 
 For those who are learning JUnit: Note that the `setup` method is executed 
 before each test, thanks to the `BeforeEach` annotation.
-It creates the `LeapYear`.
+For each test, it creates a `LeapYear` object.
 This is then used by the tests to execute the method under test.
 In each test we first determine the result of the method.
 After the method returns a value, we assert that this is the expected value.
@@ -179,23 +169,22 @@ After the method returns a value, we assert that this is the expected value.
 
 ## Category-Partition Method
 
-So far we derived partitions by just looking at the specification of the program.
+So far we have derived partitions by just looking at the specification of the program.
 We basically used our experience and knowledge to derive the test cases.
 We now go over a more systematic way of deriving these partitions: the **Category-Partition** method.
 
-The method gives us 1) a systematic way of deriving test cases, based on the characteristics of the input parameters, 2) minimize the amount of tests
-to a feasible amount.
+The method gives us a systematic way of deriving test cases, based on the characteristics of the input parameters. It also brings down the number of tests to a feasible number.
 
-We set out now the steps of this method and then we illustrate the process with an example.
+We now set out the steps of this method and then we illustrate the process with an example.
 
 1. Identify the parameters, or the input of the program. For example, the parameters your classes and methods receive.
 2. Derive characteristics of each parameter. For example, an `int year` should be a positive integer number between 0 and infinite. 
       - Some of these characteristics can be found directly in the specification of the program.
       - Others might not be found from specifications. For example, an input cannot be `null` if the method does not handle that well.
 
-3. Add constraints in order to minimize the test suite.
-      - Identify invalid combinations. For example, some characterics might not be able to be combined with other characteristics.
-      - Exceptional behavior does not always have to be combined with all the different values of the other inputs. For example, trying a single `null` input might be enough to test that corner case.
+3. Add constraints in order to minimise the test suite.
+      - Identify invalid combinations. For some characteristics it might not be possible to combine them with other characteristics.
+      - Exceptional behaviour does not always have to be combined with all the different values of the other inputs. For example, trying a single `null` input might be enough to test that corner case.
 
 4. Generate combinations of the input values. These are the test cases.
 
@@ -203,9 +192,9 @@ Let's apply the technique in the following program:
 
 > **Requirement: Christmas discount**
 > 
-> The system should give 25% discount on the cart when it is Christmas.
+> The system should give a 25% discount on the cart when it is Christmas.
 > The method has two input parameters: the total price of the products in the cart, and the date.
-> When it is not Christmas it just returns the original price, otherwise it applies the discount.
+> When it is not Christmas it just returns the original price; otherwise it applies the discount.
 
 Following the category-partition method:
 
@@ -217,8 +206,7 @@ Following the category-partition method:
       - Based on the requirements, the only important characteristic is that the date can be either Christmas or not.
       - The price can be a positive number, or in certain circumstances it may be 0. Technically the price can also be a negative number. This is an exceptional case, as you cannot pay a negative amount.
 
-3. The amount of characteristics and parameters is not too large in this case.
-As the negative price is an exceptional case, we can test this with just one combination, instead of with a date that is Christmas and a date that is not Christmas.
+3. The number of characteristics and parameters is not too large in this case. As the negative price is an exceptional case, we can test this with just one combination, instead of with a date that is Christmas and a date that is not Christmas.
 
 4. We combine the other characteristics to get the following test cases:
       - Positive price on Christmas
@@ -243,7 +231,7 @@ Let's explore another example:
 > assuming we always use big bars before small bars. Return -1 if it is impossible.
 >
 > The input of the program is thus the number of small bars, the number of big bars,
-> and the total amount of kilos to store.
+> and the total number of kilos to store.
 
 A possible implementation for this program is:
 
@@ -272,7 +260,7 @@ The classes/partitions are:
 
 * **Need only small bars**. A solution that only uses the provided small bars.
 * **Need only big bars**. A solution that only uses the provided big bars.
-* **Need Small + big bars**. A solution that has to use both small and big bars.
+* **Need small + big bars**. A solution that has to use both small and big bars.
 * **Not enough bars**. A case in which it is impossible, because there are not enough bars.
 * **Not from the specs**: An exceptional case.
 
@@ -280,7 +268,7 @@ For each of these classes, we can devise concrete test cases:
 
 * **Need only small bars**. small = 4, big = 2, total = 3
 * **Need only big bars**. small = 5, big = 3, total = 10
-* **Need Small + big bars**. small = 5, big = 3, total = 17
+* **Need small + big bars**. small = 5, big = 3, total = 17
 * **Not enough bars**. small = 1, big = 1, total = 10
 * **Not from the specs**: small = -1, big = -1, total = -1
 
@@ -355,9 +343,9 @@ What is an Equivalence Partition?
 **Exercise 2.**
 We have a program called FizzBuzz.
 It does the following:
-Given an int n, return the string form of the number followed by "!".
-So the int 6 yields "6!".
-Except if the number is divisible by 3 use "Fizz" instead of the number, and if the number is divisible by 5 use "Buzz", and if divisible by both 3 and 5, use "FizzBuzz".
+Given an integer `n`, return the string form of the number followed by `"!"`.
+So the integer 6 yields `"6!"`.
+Except if the number is divisible by 3 use `"Fizz"` instead of the number, and if the number is divisible by 5 use `"Buzz"`, and if divisible by both 3 and 5, use `"FizzBuzz"`.
 
 A novice tester is trying hard to devise as many tests as she can for
 the FizzBuzz method.
@@ -475,7 +463,7 @@ public V put(K key, V value) {
 
 2. The number of tests generated by the category/partition method can grow quickly, as the chosen partitions for each category are later combined one-by-one. This is not a practical problem to the `put()` method because the number of categories and their partitions is small.
 
-3. In an object-oriented language, besides using the method's input parameters to explore partitions, we should also consider the internal state of the object (i.e., the class's attributes), as it can also affect the behavior of the method.
+3. In an object-oriented language, besides using the method's input parameters to explore partitions, we should also consider the internal state of the object (i.e., the class's attributes), as it can also affect the behaviour of the method.
 
 4. With the information in hands, it is not possible to perform the category/partition method, as the source code is required for the last step of the category/partition method: adding constraints.
 
@@ -491,12 +479,12 @@ A tester, after reading the specs and following the Category-Partition method, d
 
 
 * Pattern size: empty, single character, many characters, longer than any line in the file.
-* Quotting: pattern is quoted, pattern is not quoted, pattern is improperly quoted.
+* Quoting: pattern is quoted, pattern is not quoted, pattern is improperly quoted.
 * File name: good file name, no file name with this name, omitted.
 * Occurrences in the file: none, exactly one, more than one.
 * Occurrences in a single line, assuming line contains the pattern: one, more than one.
 
-However, the number of combinations is now too high. What actions could we take to reduce the number of combinations?
+However, the number of combinations is too high now. What actions could we take to reduce the number of combinations?
 
 
 

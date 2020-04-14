@@ -1,0 +1,13 @@
+{
+    "spellright.language": [
+        "en-GB"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ],
+    "spellright.ignoreRegExpsByClass": {
+        "markdown": [ "/\\$\\$[^$]+\\$\\$/g", "/{%[^%]+%}/g" ],
+    }
+}

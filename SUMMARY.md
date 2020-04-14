@@ -4,7 +4,7 @@
 
 * [Acknowledgements](chapters/preface/acknowledgements.md)
 
-* [Adopt this book](chapters/preface/adopt.md)
+* [Using this book](chapters/preface/use.md)
 
 * [Contribute to this book](chapters/preface/contribute.md)
 
@@ -26,15 +26,16 @@
 * [Testing techniques](chapters/testing-techniques/README.md)
 	* [Specification-based testing](chapters/testing-techniques/specification-based-testing.md)
 	* [Boundary testing](chapters/testing-techniques/boundary-testing.md)
-	* [Structural-based testing](chapters/testing-techniques/structural-testing.md)
+	* [Structural testing](chapters/testing-techniques/structural-testing.md)
 	* [Model-based testing](chapters/testing-techniques/model-based-testing.md)
-	* [Design-by-contracts and property-based testing](chapters/testing-techniques/design-by-contracts.md)
+	* [Design-by-contracts](chapters/testing-techniques/design-by-contracts.md)
+	* [Property-based testing](chapters/testing-techniques/property-based-testing.md)
 
 ----
 
 * [Pragmatic software testing](chapters/pragmatic-testing/README.md)
 	* [The testing pyramid](chapters/pragmatic-testing/testing-pyramid.md)
-	* [Mock objects](chapters/pragmatic-testing/mocking.md)
+	* [Mock objects](chapters/pragmatic-testing/mock-objects.md)
 	* [Design for testability](chapters/pragmatic-testing/design-for-testability.md)
 	* [Test-driven development](chapters/pragmatic-testing/tdd.md)
 	* [Test code quality and engineering](chapters/pragmatic-testing/test-code-quality.md)
@@ -42,6 +43,7 @@
 ----
 
 * [Intelligent testing](chapters/intelligent-testing/README.md)
+	* Random testing (soon)
 	* [Mutation testing](chapters/intelligent-testing/mutation-testing.md)
 	* [Fuzzing testing](chapters/intelligent-testing/fuzzing.md)
 	* Search-based software testing (soon)
@@ -49,7 +51,7 @@
 ----
 
 * [Testing in the context](chapters/testing-into-context/README.md)
-	* Web testing (soon)
+	* [Web testing (soon)](chapters/testing-into-context/web-testing.md)
 	* Database testing (soon)
 	* Mobile testing (soon)
 	* Continuous experimentation (soon)
@@ -58,9 +60,15 @@
 ----
 
 * [Non-functional testing](chapters/non-functional-testing/README.md)
-	* Security testing (soon)
+	* [Security testing (soon)](chapters/non-functional-testing/security-testing.md)
 	* Performance testing (soon)
-	* Ethical testing (soon)
+
+--- 
+
+* Software Quality
+	* Code reviews (soon)
+	* Code metrics (soon)
+	* Ethics and testing (soon)
 
 --- 
 

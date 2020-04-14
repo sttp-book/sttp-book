@@ -1,20 +1,17 @@
-
 # Software testing automation (with JUnit)
 
 Before we dive into the different testing techniques, let us first get used
 to software testing automation frameworks. In this book, we will use JUnit, as
-all the code we use as examples are written in Java. 
+all our code examples are written in Java. If you are using a different programming language in your daily work, note that testing frameworks in other languages offer similar functionalities.
 
-If you are using a different programming language in your daily work, note
-that testing frameworks in other languages offer similar functionalities.
-
+We will now introduce an example program and then use it to demonstrate how to write JUnit tests.
 
 > **Requirement: Roman numerals**
 >
 > Implement a program that receives a string as a parameter
 > containing a roman number and then converts it to an integer.
 >
->In roman numeral, letters represent values:
+> In roman numerals, letters represent values:
 >
 > * I = 1
 > * V = 5
@@ -29,16 +26,21 @@ that testing frameworks in other languages offer similar functionalities.
 > For example `CCXVI` would be 216.
 > 
 > Some numbers need to make use of a subtractive notation to be represented.
-> Example: 9 is IX, 40 is XL, 14 is XIV.
+> Example: 9 is `IX`, 40 is `XL`, 14 is `XIV`.
 
 
 {% set video_id = "srJ91NRpT_w" %}
 {% include "/includes/youtube.md" %}
 
 
-A possible implementation for the _Roman Numeral_ is as follows:
+A possible implementation for the _Roman Numerals_ requirement is as follows:
 
 ```java
+package tudelft.roman;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class RomanNumeral {
   private static Map<Character, Integer> map;
 
@@ -77,61 +79,47 @@ test cases for the program.
 Use your experience as a developer to devise as many test cases as you can.
 To get you started, a few examples: 
 
-* T1=Just one letter, e.g., C should be equals to 100
-* T2=Different letters combined, e.g., CLV = 155
-* T3=Subtractive notation, e.g., CM = 900
+* T1 = Just one letter, e.g., C should equal 100
+* T2 = Different letters combined, e.g., CLV = 155
+* T3 = Subtractive notation, e.g., CM = 900
 
 In future chapters, we will explore how to devise those test cases. The output
 of that stage will often be similar to the one above: a test case number,
 an explanation of what the test is about (we will later call it _class_ or _partition_),
-and a concrete instance of an input that exercises the program in that way, together
+and a concrete instance of input that exercises the program in that way, together
 with the expected output.
-Once the "manual task of devising test cases" is done, we will then write them
-as automated test cases using JUnit. Let us now do it.
+
+Once you are done with the "manual task of devising test cases", you are ready to move on to the next section, which shows how to turn them into automated test cases using JUnit.
 
 ## The JUnit Framework
 
-Testing frameworks enable us to write test cases in a way that
-they can be easily executed by the machine. 
-In Java, the standard framework to write automated tests is JUnit, 
-and its most recent version is 5.x.
+Testing frameworks enable us to write test cases in a way that they can be easily executed by the machine. In Java, the standard framework to write automated tests is JUnit, and its most recent version is 5.x.
 
 The steps to create a JUnit class/test is often the following:
 
-* Create a Java class under `/src/test/java` directory (or whatever test directory your project structure uses). As a convention, the name of the test class is similar to the name of the
-class under test. For example, a class that tests the `RomanNumeral` class is often called
-`RomanNumeralTest`. In terms of package structure, the test class also inherits the same
-package as the class under test. In our case, `tudelft.roman`.
+* Create a Java class under `/src/test/java` directory (or whatever test directory your project structure uses). As a convention, the name of the test class is similar to the name of the class under test. For example, a class that tests the `RomanNumeral` class is often called `RomanNumeralTest`. In terms of package structure, the test class also inherits the same package as the class under test. In our case, `tudelft.roman`.
 
-* For each test case we devise for the program/class, we write a test method.
-A JUnit test method returns `void` and it is annotated with `@Test` (an annotation that
-comes from JUnit 5's `org.junit.jupiter.api.Test`).
-The name of the test method does not matter for JUnit, but it does matter to us. A best
-practice is to name the test after the case it tests. 
+* For each test case we devise for the program/class, we write a test method. A JUnit test method returns `void` and is annotated with `@Test` (an annotation that comes from JUnit 5's `org.junit.jupiter.api.Test`). The name of the test method does not matter to JUnit, but it does matter to us. A best practice is to name the test after the case it tests. 
 
-* The test method instantiates the class under test and invokes the method under test. 
-The test method passes the previously defined input in the
-test case definition to the method/class. 
-The test method then stores the result of the method call (e.g., in a variable). 
+* The test method instantiates the class under test and invokes the method under test. The test method passes the previously defined input in the test case definition to the method/class. The test method then stores the result of the method call (e.g., in a variable).
 
-* The test method asserts that the output matches with that was expected. The expected
-output was defined during the test case definition phase. 
-To check the outcome with the expected value, we use assertions.
-A couple of useful assertions are:
+* The test method asserts that the actual output matches the expected output. The expected output was defined during the test case definition phase. To check the outcome with the expected value, we use assertions. An assertion checks whether a certain expectation is met; if not, it throws an `AssertionError` and thereby causes the test to fail. A couple of useful assertions are:
 
-  * `Assertions.assertEquals(expected, actual)`: Compares whether the expected and actual values are equal. The test fails otherwise. Be sure to pass the expected value as the first argument, and the actual value (the value that comes from the program under test) as second argument.
+  * `Assertions.assertEquals(expected, actual)`: Compares whether the expected and actual values are equal. The test fails otherwise. Be sure to pass the expected value as the first argument, and the actual value (the value that comes from the program under test) as the second argument.
     Otherwise the fail message of the test will not make sense.
   * `Assertions.assertTrue(condition)`: Passes if the condition evaluates to true, fails otherwise.
   * `Assertions.assertFalse(condition)`: Passes if the condition evaluates to false, fails otherwise.
-  * More assertions and additional arguments can be found in [JUnit's documentation](https://junit.org/junit5/docs/5.3.0/api/org/junit/jupiter/api/Assertions.html). To make easy use of the assertions and to import them all in one go, you can use `import static org.junit.jupiter.api.Assertions.*;`.
+  * More assertions and additional arguments can be found in [JUnit's documentation](https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Assertions.html). To make easy use of the assertions and to import them all in one go, you can use `import static org.junit.jupiter.api.Assertions.*;`.
 
 
-The three tests cases we have devised can be automated as follows:
+The three test cases we have devised can be automated as follows:
 
 ```java
-import org.junit.jupiter.api.Test;
+package tudelft.roman;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 public class RomanNumeralTest {
 
@@ -161,7 +149,7 @@ public class RomanNumeralTest {
 }
 ```
 
-At this point, if you see other test cases (there are!), go ahead and implement them.
+At this point, if you see other possible test cases (there are!), go ahead and implement them.
 
 
 {% set video_id = "XS4-93Q4Zy8" %}
@@ -178,7 +166,7 @@ In the test code above, we create the `roman` object four times.
 Having a fresh clean instance of an object for each test method is a good idea, as 
 we do not want "objects that might be already dirty" (and thus, being the cause for the test to fail, and not because there was a bug in the code) in our test. 
 
-However, duplicated code is something not desirable. The problem with duplicated test code
+However, having duplicated code is not desirable. The problem with duplicated test code
 is the same as in production code: if there is a change to be made, the change has to be made
 in all the points where the duplicated code exists.
 
@@ -240,12 +228,12 @@ chapter.
 
 ## Tests and refactoring
 
-A more experience Java developer might be looking at our implementation of the
+A more experienced Java developer might be looking at our implementation of the
 Roman Numeral problem and thinking that there are more elegant ways of implementing it.
 That is indeed true. _Software refactoring_ is a constant activity in software
 development. 
 
-However, how can one refactor the code and still make sure it presents the same behavior?
+However, how can one refactor the code and still make sure it presents the same behaviour?
 Without automated tests, that might be a costly activity. Developers would have to perform
 manual tests after every single refactoring operation. Software refactoring activities benefit
 from extensive automated test suites, as developers can refactor their code and, in a matter
@@ -254,7 +242,7 @@ of seconds or minutes, get a clear feedback from the tests.
 See this new version of the `RomanNumeral` class, where we deeply refactored the code:
 
 * We gave a better name to the method: we call it `asArabic()` now.
-* We inlined the declaration of the Map , and used the `Map.of` utility method.
+* We inlined the declaration of the Map, and used the `Map.of` utility method.
 * We make use of an auxiliary array (`digits`) to get the current number inside the loop.
 * We extracted a private method that decides whether it is a subtractive operation.
 * We made use of the `var` keyword, as introduced in Java 10.
@@ -294,13 +282,9 @@ get some feedback.
 
 Let us also take the opportunity and improve our test code:
 
-* Given that our goal was to isolate the single
-line of code that instantiated the class under test, instead of using the `@BeforeEach`, 
-we now instantiate it directly in the class. JUnit creates a new instance of the
-test class before each test (again, as a way to help developers in avoiding test cases that fail due to previous test executions). This allows us to mark the field as `final`.
+* Given that our goal was to isolate the single line of code that instantiated the class under test, instead of using the `@BeforeEach`, we now instantiate it directly in the class. JUnit creates a new instance of the test class before each test (again, as a way to help developers in avoiding test cases that fail due to previous test executions). This allows us to mark the field as `final`.
 * We inlined the method call and the assertion. Now tests are written in a single line.
-* We give test methods better names. It is common to rename test methods; the more 
-we understand the problem, the more we can give good names to the test cases.
+* We give test methods better names. It is common to rename test methods; the more we understand the problem, the more we can give good names to the test cases.
 * We devised one more test case and added it to the test suite.
 
 ```java
@@ -346,38 +330,31 @@ Lessons to be learned:
 Having an automated test suite brings several advantages to software
 development teams. Automated test suites:
 
-* **Are less prone to obvious mistakes.** Developers who perform manual testing several
-times a day might make mistakes, e.g., by forgetting to execute a test case,
-by mistakenly mark a test as passed when the software actually presented a faulty behavior, etc.
+* **Are less prone to obvious mistakes.** Developers who perform manual testing several times a day might make mistakes, e.g., by forgetting to execute a test case, by mistakenly marking a test as passed when the software actually exhibited faulty behaviour, etc.
 
-* **Execute tests faster than developers.** The machine can run test cases way faster than developers can.
-Just imagine more complicated scenarios where the developers would have to type long sequences
-of inputs, verify the output at several different parts of the system. An automated test
-runs and gives feedback orders of magnitude faster than developers.
+* **Execute tests faster than developers.** The machine can run test cases way faster than developers can. Just imagine more complicated scenarios where the developers would have to type long sequences of inputs, verify the output at several different parts of the system. An automated test runs and gives feedback orders of magnitude faster than developers.
 
-* **Brings confidence during refactoring.** As we just saw in the example,
-automated test suites enables developers to refactor their code more constantly. After all,
-developers know that they have a safety net; if something goes wrong, the test will fail.
+* **Brings confidence during refactoring.** As we just saw in the example, automated test suites enables developers to refactor their code more constantly. After all, developers know that they have a safety net; if something goes wrong, the test will fail.
 
-Clearly, at first, one might argue that writing test code might feel 
-like a loss in productivity. After all,
-developers now have to not only write production code, but also test code. Developers now have
-to not only maintain test code, but also maintain test code. _This could not be more far from 
-the truth_. Once you master the tools and techniques, formalizing test cases as JUnit methods
+Clearly, at first, one might argue that writing test code might feel like a loss in productivity. 
+After all, developers now have to not only write production code, but also test code.
+Developers now have to not only maintain production code, but also maintain test code.
+ _This could not be further from the truth_.
+ Once you master the tools and techniques, formalising test cases as JUnit methods
 will actually save you time; imagine how many times you have executed the same 
 manual test over and over. How much time have you lost by doing 
-the same task repeteadly? 
+the same task repeatedly? 
 
-Studies have shown that developers that write tests spend less time debugging their systems when compared to developers that do not (Janzen), that the
+Studies have shown that developers who write tests spend less time debugging their systems when compared to developers who do not (Janzen), that the
 impact in productivity is not as significant as one would think (Maximilien and Williams), 
 and that bugs
-are fixed faster (Lui and Chen). Truth being told: 
-these experiments compared teams using Test-Driven Development (TDD) vs teams not
+are fixed faster (Lui and Chen). Truth be told: 
+these experiments compared teams using Test-Driven Development (TDD) against teams not
 using TDD, and not the existence of a test suite per se. Still, the presence of test code
-is the remarking characteristic that emerge from the TDD. Nevertheless, as a society,
+is the remarking characteristic that emerges from TDD. Nevertheless, as a society,
 we might not need more evidence on the benefits of test automation. If we look around,
 from small and big companies to big open source projects, they all rely on extensive
-test suites to ensure quality. **Test (and test automation) pays off.**
+test suites to ensure quality. **Testing (and test automation) pays off.**
 
 ## Exercises
 
@@ -392,7 +369,7 @@ For now, do not worry about how to derive test cases. Just follow
 your intuition. 
 
 **Exercise 2.**
-Choose a problem from [Codebat](https://codingbat.com/java/Logic-2). Solve it.
+Choose a problem from [CodingBat](https://codingbat.com/java/Logic-2). Solve it.
 Then, write as many tests as you
 can for it, using JUnit.
 

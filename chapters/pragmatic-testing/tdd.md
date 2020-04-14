@@ -108,11 +108,11 @@ Participants affirmed that, during the process of class design, changing minds i
 
 "It gives me the opportunity to learn along the way and make things differently. (…). The test gives you confidence."
 
-A participant even mentioned a real experience, in which TDD made the difference. According to him, he changed his mind about the class design many times and trusted the test suite to guarantee the expected behavior.
+A participant even mentioned a real experience, in which TDD made the difference. According to him, he changed his mind about the class design many times and trusted the test suite to guarantee the expected behaviour.
 
 ### A safe space to think
 
-In an analogy done by one of the participants, tests are like draft paper, in which they can try different approaches and change their minds about it frequently. According to them, when starting by the test, developers are, for the first time, using their own class. It makes developers look for a better and clearer way to invoke the class’ behaviors, and facilitate its use:
+In an analogy done by one of the participants, tests are like draft paper, in which they can try different approaches and change their minds about it frequently. According to them, when starting by the test, developers are, for the first time, using their own class. It makes developers look for a better and clearer way to invoke the class’ behaviours, and facilitate its use:
 
 "Tests help you on that. They are a draft for you to try to model it the best way you can. If you had to model the class only once, it is like if you have only one chance. Or if you make it wrong, fixing it would give you a lot of work. The idea of you having tests and thinking about them, it is like if you have an empty draft sheet, in which you can put and remove stuff because that stuff doesn’t even exist."
 
@@ -124,7 +124,7 @@ One of the participants was even more precise in his statement. According to him
 
 Participants also commented that one difference they perceived when they practiced TDD was the constant feedback. In traditional testing, the time between the production code writing and test code writing is too long. When practicing TDD, developers are forced to write the test first, and thus receive the feedback a test can provide sooner.
 
-One participant commented that, from the test, developers observe and criticize the code they are designing. As the tests are done constantly, developers end up continuously thinking about the code and its quality:
+One participant commented that, from the test, developers observe and criticise the code they are designing. As the tests are done constantly, developers end up continuously thinking about the code and its quality:
 
 *"When you write the test, you soon perceive what you don’t like in it (...). You don’t perceive that until you start using tests."*
 
@@ -142,17 +142,17 @@ Participants went even further. During the interviews, many of them mentioned pa
 
 ### What did we learn from it?
 
-The first interesting myth contested by the participants was the idea that the practice of TDD would drive developers towards a better design by itself. As they explained, the previous experience and knowledge in good design is what makes the difference; however, TDD helps developers by giving feedback by means of the unit tests that they are writing constantly. As they also mentioned, the search for testability also makes them rethink about the class design many times during the day — if a class is not easy to be tested, then they refactor it.
+The first interesting myth contested by the participants was the idea that the practice of TDD would drive developers towards a better design by itself. As they explained, the previous experience and knowledge in good design is what makes the difference; however, TDD helps developers by giving feedback by means of the unit tests that they are writing constantly. As they also mentioned, the search for testability also makes them rethink about the class design many times during the day — if a class is not easy to be tested, then they refactor it.
 
 We agree with the rationale. In fact, when comparing to test-last approaches, developers do not have the constant feedback or the need to write testable code. They will have the same feedback only at the end, when all the production code is already written. That may be too late (or expensive) to make a big refactoring in the class design.
 
 ![TDD feedback](img/tdd/tdd.svg)
 
-We also agree with the confidence when refactoring. As TDD forces developers to write unit tests frequently, those tests end up working as a safety net. Any broken change in the code is quickly identified. This safety net makes developers more confident to try and experiment new design changes — after all, if the changes break anything, tests will warn developers about it. That is why they also believe the tests are a safe space to think.
+We also agree with the confidence when refactoring. As TDD forces developers to write unit tests frequently, those tests end up working as a safety net. Any broken change in the code is quickly identified. This safety net makes developers more confident to try and experiment new design changes — after all, if the changes break anything, tests will warn developers about it. That is why they also believe the tests are a safe space to think.
 
 Therefore, we believe that is is not the practice by itself that helps developers to improve their class design; but it is the consequences of the constant act of writing a unit test, make that class testable, and refactor the code, that drives developers through a better design.
 
-Conclusion: Developers believe that the practice of test-driven development helps them to improve their class design, as the constant need of writing a unit test for each piece of the software forces them to create testable classes. These small feedbacks — is your test easy to be tested or not? — makes them think and rethink about the class and improve it. Also, as the number of tests grow, they act as a safety net, allowing developers to refactor freely, and also try and experiment different approaches to that code. Based on that, we suggest developers to experiment the practice of test-driven development, as its effects look positive to software developers.
+Conclusion: Developers believe that the practice of test-driven development helps them to improve their class design, as the constant need of writing a unit test for each piece of the software forces them to create testable classes. These small feedbacks — is your test easy to be tested or not? — makes them think and rethink about the class and improve it. Also, as the number of tests grow, they act as a safety net, allowing developers to refactor freely, and also try and experiment different approaches to that code. Based on that, we suggest developers to experiment the practice of test-driven development, as its effects look positive to software developers.
 
 ## Should I do TDD 100% of the time?
 
@@ -254,7 +254,7 @@ TDD has become a really popular practice among developers. According to them, TD
 
 * Martin R (2006) Agile principles, patterns, and practices in C#. 1st edition. Prentice Hall, Upper Saddle River.
 
-* Steve Freeman, Nat Pryce (2009) Growing object-oriented software, Guided by Tests. 1° edn. Addison-Wesley Professional, Boston, USA.
+* Steve Freeman, Nat Pryce (2009) Growing object-oriented software, Guided by Tests. 1st edition. Addison-Wesley Professional, Boston, USA.
 
 * Astels D (2003) Test-driven development: a practical guide. 2nd edition. Prentice Hall.
 
@@ -263,4 +263,3 @@ TDD has become a really popular practice among developers. According to them, TD
 * Beck K (2001) Aim, fire. IEEE Softw 18: 87–89. doi:10.1109/52.951502.
 
 * Feathers M (2007) The deep synergy between testability and good design. https://web.archive.org/web/20071012000838/http://michaelfeathers.typepad.com/michael_feathers_blog/2007/09/the-deep-synerg.html.
-

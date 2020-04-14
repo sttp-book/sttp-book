@@ -2,10 +2,10 @@
 
 In previous chapters, we studied different techniques to derive test cases.
 However, most of requirements we tested via specification-based techniques had a single responsibility. Most of the source code
-we tested via structural-based techniques could fit in a single unit/class.
+we tested via structural techniques could fit in a single unit/class.
 
 A large software system, however, is composed of many of those units/responsibilities. Together, they compose
-the complex behavior of our software system. 
+the complex behaviour of our software system. 
 
 In this chapter, we are going to discuss 
 the different **test levels** (i.e., unit, integration, and system), their advantages and disadvantages, and the trade-offs that a tester has to do in real-world testing.
@@ -43,7 +43,7 @@ Of course, unit testing also has some disadvantages:
 
 * **The lack of "reality"**.
 A software system is rarely composed of a single class.
-The large amount of classes in a system and the interaction between these classes can make the system to behave differently in its real application than in the unit tests.
+The large number of classes in a system and the interaction between these classes can cause the system to behave differently in its real application than in the unit tests.
 Hence, unit tests do not perfectly represent the real execution of a software system.
 
 * Another disadvantage that follows from this is that **some bugs simply cannot be caught at unit test level**. Different types of bugs only happen in the integration of the different components (which we are not exercising in a pure unit test).
@@ -87,7 +87,7 @@ test case.
 This takes additional code that is needed just for automating the tests.
 
 Lastly, **system tests tend to become flaky**.
-A flaky test is a test that presents an erratic behavior: if you run it, it might pass,
+A flaky test is a test that presents an erratic behaviour: if you run it, it might pass,
 or it might fail. Flaky tests are an important problem for software development teams. 
 After all, having a test that might pass when there is a bug, or might fail when there is 
 no bug, harms the productivity of the development team. It is easy to imagine how
@@ -97,8 +97,8 @@ more than usual (due to small variations we often do not control in
 real-life scenarios; Tomcat decided to do a full garbage collection at 
 that very second, for example). The test was not expecting it to happen, and thus,
 it failed. If the test is executed again, the web app might now take its usual time to respond,
-and now the test will pass. There are just too many uncertanties in a system test that
-can lead to unexpected behavior.
+and now the test will pass. There are just too many uncertainties in a system test that
+can lead to unexpected behaviour.
 
 {% hint style='tip' %}
 We discuss _flaky tests_ more formally later in the book.
@@ -138,7 +138,7 @@ The goal of integration testing is to test
 multiple components of a system together, but not the whole system.
 These integration tests focus on the interaction between these few components of the system.
 Are they communicating correctly? What happens if component A sends message X to component B? 
-Do they still present correct behavior?
+Do they still present correct behaviour?
 
 The advantage of integration tests is that, while not fully isolated, devising tests 
 just for a specific integration is easier than devising tests for all the components together. 
@@ -165,7 +165,7 @@ web services, file reads and writes.
 ## The Testing Pyramid
 
 We discussed three different test levels: unit, system, and integration. 
-A question that a pragmatic software developer might be asking themself is:
+A question that pragmatic software developers might be asking themselves is:
 _How much should I do of each?_
 
 Testers have to decide whether to invest more in unit testing or in system testing. Or to 
@@ -187,7 +187,7 @@ Note that the more you go to the top of the diagram, the more
 real the test is (as we discuss, system tests are more real than unit tests); 
 however, the more complex it is to devise it.
 
-**How much should we do of each then?** The common practice in industry is also represented in the diagram. The size of the pyramid slice represents the the amount of test one would want of each test level. 
+**How much should we do of each then?** The common practice in industry is also represented in the diagram. The size of the pyramid slice represents the number of tests one would want of each test level. 
 
 Unit test is at the bottom of the pyramid, and has the largest area of them all. This means 
 that testers should favour unit testing.
@@ -195,11 +195,11 @@ The reasons for this have been discussed before: they are fast, require less eff
 to be written, and gives developers easier control.
 
 Going up in the diagram, we see that the next level is integration tests. The area
-is a bit smalle, indicating that, in practice, we should do integration tests "a bit less"
+is a bit smaller, indicating that, in practice, we should do integration tests "a bit less"
 than unit tests.
 Given the extra effort that integration tests require,
 testers should make sure to write tests only for the integrations they indeed need.
-The diagram continues, showing that testers should then favor system tests a bit less than
+The diagram continues, showing that testers should then favour system tests a bit less than
 integration tests, and even less manual tests.
 
 It is really clear that this diagram has a focus in **costs**. Unit tests are cheaper than
@@ -215,7 +215,7 @@ If we think of enterprise/business systems, most of the business are about "tran
 some data into another". These business logics are often expressed by means of entity classes 
 (e.g., an _Invoice_ class and a _Order_ class) exchanging messages. Business logic often do
 not depend on external services. And thus, such business logics can be easily tested and fully exercised by means of unit tests. Unit tests will give testers a full control in terms of 
-the input data, as well as full observability in terms of asserting that the behavior was
+the input data, as well as full observability in terms of asserting that the behaviour was
 as expected.
 
 In here, a pragmatic comment would be that if you have a piece of code that deals
@@ -250,7 +250,7 @@ _pesticide paradox_: a single technique is usually not enough to identify all th
 Manual testing has lots of disadvantages, but sometimes impossible to avoid. However,
 even in cases where automation is fully possible, manual exploratory testing can
 be useful. 
-The wikipedia page on [Exploratory Testing](https://en.wikipedia.org/wiki/Exploratory_testing)
+The Wikipedia page on [Exploratory Testing](https://en.wikipedia.org/wiki/Exploratory_testing)
 is well written and we point the reader to it.
 
 
@@ -264,7 +264,7 @@ should put more effort in manual testing (!!).
 At this point, we do not have to explain why fully relying on manual testing is a bad.
 Unfortunately, it is common to see development teams 
 mostly relying on manual tests in their quality assurance processes. 
-Often, these teams also have a small amount of system tests. Not because they 
+Often, these teams also have a small number of system tests. Not because they 
 believe on the efficiency of system tests, but because the system was so badly 
 designed, that unit and integration tests are just impossible to be done.
 We will discuss design for testability in future chapters.
@@ -276,13 +276,13 @@ We will discuss design for testability in future chapters.
 ## A remark on the testing pyramid
 
 We have no scientific evidence that the testing pyramid or, the idea
-of prioritizing design for testability and focusing on unit tests, is efficient.
+of prioritising design for testability and focusing on unit tests, is efficient.
 However, the software development community of practice has been relying on it
 for years and companies, from small to large sizes, have been advocating it.
 
 That being said, in our point of view, the testing pyramid approach is viable
 in most of enterprise / business systems. Imagine an [ERP](https://en.wikipedia.org/wiki/Enterprise_resource_planning) or a [CRM](https://en.wikipedia.org/wiki/Customer_relationship_management) system. Most business rules there can be expressed
-by classes/units exchanging messages and tranforming data. Unit tests will then pay off
+by classes/units exchanging messages and transforming data. Unit tests will then pay off
 as testers can easily gain control and observability of the actions of the system.
 
 However, in many other systems, unit testing might not be enough. Imagine the
@@ -368,7 +368,7 @@ an integration test for this class?
 1. Reset the database state before each test.
 2. Apply the correct schema to the database under test.
 3. Assert that any database constraints are met.
-4. Set the transaction autocommit to true.
+4. Set the transaction auto-commit to true.
 
 
 

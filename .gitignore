@@ -1,5 +1,14 @@
+temp/
 node_modules/
 .sass-cache/
 .DS_Store
 _book/*
 book.pdf
+book.aux
+book.log
+book.tex
+book.toc
+book.dvi
+book.out.ps
+texput.log
+
