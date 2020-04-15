@@ -46,7 +46,7 @@
 	* Random testing (soon)
 	* [Mutation testing](chapters/intelligent-testing/mutation-testing.md)
 	* [Fuzzing testing](chapters/intelligent-testing/fuzzing.md)
-	* Search-based software testing (soon)
+	* [Search-based software testing](chapters/intelligent-testing/sbst.md) (soon)
 
 ----
 
