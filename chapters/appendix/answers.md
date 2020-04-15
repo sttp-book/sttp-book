@@ -846,7 +846,7 @@ A single test with these four invoices is a good test for the boundaries of the 
 **Exercise 1**
 
 To test just the `runBatch` method of `OrderDeliveryBatch` (for example in a unit test) we need to be able to use mocks for at least the `dao` and `delivery` objects.
-In the current implementation this is not possible, as we cannot change `dao` or `delivery` from outside.
+In the current implementation this is not possible, as we cannot change `dao` or `delivery` from outside the class.
 In other words: We want to improve the controllability to improve the testability.
 
 The technique that we use to do so is called dependency injection.
@@ -923,7 +923,7 @@ Static methods cannot be mocked and are therefore very bad for the controllabili
 Code that has low controllability also has a low testability, so replacing the static methods by non-static ones will be very beneficial to the testability.
 
 The large tables and lack of indices do not really influence the testability, especially not when talking about unit tests.
-There we end up mocking the classes interacting with the database anyway.
+When writing unit tests we end up mocking the classes interacting with the database anyway.
 
 Too many attributes/fields can hurt testability as we might need to create a lot of mocks for just one class under test.
 However, the static methods and mixed domain and infrastructure are worse for the testability than a large number of attributes/fields.
