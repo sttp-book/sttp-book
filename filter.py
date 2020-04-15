@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/python3
+
 from pandocfilters import toJSONFilters, RawBlock
 import re
 
