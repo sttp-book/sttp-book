@@ -26,7 +26,7 @@ We start this chapter with what you already know: *Software testing*. The key di
 Security testers are always at an arms-race with the attackers &mdash; their aim is to find and fix the vulnerabilities/flaws before the adversary gets the chance to exploit them.
 
 >You can think of the attack surface as the surface of a rubber balloon, as shown in the figure: there are endless points on this surface that, when pricked by a needle (exploit analogy) will pop the balloon. The goal of Security testing is to limit the exposed attack surface and to increase the efforts required by the attackers to exploit it.
-><p align="center">
+ <p align="center">
   <img width="500" src="img/security-testing/attack-surface.png" alt="?">
 </p>
 
@@ -116,7 +116,7 @@ class Cast2 extends Throwable {
   Lime lime;
 }
 
-public static void throwEx() throws {
+public static void throwEx() throws Throwable {
   throw new Cast1();
 }
 
@@ -192,7 +192,7 @@ One way to look at security testing is to consider the amount of information you
 Before we dive into further explanation of SAST and DAST techniques, let's look at the quality assessment criteria for testing techniques.
 
 >### Quality assessment criteria
-Designing an ideal testing tool requires striking a balance between two measures: (a) Soundness, and (b) Completeness. `Soundness` dictates that there should be no False Negative (FN) &mdash; no vulnerability should be skipped. This implies that no alarm is raised *IFF* there is no existing vulnerability in the *System Under Test (SUT)*. `Completeness` dictates that there should be no False Positives (FP) &mdash; no false alarm should be raised. This implies that an alarm is raised *IFF* a valid vulnerability is found. \
+> Designing an ideal testing tool requires striking a balance between two measures: (a) Soundness, and (b) Completeness. `Soundness` dictates that there should be no False Negative (FN) &mdash; no vulnerability should be skipped. This implies that no alarm is raised *IFF* there is no existing vulnerability in the *System Under Test (SUT)*. `Completeness` dictates that there should be no False Positives (FP) &mdash; no false alarm should be raised. This implies that an alarm is raised *IFF* a valid vulnerability is found. \
 > &nbsp;&nbsp;&nbsp;&nbsp; A perfect testing tool is both sound and complete. However, this is an undecidable problem &mdash; given finite time, the tool will always be wrong for some input. In reality, tools often compromise of FPs or FNs. Low FNs are ideal for security critical applications where a missed vulnerability can cause significant loss, e.g. banking apps. Low FPs are ideal for applications that don&#39;t have a lot of manpower to evaluate the correctness of each result. \
 > &nbsp;&nbsp;&nbsp;&nbsp;Additionally, an ideal testing tool is `interpretable`: an analyst can trace the results to a solid cause, and are `scalable`: the tool can be used for large applications without compromising heavily on performance.
 
