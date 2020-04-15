@@ -46,7 +46,8 @@ if [ -d "$GITBOOK_REP" ]; then
       perl -pe 's/{% include "\/includes\/youtube.md" %}//g' | \
       perl -pe 's/{% set video_id = "([A-Za-z0-9-_]*)" %}/***\nWatch our video on YouTube:\n\nhttp:\/\/www.youtube.com\/embed\/\1\n\n***/g' | \
       perl -pe "s/(\!\[.*\]\(.*\))<\!--(.*)-->/\1\2/g" | \
-      pandoc -f markdown-blank_before_header+lists_without_preceding_blankline -t html --mathjax --filter ./filter.py | \
+      pandoc -s -f markdown-blank_before_header+lists_without_preceding_blankline -t json | python3 ./filter.py | \
+      pandoc -f json -t html --mathjax | \
       pandoc -f html+tex_math_single_backslash -t latex \
               --variable fontsize=11pt \
               --variable=geometry:b5paper \
@@ -62,12 +63,12 @@ if [ -d "$GITBOOK_REP" ]; then
     lualatex --shell-escape book.tex
     # Run again to include ToC
     lualatex --shell-escape book.tex
-    rm book.tex book.dvi book.out.ps book.aux book.log book.toc texput.log
+    #rm book.tex book.dvi book.out.ps book.aux book.log book.toc texput.log
   else
     echo "File '$SUMMARY_FILE' does not exist"
   fi
   # Remove drawio PDFs
-  rm -r temp
+  #rm -r temp
 else
   echo "Directory '$GITBOOK_REP' does not exist"
 fi
