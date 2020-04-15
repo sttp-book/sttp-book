@@ -204,7 +204,7 @@ Of course, such critical parts must also be tested at other levels. Remember the
 Manual testing has lots of disadvantages, but is sometimes impossible to avoid. However, even in cases where automation is fully possible, manual exploratory testing can be useful. 
 The Wikipedia page on [Exploratory Testing](https://en.wikipedia.org/wiki/Exploratory_testing) is well written and we point the reader to it.
 
-On the other hand, those who apply the _testing pyramid_ try to avoid the so-called *ice cream cone*. Imagine the testing pyramid but put upside down.
+On the other hand, those who apply the _testing pyramid_ try to avoid the so-called *ice-cream cone anti-pattern*. Imagine the testing pyramid but put upside down.
 In this new version, manual testing has the largest area which means one should put more effort into manual testing (!!).
 
 ![Ice cream cone](img/testing-pyramid/ice_cream_cone.svg)
@@ -235,8 +235,8 @@ and then decide which test levels to use, how much, and when. There is no silver
 ## Exercises
 
 **Exercise 1.**
-Now we have a skeleton for the testing pyramid.
-What words/sentences should be at the numbers?
+Here is a skeleton for the testing pyramid.
+Fill in the correct corresponding terms.
 
 ![Testing Pyramid exercise skeleton](img/testing-pyramid/exercises/pyramid_skeleton.svg)
 
@@ -292,7 +292,7 @@ an integration test for this class?
 
 1. Reset the database state before each test.
 2. Apply the correct schema to the database under test.
-3. Assert that any database constraints are met.
+3. Assert that all database constraints are met.
 4. Set the transaction auto-commit to true.
 
 
@@ -310,7 +310,7 @@ A newly developed product started off with some basic unit tests but later on de
 **Exercise 5.**
 TU Delft just built an in-house software to control the payroll of its employees. The applications makes use of Java web technologies and stores data in a Postgres database. Clearly, the application frequently retrieves, modifies, and inserts large amounts of data into the database. All this communication is made by Java classes that send (complex) SQL queries to the database. 
 
-As testers, we know that a bug can be anywhere, including in the SQL queries themselves. We also know that there are many ways to exercise our system. Which one of the following **is not** a good option to detect in the SQL queries?
+As testers, we know that a bug can be anywhere, including in the SQL queries themselves. We also know that there are many ways to exercise our system. Which one of the following **is not** a good option to detect bugs in the SQL queries?
   
 1. Unit testing.
 1. Integration testing.
