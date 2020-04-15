@@ -186,7 +186,7 @@ You see developers vouching for domain objects not to depend on concrete impleme
  
 By devising interfaces that represent the abstract interaction that domains and infrastructure classes will have with each other, the developer ends up separating the concerns in a better way, reducing the coupling between both layers, and devising simpler flows of interactions between both layers.
  
-The dependency inversion principle (note the _inversion_ and not _injection_) helps us to formalize these concepts:
+The dependency inversion principle (note the _inversion_ and not _injection_) helps us to formalise these concepts:
  
 * High-level modules should not depend on low-level modules. Both should depend on abstractions (e.g. interfaces).
 * Abstractions should not depend on details. Details (concrete implementations) should depend on abstractions.
