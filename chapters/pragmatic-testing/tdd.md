@@ -146,7 +146,7 @@ We agree with the rationale. In fact, when comparing to test-last approaches, de
 
 We also agree with the confidence when refactoring. As TDD forces developers to write unit tests frequently, those tests end up working as a safety net. Any broken change in the code is quickly identified. This safety net makes developers more confident to try and experiment new design changes — after all, if the changes break anything, tests will warn developers about it. That is why they also believe the tests are a safe space to think.
 
-Therefore, we believe that it is not the practice by itself that helps developers to improve their class design, but the consequences of the constant act of writing a unit test, making that class testable, and refactoring the code, that drives developers through a better design.
+Therefore, we believe that it is not the practice by itself that helps developers to improve their class design, but the consequences of the constant act of writing a unit test, making that class testable, and refactoring the code, that drives developers towards a better design.
 
 Conclusion: Developers believe that the practice of test-driven development helps them to improve their class design, as the constant need of writing a unit test for each piece of the software forces them to create testable classes. These small feedbacks — is your test easy to be tested or not? — makes them think and rethink about the class and improve it. Also, as the number of tests grow, they act as a safety net, allowing developers to refactor freely, and also try and experiment different approaches to that code. Based on that, we suggest developers to experiment the practice of test-driven development, as its effects look positive to software developers.
 
@@ -209,7 +209,7 @@ We can combine these letters to form numbers.
 The letters should be ordered from the highest to the lowest value.
 For example `CCXVI` would be 216.
 
-When we put a lower value in front of a higher one, we substract that value from the higher value.
+When we put a lower value in front of a higher one, we subtract that value from the higher value.
 For example we make 40 not by XXXX, but instead we use $$50 - 10 = 40$$ and have the roman number `XL`.
 Combining both these principles we could give our method `MDCCCXLII` and it should return 1842.
 ```
