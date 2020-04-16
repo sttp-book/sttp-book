@@ -2,10 +2,10 @@
 
 [comment]: <> (TODO: replace application/app with software)
 
-In May of 2018, a [Code Injection Vulnerability was discovered in the Desktop Signal app](https://ivan.barreraoro.com.ar/signal-desktop-html-tag-injection/). An attacker could execute code on a victim&#39;s machine by sending a specially crafted message: The victim's app would hand over the `/etc/passwd` file, and even send all the chats in plain text, _without any human intervention_! This was ironic since Signal is known for its end-to-end encryption feature.
+In May of 2018, a [Code Injection Vulnerability was discovered in the Desktop Signal app](https://ivan.barreraoro.com.ar/signal-desktop-html-tag-injection/). An attacker could execute code on a victim's machine by sending a specially crafted message: The victim's app would hand over the `/etc/passwd` file, and even send all the chats in plain text, _without any human intervention_! This was ironic since Signal is known for its end-to-end encryption feature.
 
 <p align="center">
-  <img width="500" src="img/security-testing/signal-fail.png" alt="?">
+  <img width="500" src="img/security-testing/signal-fail.png" alt="Signal app bug">
 </p>
 
 Why did this vulnerability exist, and how we could have avoided it? In this chapter, we answer these questions and introduce the concept of security testing.
@@ -27,7 +27,7 @@ Security testers are always at an arms-race with the attackers &mdash; their aim
 
 >You can think of the attack surface as the surface of a rubber balloon, as shown in the figure: there are endless points on this surface that, when pricked by a needle (exploit analogy) will pop the balloon. The goal of Security testing is to limit the exposed attack surface and to increase the efforts required by the attackers to exploit it.
  <p align="center">
-  <img width="500" src="img/security-testing/attack-surface.png" alt="?">
+  <img width="500" src="img/security-testing/attack-surface.png" alt="Representation of attack surface and exploits">
 </p>
 
 Since security testing is all about finding those edge cases in which a software malfunctions, thoroughly testing software *does not* guarantee the absence of vulnerabilities. In fact, new vulnerabilities can pop up at any time and can hit even a time-tested software. This is why security testing is not a one-off event, but has to be incorporated in the whole Software Development Lifecycle.
@@ -45,14 +45,14 @@ There exist online repositories that consolidate software vulnerabilities. The [
 
 <h3 align="center">JRE vulnerabilities</h2>
 <p align="center">
-  <img width="500" src="img/security-testing/jre-vuln.png" alt="?">
+  <img width="500" src="img/security-testing/jre-vuln.png" alt="Vulnerabilities reported in JRE">
 </p>
 
 The plots show the number of vulnerabilities (left) and type of vulnerabilities (right) in the Java Runtime Environment (JRE) from 2007 to 2019. The spike in 2013 and 2014 is due to the exploitation of the *Type Confusion Vulnerability (explained later)*, that allows a user to bypass the Java Security Manager and perform high privileged actions.
 
 <h3 align="center">Android vulnerabilities</h2>
 <p align="center">
-  <img width="500" src="img/security-testing/android-vuln.png" alt="?">
+  <img width="500" src="img/security-testing/android-vuln.png" alt="Vulnerabilities reported in android">
 </p>
 The second set of plots show vulnerabilities discovered between 2009 and 2019 in Android OS, which is mostly written in Java.
 
@@ -148,7 +148,7 @@ So, there an interesting debate about `who gets the responsibility for security 
 The pragmatic approach is to **include security testing in each phase of the SDLC**. The figure below shows the Secure-SDLC variant of the traditional SDLC taken from [this article](https://www.dignitasdigital.com/blog/easy-way-to-understand-sdlc/).
 
 <p align="center">
-  <img width="500" src="img/security-testing/ssdlc.png" alt="?">
+  <img width="500" src="img/security-testing/ssdlc.png" alt="The secure sdlc">
 </p>
 
 At the `planning phase`, risk assessment should be done and potential abuse cases should be designed that the application will be protected against. In the `analysis phase`, the threat landscape should be explored, and attacker modelling should be done.
@@ -193,7 +193,7 @@ Before we dive into further explanation of SAST and DAST techniques, let's look 
 
 >### Quality assessment criteria
 > Designing an ideal testing tool requires striking a balance between two measures: (a) Soundness, and (b) Completeness. `Soundness` dictates that there should be no False Negative (FN) &mdash; no vulnerability should be skipped. This implies that no alarm is raised *IFF* there is no existing vulnerability in the *System Under Test (SUT)*. `Completeness` dictates that there should be no False Positives (FP) &mdash; no false alarm should be raised. This implies that an alarm is raised *IFF* a valid vulnerability is found. \
-> &nbsp;&nbsp;&nbsp;&nbsp; A perfect testing tool is both sound and complete. However, this is an undecidable problem &mdash; given finite time, the tool will always be wrong for some input. In reality, tools often compromise of FPs or FNs. Low FNs are ideal for security critical applications where a missed vulnerability can cause significant loss, e.g. banking apps. Low FPs are ideal for applications that don&#39;t have a lot of manpower to evaluate the correctness of each result. \
+> &nbsp;&nbsp;&nbsp;&nbsp; A perfect testing tool is both sound and complete. However, this is an undecidable problem &mdash; given finite time, the tool will always be wrong for some input. In reality, tools often compromise of FPs or FNs. Low FNs are ideal for security critical applications where a missed vulnerability can cause significant loss, e.g. banking apps. Low FPs are ideal for applications that don't have a lot of manpower to evaluate the correctness of each result. \
 > &nbsp;&nbsp;&nbsp;&nbsp;Additionally, an ideal testing tool is `interpretable`: an analyst can trace the results to a solid cause, and are `scalable`: the tool can be used for large applications without compromising heavily on performance.
 
 # Static Application Security Testing (SAST)
@@ -219,19 +219,19 @@ Regular expressions are usually represented using ***Finite State Automaton***. 
 The regular expression that results in the following automata is '**bug**'. An input of the string `bug` will transition from left to right, until we end up in the green state. However, an input of `bag` will move from first state to the second state, and then to the red state. Since there is no transition out of this state, we will stay here until the input finishes.
 
 <p align="center">
-  <img width="300" src="img/security-testing/regex1.png" alt="?">
+  <img width="300" src="img/security-testing/regex1.png" alt="FSM for bug">
 </p>
 
 Regex also have options to introduce wildcard characters. For example, the regular expression '**.\*bug**' results in the following automata. `.` denotes any possible character, and `*` denotes *0 or many times*. Hence, the following strings will be accepted by this pattern: `bug` and `this is a bug`. The following strings will be rejected by this pattern: `bug!`, `bugs`, `bad bug`.
 
 <p align="center">
-  <img width="300" src="img/security-testing/regex2.png" alt="?">
+  <img width="300" src="img/security-testing/regex2.png" alt="FSM for .*bug">
 </p>
 
 The automata for '**.\*bug.\***' is given below. It will accept any string that contains the characters `b`, `u`, `g` consecutively, at least once, before the occurrence of `b`, `u`, or `g` separately.
 
 <p align="center">
-  <img width="300" src="img/security-testing/regex3.png" alt="?">
+  <img width="300" src="img/security-testing/regex3.png" alt="FSM for .*bug.*">
 </p>
 
 Pattern matching can be used to find simplistic security issues. For example, we can write regular expressions to find ***misconfigurations***, like `port 22` being open for every user; ***potentially bad imports***, like importing the whole `System.IO` namespace; and ***calls to dangerous functions***, like `strcpy` and `memcpy`.
@@ -253,13 +253,13 @@ if (DEBUG){
 A more advanced code checking approach is syntax analysis. It works by deconstructing input code into a stream of characters, that are eventually turned into a Parse Tree. `Tokens` are hierarchal data structures that are put together according to the code's logical structure.
 
 <p align="center">
-  <img width="300" src="img/security-testing/lexer.png" alt="?">
+  <img width="300" src="img/security-testing/lexer.png" alt="Parser pipeline">
 </p>
 
 A **Parse Tree** is a concrete instantiation of the code, where each character is explicitly placed in the tree, whereas an Abstract **Syntax Tree (AST)** is an abstract version of the parse tree in which syntax-related characters, such as semi-colon and parentheses, are removed. An example of the AST of the code snippet above is given below.
 
 <p align="center">
-  <img width="350" src="img/security-testing/ast-example.png" alt="?">
+  <img width="350" src="img/security-testing/ast-example.png" alt="AST example">
 </p>
 
 A SAST tool using syntax analysis takes as input (a) an AST, and (b) a rule-set, and raises an alarm in case a rule is violated.
@@ -267,13 +267,13 @@ A SAST tool using syntax analysis takes as input (a) an AST, and (b) a rule-set,
 For example, for a rule `allowing at most 3 methods`, and the following code snippet, the AST will be parsed and an error will be raised for violating the rule. Contrarily, a very complicated regular expression would be needed to handle the varying characteristics of the four available methods, potentially resulting in false positives.
 
 <p align="center">
-  <img width="450" src="img/security-testing/ast-usecase1.png" alt="?">
+  <img width="450" src="img/security-testing/ast-usecase1.png" alt="AST rule enforcement">
 </p>
 
 Consider another example: for a rule specifying how the print function should be used, i.e. `printf(format_string, args_to_print)`, and the following code snippet, an error will be raised because of a missing parameter that can be clearly seen in the AST.
 
 <p align="center">
-  <img width="400" src="img/security-testing/ast-usecase2.png" alt="?">
+  <img width="400" src="img/security-testing/ast-usecase2.png" alt="AST rule enforcement">
 </p>
 
 ### Control Flow Graphs (CFG)
@@ -281,14 +281,14 @@ Consider another example: for a rule specifying how the print function should be
 Control Flow Graphs show how the control is transferred among different pieces of code in an application. It traces the execution of an application without actually executing it. Since it is a static approach, it shows _all the reachable_ code paths that the program _might_ take. In a CFG, the `nodes` are Basic Blocks of code (statements with consecutive control transfer), and `transitions` are control transfers. The CFGs of typical code primitives, taken from [this article](https://dzone.com/articles/how-draw-control-flow-graph), are shown below:
 
 <p align="center">
-  <img width="400" src="img/security-testing/cfgs-basic.png" alt="?">
+  <img width="400" src="img/security-testing/cfgs-basic.png" alt="CFGs of basic code primitives">
 </p>
 
 
 Consider the following code snippet (left). The CFG for it is given on the right. Each basic block is shown as a node, and all the possible control flows are shown as transitions.
 
 <p align="center">
-  <img width="450" src="img/security-testing/cfg-example.png" alt="?">
+  <img width="450" src="img/security-testing/cfg-example.png" alt="Example of CFG">
 </p>
 
 Remember that a CFG only traces control, not actually executions. It is an ***over-estimation*** of what any potential execution might look like &mdash; it is the union of all possible combinations of execution paths.
@@ -302,7 +302,7 @@ Data Flow Analysis (DFA) is built on top of a CFG and shows how data traverses t
 In DFA, we prove that `(a) No tainted data is used`, and `(b) No untainted data is expected`. An alert is raised if either of the two conditions are violated. Consider the following scenario for a single Source and Sink. There exists a direct path between a Source and a Sink, which violates the first rule. The solution to fix this violation is to include an input clean-up step between the Source and Sink variables.
 
 <p align="center">
-  <img width="400" src="img/security-testing/source-sink-example.png" alt="?">
+  <img width="400" src="img/security-testing/source-sink-example.png" alt="Source/sink example">
 </p>
 
 The code snippet below shows a real case that DFA can detect. The variable `data` is tainted, as it is received from a user. Without any input cleaning, it is directly used in `println()` method that expects untainted data, thus raising an alert.
@@ -347,7 +347,7 @@ for (int a = 0; a < 3; a++) {
 return b, c;
 ```
   <p align="middle">
-  <img width="250" src="img/security-testing/dfd-code2.png" alt="?">
+  <img width="250" src="img/security-testing/dfd-code2.png" alt="Making a DFD">
 </p>
 
 The solid transitions show `control transfers`, while the dotted transitions show `data transfers`. Suppose that we want to perform reaching definitions analysis of the three variables: `a`, `b`, and `c`. First, we label each basic block, and draw a table that lists the variable values in each block. If a variable is not used in the block, or the value remains the same, nothing is listed. At the end, each column of the table is merged to list the full set of potential values for each variable.
@@ -357,7 +357,7 @@ If a variable `X` copies its value to another variable `Y`, then the reaching de
 Also, whether a loop terminates is an undecidable problem *(also called the Halting problem)*, so finding the actual values that a looping variable takes on is not possible using static analysis.
 
 <p align="center">
-  <img width="250" src="img/security-testing/dfd-code3.png" alt="?">
+  <img width="250" src="img/security-testing/dfd-code3.png" alt="Performing reaching definitions analysis">
 </p>
 
 <center>
@@ -388,7 +388,7 @@ However, *crashes* and *denial of service* attacks ***cannot be detected*** unle
 
 # Dynamic Application Security Testing (DAST)
 
-DAST tools execute an application and observe its behavior. Since DAST tools typically don't have access to the source code, they can only test for functional code paths, and the analysis is only as good as the behavior triggering mechanism. This is why, search-based tools have been proposed to maximize the code coverage [??]. DAST tools are typically difficult to set-up, because they need to be hooked-up with the SUT, sometimes even requiring to modify the SUT's codebase, e.g. for instrumentation. They are also slow because of the added abstraction layer that monitors the application's behavior. Nevertheless, they typically produce more advanced results than SAST tools, and much less false positives. Even when attackers obfuscate the codebase to the extent that it is not statically analyzable anymore, dynamic testing can still monitor the behavior and report strange activities. `BurpSuite`, `SunarQube`, and `OWASP's ZAP` are some dynamic security testing tools. Below, we look at the following techniques for dynamic analysis:
+DAST tools execute an application and observe its behavior. Since DAST tools typically don't have access to the source code, they can only test for functional code paths, and the analysis is only as good as the behavior triggering mechanism. This is why, search-based algorithms have been proposed to maximize the code coverage \[[1](#1),[2](#2)\]. DAST tools are typically difficult to set-up, because they need to be hooked-up with the SUT, sometimes even requiring to modify the SUT's codebase, e.g. for instrumentation. They are also slow because of the added abstraction layer that monitors the application's behavior. Nevertheless, they typically produce more advanced results than SAST tools, and much less false positives. Even when attackers obfuscate the codebase to the extent that it is not statically analyzable anymore, dynamic testing can still monitor the behavior and report strange activities. `BurpSuite`, `SunarQube`, and `OWASP's ZAP` are some dynamic security testing tools. Below, we look at the following techniques for dynamic analysis:
 
 1. Taint analysis
 2. Dynamic validation
@@ -457,13 +457,13 @@ The goal of behavioral analysis is to gain insights about the SUT, by generating
 An example of the resulting log file is given below.
 
 <p align="center">
-  <img width="350" src="img/security-testing/behav-log-screenshot.png" alt="?">
+  <img width="350" src="img/security-testing/behav-log-screenshot.png" alt="behavioral log screenshot">
 </p>
 
 JPacman has support for two point calculator modules (`Scorer 1` and `Scorer 2`) that calculate score in different ways. The goal is to find what the malicious module (`Scorer 2`) does. In the figure, the plots show how the value of `score` variable changes overtime. It is apparent that something goes wrong with `Scorer 2`, since the score is typically programmed to increase monotonically.
 
 <p align="center">
-  <img width="500" src="img/security-testing/jpacman-screenshot.png" alt="?">
+  <img width="500" src="img/security-testing/jpacman-screenshot.png" alt="Jpacman and scorers">
 </p>
 
 ## Reverse Engineering (RE)
@@ -555,3 +555,9 @@ func(int a, bool b){
 - ASTs make the code structure analysis easy. CFGs and DFDs are better at finding security vulnerabilities.
 - Behavioral logs are very useful for forensic analysis of the SUT.
 - Combining fuzzing with Symbolic execution leads to finding optimal test cases that can maximize code coverage and find maximum security problems.
+
+# References
+
+<a name="1">1</a>. P. Chen and H. Chen, "Angora: Efficient Fuzzing by Principled Search," 2018 IEEE Symposium on Security and Privacy (SP), San Francisco, CA, 2018, pp. 711-725.
+
+<a name="2">2</a>. Gross, F., Fraser, G., & Zeller, A. (2012, July). Search-based system testing: high coverage, no false alarms. In Proceedings of the 2012 International Symposium on Software Testing and Analysis (pp. 67-77).
