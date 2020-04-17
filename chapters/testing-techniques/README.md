@@ -40,19 +40,19 @@ software system, and how to automate as many steps on the way as possible.
 These techniques will rely on the different artefacts that are present during the 
 software development process. 
 
-More specifically, in :
+More specifically, we will discuss the following topics :
 
-* **Specification-based testing**: We will discuss techniques to derive tests from textual requirements. We will discuss the _category/partition method_ and what _equivalence partitioning_ means.
+* **Specification-based testing**: Techniques to derive tests from textual requirements. Understanding the _category/partition method_ and  _equivalence partitioning_ .
 
-* **Boundary testing**: We will discuss how to derive tests that exercise the boundaries of our requirement.
+* **Boundary testing**: Deriving tests that exercise the boundaries of our requirement.
 
-* **Structural testing**: We will derive test cases based on the structure of the source code.
+* **Structural testing**: Test cases based on the structure of the source code.
 
-* **Model-based testing**: We will leverage more formal documentation such as state machines and decision tables to derive tests. 
+* **Model-based testing**: Leveraging more formal documentation such as state machines and decision tables to derive tests. 
 
-* **Design-by-contracts**: We will devise explicit contracts to methods and classes to ensure that they behave correctly when these contracts are (and are not) met.
+* **Design-by-contracts**: Devising explicit contracts for methods and classes to ensure that they behave correctly when these contracts are (and are not) met.
 
-* **Property-based testing**: We will learn how to derive properties of the system (similar to contracts) and use them to automatically generate test cases.
+* **Property-based testing**: Deriving properties of the system (similar to contracts) and using them to automatically generate test cases.
 
 
 
