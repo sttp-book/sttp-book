@@ -46,10 +46,8 @@ The tests also show us how easy it is to use the class we just made.
 We are using the class directly in the tests so we know immediately when we can improve something.
 
 * **Testable code from the beginning.**
-Related to the previous point is the way we design the code when using TDD. 
-By thinking about the tests before implementing the code we automatically make sure that the code is easy to control. 
-After all, we need testable classes from the very beginning, if we are starting from the test code. 
-TDD forces developers to change how they design their code, resulting in improved code quality, as it will be easier to test the controllable code.
+Related to the previous point is the way we design the code when using TDD.
+Creating the tests first makes us think about the way to test the classes before implementing them. After all, we need testable classes from the very beginning, if we are starting from the test code. Because TDD forces developers to change how they design their code, it improves the testability, and more specifically also the controllability of our code. We already talked about the importance of this aspect when creating automated tests. Controllable code will be easier to test, resulting in improved code quality. 
 
 * **Writing tests first gives faster feedback on the code that we are writing.**
 Instead of writing a lot of code and then a lot of tests, i.e. getting a lot of feedback at once after a long period of time, we create a test and then write a small piece of code for that test.
