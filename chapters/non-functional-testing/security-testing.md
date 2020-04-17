@@ -2,11 +2,7 @@
 
 [comment]: <> (TODO: replace application/app with software)
 
-In May of 2018, a [Code Injection Vulnerability was discovered in the Desktop Signal app](https://ivan.barreraoro.com.ar/signal-desktop-html-tag-injection/). An attacker could execute code on a victim's machine by sending a specially crafted message: The victim's app would hand over the `/etc/passwd` file, and even send all the chats in plain text, _without any human intervention_! This was ironic since Signal is known for its end-to-end encryption feature.
-
-<p align="center">
-  <img width="500" src="img/security-testing/signal-fail.png" alt="Signal app bug">
-</p>
+In May of 2018, a [Code Injection Vulnerability was discovered in the Desktop Signal app](https://ivan.barreraoro.com.ar/signal-desktop-html-tag-injection/). An attacker could execute code on a victim's machine by sending a specially crafted message. The victim's app would hand over the `/etc/passwd` file, and even send all the chats in plain text, _without any human intervention_! This was ironic since Signal is known for its end-to-end encryption feature.
 
 Why did this vulnerability exist, and how we could have avoided it? In this chapter, we answer these questions and introduce the concept of security testing.
 
@@ -17,50 +13,56 @@ After reading this chapter, you should be able to:
 - Explain the various facets of Security Testing,
 - Evaluate the key differences between SAST and DAST.
 
-# Software vs. Security testing
+# Software vs. security testing
 
-We start this chapter with what you already know: *Software testing*. The key difference between *software testing* and *security testing* is as follows:
+We start this chapter with what you already know: *software testing*. The key difference between *software testing* and *security testing* is as follows:
 
-> The goal of Software testing is to check the correctness of the implemented functionality, while the goal of Security testing is to find vulnerabilities that makes the software behave incorrectly.
+> The goal of software testing is to check the correctness of the implemented functionality, while the goal of security testing is to find vulnerabilities that makes the software behave incorrectly.
 
-Security testers are always at an arms-race with the attackers &mdash; their aim is to find and fix the vulnerabilities/flaws before the adversary gets the chance to exploit them.
+Security testers are always at an arms-race with the attackers. Their aim is to find and fix the vulnerabilities/flaws before the adversary gets the chance to exploit them.
 
->You can think of the attack surface as the surface of a rubber balloon, as shown in the figure: there are endless points on this surface that, when pricked by a needle (exploit analogy) will pop the balloon. The goal of Security testing is to limit the exposed attack surface and to increase the efforts required by the attackers to exploit it.
+You can think of the attack surface as the surface of a rubber balloon, as shown in the figure: there are endless points on this surface that, when pricked by a needle (exploit analogy) will pop the balloon. The goal of security testing is to limit the exposed attack surface and to increase the efforts required by the attackers to exploit it.
+
  <p align="center">
   <img width="500" src="img/security-testing/attack-surface.png" alt="Representation of attack surface and exploits">
 </p>
 
 Since security testing is all about finding those edge cases in which a software malfunctions, thoroughly testing software *does not* guarantee the absence of vulnerabilities. In fact, new vulnerabilities can pop up at any time and can hit even a time-tested software. This is why security testing is not a one-off event, but has to be incorporated in the whole Software Development Lifecycle.
 
-{% hint style='tip' %} We discuss Secure Software Development Life Cycle later in this chapter. {% endhint %}
+{% hint style='tip' %} 
+We discuss the **Secure Software Development Life Cycle** later in this chapter. 
+{% endhint %}
 
-[According to Oracle](https://www.oracle.com/java/), 3 Billion devices run Java globally. Java is also considered to be a more mature language as it handles memory management and garbage collection itself, unlike C that lets developers handle these tasks. However, Java is slower than native C code due to the added abstraction layers. This is why some Java components are built upon native code for optimization purposes. Evidently, any component implemented in native code is vulnerable to the exploits that typical C code is also vulnerable to.
-> For example, graphics libraries often use native code for fast rendering. An earlier version of the Sun JRE GIF library contained a buffer overflow vulnerability, see CVE-2007-0243. \
-> Also, Java Virtual Machine, the sandbox that enables Java programs to execute platform-independently, is itself written in C and is not a stranger to vulnerabilities.
+[According to Oracle](https://www.oracle.com/java/), 3 billion devices run Java globally. Java handles memory management and garbage collection itself, unlike C that requires developers to handle these tasks manually. However, Java code might be slower than native C code due to the added abstraction layers. This is why some Java components are built upon native code for optimization purposes. Evidently, any component implemented in native code is vulnerable to the exploits that typical C code are also vulnerable to.
+
+> For example, graphics libraries often use native code for fast rendering. An earlier version of the Sun JRE GIF library contained a buffer overflow vulnerability (see CVE-2007-0243). Moreover, the Java Virtual Machine, the sandbox that enables Java programs to execute platform-independently, is itself written in C and is not a stranger to vulnerabilities.
 
 
 # Vulnerability databases
 
 There exist online repositories that consolidate software vulnerabilities. The [NIST National Vulnerability Database](https://www.cvedetails.com/) is a repository that contains security vulnerabilities discovered in open source software. Each vulnerability is assigned a unique `CVE (Common Vulnerability and Exposures)` identifier, a `CWE (Common Weakness Enumeration)` that determines the type of vulnerability, and a `CVSS (Common Vulnerability Scoring System)` score that determines the severity of the vulnerability. Additionally, you can also view the products and their versions that are affected by the vulnerability.
 
-<h3 align="center">JRE vulnerabilities</h2>
+## JRE vulnerabilities
+
 <p align="center">
   <img width="500" src="img/security-testing/jre-vuln.png" alt="Vulnerabilities reported in JRE">
 </p>
 
 The plots show the number of vulnerabilities (left) and type of vulnerabilities (right) in the Java Runtime Environment (JRE) from 2007 to 2019. The spike in 2013 and 2014 is due to the exploitation of the *Type Confusion Vulnerability (explained later)*, that allows a user to bypass the Java Security Manager and perform high privileged actions.
 
-<h3 align="center">Android vulnerabilities</h2>
+## Android vulnerabilities 
+
 <p align="center">
   <img width="500" src="img/security-testing/android-vuln.png" alt="Vulnerabilities reported in android">
 </p>
+
 The second set of plots show vulnerabilities discovered between 2009 and 2019 in Android OS, which is mostly written in Java.
 
->What is interesting to see in these plots is that the top 3 vulnerability types are related to *bypassing controls*, *executing code in unauthorized places*, and causing *denial of service*. Hence, we see that although memory corruption is not a major threat for Java applications, the effects caused by classical buffer overflows in C applications can still be achieved in Java by other means.
+What is interesting to see in these plots is that the top 3 vulnerability types are related to *bypassing controls*, *executing code in unauthorized places*, and causing *denial of service*. Hence, we see that although memory corruption is not a major threat for Java applications, the effects caused by classical buffer overflows in C applications can still be achieved in Java by other means.
 
-# Understanding Java Vulnerabilities
+# Understanding Java vulnerabilities
 
-Let's take the following commonly exploited vulnerabilities in Java applications and analyze how they work:
+Let's take the following commonly exploited vulnerabilities in Java applications, and analyze how they work:
 1. Code injection vulnerability
   * Update attack
 2. Type confusion vulnerability
@@ -68,9 +70,9 @@ Let's take the following commonly exploited vulnerabilities in Java applications
 3. Arbitrary Code Execution (ACE)
 4. Remote Code execution (RCE)
 
-## Code Injection vulnerability
+## Code injection vulnerability
 
-The code snippet below has a Code Injection vulnerability.  
+The code snippet below has a *Code Injection*vulnerability.  
 
 ``` java
 
@@ -97,19 +99,21 @@ IO.writeLine(tempClassObject.toString());
 
 ```
 
-The `Class.forName(data)` is responsible for it. If you look closely, the object's value is loaded dynamically from `host.example.org:39544`. If the host is controlled by an attacker, they can freely introduce malicious code in the application logic at run time. A famous version of this attack is an **Update attack** in Android applications, where a plugin seems benign but it downloads malicious code at runtime. Static analysis tools will most likely fail to detect this attack since the malicious code is not part of the application logic at the checking time.
+The `Class.forName(data)` is the root cause of the vulnerability. If you look closely, the object's value is loaded dynamically from `host.example.org:39544`. If the host is controlled by an attacker, they can freely introduce malicious code in the application logic at run-time. A famous version of this attack is an **Update attack** in Android applications, where a plugin seems benign, but it downloads malicious code at run-time. 
+
+Static analysis tools often fail to detect this attack, since the malicious code is not part of the application logic at the checking time.
 >Due to the variations that Code Injection can present itself in, it is the top entry in the [OWASP Top 10 list of vulnerabilities](https://owasp.org/www-project-top-ten/). To limit its effect, developers can disallow 'untrusted' plugins, and can limit the privileges that a certain plugin has, e.g. by disallowing plugins to access sensitive folders.
 
 
-## Type confusion Vulnerability
+## Type confusion vulnerability
 
-This vulnerability was present in the implementation of the `tryfinally()` method in the *Reflection API* of the [Hibernate ORM library](https://access.redhat.com/security/cve/cve-2014-3558). Due to insufficient type checks in this method, an attacker can cast objects into arbitrary types with varying privileges.
+This vulnerability was present in the implementation of the `tryfinally()` method in the *Reflection API* of the [Hibernate ORM library](https://access.redhat.com/security/cve/cve-2014-3558). Due to insufficient type checks in this method, an attacker could cast objects into arbitrary types with varying privileges.
 
 The Type confusion vulnerability is explained in this [blog](https://www.thezdi.com/blog/2018/4/25/when-java-throws-you-a-lemon-make-limenade-sandbox-escape-by-type-confusion), from where we take the example below.
 
 ``` java
 class Cast1 extends Throwable {
-  Object Lemon;
+  Object lemon;
 }
 
 class Cast2 extends Throwable {
@@ -124,49 +128,55 @@ public static void handleEx(Cast2 e) {
   e.lime.makeLimenade();
 }
 ```
-Suppose that an attacker wants to execute the `makeLimenade()` method of the `lime` object, but only has access to a `Lemon` type object. The attacker exploits the fact that `throwEx()` throws a `Cast1` (Lemon) object, while `handleEx()` accepts a `Cast2` (Lime) object. For the sake of brevity, consider that the output of `throwEx()` is an input to `handleEx()`. In a vulnerable version of Java, these type mismatches do not raise any alerts, so an attacker can send a `Lemon` type object that is cast into a `Lime` type object, hence allowing them to call the `makeLimenade()` function from *(what was originally)* a `Lemon` type object.
 
-In a real setting, an attacker can use this Type confusion vulnerability to escalate their privileges by **bypassing the Java Security Manager (JSM)**. The attacker's goal is to access `System.security` object and set it to `null`, which will disable the JSM. However, the `security` field is private and cannot be accessed by an object that the attacker has (let's call it `Obj`). So, they will exploit the Type Confusion Vulnerability to cast `Obj` into `Obj'` that does have higher privileges and access to the `System.security` field. Once the JSM is bypassed, the attacker can execute whatever code they want to.
+Suppose that an attacker wants to execute the `makeLimenade()` method of the `lime` object, but only has access to a `Lemon` object. The attacker exploits the fact that `throwEx()` throws a `Cast1` (Lemon) object, while `handleEx()` accepts a `Cast2` (Lime) object. 
+
+For the sake of brevity, consider that the output of `throwEx()` is an input to `handleEx()`. In the old and vulnerable version of Java, these type mismatches did not raise any alerts, so an attacker could send a `lemon` object that was then cast into a `Lime` type object, hence allowing them to call the `makeLimenade()` function from *(what was originally)* a `Lemon` object.
+
+In a real setting, an attacker can use this _type confusion_ vulnerability to escalate their privileges by **bypassing the Java Security Manager (JSM)**. The attacker's goal is to access `System.security` object and set it to `null`, which will disable the JSM. However, the `security` field is private and cannot be accessed by an object that the attacker has (let's call it `Obj`). So, they will exploit the _type confusion_ vulnerability to cast `Obj` into something that does have higher privileges and access to the `System.security` field. Once the JSM is bypassed, the attacker can execute whatever code they want to.
 
 
 ## Arbitrary Code Execution (ACE)
 
-This vulnerability is caused by an [XML deserialization bug in the XStream library](https://access.redhat.com/security/cve/cve-2013-7285): while deserializing XML into a Java Object, a malicious XML input can cause the memory pointer to start executing code from arbitrary memory locations (which are potentially controlled by an attacker).
+This vulnerability was caused by an [XML deserialization bug in the XStream library](https://access.redhat.com/security/cve/cve-2013-7285): while deserializing XML into a Java Object, a malicious XML input can cause the memory pointer to start executing code from arbitrary memory locations (which are potentially controlled by an attacker).
 
-## Remote Code Execution (RCE)
+When an ACE is triggered remotely, it is called a _Remote Code Execution_ (RCE) vulnerability. The underlying principle is the same: it is also caused by *Improper handling of 'special code elements'*. We have seen it in the [Spring Data Commons](https://pivotal.io/security/cve-2018-1273) library, a part of the Spring framework that provides cloud resources for database connections.
 
-When an ACE is triggered remotely, it is called a Remote Code Execution vulnerability. The underlying principle is the same: it is also caused by *Improper handling of 'special code elements'*. It exists in the [Spring Data Commons](https://pivotal.io/security/cve-2018-1273) library which is part of the Spring framework that provides cloud resources for database connections.
-
-An Oracle report in 2018 stated that **[most of the Java vulnerabilities can be remotely exploited](https://www.waratek.com/alert-oracle-guidance-cpu-april-2018/)**. With 3 Billion devices running Java, this creates a large attack surface.
+An Oracle report in 2018 stated that **[most of the Java vulnerabilities can be remotely exploited](https://www.waratek.com/alert-oracle-guidance-cpu-april-2018/)**. With 3 billion devices running Java, this creates a large attack surface.
 
 
 # The Secure Software Development Life Cycle (Secure-SDLC)
 
-*Security testing is a type of non-functional testing, but if it fails to fix security vulnerabilities, (i) there is a high impact on the functionality of the application, e.g. denial of service attack renders the application unreachable, and (ii) it also causes reputation and/or monetary loss, e.g. loss of customers.*
-So, there an interesting debate about `who gets the responsibility for security testing`.
+Security testing is a type of non-functional testing, but if it fails to fix security vulnerabilities, (i) there is a high impact on the functionality of the application, e.g. a denial of service attack that makes the entire application unreachable, and (ii) it also causes reputation and/or monetary loss, e.g. loss of customers.
 
-The pragmatic approach is to **include security testing in each phase of the SDLC**. The figure below shows the Secure-SDLC variant of the traditional SDLC taken from [this article](https://www.dignitasdigital.com/blog/easy-way-to-understand-sdlc/).
+There is an interesting debate about *who gets the responsibility for security testing*.
+The pragmatic approach is to **include security testing in each phase of the SDLC**. 
+
+The figure below shows the Secure-SDLC variant of the traditional SDLC taken from [this article](https://www.dignitasdigital.com/blog/easy-way-to-understand-sdlc/).
 
 <p align="center">
   <img width="500" src="img/security-testing/ssdlc.png" alt="The secure sdlc">
 </p>
 
-At the `planning phase`, risk assessment should be done and potential abuse cases should be designed that the application will be protected against. In the `analysis phase`, the threat landscape should be explored, and attacker modelling should be done.
->For example, in the case of JPacman, an attacker model is that the vendor that supplies the plugins has been infected, so all plugins received from the vendor might be malicious.
+At the *planning phase*, risk assessment should be done and potential abuse cases should be designed that the application will be protected against. In the *analysis phase*, the threat landscape should be explored, and attacker modelling should be done.
 
-The `design` and `implementation` plans of the application should include insights from the attacker model and abuse cases.
+>For example, an attacker model is that the vendor that supplies the plugins has been infected, so all plugins received from the vendor might be malicious.
+
+The *design* and *implementation* plans of the application should include insights from the attacker model and abuse cases.
+
 >For example, the choice of certain libraries, and the permissions assigned to certain modules should be guided by the threat landscape under consideration.
 
-Security testing should be a part of the `testing and integration phase`. Code reviews should also be done from the perspective of the attacker (using abuse cases). Finally, during the `maintenance phase`, in addition to bug fixes, developers should keep an eye on the CVE database and update *(if possible)* the vulnerable components in the application.
+Security testing should be a part of the *testing and integration* phase. Code reviews should also be done from the perspective of the attacker (using abuse cases). Finally, during the *maintenance phase*, in addition to bug fixes, developers should keep an eye on the CVE database and update *(if possible)* the vulnerable components in the application.
 
-*Just like the traditional SDLC is not a one-time process, the Secure-SDLC is also a continuous process*, so security testing should also be integrated into the `Continuous Integration` framework as well.
-Currently, most companies only do *Penetration testing* which tests the entire application at the very end of the SDLC. The problem with penetration testing is that it tests the application as a whole, and does not stress-test each individual component. When security is not an integral part of the design phase, the vulnerabilities discovered in the penetration testing phase are patched in an ad-hoc manner that increase the risk of them falling apart after deployment.
+*Just like the traditional SDLC is not a one-time process, the Secure-SDLC is also a continuous process*. Therefore, security testing should also be integrated into the *Continuous Integration* framework as well.
+
+Currently, most companies solely do *penetration testing* which tests the entire application at the very end of the SDLC. The problem with penetration testing is that it tests the application as a whole, and does not stress-test each individual component. When security is not an integral part of the design phase, the vulnerabilities discovered in the penetration testing phase are patched in an ad-hoc manner that increase the risk of them falling apart after deployment.
 
 
 
-# Facets of Security Testing
+# Facets of security testing
 
-As such, the term Security testing is very broad and it covers a number of overlapping concepts. We classify them as follows:
+As such, the term *security testing* is very broad and it covers a number of overlapping concepts. We classify them as follows:
 
 |         |    White-box    |    Black-box    |
 |------------|----------------------------------------------------|-------------------------------------------------------------------------|
@@ -198,9 +208,11 @@ Before we dive into further explanation of SAST and DAST techniques, let's look 
 
 # Static Application Security Testing (SAST)
 
-SAST can be considered as an automated code review. It checks the style and structure of the code, and can be used to _statically_ evaluate all possible code paths in the SUT. SAST tools are scalable and generally require less time to set up. They can quickly find _low hanging fruit_ vulnerabilities that can be found in the source code, e.g. SQL Injection and Cross-Site Scripting. However, since the threat landscape adapts relatively quickly, SAST tools must keep updating their so-called _signatures_ that they use to detect security problems. Additionally, while static analysis can see the entire codebase, it does not see how the application behaves in action, so if a piece of code is added at runtime, the static analysis will miss it completely. These are a few reasons why SAST tools generally produce a large amount of false positives, i.e. raise alarms even on benign code. `PMD`, `Checkstyle`, `Checkmarx` are some common static analysis tools, while `SpotBugs`, `FindSecBugs` and `Coverity` are specifically meant to test security problems in applications.
+SAST can be considered as an automated code review. It checks the style and structure of the code, and can be used to _statically_ evaluate all possible code paths in the SUT. SAST tools are scalable and generally require less time to set up. 
 
-Static testing is not only limited to code checking &mdash; it includes any approach that does not require running the SUT. For example, **Risk-based testing**  is a business-level process where we model the worst-case scenarios (or abuse cases) using threat modelling. An application is tested against the generated abuse cases to check its resilience against them. *Risk-based testing can be done both statically and dynamically.*
+They can quickly find _low-hanging fruit_ vulnerabilities that can be found in the source code, e.g. SQL Injection and Cross-Site Scripting. However, since the threat landscape adapts relatively quickly, SAST tools must keep updating their so-called _signatures_ that they use to detect security problems. Additionally, while static analysis can see the entire codebase, it does not see how the application behaves in action, so if a piece of code is added at runtime, the static analysis will miss it completely. These are a few reasons why SAST tools generally produce a large amount of false positives, i.e. raise alarms even on benign code. `PMD`, `Checkstyle`, `Checkmarx` are some common static analysis tools, while `SpotBugs`, `FindSecBugs` and `Coverity` are specifically meant to test security problems in applications.
+
+Static testing is not only limited to code checking &mdash; it includes any approach that does not require running the SUT. For example, **risk-based testing**  is a business-level process where we model the worst-case scenarios (or abuse cases) using threat modelling. An application is tested against the generated abuse cases to check its resilience against them. *Risk-based testing can be done both statically and dynamically.*
 
 ## Code Checking
 
@@ -350,11 +362,11 @@ return b, c;
   <img width="250" src="img/security-testing/dfd-code2.png" alt="Making a DFD">
 </p>
 
-The solid transitions show `control transfers`, while the dotted transitions show `data transfers`. Suppose that we want to perform reaching definitions analysis of the three variables: `a`, `b`, and `c`. First, we label each basic block, and draw a table that lists the variable values in each block. If a variable is not used in the block, or the value remains the same, nothing is listed. At the end, each column of the table is merged to list the full set of potential values for each variable.
+The solid transitions show *control transfers*, while the dotted transitions show *data transfers*. Suppose that we want to perform reaching definitions analysis of the three variables: `a`, `b`, and `c`. First, we label each basic block, and draw a table that lists the variable values in each block. If a variable is not used in the block, or the value remains the same, nothing is listed. At the end, each column of the table is merged to list the full set of potential values for each variable.
 
->Remember, if the value of a variable is controlled by a user-controlled parameter, it cannot be resolved until run-time, so it is written as it is. \
-If a variable `X` copies its value to another variable `Y`, then the reaching definitions analysis dictates that the variable `Y` will receive all potential values of `X`, once they become known. \
-Also, whether a loop terminates is an undecidable problem *(also called the Halting problem)*, so finding the actual values that a looping variable takes on is not possible using static analysis.
+Remember, if the value of a variable is controlled by a user-controlled parameter, it cannot be resolved until run-time, so it is written as it is.
+If a variable `X` copies its value to another variable `Y`, then the reaching definitions analysis dictates that the variable `Y` will receive all potential values of `X`, once they become known.
+Also, whether a loop terminates is an undecidable problem (also called the *halting problem*), so finding the actual values that a looping variable takes on is not possible using static analysis.
 
 <p align="center">
   <img width="250" src="img/security-testing/dfd-code3.png" alt="Performing reaching definitions analysis">
@@ -388,7 +400,9 @@ However, *crashes* and *denial of service* attacks ***cannot be detected*** unle
 
 # Dynamic Application Security Testing (DAST)
 
-DAST tools execute an application and observe its behavior. Since DAST tools typically don't have access to the source code, they can only test for functional code paths, and the analysis is only as good as the behavior triggering mechanism. This is why, search-based algorithms have been proposed to maximize the code coverage \[[1](#1),[2](#2)\]. DAST tools are typically difficult to set-up, because they need to be hooked-up with the SUT, sometimes even requiring to modify the SUT's codebase, e.g. for instrumentation. They are also slow because of the added abstraction layer that monitors the application's behavior. Nevertheless, they typically produce more advanced results than SAST tools, and much less false positives. Even when attackers obfuscate the codebase to the extent that it is not statically analyzable anymore, dynamic testing can still monitor the behavior and report strange activities. `BurpSuite`, `SunarQube`, and `OWASP's ZAP` are some dynamic security testing tools. Below, we look at the following techniques for dynamic analysis:
+DAST tools execute an application and observe its behavior. Since DAST tools typically do not have access to the source code, they can only test for functional code paths, and the analysis is only as good as the behavior triggering mechanism. This is why, search-based algorithms have been proposed to maximize the code coverage \[[1](#1),[2](#2)\]. 
+
+DAST tools are typically difficult to set-up, because they need to be hooked-up with the SUT, sometimes even requiring to modify the SUT's codebase, e.g. for instrumentation. They are also often slow because of the added abstraction layer that monitors the application's behavior. Nevertheless, they typically produce more advanced results than SAST tools, and much less false positives. Even when attackers obfuscate the codebase to the extent that it is not statically analyzable anymore, dynamic testing can still monitor the behavior and report strange activities. `BurpSuite`, `SunarQube`, and `OWASP's ZAP` are some dynamic security testing tools. Below, we look at the following techniques for dynamic analysis:
 
 1. Taint analysis
 2. Dynamic validation
@@ -399,7 +413,7 @@ DAST tools execute an application and observe its behavior. Since DAST tools typ
 
 ## Taint analysis
 
-Taint analysis is the dynamic version of Data Flow Analysis. In Taint analysis, we track the values of variables that we want to *taint*, by maintaining a so-called `taint table`. For each tainted variable, we analyze how the value propagates throughout the codebase and affects other statements and variables. To enable tainting, ***code instrumentation*** is done by adding hooks to variables that are of interest. `Pin` is an instrumentation tool from Intel, which allows taint analysis of binaries.
+Taint analysis is the dynamic version of Data Flow Analysis. In taint analysis, we track the values of variables that we want to *taint*, by maintaining a so-called `taint table`. For each tainted variable, we analyze how the value propagates throughout the codebase and affects other statements and variables. To enable tainting, ***code instrumentation*** is done by adding hooks to variables that are of interest. `Pin` is an instrumentation tool from Intel, which allows taint analysis of binaries.
 
 ## Dynamic validation
 
