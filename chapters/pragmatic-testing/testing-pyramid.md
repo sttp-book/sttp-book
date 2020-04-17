@@ -2,7 +2,7 @@
 
 In previous chapters we studied different techniques to derive test cases for requirements with single responsibilities (tested via specification-based techniques) and source code that could fit into a single unit/class (tested via structural techniques).
 
-A large software system, however, is composed of many of these units and responsibilities which form its complex behaviour.
+A large software system, however, is composed of many units and responsibilities.
 
 In this chapter we are going to discuss 
 the different **test levels** (i.e., unit, integration, and system), their advantages and disadvantages, and the trade-offs that a tester has to make in real-world testing.
@@ -37,7 +37,7 @@ often cohesive and small, easing the job of the tester.
 
 #### Disadvantages
 
-* Unit test **lack "reality"**.
+* Unit tests **lack "reality"**.
 A software system is rarely composed of a single class.
 The large number of classes in a system and the interaction between these classes can cause the system to behave differently in its real application than in the unit tests.
 Hence, unit tests do not perfectly represent the real execution of a software system.
@@ -51,7 +51,7 @@ To get a more realistic view of the software and thus perform more realistic tes
 we should run the entire software system with all its 
 databases, front-end apps, and any other components it is made up of.
 
-When we test the system in its entirity, we are doing what is called **"system testing"**.
+When we test the system in its entirety, we are doing what is called **"system testing"**.
 In practice, instead of testing small parts of the system in isolation, system tests execute the system as a whole.
 Note that an alternative name for software testing is **black box testing** because the system is some sort of black box to the testers:
 we do not care or actually know what goes on inside of the system ("the black box") as long as we get the expected output for a given input.
@@ -62,7 +62,7 @@ we do not care or actually know what goes on inside of the system ("the black bo
 After all,
 the more realistic the tests are, the higher the chances of it actually working when shipped.
 
-* System tests also **capture the user's perspective** more than unit tests do.
+* System tests also **capture the user's perspective** better than unit tests.
 In other words, system tests are a better simulation of how the final user interacts with the system.
 
 #### Disadvantages
@@ -84,11 +84,10 @@ A flaky test is a test that presents an erratic behaviour: if you run it, it mig
 It is easy to imagine how a system test can become flaky. Think of a system test that exercises a web app. After clicking a button, the HTTP POST request to the web app took half a second more than usual (due to small variations we often do not control in real-life scenarios; Tomcat decided to do a full garbage collection at that very second, for example). The test was not expecting it to happen and thus, it failed. If the test is executed again, the web app might now take its usual time to respond and the test will pass on this try. There are just too many uncertainties in a system test that
 can lead to unexpected behaviour.
 
-  We discuss _flaky tests_ more formally later in the book.
+{% hint style='tip' %} We discuss flaky tests more formally later in the book. {% endhint %}
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=5q_ZjIM_9PQ" target="_blank">
-  <img src="http://img.youtube.com/vi/5q_ZjIM_9PQ/0.jpg" alt="Unit and System Tests: The Different Test Levels" width="240" height="180" border="10" />
-</a>
+{% set video_id = "5q_ZjIM_9PQ" %}
+{% include "/includes/youtube.md" %}
 
 ## Integration testing
 
@@ -108,9 +107,7 @@ test these SQL queries.
 >
 > However, note that the tester does not want to test the entire system, only the integration between the DAO class and the database. The tester also does not want to test the DAO class in complete isolation; after all, the best way to know whether a SQL query works is to actually submit it to the database and see what the database returns back. This is an example of an integration test.
 
-The goal of integration testing is to test 
-multiple components of a system together but not the whole system.
-These integration tests focus on the interaction between a few components of the system.
+The goal of integration testing is to test multiple components of a system together, focusing on the interactions between them instead of testing the system as a whole.
 Are they communicating correctly? What happens if component A sends message X to component B? 
 Do they still present correct behaviour?
 
@@ -119,7 +116,7 @@ Do they still present correct behaviour?
 The advantage of integration tests is that, while not fully isolated, devising tests 
 just for a specific integration is easier than devising tests for all the components together. 
 As a consequence, the effort of writing such tests
-is a bit higher than that of unit tests but lower when compared to system tests.
+is a bit higher than that of writing unit tests but lower when compared to system tests.
 
 #### Disadvantages
 
@@ -134,9 +131,8 @@ probably do not want your tests to mess with production data),
 
 The same effort happens to any other type of integration test you can imagine (e.g., web services, file reads and writes, etc.).
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=MPjQXVYqadQ" target="_blank">
-  <img src="http://img.youtube.com/vi/MPjQXVYqadQ/0.jpg" alt="What is Integration Testing?" width="240" height="180" border="10" />
-</a>
+{% set video_id = "MPjQXVYqadQ" %}
+{% include "/includes/youtube.md" %}
 
 ## The Testing Pyramid
 
@@ -160,9 +156,9 @@ Note that the higher the pyramid level, the more realistic tests become and the 
 
 **How much should we do of each then?**
 
-The common practice in industry is also represented by the diagram. The size of the pyramid slice represents the amount of tests one would want of each test level. 
+The common practice in industry is also represented by the diagram. The size of the pyramid slice represents the number of tests one would want of each test level. 
 
-Unit test is at the bottom of the pyramid and has the largest area of them all. This means that testers should favour unit testing.
+Unit testing is at the bottom of the pyramid and has the largest area of them all. This means that testers should favour unit testing.
 The reasons for this have been discussed before: they are fast, require less effort to be written, and give developers easier control.
 
 Going up in the diagram, we see that the next level is integration testing. The area is a bit smaller, indicating that in practice, we should do integration tests "a bit less" than unit tests.
@@ -209,12 +205,11 @@ In this new version, manual testing has the largest area which means one should 
 
 ![Ice cream cone](img/testing-pyramid/ice_cream_cone.svg)
 
-At this point, we do not have to explain why fully relying on manual testing is a bad. Unfortunately, it is common to see development teams mostly rely on manual tests in their quality assurance processes. Often, these teams also have a small number of system tests. Not because they believe in their efficiency but because the system was so badly designed that unit and integration tests are simply impossible.
+At this point, we do not have to explain why fully relying on manual testing is a bad thing. Unfortunately, it is common to see development teams relying mostly on manual tests in their quality assurance processes. Often, these teams also have a small number of system tests. Not because they believe in their efficiency but because the system was so badly designed that unit and integration tests are simply impossible.
 We will discuss design for testability in future chapters.
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=YpKxAicxasU" target="_blank">
-  <img src="http://img.youtube.com/vi/YpKxAicxasU/0.jpg" alt="The Testing Pyramid" width="240" height="180" border="10" />
-</a>
+{% set video_id = "YpKxAicxasU" %}
+{% include "/includes/youtube.md" %}
 
 ## A remark on the testing pyramid
 
