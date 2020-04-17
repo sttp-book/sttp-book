@@ -2,7 +2,7 @@
 
 
 Why should we actually care about software testing?
-**The main reason is that bugs are everywhere**. 
+**Because bugs are everywhere!** 
 
 As a person who is probably highly dependent on software technology, you should have encountered a few software bugs in your life. Some of them probably did not affect you that much. For example, maybe your Alarm app on your mobile phone crashed, and you did not wake up in time for a meeting. However, some other bugs might have (negatively) affected your life. Societies all over the world have faced critical issues due to software bugs, from medical devices that do not work properly and harm patients, to electric power plants that completely shut down.
 
@@ -40,7 +40,7 @@ The idea behind the code is as follows: we go through all the elements of the `n
 If `n` is smaller than the smallest number we have seen so far, we replace the smallest number by `n`. The same idea applies to the largest number: 
 if `n` is bigger than the largest number, we just replace it by `n`. 
 
-A common flaw in developers (which we will try as much as possible to convince you  _not to do_) is that they implement the program based on the requirements, and then perform "small checks" to make sure the program works as expected. (Note that these "small checks" are what we will fight against; developers should perform rigorous and systematic testing to make sure their program works!)
+A common technique developers use (which we will try as much as possible to convince you  _not to do_) is that they implement the program based on the requirements, and then perform "small checks" to make sure the program works as expected. (Note that these "small checks" are what we will fight against; developers should perform rigorous and systematic testing to make sure their program works!)
 
 For the sake of the argument, let us do a "small check" on the program we just wrote. A simple way of doing it would be to come up with a "main" method that exercises the program a few times. 
 Suppose that the developer then tried their implementation with 4, 25, 7, and 9 as inputs. 
@@ -95,9 +95,9 @@ public class NumFinder {
 ```
 
 Again, this is indeed a trivial bug. Once you have found it, it might indeed
-look stupid. But these kind of mistakes 
+look like an unfortunate mistake. But this kind of mistakes 
 can and do happen all the time. Why? The answer is simple: developers deal 
-with highly complex software systems. Software systems that are composed of millions (if not billions) of lines of code. Software that generates tons of data per second. Software that communicates with hundreds (if not thousands) of external systems in an asynchronous and distributed manner. Software that has millions of user requests for hour. 
+with highly complex software systems. Software systems that are composed of millions (if not billions) of lines of code. Software that generates tons of data per second. Software that communicates with hundreds (if not thousands) of external systems in an asynchronous and distributed manner. Software that has millions of user requests per hour. 
 It is simply impossible to predict, during development time, everything that can happen. 
 
 **This is why we need to test software. Because the world is complex, bugs do happen.**
