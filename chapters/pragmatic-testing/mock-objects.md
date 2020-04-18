@@ -203,7 +203,7 @@ Our new approach for testing `InvoiceFilter` is faster, easier to write, and mor
 > 
 > In other words, the developer only cares about the existence of a method that returns all the existing invoices. In object-oriented languages, that can be represented by means of an interface:
 > 
-> ```
+> ```java
 > public interface IssuedInvoices {
 >  List<Invoice> all();
 >  void save(Invoice inv);
@@ -212,7 +212,7 @@ Our new approach for testing `InvoiceFilter` is faster, easier to write, and mor
 >
 > Having such an interface, the developer can then proceed to the `InvoiceFilter` and develop it completely. After all, its implementation never depended on a database, but solely on the issued invoices. Look at it again:
 > 
-> ```
+> ```java
 > public class InvoiceFilter {
 > 
 >   final IssuedInvoices issuedInvoices;
@@ -437,7 +437,7 @@ public class ChristmasDiscountTest {
 
 Note again that we were able to develop the main logic of the requirement without depending on the concrete implementation of `Clock`. For completeness, let us implement `Clock`:
 
-```
+```java
 public class DefaultClock implements Clock {
     @Override
     public Calendar now() {
