@@ -182,14 +182,11 @@ public class InvoiceFilterTest {
 }
 ```
 
-Note how we setup the stub, using Mockito's `when` method. In this example, we tell the stub to return a list containing `mauricio`, `arie`, and `steve` (the three invoices we instantiate as part of the test case).
-The test then invokes the method under test, `filter.lowValueInvoices()`. As a consequence, the method under test invokes `issuedInvoices.all()`. However, at this point, `issuedInvoices` is actually a stub that returns the list with the three invoices. The method under test continues its execution, returns a new list with only the two invoices that are below 100, causing the assertion to pass.
+Note how we setup the stub, using Mockito's `when` method. In this example, we tell the stub to return a list containing `mauricio`, `arie`, and `steve` (the three invoices we instantiate as part of the test case). The test then invokes the method under test, `filter.lowValueInvoices()`. As a consequence, the method under test invokes `issuedInvoices.all()`. However, at this point, `issuedInvoices` is actually a stub that returns the list with the three invoices. The method under test continues its execution, returns a new list with only the two invoices that are below 100, causing the assertion to pass.
 
-Note that, besides making the test easier to write, the use of stubs also made the test class more cohesive. 
-The `InvoiceFilterTest` only tests the `InvoiceFilter` class. It does not test the usage of the `IssueInvoices` class. Clearly, `IssueInvoices` deserves to be tested, but in another place, and by means of an integration test.
+Note that, besides making the test easier to write, the use of stubs also made the test class more cohesive. The `InvoiceFilterTest` only tests the `InvoiceFilter` class. It does not test the usage of the `IssueInvoices` class. Clearly, `IssueInvoices` deserves to be tested, but in another place, and by means of an integration test.
 
-Note that a cohesive test has less chances of failing because of something else. In the old version, the `filterInvoices` test could fail because of a bug in the `InvoiceFilter` class or because of a bug in the `IssuedInvoices` class. The new tests can now only fail because of a bug in the `InvoiceFilter` class, and never
-because of `IssuedInvoices`. This is handy, as a developer will spend less time debugging in case this test starts to fail.
+Note that a cohesive test has less chances of failing because of something else. In the old version, the `filterInvoices` test could fail because of a bug in the `InvoiceFilter` class or because of a bug in the `IssuedInvoices` class. The new tests can now only fail because of a bug in the `InvoiceFilter` class, and never because of `IssuedInvoices`. This is handy, as a developer will spend less time debugging in case this test starts to fail.
 
 Our new approach for testing `InvoiceFilter` is faster, easier to write, and more cohesive.
 
