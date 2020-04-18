@@ -242,8 +242,7 @@ Suppose our system has a new requirement:
 > All low valued invoices should be sent to our SAP system.
 > SAP offers a /sendInvoice webservice that receives invoices.
 
-Let us follow the idea of using test doubles to facilitate the development of our production and test code.
-To that aim, let us create a `SAP` interface that represents the communication with SAP:
+Let us follow the idea of using test doubles to facilitate the development of our production and test code. To that aim, let us create a `SAP` interface that represents the communication with SAP:
 
 ```java
 public interface SAP {
