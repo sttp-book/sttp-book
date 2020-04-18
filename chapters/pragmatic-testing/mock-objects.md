@@ -83,8 +83,7 @@ public class InvoiceFilter {
 ```
 
 
-Without stubbing the `IssueInvoices` class, the `InvoiceFilter` test would need to also handle the database (making the unit testing more expensive). Note how the tests need to open and close the connection (see the `open()` and `closeDao()` methods)
-and save invoices to the database (see the many calls to `invoices.save()` in the `filterInvoices` test).
+Without stubbing the `IssueInvoices` class, the `InvoiceFilter` test would need to also handle the database (making the unit testing more expensive). Note how the tests need to open and close the connection (see the `open()` and `closeDao()` methods) and save invoices to the database (see the many calls to `invoices.save()` in the `filterInvoices` test).
 
 ```java
 public class InvoiceFilterTest {
@@ -116,8 +115,7 @@ public class InvoiceFilterTest {
 }
 ```
 
-This test is not even complete. We also need to reset the database after every test. Otherwise, the test will fail in its second run, as there will now be four invoices with an amount smaller than 100 stored in the database! 
-Remember that the database stores data permanently. So far, we never had to "clean our mess" in test code, as all the objects we created were always stored in-memory only.
+This test is not even complete. We also need to reset the database after every test. Otherwise, the test will fail in its second run, as there will now be four invoices with an amount smaller than 100 stored in the database! Remember that the database stores data permanently. So far, we never had to "clean our mess" in test code, as all the objects we created were always stored in-memory only.
 
 {% hint style='tip'%}
 Did you notice the `assertThat...containsExactlyInAnyOrder` assertion we used? This ensures that the list contains exactly the objects we pass, and in any order.
@@ -130,8 +128,7 @@ Such assertions do not come with JUnit 5. These assertions are part of the [Asse
 
 Let us now re-write the test. This time we will stub the `IssuedInvoices` class.
 
-For that to happen, we first need to make sure the stub can be "injected" into the `InvoiceFilter` class.
-If you look at the previous implementation of the `InvoiceFilter` class, you will notice that the class instantiates the `IssuedInvoices` class on its own. If we are to use a stub, the class should allow the stub to be injected.
+For that to happen, we first need to make sure the stub can be "injected" into the `InvoiceFilter` class. If you look at the previous implementation of the `InvoiceFilter` class, you will notice that the class instantiates the `IssuedInvoices` class on its own. If we are to use a stub, the class should allow the stub to be injected.
 
 It suffices to pass the dependency to the constructor, instead of instantiating it directly:
 
@@ -156,8 +153,7 @@ public class InvoiceFilter {
 }
 ```
 
-Let us now stub `IssuedInvoices`. Note that now our test does not need to do anything that is related to databases.
-The full control of the stub enables us to try different cases (even exceptional ones) very quickly:
+Let us now stub `IssuedInvoices`. Note that now our test does not need to do anything that is related to databases. The full control of the stub enables us to try different cases (even exceptional ones) very quickly:
 
 ```java
 import static java.util.Arrays.asList;
@@ -359,6 +355,7 @@ public double applyDiscount(double amount) {
 The implementation is quite straightforward. And given the characteristics of the class, unit testing seems to be a perfect fit for testing it. The question is: _how can we write unit tests for it?_ To test both cases (i.e., Christmas/not Christmas), we need to be able to control/stub the `Calendar` class, so that it returns the dates we want.
 
 We can then ask a more specific question: _how can we stub the Calendar API?_
+
 You might have noted that the call to `Calendar.getInstance()` is a static call. Mockito does not allow us to stub static methods (although some other more magical mock frameworks do). Static calls are indeed _enemies of testability_, as they do not allow for easy stubbing.
 
 In such cases, a pragmatic solution is to create an abstraction on top of the static call. The abstraction encapsulates the "not-so-easy-to-be-stubbed" method, and offers an "easy-to-be-stubbed" method to the rest of the program. For this particular
@@ -522,8 +519,7 @@ Which of the following Mockito lines would never appear in a test for the `Order
 
 **Exercise 2.**
 You are testing a system that triggers advanced events based on complex combinations of Boolean external conditions relating to the weather (outside temperature, amount of rain, wind, ...). 
-The system has been designed cleanly and consists of a set of co-operating classes that each have a single responsibility.
-You create a decision table for this logic, and decide to test it using mocks. Which is a valid test strategy?
+The system has been designed cleanly and consists of a set of co-operating classes that each have a single responsibility. You create a decision table for this logic, and decide to test it using mocks. Which is a valid test strategy?
 
 
 1. You use mocks to support observing the external conditions.
@@ -572,8 +568,7 @@ Which of the following statements is **false** about this class?
 
 
 **Exercise 4.**
-Class A depends on a static method in another class B.
-If you want to test class A, which of the following two action(s) should you apply to do this properly?
+Class A depends on a static method in another class B. If you want to test class A, which of the following two action(s) should you apply to do this properly?
 
 1. Mock class B to control the u of the methods in class B.
 2. Refactor class A, so the outcome of the method of class B is now used as an parameter.
