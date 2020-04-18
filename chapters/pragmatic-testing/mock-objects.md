@@ -196,10 +196,12 @@ Our new approach for testing `InvoiceFilter` is faster, easier to write, and mor
 {% set video_id = "baunKy04deM" %}
 {% include "/includes/youtube.md" %}
 
+
+[comment]: # (DISCUSS: This part below seems like a detour, perhaps we should highlight it as such somehow?)
+
 From a developer's perspective, the use of stubs enables them to develop their software, "without caring too much about external details". Imagine a developer working on this "Low value invoices" requirement. The developer knows that the invoices will come from the database. However, while developing the main logic of the requirement (i.e., the filtering logic), the developer "does not care about the database"; they only care about the list of invoices that will come from it.
 
-In other words, the developer only cares about the existence of a method that returns all the existing invoices. 
-In object-oriented languages, that can be represented by means of an interface:
+In other words, the developer only cares about the existence of a method that returns all the existing invoices. In object-oriented languages, that can be represented by means of an interface:
 
 ```
 public interface IssuedInvoices {
