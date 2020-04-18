@@ -47,7 +47,7 @@ The most important methods one needs to know from Mockito are:
 
 - `mock(<class>)`: creates a mock object/stub of a given class. The class can be retrieved from any class by `<ClassName>.class`.
 - `when(<mock>.<method>).thenReturn(<value>)`: defines the behaviour when the given method is called on the mock. In this case `<value>` will be returned.
-- `verify(<mock>).<method>`: asserts that the mock object was exercised in the expected way.
+- `verify(<mock>).<method>`: asserts that the mock object was exercised in the expected way for the given method.
 
 Mockito is an extensive framework and we will only cover part of it in this chapter. To learn more, take a look at its [documentation](https://javadoc.io/page/org.mockito/mockito-core/latest/org/mockito/Mockito.html).
 
