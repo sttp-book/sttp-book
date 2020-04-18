@@ -47,6 +47,7 @@
 	* [Mutation testing](chapters/intelligent-testing/mutation-testing.md)
 	* [Fuzzing testing](chapters/intelligent-testing/fuzzing.md)
 	* [Search-based software testing](chapters/intelligent-testing/sbst.md) (soon)
+	* [Static testing](chapters/intelligent-testing/static-testing.md) (soon)
 
 ----
 
@@ -63,16 +64,15 @@
 	* [Security testing (soon)](chapters/non-functional-testing/security-testing.md)
 	* Performance testing (soon)
 
---- 
+---
 
 * Software Quality
 	* Code reviews (soon)
 	* Code metrics (soon)
 	* Ethics and testing (soon)
 
---- 
+---
 
 * Appendix
 	* [Answers to the exercises](chapters/appendix/answers.md)
 	* [Change log](chapters/appendix/changelog.md)
-
