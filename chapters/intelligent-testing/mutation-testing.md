@@ -162,7 +162,7 @@ small errors, will also be able to detect larger, more complex errors.
 
 ## Terminology
 
-To talk about mutation testing in an in depth way, let us define some terms:
+To talk about mutation testing in an in-depth way, let us define some terms:
 
 - **Mutant**: Given a program $$P$$, a mutant called $$P'$$ is obtained by introducing a *syntactic change* to $$P$$. A mutant is killed if a test fails when executed with the mutant.
 - **Syntactic Change**: A small *change* in the code. Such a small change should make the code still valid, i.e., the code can still compile and run.
@@ -608,7 +608,7 @@ Finally, you can also see more detailed results in the source code and check whi
 
 
 **Exercise 1.**
-"*Crimes* happen in a *city*. One way for us to know that the *police* is actually able to detect these *crimes*, is to *simulate crimes* and see whether the *police* is able to detect them."
+"*Crimes* happen in a *city*. One way for us to know that the *police* is actually able to detect these *crimes* is to *simulate crimes* and see whether the *police* is able to detect them."
 
 In the analogy above, we can replace crimes by bugs, city by software, and police by test suite. What should we replace **simulate crimes** by?
 
