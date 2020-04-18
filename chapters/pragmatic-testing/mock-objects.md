@@ -453,8 +453,7 @@ One might ask: _Won't that increase the overall complexity of my system? After a
 
 ## When to mock/stub?
 
-Mocks and stubs are a useful tool when it comes to ease the process of writing unit tests. However, as expected *mocking too much* might also be problem. We do not want to mock a dependency that should not be mocked.
-Imagine you are testing class A, which depends on a class B. Should we mock/stub B?
+Mocks and stubs are a useful tool when it comes to ease the process of writing unit tests. However, as expected *mocking too much* might also be problem. We do not want to mock a dependency that should not be mocked. Imagine you are testing class A, which depends on a class B. Should we mock/stub B?
 
 Pragmatically, developers often mock/stub the following types of dependencies:
 
