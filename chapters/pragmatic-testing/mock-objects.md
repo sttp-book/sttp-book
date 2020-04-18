@@ -199,38 +199,38 @@ Our new approach for testing `InvoiceFilter` is faster, easier to write, and mor
 
 [comment]: # (DISCUSS: This part below seems like a detour, perhaps we should highlight it as such somehow?)
 
-From a developer's perspective, the use of stubs enables them to develop their software, "without caring too much about external details". Imagine a developer working on this "Low value invoices" requirement. The developer knows that the invoices will come from the database. However, while developing the main logic of the requirement (i.e., the filtering logic), the developer "does not care about the database"; they only care about the list of invoices that will come from it.
-
-In other words, the developer only cares about the existence of a method that returns all the existing invoices. In object-oriented languages, that can be represented by means of an interface:
-
-```
-public interface IssuedInvoices {
-  List<Invoice> all();
-  void save(Invoice inv);
-}
-```
-
-Having such an interface, the developer can then proceed to the `InvoiceFilter` and develop it completely. After all, its implementation never depended on a database, but solely on the issued invoices. Look at it again:
-
-```
-public class InvoiceFilter {
-
-  final IssuedInvoices issuedInvoices;
-
-  public InvoiceFilter(IssuedInvoices issuedInvoices) {
-    this.issuedInvoices = issuedInvoices;
-  }
-  public List<Invoice> lowValueInvoices() {
-      return issuedInvoices.all().stream()
-              .filter(invoice -> invoice.value < 100)
-              .collect(toList());
-  }
-}
-```
-
-Once the `InvoiceFilter` and all its tests are done, the developer can then focus on finally implementing the `IssuedInvoices` class and its integration tests.
-
-Once you get used to this way of developing, you will notice how your code will become easier to test. We will talk more about design for testability in future chapters.
+> From a developer's perspective, the use of stubs enables them to develop their software, "without caring too much about external details". Imagine a developer working on this "Low value invoices" requirement. The developer knows that the invoices will come from the database. However, while developing the main logic of the requirement (i.e., the filtering logic), the developer "does not care about the database"; they only care about the list of invoices that will come from it.
+> 
+> In other words, the developer only cares about the existence of a method that returns all the existing invoices. In object-oriented languages, that can be represented by means of an interface:
+> 
+> ```
+> public interface IssuedInvoices {
+>  List<Invoice> all();
+>  void save(Invoice inv);
+>}
+>```
+>
+> Having such an interface, the developer can then proceed to the `InvoiceFilter` and develop it completely. After all, its implementation never depended on a database, but solely on the issued invoices. Look at it again:
+> 
+> ```
+> public class InvoiceFilter {
+> 
+>   final IssuedInvoices issuedInvoices;
+> 
+>   public InvoiceFilter(IssuedInvoices issuedInvoices) {
+>     this.issuedInvoices = issuedInvoices;
+>   }
+>   public List<Invoice> lowValueInvoices() {
+>       return issuedInvoices.all().stream()
+>               .filter(invoice -> invoice.value < 100)
+>               .collect(toList());
+>   }
+> }
+> ```
+> 
+> Once the `InvoiceFilter` and all its tests are done, the developer can then focus on finally implementing the `IssuedInvoices` class and its integration tests.
+> 
+> Hence, once you get used to this way of developing, you will notice how your code will become easier to test. We will talk more about design for testability in future chapters.
 
 
 ## Mocks and expectations
