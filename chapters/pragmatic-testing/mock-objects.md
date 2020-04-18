@@ -21,7 +21,7 @@ You might have noted that, although the title of this chapter is "mock objects",
 
 Meszaros, in his book, defines five different types: dummy objects, fake objects, stubs, spies, and mocks:
 
-* **Dummy objects**: Objects that are passed to the class under test, but they are never really used. This is common in business applications, where in many cases you need to fill a long list of parameters, but the test only exercises a few of them. Think of a unit test for a `Customer` class. Maybe this class depends on several other classes (`Address`, `Last Order`, etc). But a specific test case A wants to exercise the "last order business rule", and does not care much about which Address this Customer has. In this case, a tester would then set up a dummy Address object and pass it to the Customer class.
+* **Dummy objects**: Objects that are passed to the class under test, but are never really used. This is common in business applications, where in many cases you need to fill a long list of parameters, but the test only exercises a few of them. Think of a unit test for a `Customer` class. Maybe this class depends on several other classes (`Address`, `Last Order`, etc). But a specific test case A wants to exercise the "last order business rule", and does not care much about which Address this Customer has. In this case, a tester would then set up a dummy Address object and pass it to the Customer class.
 
 * **Fake objects**: Fake objects have real working implementations of the class they simulate. However, they usually do the same task in a much simpler way. Imagine a fake database object that uses some sort of array list instead of a real database.
 
