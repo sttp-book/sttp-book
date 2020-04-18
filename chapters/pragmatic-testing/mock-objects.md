@@ -17,7 +17,7 @@ The use of objects that simulate the behaviour of other objects has advantages:
 
 **Simulating dependencies is therefore a widely used technique in software testing, mainly to increase testability.**
 
-You might have noted that, although the title of this chapter is "mock objects", we have been using the word "simulation". As you will see in the remainder of this chapter, you may need different types of "simulation objects", according to your problem.
+You might have noted that, although the title of this chapter is "mock objects", we have been using the word "simulation". As you will see in the remainder of this chapter, you may need different types of "simulation objects", according to your problem. Such objects are also known as "test doubles".
 
 Meszaros, in his book, defines five different types: dummy objects, fake objects, stubs, spies, and mocks:
 
