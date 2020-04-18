@@ -43,9 +43,8 @@
 ----
 
 * [Intelligent testing](chapters/intelligent-testing/README.md)
-	* [Random testing](chapters/intelligent-testing/random-testing.md) (soon)
 	* [Mutation testing](chapters/intelligent-testing/mutation-testing.md)
-	* [Fuzzing testing](chapters/intelligent-testing/fuzzing.md)
+	* [Fuzz testing](chapters/intelligent-testing/fuzzing.md)
 	* [Search-based software testing](chapters/intelligent-testing/sbst.md) (soon)
 
 ----
