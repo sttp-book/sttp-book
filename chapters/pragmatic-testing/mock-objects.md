@@ -318,7 +318,7 @@ verify(sap, times(1)).send(arie);
 These expectations are more restrictive than the ones we had before.
 We now expect the SAP mock to have its `send` method invoked precisely three times (for any given `Invoice`). We then expect the `send` method to called once for the `mauricio` invoice, once for the `steve` invoice, and once for the `arie` invoice. We point the reader to Mockito's manual for more details on how to configure expectations.
 
-> You might be asking yourself now: _Why did you not put this new SAP u inside of the
+> You might be asking yourself now: _Why did you not put this new SAP inside of the
 > existing `InvoiceFilter` class_?
 > 
 > If we were do it, the `lowValueInvoices` method would then be both a "command" and a "query".
