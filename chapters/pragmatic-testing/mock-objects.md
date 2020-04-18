@@ -462,14 +462,15 @@ Pragmatically, developers often mock/stub the following types of dependencies:
 
 * **Dependencies that communicate with external infrastructure**: If the dependency talks to (external) infrastructure, it might be too complex to be set up. Consider stubbing it.
 
-* **Hard to simulate cases**: If we want to force the dependency to behave in a hard-to-simulate way, mocks/stubs can help.
-A common example is when we would like the dependency to throw an exception. Forcing an exception in the real dependency might be tricky, but easy to do in a stub/mock.
+* **Hard to simulate cases**: If we want to force the dependency to behave in a hard-to-simulate way, mocks/stubs can help. A common example is when we would like the dependency to throw an exception. Forcing an exception in the real dependency might be tricky, but easy to do in a stub/mock.
 
 On the other hand, developers tend not to mock/stub:
 
+[comment]: # (DISCUSS: Entities never get defined in this chapter, do we assume people are familiar with them from the course Information & Data Management? I assume that with "entities" we actually mean POGOs? Java data classes that mirror database entries.)
+
 * **Entities**. In business systems, it is quite common that entities depend on other entities, e.g., a `Order` depends on `OrderItem`. When testing `Order`, developers tend not to stub `OrderItem`. The reason is that `OrderItem` is probably also a well-contained class that is easy to set up. Mocking it would take more time than the actual implementation would take. Exceptions can be made for heavy entities.
 
-* **Native libraries and utility methods**. It is not common to mock/stub libraries that come with our programming language and utilities methods. For example, why would one mock `ArrayList` or a call to `String.format`? As exemplified with the `Calendar` example above, any library or utility methods that harm testability can be abstracted away.
+* **Native libraries and utility methods**. It is not common to mock/stub libraries that come with our programming language and utility methods. For example, why would one mock `ArrayList` or a call to `String.format`? As shown with the `Calendar` example above, any library or utility methods that harm testability can be abstracted away.
 
 Ultimately, remember that whenever you mock, you reduce the reality of the test. It is up to you to understand this trade-off.
 
