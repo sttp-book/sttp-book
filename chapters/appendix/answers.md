@@ -35,7 +35,7 @@ Writing tests is fun, isn't it?
 
 **Exercise 1**
 
-A group of inputs that all make a method behave the same way.
+A group of inputs that all make a method behave in the same way.
 
 
 **Exercise 2**
@@ -98,7 +98,7 @@ The specification clearly makes the three different cases of the correct answer 
 **Exercise 6**
 
 Option 4 is the incorrect one.
-This is a functional based technique. No need for source code.
+This is a functional testing technique. No need for source code.
 
 
 **Exercise 7**
@@ -106,7 +106,7 @@ This is a functional based technique. No need for source code.
 Possible actions:
 
 1. We should treat pattern size 'empty' as exceptional, and thus, test it just once.
-2. We should constrain the options in the 'occurrences in a single line' category to happen only if 'occurrences in the file' are either exactly one or more than one. % It does not make sense to have none occurrences in a file and one pattern in a line.
+2. We should constrain the options in the 'occurrences in a single line' category to happen only if 'occurrences in the file' are either exactly one or more than one. It does not make sense to have none occurrences in a file and one pattern in a line.
 3. We should treat 'pattern is improperly quoted' as exceptional, and thus, test it just once.
 
 
