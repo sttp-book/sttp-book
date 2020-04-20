@@ -1,7 +1,7 @@
 # Boundary testing
 
 Off-by-one mistakes are a common cause for bugs in software systems.
-As developers, we have all made mistakes such as using a "greater than" operator (`>`) where it had to be a "greater than or equal" operator (`>=`). 
+As developers, we have all made mistakes such as using a "greater than" operator (`>`) where it had to be a "greater than or equal to" operator (`>=`). 
 Interestingly, programs with such a bug tend to work well for most of the provided inputs. They fail, however, when the input is "near the boundary of condition".
 
 In this chapter, we explore **boundary testing** techniques.
@@ -14,7 +14,7 @@ When we devise classes, these have "close boundaries"
 with the other classes. 
 In other words, if we keep performing small changes 
 to an input that belongs to some partition (e.g., by adding +1 to it), 
-at some point this input will now belong to another class. 
+at some point this input will belong to another class. 
 The precise point where the input changes from one class to another is what we call a *boundary*.
 And this is precisely what boundary testing is about: to make the program behave correctly
 when inputs are near a boundary.
@@ -25,12 +25,12 @@ input values $$[p_1,p_2]$$, where $$p_1$$ belongs to partition A, and $$p_2$$ be
 
 Let us apply boundary testing in a concrete example:
 
-> **Requirement: Calculating the number of points of the player**
+> **Requirement: Calculating the number of points of a player**
 > 
-> Given the score of the player and the number of remaining lives of the player, the program does the following:
+> Given the score of a player and the number of remaining lives of the player, the program does the following:
 > - If the player's score is below 50, then it always adds 50 points on top of the current points.
 > - If the player's score is greater than or equals to 50, then:
->   - if the number of remaining lives is greater than or equal to 3: it triples the score of the player.
+>   - if the number of remaining lives is greater than or equal to 3, it triples the score of the player.
 >   - otherwise, it adds 30 points on top of the current points.
 
 A possible implementation for this method can be:
@@ -101,9 +101,8 @@ For B2:
 * B2.1 = input={score 500, remaining lives=3}, output={200}
 * B2.2 = input={score 500, remaining lives=2}, output={130}
 
-In JUnit code (and note how we wrote the two test cases for a boundary in a single test (and not splitting it into two
-test methods). That makes the test more cohesive; if
-if find a boundary bug, a single test will let us know):
+In JUnit code, the two test cases will look like below. Note how we wrote the two test cases for a boundary in a single test, and not splitting it into two test methods. That makes the test more cohesive. If 
+there is a boundary bug, a single test will let us know.
 
 ```java
 @Test
@@ -125,7 +124,7 @@ You might have noticed that, for B1, in case of score < 50, `remaining lives` ma
 However, for score >= 50, `remaining lives` does make a difference, as the output can vary according to its value. 
 And for the B1.2 test case, we chose `remaining lives` = 5, which makes the
 condition true. 
-You might wondering whether you also need to devise another test case, B1.3, where the remaining lives condition would be exercised as false. 
+You might be wondering whether you also need to devise another test case, B1.3, where the remaining lives condition would be exercised as false. 
 
 If you are looking to test all possible combinations, then the answer is yes. However, in longer
 conditions, full of boundaries, the number of combinations might be too high, making it unfeasible for the developer
@@ -157,7 +156,7 @@ We show all these points in the diagram below.
 
 ![On- and off-points, in- and out-points](img/boundary-testing/examples/on_off_points.svg)
 
-Let us now study a similar but slightly different condition: $$x \leq 100$$ (note how similar they are; the only difference is that, in this one, we use smaller than or equals to):
+Let us now study a similar but slightly different condition: $$x \leq 100$$ (note how similar they are; the only difference is that, in this one, we use "less than or equal to"):
 
 - The on-point is still $$100$$: this is the value that is precisely in the condition.
 - The condition is evaluated as true for the on-point. So, the off-point should be the closest number to the on-point, but making the condition false. The off-point is thus $$101$$.
@@ -400,7 +399,7 @@ Finally, with the **only small bars** partition:
 * `(3, 2, 3)` returns 3. We need only small bars here, and therefore, this input belongs to the **only small bars** partition.
 * `(2, 2, 3)` returns -1. We can't make the boxes. This input belongs to the **Not enough bars** partition.
 
-A partition might make boundaries with more than just one single another partitions. 
+A partition might have boundaries with more than just one single another partitions. 
 The **only small bars** partition has boundaries not only with the **not enough bars** partition (as we saw above), but also with the **only big bars** partition:
 
 * `(4, 2, 4)` returns 4. We need only small bars here, and therefore, this input belongs to the **only small bars** partition.
@@ -439,7 +438,7 @@ no parameters). For example, a test method `t1(int a, int b)` receives two param
 `int a` and `int b`. The developer uses these two variables in the body of the test
 method, often in places where the developer would have a hard-coded value.
 
-The next step is to feed JUnit with a list of inputs which it will pass
+The next step is to feed JUnit with a list of inputs which will be passed
 to the test method.
 In general, these values are provided by a `Source`.
 Here, we will make use of a `CsvSource`.
@@ -634,7 +633,6 @@ Which one of the following statements about the **CORRECT** principles is **true
 * Jeng, B., & Weyuker, E. J. (1994). A simplified domain-testing strategy. ACM Transactions on Software Engineering and Methodology (TOSEM), 3(3), 254-270.
 
 * Chapter 7 of Pragmatic Unit Testing in Java 8 with Junit. Langr, Hunt, and Thomas. Pragmatic Programmers, 2015.
-
 
 
 
