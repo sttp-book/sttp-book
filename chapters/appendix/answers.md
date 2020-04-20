@@ -762,16 +762,13 @@ The correct answer is 1.
 
 **Exercise 3**
 
-
-Option 4 is not required.
-
-Changing the transaction level is not really required. Better would be to actually exercise the transaction policy your application uses in production.
+Correct answer: Changing the transaction auto-commit to true is not really required. It would be better to actually exercise the transaction policy your application uses in production (4)
 
 
 **Exercise 4**
 
 
-Correct answer: Transitioning from a testing pyramid to an ice-cream cone anti-pattern
+Correct answer: Transitioning from a testing pyramid to an ice-cream cone anti-pattern (4)
 
 
 **Exercise 5**
@@ -783,12 +780,13 @@ Unit testing.
 **Exercise 6**
 
 
-The interaction with the system is much closer to reality.
+Correct answer: The interaction with the system is much closer to reality (1)
 
 
 **Exercise 7**
 
-System tests tend to be slow and often are non-deterministic.
+Correct answer: System tests tend to be slow and often are non-deterministic (4)
+
 See https://martinfowler.com/bliki/TestPyramid.html!
 
 
