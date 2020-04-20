@@ -16,7 +16,7 @@ There are two ways of generating fuzzing test cases:
 Compared to mutative fuzzers, generative fuzzers are _less generalizable_ and _difficult to set-up_ because they require input format specifications. However, they perform a more through testing by increasing code coverage and producing high-quality test cases.
 
 
-### Maximizing code coverage
+## Maximizing code coverage
 
 A difficult thing about effective software testing is to generate test cases that not only _maximizs the code coverage, but do so in a way that tests for a wide range of possible values_. Fuzzing helps achieve this goal by generating wildly diverse test cases. For example, [this blog](https://blog.regehr.org/archives/896) describes the use of fuzzing in order to optimally test an ADT implementation.
 
@@ -28,10 +28,10 @@ There are various ways in which we achieve maximal code coverage in less time:
 3. Symbolic execution
 
 
-#### **Multiple tools**
+### **Multiple tools**
 A simple yet effective way to maximize code coverage is to use multiple fuzzing tools. Each fuzzer performs mutations in a different way, so they can be run together to cover different parts of the search-space in parallel. For example, using a combination of a mutative and generative fuzzer can help both, generate diverse test cases, while also ensuring valid inputs.
 
-#### **Telemetry as Heuristics**
+### **Telemetry as Heuristics**
 If the code structure is known (i.e. in a white-box setting), telemetry about code coverage can help constraint the applied mutations. For example, for the `if()` statement in the following code snippet, a heuristic based on ***branch-coverage*** requires 3 test cases to fully cover it, while that based on ***statement-coverage*** requires only 1 test case. Hence, using branch-coverage ensures that all three branches are tested at least once. Such heuristics can be used to select only those mutations that continually increase code coverage.
 
 ``` Java
@@ -48,7 +48,7 @@ func(int a, int b){
 
 ```
 
-#### **Symbolic execution**
+### **Symbolic execution**
 We can specify the potential values of variables that allow the program to reach a desired path, using so-called **Symbolic variables**. We assign symbolic values to these variables rather than explicitly enumerating each possible value.
 
 We can then construct formula of a **Path predicate** that answers this question: _Given the path constraints, is there any input that satisfies the path predicate?_. We then only fuzz the values that satisfy these constraints. A popular tool for symbolic execution is _Z3_. It is a combinatorial solver that, when given path constraints, can find all combinations of values that satisfy the constraints. The output of _Z3_ can be given as an input to a generative or mutative fuzzer to optimally test various code paths of the SUT.
@@ -79,7 +79,7 @@ func(int a, bool b){
 
 ```
 
-# References
+## References
 
 * {% hint style='tip' %} The fuzzing book. [https://www.fuzzingbook.org](https://www.fuzzingbook.org)! {% endhint %}
 

@@ -11,7 +11,7 @@ After reading this chapter, you should be able to:
 - Explain the various facets of Security Testing,
 - Evaluate the key differences between SAST and DAST.
 
-# Software vs. security testing
+## Software vs. security testing
 
 We start this chapter with what you already know: *software testing*. The key difference between *software testing* and *security testing* is as follows:
 
@@ -32,7 +32,7 @@ You can think of the attack surface as the surface of a rubber balloon, as shown
 ![Representation of attack surface and exploits](img/security-testing/attack-surface.png)
 
 
-# Understanding Java vulnerabilities
+## Understanding Java vulnerabilities
 
 In this chapter, we investigate the threat landscape of Java applications because of its popularity: 3 billion devices run Java globally [according to Oracle](https://www.oracle.com/java/). Also, Java is often considered to be a more mature language: Java handles memory management and garbage collection itself, unlike C that requires developers to handle these tasks manually. However, the added abstraction layers make Java code slower than native C code. This is why some Java components are built upon native code for optimization purposes.
 
@@ -43,14 +43,14 @@ In order to understand the threat landscape for Java applications, we must analy
 The [National Vulnerability Database](https://www.cvedetails.com/) is the largest repository of security vulnerabilities that are discovered in open source software. Each vulnerability is assigned a unique ***CVE (Common Vulnerability and Exposures)*** identifier, a ***CWE (Common Weakness Enumeration)*** that determines the _type_ of vulnerability, and a ***CVSS (Common Vulnerability Scoring System)*** score that determines the _severity_ of the vulnerability. Additionally, you can also view the products and their versions that are affected by the vulnerability.
 
 
-## JRE vulnerabilities
+### JRE vulnerabilities
 
 ![Vulnerabilities reported in JRE](img/security-testing/jre-vuln.png)
 
 
 The plots show the number of vulnerabilities (left) and type of vulnerabilities (right) in the Java Runtime Environment (JRE) from 2007 to 2019. The spike in 2013 and 2014 is due to the exploitation of the *Type Confusion Vulnerability (explained later)*, that allows a user to bypass the Java Security Manager and perform high privileged actions.
 
-## Android vulnerabilities
+### Android vulnerabilities
 
 
 ![Vulnerabilities reported in android](img/security-testing/android-vuln.png)
@@ -60,7 +60,7 @@ The second set of plots show vulnerabilities discovered between 2009 and 2019 in
 
 What is interesting to see in these plots is that the top 3 vulnerability types are related to *bypassing controls*, *executing code in unauthorized places*, and causing *denial of service*. Hence, we see that although memory corruption is not a major threat for Java applications, the effects caused by classical buffer overflows in C applications can still be achieved in Java by other means.
 
-# Vulnerability use cases
+## Vulnerability use cases
 
 Let's take the following commonly exploited vulnerabilities in Java applications, and analyze how they work:
 1. Code injection vulnerability
@@ -71,7 +71,7 @@ Let's take the following commonly exploited vulnerabilities in Java applications
 4. Arbitrary Code Execution (ACE)
 5. Remote Code execution (RCE)
 
-## Code injection vulnerability
+### Code injection vulnerability
 
 The code snippet below has a *Code Injection* vulnerability.  
 
@@ -106,7 +106,7 @@ Static analysis tools often fail to detect this attack, since the malicious code
 >Due to the variations that Code Injection can present itself in, it is the top entry in the [OWASP Top 10 list of vulnerabilities](https://owasp.org/www-project-top-ten/). To limit its effect, developers can disallow 'untrusted' plugins, and can limit the privileges that a certain plugin has, e.g. by disallowing plugins to access sensitive folders.
 
 
-## Type confusion vulnerability
+### Type confusion vulnerability
 
 This vulnerability was present in the implementation of the `tryfinally()` method in the *Reflection API* of the [Hibernate ORM library](https://access.redhat.com/security/cve/cve-2014-3558). Due to insufficient type checks in this method, an attacker could cast objects into arbitrary types with varying privileges.
 
@@ -137,7 +137,7 @@ For the sake of brevity, consider that the output of `throwEx()` is an input to 
 In a real setting, an attacker can use this _type confusion_ vulnerability to escalate their privileges by **bypassing the Java Security Manager (JSM)**. The attacker's goal is to access `System.security` object and set it to `null`, which will disable the JSM. However, the `security` field is private and cannot be accessed by an object that the attacker has (let's call it `Obj`). So, they will exploit the _type confusion_ vulnerability to cast `Obj` into something that does have higher privileges and access to the `System.security` field. Once the JSM is bypassed, the attacker can execute whatever code they want to.
 
 
-## Arbitrary Code Execution (ACE)
+### Arbitrary Code Execution (ACE)
 
 A common misconception is that Java, unlike C, is not vulnerable to **Buffer overflows**. In fact, any component implemented in native code is as much vulnerable to exploits as the original C code would be. An interesting example here is of graphics libraries that often use native code for fast rendering.
 
@@ -150,7 +150,7 @@ When an ACE is triggered remotely, it is called a **Remote Code Execution** (RCE
 An Oracle report in 2018 stated that [most of the Java vulnerabilities can be remotely exploited](https://www.waratek.com/alert-oracle-guidance-cpu-april-2018/). With 3 billion devices running Java, this creates a large attack surface.
 
 
-# The Secure Software Development Life Cycle (Secure-SDLC)
+## The Secure Software Development Life Cycle (Secure-SDLC)
 
 Security testing is a type of non-functional testing, but if it fails to fix security vulnerabilities, (i) there is a high impact on the functionality of the application, e.g. a denial of service attack that makes the entire application unreachable, and (ii) it also causes reputation and/or monetary loss, e.g. loss of customers.
 
@@ -179,7 +179,7 @@ Currently, most companies solely do *penetration testing* which tests the entire
 
 
 
-# Facets of security testing
+## Facets of security testing
 
 As such, the term *security testing* is very broad and it covers a number of overlapping concepts. We classify them as follows:
 
@@ -197,7 +197,7 @@ You should already be familiar with _white/black-box_ testing, static testing an
 In the context of automated security testing, _static_ and _dynamic_ analysis are called _Static Application Security Testing (SAST)_ and _Dynamic Application Security Testing (DAST)_, respectively.
 Before we dive into further explanation of SAST and DAST techniques, let's look at the assessment criteria evaluating the quality of security testing techniques.
 
-## Quality assessment criteria
+### Quality assessment criteria
 Designing an ideal testing tool requires striking a balance between two measures: (a) Soundness, and (b) Completeness.
 
 > **Soundness** dictates that there should be no False Negatives (FN) &mdash; no vulnerability should be skipped. This implies that no alarm is raised *IFF* there is no existing vulnerability in the *System Under Test (SUT)*. **Completeness** dictates that there should be no False Positives (FP) &mdash; no false alarm should be raised. This implies that an alarm is raised *IFF* a valid vulnerability is found.
@@ -210,7 +210,7 @@ Additionally, an ideal testing tool is **interpretable**: an analyst can trace t
 
 
 
-# Static Application Security Testing (SAST)
+## Static Application Security Testing (SAST)
 
 
 SAST techniques aim to find security bugs without running the application. They can find bugs that can be observed in the source code and for which _signatures_ can be made, e.g. SQL Injection and basic Cross-Site Scripting. _SpotBugs_, _FindSecBugs_ and _Coverity_ are static analysis tools specially meant to test security problems in applications.
@@ -226,15 +226,15 @@ Below, we discuss SAST techniques and provide examples of the security bugs that
   * Control Flow Graphs (CFGs)
   * Data Flow Diagrams (DFDs)
 
-## Code checking for security
+### Code checking for security
 
-### Pattern matching via RegEx
+#### Pattern matching via RegEx
 Pattern matching can find simplistic security issues, such as:
 1. *Misconfigurations*, like `port 22` being open for every user,
 2. *Potentially bad imports*, like importing the whole `System.IO` namespace,
 3. *Calls to dangerous functions*, like `strcpy` and `memcpy`.
 
-### Syntax analysis via AST
+#### Syntax analysis via AST
 
 Abstract Syntax Trees can also find security misconfigurations in the codebase, and sometimes are more appropriate than using regular expressions. Code that violates security specifications can be detected by walking the AST. For example, for a rule specifying how the print function should be used, i.e. `printf(format_string, args_to_print)`, and the following code snippet, an error will be raised because of a missing parameter that can be detected by counting the child-nodes.
 
@@ -244,9 +244,9 @@ Abstract Syntax Trees can also find security misconfigurations in the codebase, 
 This is an example of the famous *[Format string attack](https://owasp.org/www-community/attacks/Format_string_attack)*, which exploits a vulnerability in the `printf()` function family: in the absence of a format string parameter like `%s`, an attacker can supply their own format string parameter in the input, which will be evaluated as a pointer resulting in either arbitrary code execution or the denial of service.
 
 
-## Structural testing for security
+### Structural testing for security
 
-### Control Flow Graphs (CFGs)
+#### Control Flow Graphs (CFGs)
 Recall that **Control Flow Graphs** show how the control is transferred among different pieces of code in an application. A CFG is an *over-estimation* of what any potential execution might look like &mdash; it is the union of all possible combinations of execution paths.
 
 For security testers, a CFG is an overall picture of an application's behavior, in a graphical format. It can help testers pin-point strange control transfers, e.g.
@@ -255,7 +255,7 @@ For security testers, a CFG is an overall picture of an application's behavior, 
 
 Existing literature has used CFGs to detect the maliciousness of an application based on how its CFG looks like. For example, [this work](https://link.springer.com/chapter/10.1007/11790754_8) detects self-mutating malware by comparing its CFG with CFGs of known malwares, and [this work](https://link.springer.com/chapter/10.1007/978-3-642-55415-5_12) uses CFGs to measure code reuse as a means to detect malware variants.
 
-### Data Flow Diagram (DFD)
+#### Data Flow Diagram (DFD)
 
 A DFD is built on top of a CFG and shows how data traverses through a program. Since Data Flow Analysis (DFA) is also a static approach, a DFD tracks all possible values a variable might have during any execution of the program. This can be used to detect _sanitization problems_, such as the deserialization vulnerability that caused an ACE, and _code injection vulnerabilities_.
 
@@ -295,7 +295,7 @@ public void bad(HttpServletRequest request, HttpServletResponse response) throws
 
 
 
-#### Reaching Definitions Analysis
+##### Reaching Definitions Analysis
  One application of DFA is called the **Reaching Definitions**. It is a top-down approach that identifies all the possible values of a variable. For security purposes, it can detect the _Type Confusion vulnerability_ and _Use-after-free vulnerability_ (which uses a variable after its memory has been freed).
 
  Consider the following code snippet and its CFG given below:
@@ -346,7 +346,7 @@ b = {0, 10}                // 0 is impossible
 c = {1, b} -> {0, 1, 10}  // 1, 10 are impossible
 ```
 
-# Dynamic Application Security Testing (DAST)
+## Dynamic Application Security Testing (DAST)
 
 Application crashes and hangs leading to Denial of Service attacks are common security problems. They cannot be detected by static analysis since they are only triggered when the application is executed.
 DAST techniques execute an application and observe its behavior. Since DAST tools typically do not have access to the source code, they can only test for functional code paths, and the analysis is only as good as the behavior triggering mechanism. This is why, search-based algorithms have been proposed to maximize the code coverage, e.g. see [this work](https://dl.acm.org/doi/abs/10.1145/2338965.2336762) and [this work](https://ieeexplore.ieee.org/abstract/document/8418633).
@@ -362,13 +362,13 @@ In this section, we explain the following techniques for dynamic analysis:
 5. Reverse Engineering
 6. Fuzzing
 
-## Taint analysis
+### Taint analysis
 
 Taint analysis is the dynamic version of Data Flow Analysis. In taint analysis, we track the values of variables that we want to *taint*, by maintaining a so-called *taint table*. For each tainted variable, we analyze how the value propagates throughout the codebase and affects other statements and variables. To enable tainting, ***code instrumentation*** is done by adding hooks to variables that are of interest. _Pin_ is an instrumentation tool from Intel, which allows taint analysis of binaries.
 
 An example here is of the tool [Panorama](https://dl.acm.org/doi/abs/10.1145/1315245.1315261) that detects malicious software like _keyloggers_ (that log keystrokes in order to steal credentials) and _spyware_ (that stealthily collects and sends user data to $$3^{rd}$$ parties) using dynamic taint analysis. Panorama works on the intuition that benign software does not interfere with OS-specific information transfer, while information-stealing malware attempts to access the sensitive information being transferred. Similarly, malicious plugins collect and share user information with $$3^{rd}$$ parties while benign plugins don't send information out. These behaviors can be detected using the source/sink principles of taint analysis.  
 
-## Dynamic validation
+### Dynamic validation
 
 Dynamic validation does a functional testing of the SUT based on the system specifications. It basically checks for any deviations from the pre-defined specifications. **Model Checking** is a similar idea in which specifications are cross-checked with a model that is learnt from the SUT. Model checking is a broad field in the Software Verification domain.
 
@@ -382,13 +382,13 @@ Files.readAllLines("foo.txt");
 
 To check the existence of such scenarios, they codify it in a property that _stops a program from passing the same filename to two system calls on the same path_. Once codified in a model checker, they run it on various softwares and report on deviations from this property.   
 
-## Penetration testing
+### Penetration testing
 
 Penetration (or Pen) testing is the most commonly used type of security testing in organizations. It is sometimes also referred as ***Ethical hacking***. What makes pen testing different from others is that it is done from the perspective of an attacker &mdash; [pen-testers attempt to breach the security of the SUT just as an adversary might](https://www.ncsc.gov.uk/guidance/penetration-testing). Since it is done from the perspective of the attacker, it is generally black-box, but depending on the assumed knowledge of the attacker, it may also be white-box.
 
 Penetration testing checks the SUT in an end-to-end fashion, which means that it is done once the application is fully implemented, so it can only be done at the end of the SDLC. *MetaSploit* is an example of a powerful penetration testing framework. Most pen testing tools contain a ***Vulnerability Scanner*** module that either *runs existing exploits*, or allow the tester to *create an exploit*. They also contain ***Password Crackers*** that either *brute-force* passwords (i.e. tries all possible combinations given some valid character set), or perform a *dictionary attack* (i.e. chooses inputs from pre-existing password lists).
 
-## Behavioral analysis
+### Behavioral analysis
 
 Given a software that may contain modules from unknown sources, behavioral analysis aims to gain insights about the software by generating behavioral logs and analyzing them. This can be particularly helpful for finding abnormal behaviors (security problems, in particular) when neither the source code, nor the binary are accessible. The logs can be compared with known-normal behavior in order to debug the SUT.
 
@@ -446,7 +446,7 @@ In the figure below, the plots on the right show how the value of `score` variab
 
 Behavioral logs are a good data source for forensic analysis of the SUT.
 
-## Reverse Engineering (RE)
+### Reverse Engineering (RE)
 
 Reverse Engineering is a related concept where the goal is to reveal the internal structure of an application. We can consider RE as a system-wide process that converts a black-box application into a white-box. RE is, strictly speaking, not a testing technique, but it is useful when (i) converting legacy software into a modern one, or (ii) understanding competitor's product.
 
@@ -454,7 +454,7 @@ A use case for the behavioral logs from previous technique is to use them for au
 
 For example, [TABOR](https://dl.acm.org/doi/abs/10.1145/3196494.3196546) learns a model of a water treatment plant in order to detect attacks. They learn an automata representing the _normal behavior_ of the various sensors present in the plant. Anomalous incoming events that deviate from the normal models raise an alert.
 
-## Fuzzing
+### Fuzzing
 
 Fuzzing has been used to uncover previously-unknown security bugs in several applications. _American Fuzzy Lop (AFL)_ is an efficient security fuzzer that has been used to find security vulnerabilities in command-line-oriented tools, like PuTTY, openSSH, and sqlite. [This video](https://www.youtube.com/watch?v=ibjkz7GTT3I) shows how to fuzz _ImageMagik_ using AFL to find security bugs.
 
@@ -462,14 +462,14 @@ Additionally, in 2015 a severe security vulnerability, by the name of [Stagefrig
 
 Finally, [Sage](https://dl.acm.org/doi/pdf/10.1145/2090147.2094081) is a white-box fuzzing tool that combines symbolic execution with fuzzing to find deeper security bugs. They report a use case of a critical security bug that black-box fuzzing was unable to find, while Sage discovered it in under 10 hours, despite having no prior knowledge of the file format.
 
-# Performance evaluation of SAST and DAST
+## Performance evaluation of SAST and DAST
 
 * Static analysis tools create a lot of FPs because they cannot see the run-time behavior of the code. They also generate FNs if they don't have access to some code, e.g. code that is added at run-time.
 * Dynamic analysis reduces both FPs and FNs &mdash; if an action is suspicious, an alarm will be raised. However, even in this case, we cannot ensure perfect testing.  
 * Static analysis is generally more white-box than dynamic analysis, although there are interpretable dynamic testing methods, like symbolic execution.
 * Static testing is more scalable in the sense that it is faster, while black-box dynamic testing is more generalizable.
 
-# Chapter Summary
+## Chapter Summary
 
 - Software testing checks correctness of the software, while security testing finds potential defects that may be exploited by an intruder.
 - Even though Java handles memory management itself, Java applications still have a large attack surface.
@@ -483,7 +483,7 @@ Finally, [Sage](https://dl.acm.org/doi/pdf/10.1145/2090147.2094081) is a white-b
 - Behavioral logs are very useful for forensic analysis of the SUT.
 - Combining fuzzing with Symbolic execution leads to finding optimal test cases that can maximize code coverage and find maximum security problems.
 
-# References
+## References
 * Bruschi, Danilo, Lorenzo Martignoni, and Mattia Monga. "Detecting self-mutating malware using control-flow graph matching." In International conference on detection of intrusions and malware, and vulnerability assessment, pp. 129-143. Springer, Berlin, Heidelberg, 2006.
 * Chen, Hao, Drew Dean, and David A. Wagner. "Model Checking One Million Lines of C Code." In NDSS, vol. 4, pp. 171-185. 2004.
 * Chen, Peng, and Hao Chen. "Angora: Efficient fuzzing by principled search." In 2018 IEEE Symposium on Security and Privacy (SP), pp. 711-725. IEEE, 2018.

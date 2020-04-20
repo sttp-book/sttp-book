@@ -68,11 +68,11 @@ For example, for a rule _allowing at most 3 methods_, and the following code sni
 
 Abstract Syntax Trees are used by compilers to find sematic errors &mdash; compile-time errors associated to the _meaning_ of the program. ASTs are also be used for program verification, type-checking, and translating the program from one language to another.  
 
-# Limitations of static analysis
+## Limitations of static analysis
 
 The signatures that static analysis uses to detect bugs need to be kept up-to-date as they codebase evolves. Additionally, while static analysis can see the entire codebase, it does not see how the application behaves in action, so if a piece of code is added at runtime, the static analysis will miss it completely. This is why static analysis tools generally produce a large amount of False positives &mdash; raises alarms when there are none, and False negatives &mdash; miss bugs.
 
-# References
+## References
 
 * Grune, D., Van Reeuwijk, K., Bal, H.E., Jacobs, C.J. and Langendoen, K., 2012. Modern compiler design. Springer Science & Business Media.
 * Abstract Syntax Trees. https://en.wikipedia.org/wiki/Abstract_syntax_tree
