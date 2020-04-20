@@ -29,7 +29,7 @@ Meszaros, in his book, defines five different types: dummy objects, fake objects
 
 * **Stubs**: Stubs provide hard-coded answers to the calls that are performed during the test. In the examples above, where we used the word "simulation", we were actually talking about stub objects. Stubs do not know what to do if the test calls a method for which it was not programmed and/or set up. 
 
-* **Spies**: As the name suggests, spies "spy" a dependency. It wraps itself around the object and observes its behaviour. Strictly speaking it doesn't actually simulate the object, but rather just delegates all interactions to the underlying object while recording information about these interactions. Imagine you just need to know how many times a method X is called in a dependency: that's when a spy would come in handy.
+* **Spies**: As the name suggests, spies "spy" a dependency. It wraps itself around the object and observes its behaviour. Strictly speaking it does not actually simulate the object, but rather just delegates all interactions to the underlying object while recording information about these interactions. Imagine you just need to know how many times a method X is called in a dependency: that's when a spy would come in handy.
 
 * **Mocks**: Mock objects act like stubs that are pre-configured ahead of time to know what kind of interactions should occur with them. For example, imagine a mock object that is configured as follows: method A should be called twice and, for the first call it should return "1", and for the second call it should throw an exception, while method B should never be called.
 
