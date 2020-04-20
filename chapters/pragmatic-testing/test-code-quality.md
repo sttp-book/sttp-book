@@ -620,7 +620,7 @@ A not-so-clear test code for the `calculate()` method could be:
 void test1() {
 	var invoice = new Invoice(new BigDecimal("2500"), "NL", CustomerType.COMPANY);
 	var v = invoice.calculate();
-	assertEquals(2500, v.doubleValue(), 0.0001);
+	assertEquals(250, v.doubleValue(), 0.0001);
 }
 ```
 
