@@ -64,9 +64,9 @@ The decision table is as follows:
 <table>
   <tr><th></th><th></th><th colspan="4">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>International</td><td>F</td><td>F</td><td>T<br></td><td>T</td></tr>
+      <td>International</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
   <tr><td>Auto-renewal</td><td>T<br></td><td>F</td><td>T</td><td>F</td></tr>
-  <tr><td><i>Action</i></td><td>price/month</td><td>10<br></td><td>15</td><td>30</td><td>32</td></tr>
+  <tr><td><i>Action</i></td><td>price/month</td><td>30<br></td><td>32</td><td>10</td><td>15</td></tr>
 </table>
  
 You can see the different prices for the combinations of international services and automatic renewal.
@@ -308,10 +308,8 @@ The state machine model uses these states and transitions to illustrate the syst
  
 The main focus of a state machine is, as the name suggests, the states of a system.
 So it is useful to think about what a state actually is.
-The states in a state machine model describe where a program is in its execution.
-If we need X to happen before we can do Y, we can use a state.
-X would then cause the transition to this state.
-From the state we can do Y, as we know that in this state X has already happened.
+The states in a state machine model describe where a program is in its execution. 
+Transitions are actions that take the system from one state to another.
 We can use as many states as we need to describe the system's behaviour well.
  
 Besides states and transitions, a state machine has an initial state and events.
@@ -846,7 +844,7 @@ Our product team defined the following rules:
 * An administrator checks the content of the ad. If it follows all the rules, the ad then waits for payment. If the ad contains anything illegal, it then goes back to the beginning of the process.
 * As soon as the company makes the payment, the ad becomes available to users.
 * When the target number of visualisations is reached, the ad is considered done. At this time, the company might consider running the campaign again, which moves the ad to wait for payment again. The company might also decide to end the campaign at that moment, which puts the ad in a final state.  
-* While appearing for the users, if more than 10\% of the users complain about the ad, the ad is then marked as blocked. Cute Babies then gets in contact with the company. After understanding the case, the ad either starts to appear again, or is labelled as inappropriate. An inappropriate ad will never be shown again.
+* While appearing for the users, if more than 10\% of the users complain about the ad, the ad is then marked as blocked. The company then gets contacted. After understanding the case, the ad either starts to appear again, or is labelled as inappropriate. An inappropriate ad will never be shown again.
  
 Devise a state diagram that describes the life cycle of an ad.
  
