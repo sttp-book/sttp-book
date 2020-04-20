@@ -312,8 +312,6 @@ verify(sap, times(1)).send(arie);
 These expectations are more restrictive than the ones we had before.
 We now expect the SAP mock to have its `send` method invoked precisely three times (for any given `Invoice`). We then expect the `send` method to called once for the `mauricio` invoice, once for the `steve` invoice, and once for the `arie` invoice. We point the reader to Mockito's manual for more details on how to configure expectations.
 
-[comment]: # (DISCUSS: In all honesty, this doesn't feel like a good place to explain this concept, because sending information to a webservice is something completely different from filtering information. As such, I don't think anyone would ever ask themselves this.)
-
 > You might be asking yourself now: _Why did you not put this new SAP sending functionality inside of the existing `InvoiceFilter` class_?
 > 
 > If we were do it, the `lowValueInvoices` method would then be both a "command" and a "query". By "query", we mean that the method returns data to the caller while with "command", we mean that the method also performs an action in the system. Mixing both concepts in a single method is not a good idea, as it may confuse developers who will eventually call this method. How would they know this method had some extra side-effect, besides just returning the list of invoices?
