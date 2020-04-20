@@ -64,9 +64,9 @@ The decision table is as follows:
 <table>
   <tr><th></th><th></th><th colspan="4">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-  <td>International</td><td>F</td><td>F</td><td>T<br></td><td>T</td></tr>
+  <td>International</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
   <tr><td>Auto-renewal</td><td>T<br></td><td>F</td><td>T</td><td>F</td></tr>
-  <tr><td><i>Action</i></td><td>price / month</td><td>10<br></td><td>15</td><td>30</td><td>32</td></tr>
+  <tr><td><i>Action</i></td><td>price/month</td><td>30<br></td><td>32</td><td>10</td><td>15</td></tr>
 </table>
  
 You can see the different prices for the combinations of international services and automatic renewal.
@@ -175,7 +175,7 @@ The third point is achieved by making two test cases for each condition.
 In these two test cases, the condition being tested should have a different value, the outcome should be different, and the other conditions should have the same value in both test cases.
 With this the condition that is being tested individually influences the outcome, as the other conditions stay the same and therefore do not influence the outcome.
  
-By choosing the test cases efficiently, MC/DC needs less tests than all variants, while still exercising the important parts of the system.
+By choosing the test cases efficiently, MC/DC needs fewer tests than all variants, while still exercising the important parts of the system.
 With fewer tests it will take less time to write the tests and the test suite will be executed quicker.
  
  
@@ -342,10 +342,8 @@ The state machine model uses these states and transitions to illustrate the syst
  
 The main focus of a state machine is, as the name suggests, the states of a system.
 So it is useful to think about what a state actually is.
-The states in a state machine model describe where a program is in its execution.
-If we need X to happen before we can do Y, we can use a state.
-X would then cause the transition to this state.
-From the state we can do Y, as we know that in this state X has already happened.
+The states in a state machine model describe where a program is in its execution. 
+Transitions are actions that take the system from one state to another.
 We can use as many states as we need to describe the system's behaviour well.
  
 Besides states and transitions, a state machine has an initial state and events.
@@ -392,7 +390,7 @@ The notation for conditions and actions is as follows:
 - Action: ![](img/model-based-testing/uml/action_symbol.svg)
  
  
-When a user types the wrong password for four times in a row, the phone becomes blocked.
+When a user types the wrong password four times in a row, the phone becomes blocked.
 We use `n` in the model to represent the number of failed attempts.
 Let us look at the conditional transitions that we need to model this behaviour.
  
@@ -400,7 +398,7 @@ Let us look at the conditional transitions that we need to model this behaviour.
  
 When `n` (the number of failed unlock attempts) is smaller than 3, the phone stays in `LOCKED` state.
 However, when `n` is equal to 3, the phone goes to `BLOCKED`.
-Here we have an event, wrong password, than can lead to different states based on the condition.
+Here we have an event, wrong password, that can lead to different states based on the condition.
  
 In the previous state machine, `n` never changes.
 This means that the phone will never go to its `BLOCKED` state, as that requires `n` to be equal to 3.
@@ -719,7 +717,7 @@ In some cases it may be useful to allow the system to be in multiple states at o
 This is achieved with regions.
  
 A super state can be split into multiple regions.
-These are orthogonal regions, meaning that the state machines in the regions are independent from each other; they do not influence the state machines in other regions.
+These are orthogonal regions, meaning that the state machines in the regions are independent of each other; they do not influence the state machines in other regions.
 Each region contains one state machine.
 When the system enters the super state, it enters all the initial states of the regions.
 This means that the system is in multiple states at once.
@@ -880,7 +878,7 @@ Our product team defined the following rules:
 * An administrator checks the content of the ad. If it follows all the rules, the ad then waits for payment. If the ad contains anything illegal, it then goes back to the beginning of the process.
 * As soon as the company makes the payment, the ad becomes available to users.
 * When the target number of visualisations is reached, the ad is considered done. At this time, the company might consider running the campaign again, which moves the ad to wait for payment again. The company might also decide to end the campaign at that moment, which puts the ad in a final state.  
-* While appearing for the users, if more than 10\% of the users complain about the ad, the ad is then marked as blocked. Cute Babies then gets in contact with the company. After understanding the case, the ad either starts to appear again, or is labelled as inappropriate. An inappropriate ad will never be shown again.
+* While appearing for the users, if more than 10\% of the users complain about the ad, the ad is then marked as blocked. The company then gets contacted. After understanding the case, the ad either starts to appear again, or is labelled as inappropriate. An inappropriate ad will never be shown again.
  
 Devise a state diagram that describes the life cycle of an ad.
  
@@ -906,9 +904,9 @@ Again consider the state machine requirements for the microwave.
 There appears to be some redundancy in the defrosting and warming up functionality, which potentially can be described using super states (also called OR-states).
 Which effect does this have on the total number of states and transitions for the resulting diagram with a super state?
  
-1. There will be one extra state, and two less transitions.
+1. There will be one extra state, and two fewer transitions.
 2. There will be one state less, and the same number of transitions.
-3. The total number of states will remain the same, and there will be two less transitions.
+3. The total number of states will remain the same, and there will be two fewer transitions.
 4. This has no effect on the total number of states and transitions.
  
  
@@ -941,12 +939,12 @@ Create a decision table that takes the three conditions and their respective out
  
 **Exercise 15**
 Twitter is a software system that enables users to share short messages with their friends.
-Twitter's revenue model is ultimately based on advertisements ("ads").
+Twitter's revenue model is ultimately based on advertisements (ads).
 Twitter's system needs to decide when to show ads to its users, and which ones. For a given user a given ad can be *highly-relevant*, and the system seeks to serve the most relevant ads as often as possible without scaring users away.
  
 To that end, assume that the system employs the following rules to decide whether a user *U* gets served an ad *A* at the moment user *U* opens their Twitter app:
  
-* If the user *U* has not been active during the past two weeks, she will not get to see add *A*;
+* If the user *U* has not been active during the past two weeks, she will not get to see ad *A*;
 * If the user *U* has already been served an ad during her last hour of activity, she will not get to see ad *A*;
 * Furthermore, if the user *U* has over 1000 followers (an influencer), she will only get to see ad *A* if *A* is labelled as *highly-relevant* for *U*. Otherwise, user *U* will see *A* even if it is not *highly-relevant*.
  
