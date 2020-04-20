@@ -45,9 +45,10 @@ if [ -d "$GITBOOK_REP" ]; then
       perl -pe 's/{% endhint %}/\n***/g' | \
       perl -pe 's/{% include "\/includes\/youtube.md" %}//g' | \
       perl -pe 's/{% set video_id = "([A-Za-z0-9-_]*)" %}/***\nWatch our video on YouTube:\n\nhttp:\/\/www.youtube.com\/embed\/\1\n\n***/g' | \
-      perl -pe "s/img.*\/(.*)\.(svg|png|jpg)/temp\/\1.pdf/g" | \
       perl -pe "s/(\!\[.*\]\(.*\))<\!--(.*)-->/\1\2/g" | \
-      pandoc -f markdown -t latex \
+      pandoc -s -f markdown-blank_before_header+lists_without_preceding_blankline -t json | python3 filter.py | \
+      pandoc -f json -t html --mathjax | \
+      pandoc -f html+tex_math_single_backslash -t latex \
               --variable fontsize=11pt \
               --variable=geometry:b5paper \
               --variable mainfont="Georgia" \
@@ -56,10 +57,13 @@ if [ -d "$GITBOOK_REP" ]; then
               -V subparagraph \
               --resource-path="./:chapters/getting-started/:chapters/intelligent-testing:chapters/pragmatic-testing:chapters/testing-techniques:chapters/appendix" \
               --toc --toc-depth=3 | \
+      perl -pe "s/img.*\/(.*)\.(svg|png|jpg)/temp\/\1.pdf/g" | \
       perl -pe 's/\\ / /g' | \
       perl -pe 's/(\\\^\{\})/\{\1\}/g' > book.tex
-    latexmk -pdf -c book.tex
-    rm book.tex book.dvi book.out.ps
+    lualatex --shell-escape book.tex
+    # Run again to include ToC
+    lualatex --shell-escape book.tex
+    rm book.tex book.dvi book.out.ps book.aux book.log book.toc texput.log
   else
     echo "File '$SUMMARY_FILE' does not exist"
   fi

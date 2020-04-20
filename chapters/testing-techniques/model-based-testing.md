@@ -31,7 +31,7 @@ In general, a decision table looks like the following:
 <table>
   <tr><th></th><th></th><th colspan="4">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
   <tr><td>&lt;Condition2&gt;</td><td>T<br></td><td>F</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value2</td><td>value3</td><td>value4</td></tr>
 </table>
@@ -64,7 +64,7 @@ The decision table is as follows:
 <table>
   <tr><th></th><th></th><th colspan="4">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>International</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
+  <td>International</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
   <tr><td>Auto-renewal</td><td>T<br></td><td>F</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>price/month</td><td>30<br></td><td>32</td><td>10</td><td>15</td></tr>
 </table>
@@ -84,7 +84,7 @@ If the decision table is as follows:
 <table>
   <tr><th></th><th></th><th colspan="3">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>&lt;Condition1&gt;</td><td>T</td><td>dc</td><td>F<br></td></tr>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>dc</td><td>F<br></td></tr>
   <tr><td>&lt;Condition2&gt;</td><td>dc</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value1</td><td>value2</td></tr>
 </table>
@@ -94,7 +94,7 @@ It can be expanded to:
 <table>
   <tr><th></th><th></th><th colspan="5">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>T<br></td><td>F</td><td>F</td></tr>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>T<br></td><td>F</td><td>F</td></tr>
   <tr><td>&lt;Condition2&gt;</td><td>T<br></td><td>F</td><td>T</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value1</td><td>value1</td><td>value1</td><td>value2</td></tr>
 </table>
@@ -105,7 +105,7 @@ We end up with the decision table below:
 <table>
   <tr><th></th><th></th><th colspan="4">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
   <tr><td>&lt;Condition2&gt;</td><td>T<br></td><td>F</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value1</td><td>value1</td><td>value2</td></tr>
 </table>
@@ -121,10 +121,10 @@ The new decision table is below:
 <table>
   <tr><th></th><th></th><th colspan="6">Variants</th></tr>
   <tr><td rowspan="3"><br><i>Conditions</i></td>
-      <td>International</td><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+  <td>International</td><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
   <tr><td>Auto-renewal</td><td>T</td><td>dc</td><td>F</td><td>T</td><td>dc</td><td>F</td></tr>
   <tr><td>Loyal</td><td>dc</td><td>T</td><td>F</td><td>dc</td><td>T</td><td>F</td></tr>
-  <tr><td><i>Action</i></td><td>price/month</td><td>10</td><td>10</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>10</td><td>10</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
 </table>
  
 Note that when automatic renewal is true, the loyalty condition does not change the outcome and vice versa.
@@ -140,10 +140,10 @@ If we set the default charge rate to 10 per month the new decision table can be 
 <table>
   <tr><th></th><th></th><th colspan="4">Variants</th></tr>
   <tr><td rowspan="3"><br><i>Conditions</i></td>
-      <td>International</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+  <td>International</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
   <tr><td>Auto-renewal</td><td>F</td><td>T</td><td>dc</td><td>F</td></tr>
   <tr><td>Loyal</td><td>F</td><td>dc</td><td>T</td><td>F</td></tr>
-  <tr><td><i>Action</i></td><td>price/month</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
 </table>
  
  
@@ -184,10 +184,10 @@ In order to derive the tests, we expand and rearrange the decision table of the 
 <table>
   <tr><th></th><th></th><th>v1</th><th>v2</th><th>v3</th><th>v4</th><th>v5</th><th>v6</th><th>v7</th><th>v8</th></tr>
   <tr><td rowspan="3"><br><i>Conditions</i></td>
-      <td>International</td><td>T</td><td>T</td><td>T</td><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+  <td>International</td><td>T</td><td>T</td><td>T</td><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
   <tr><td>Auto-renewal</td><td>T</td><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
   <tr><td>Loyal</td><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td></tr>
-  <tr><td><i>Action</i></td><td>price/month</td><td>30</td><td>30</td><td>30</td><td>32</td><td>10</td><td>10</td><td>10</td><td>15</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>30</td><td>30</td><td>30</td><td>32</td><td>10</td><td>10</td><td>10</td><td>15</td></tr>
 </table>
  
 First, we look at the first condition (v1) and we try to find pairs of combinations that would cover this condition according to MC/DC.
@@ -287,13 +287,47 @@ public void pricePerMonthTest(boolean international, boolean autoRenewal,
 {% include "/includes/youtube.md" %}
  
 ### Non-binary choices and final guidelines
- 
-{% hint style='working' %}
-Write the video's accompanying text
-{% endhint %}
- 
- 
- 
+
+So far, all the decision tables dicussed have boolean conditions (i.e., values in the cells were either `true` or `false`).
+The decision tables can be generalized to contain non-boolean values (non-binary choices). In other words, instead of only `true` and `false`, the values can now also be, e.g., a number.
+
+Take the decision table for the phone subscriptions, discussed earlier.
+Initially, this only contained the international and auto-renewal conditions.
+A non-boolean can be introduced to represent a data limit.
+The amount of data can be unlimited (&infin;), 8 GB, or none (0 GB).
+
+<table>
+  <tr><th></th><th></th><th colspan="6">Variants</th></tr>
+  <tr><td rowspan="3"><br><i>Conditions</i></td>
+  <td>International</td><td>T</td><td>T</td><td>F<br></td><td>F</td><td>F</td><td>F</td></tr>
+  <tr><td>Auto-renewal</td><td>T<br></td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
+  <tr><td>Data limit</td><td>&infin;</td><td>&infin;</td><td>8</td><td>0</td><td>8</td><td>0</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>32<br></td><td>30</td><td>12</td><td>10</td><td>17</td><td>15</td></tr>
+</table>
+
+With two boolean conditions and one condition with three possible values, the possible number of variants is $$2 \cdot 2 \cdot 3 = 12$$.
+The decision table only shows $$6$$.
+The unspecified columns implicitly represent invalid combinations.
+For example, an international subscription without data would not be possible.
+
+In small decision tables, non-boolean conditions can be useful.
+However, with many non-boolean conditions, the amount of possible combinations in the decision table can be large.
+Due to this combinatorial explosion of possible variants, the decision table becomes very hard to work with.
+For example, a decision table with three conditions, each having $$4$$ possible values, results in $$4 \cdot 4 \cdot 4 = 64$$ possible combinations.
+In such case, other strategies like _pair-wise combinatorial testing_ offer better scalability. 
+
+The testing techniques for decision tables with only boolean conditions can also be generalized to tables with non-boolean conditions.
+For the MC/DC criteria (discussed in the structural testing chapter), this requires modifying one of its three properties: instead of making each condition `true` and `false` at least once in the test suite, each of its possible values should appear at least once in the test suite.
+
+Finally, these are some general quidelines to keep in mind when designing decision tables:
+
+1. **Keep conditions independent.** The order of the conditions should not matter, otherwise a state machine might be more fitting.
+2. **Use DC values when possible.** This decreases the amount of variants, making the decision table easier to read and easier to understand.
+3. **Variants with DC values should not overlap.** If they do, they should at least have the same action.
+4. **Add a default column.** This provides an action for the variants that are not in the decision table, allowing the decision table to not include all possible variants.
+5. **Consider non-boolean conditions if conditions are mutually exclusive.** Mutually means that the conditions can never be true at the same time. These conditions then probably encode a single non-boolean condition.
+6. **If most conditions are non-boolean, consider using a different combinatorial testing technique instead**. One example would be pair-wise testing.
+
 {% set video_id = "RHB_HaGfNjM" %}
 {% include "/includes/youtube.md" %}
  

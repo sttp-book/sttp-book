@@ -35,7 +35,7 @@ Writing tests is fun, isn't it?
 
 **Exercise 1**
 
-A group of inputs that all make a method behave the same way.
+A group of inputs that all make a method behave in the same way.
 
 
 **Exercise 2**
@@ -98,7 +98,7 @@ The specification clearly makes the three different cases of the correct answer 
 **Exercise 6**
 
 Option 4 is the incorrect one.
-This is a functional based technique. No need for source code.
+This is a functional testing technique. No need for source code.
 
 
 **Exercise 7**
@@ -106,7 +106,7 @@ This is a functional based technique. No need for source code.
 Possible actions:
 
 1. We should treat pattern size 'empty' as exceptional, and thus, test it just once.
-2. We should constrain the options in the 'occurrences in a single line' category to happen only if 'occurrences in the file' are either exactly one or more than one. % It does not make sense to have none occurrences in a file and one pattern in a line.
+2. We should constrain the options in the 'occurrences in a single line' category to happen only if 'occurrences in the file' are either exactly one or more than one. It does not make sense to have none occurrences in a file and one pattern in a line.
 3. We should treat 'pattern is improperly quoted' as exceptional, and thus, test it just once.
 
 
@@ -846,7 +846,7 @@ A single test with these four invoices is a good test for the boundaries of the 
 **Exercise 1**
 
 To test just the `runBatch` method of `OrderDeliveryBatch` (for example in a unit test) we need to be able to use mocks for at least the `dao` and `delivery` objects.
-In the current implementation this is not possible, as we cannot change `dao` or `delivery` from outside.
+In the current implementation this is not possible, as we cannot change `dao` or `delivery` from outside the class.
 In other words: We want to improve the controllability to improve the testability.
 
 The technique that we use to do so is called dependency injection.
@@ -923,7 +923,7 @@ Static methods cannot be mocked and are therefore very bad for the controllabili
 Code that has low controllability also has a low testability, so replacing the static methods by non-static ones will be very beneficial to the testability.
 
 The large tables and lack of indices do not really influence the testability, especially not when talking about unit tests.
-There we end up mocking the classes interacting with the database anyway.
+When writing unit tests we end up mocking the classes interacting with the database anyway.
 
 Too many attributes/fields can hurt testability as we might need to create a lot of mocks for just one class under test.
 However, the static methods and mixed domain and infrastructure are worse for the testability than a large number of attributes/fields.

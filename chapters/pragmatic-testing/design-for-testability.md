@@ -5,10 +5,10 @@
  
 We just learned how the use of mocks and stubs can help developers in being highly productive and efficient in writing test code.
 In our previous chapter, it was easy to pass an `IssuedInvoices` stub to the `InvoiceFilter` class. The refactoring operation we performed (where we made the class receive its dependencies via constructors) facilitated the testing of the `InvoiceFilter` class.
-Note, however, that this was not the case in the beginning of that chapter. We had to refactor the code for that to happen.
+Note, however, that this was not the case at the beginning of that chapter. We had to refactor the code for that to happen.
  
 Software systems are often not ready/prepared to be tested, as seen in the classes in our previous chapter.
-And so this chapter will show **how to design and build a software system in a way that increases testability.**
+And so this chapter will show **how to design and build a software system in a way that increases its testability.**
  
 Testability is the term used to describe how easy it is to write automated tests for the system, class, or method to be tested.
 We already know that automated tests are crucial for high-quality software; it is, therefore, essential that our code is testable.
@@ -87,7 +87,7 @@ The use of dependency injection improves our code in many ways:
  
 * It enables us to mock/stub the dependencies in the test code, increasing the productivity of the developer during the testing phase.
 * It makes all the dependencies more explicit; after all, they all need to be injected (via constructor, for example).
-* It affords better separation of concerns: classes now do not need to worry about how to build their dependencies, as they are inject to them.
+* It affords better separation of concerns: classes now do not need to worry about how to build their dependencies, as they are injected to them.
 * The class becomes more extensible. As a client of the class, you can pass any dependency via the constructor. Suppose a class depends on a type `A` (and receives it via constructor). As a client, you can pass `A` or any implementation of `A`, e.g., if `A` is `List`, you can pass `ArrayList` or `LinkedList`. Your class can now work with many different implementations of `A`.
  
 {% hint style='tip'%}
@@ -167,7 +167,7 @@ This idea of separating infrastructure and domain is explored in the following l
 These ports are interfaces that define what the infrastructure is able to do.
 These ports are completely separated from the implementation of the infrastructure.
 The "adapters", on the other hand, are very close to the infrastructure.
-These are the implementations of the ports that talk to the database or webservice etc.
+These are the implementations of the ports that talk to the database, webservice, etc.
 They know how the infrastructure works and how to communicate with it.
  
 In the schema below, you can see that the ports are part of the domain.
@@ -179,7 +179,7 @@ If our core domain depends only on ports, we can easily stub/mock them.
  
 * In his **Domain-Driven Design** work, Eric Evans proposes that the domain (the core of the system) will be isolated from the infrastructure layer. Besides all the design benefits that Eric cites in his book, testers benefit from this separation, as it enables them to exercise parts of code without having to depend on heavy infrastructure.
  
-In practice, we observe that separating the infrastructure from domain is often challenging. The database example, where we move all the code to another class is rather a simplistic one. When building software, we often rely on different libraries and frameworks that are often opinionated and require you to follow certain design decisions that might not be ideal, from a testability perspective. It is the duty of a developer to be able to abstract these problems, making sure that the domain concerns are always separated from the infrastructure concerns.
+In practice, we observe that separating the infrastructure from domain is often challenging. The database example, where we move all the code to another class, is rather a simplistic one. When building software, we frequently rely on different libraries and frameworks that are often opinionated and require you to follow certain design decisions that might not be ideal, from a testability perspective. It is the duty of a developer to be able to abstract these problems, making sure that the domain concerns are always separated from the infrastructure concerns.
  
 {% hint style='tip' %}
 You see developers vouching for domain objects not to depend on concrete implementations of the infrastructure code, but rather, to depend solely on abstractions. In our example, the `InvoiceFilter` domain object, instead of depending on a concrete implementation of `IssuedInvoices` (one that right now contains SQL code and knows how to communicate with the database), it would depend on an abstraction/interface.
@@ -214,7 +214,7 @@ classes to do its work. Coupling decreases testability. A tester trying to test 
  
 Reducing coupling, however, is often tricky, and maybe one of the biggest challenges in software design.
 A common coupling-related refactoring is to group dependencies together into a higher and meaningful abstraction.
-Imagine that class A depends on B, C, D, and E. After inspection, you notice that B interacts with C, and D interacts with E.
+Imagine that class A depends on B, C, D and E. After inspection, you notice that B interacts with C, and D interacts with E.
 Devising a new class that handles the communication between B and C (let us call it BC), and other one that handles the communication between D and E (let us call it DE), already reduces A's coupling. After all, it now depends only on BC, and DE. In general, pushing responsibilities and dependencies to smaller classes and later connecting them via larger abstractions is the way to go.
  
 - **Complex conditions and testability**: We have seen in previous chapters that conditions that are very complex (e.g., an `if` statement composed of multiple Boolean operations) require great effort from testers. For example, the number of tests one might devise after applying some boundary testing or condition+branch coverage criteria might be
@@ -237,7 +237,7 @@ Again, creating layers/classes that abstract away the dependency might help you 
 We emphasise that developers should not be afraid to create these extra layers. While it might seem that these layers will increase the overall complexity of the design, the increased testability pays off.
  
 Finally, note how there is a [deep synergy between well designed production code and testability](https://www.youtube.com/watch?v=4cVZvoFGJTU).
-We repeat that focusing only on testing techniques (like the ones we discussed in the _Testing Techniques_ section of this book), or only on design techniques (like the ones we have been focusing in this section of the book), is not enough. High-quality software is only achieved when software systems are designed with testability in mind, and rigorous testing techniques are applied.
+We repeat that focusing only on testing techniques (like the ones we discussed in the _Testing Techniques_ section of this book), or only on design techniques (like the ones we have been focusing on in this section of the book), is not enough. High-quality software is only achieved when software systems are designed with testability in mind, and rigorous testing techniques are applied.
  
 {% set video_id = "VaScxLhsDBQ" %}
 {% include "/includes/youtube.md" %}
@@ -311,7 +311,6 @@ We want to create a unit test for this class.
  
 Why does this class have bad testability?
 What can we do to improve the testability?
- 
 I.e. why is it difficult to test the method?
  
  
@@ -338,11 +337,11 @@ However, try to prioritise the two most important ones: which influence the test
  
 **Exercise 4.**
 Observability and controllability are two important concepts when it comes to software testing.
-Three developers could benefit from improving either the observability or the controllability of the system/class which they are testing but each encounters a problem:
+Three developers could benefit from improving either the observability or the controllability of the system/class which they are testing but each developer encounters a problem:
  
 1. "I can't really assert that the method under test worked well."
 2. "I need to make sure this class starts with that Boolean set to false, but I simply can't do it."
-3. "I just instantiated the mock object, but there's simply no way to inject it in the class."
+3. "I just instantiated the mock object, but there's no way to inject it in the class."
  
 State for each of the problems above whether it relates to observability or controllability.
  

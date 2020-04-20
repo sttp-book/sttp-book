@@ -1,11 +1,11 @@
 # Property-Based Testing
 
 We briefly mentioned property checks when talking about design-by-contracts.
-There, we used the properties in assertions.
-We can also use the properties for test case generation instead of just assertions.
+There, we used properties in assertions.
+We can also use properties for test case generation instead of just assertions.
 
 Given that these properties should always hold, we can test them with any input that we like.
-We typically make use of a generator to try a high number of different inputs,
+We typically make use of a generator to try a large number of different inputs,
 without the need of writing them all ourselves.
 
 These generators often create a series of random input values for a test function.
@@ -39,12 +39,12 @@ starts the shrinking process.
 Using random input values can result in very large inputs.
 For example lists that are very long or strings with a lot of characters.
 These inputs can be very hard to debug. Smaller inputs are preferable when it comes to testing.
-When an input makes the property fail, QuickCheck tries to find shrink this input while it still makes the property fail.
-That way it gets the small part of the larger input that actually causes the problem.
+When an input makes a property fail, QuickCheck tries to find a shrunken version of this input that still makes the property fail.
+That way it gets the smallest part of a larger input that actually causes the problem.
 
 As an example:
 a property of Strings is that if we add two strings together, the length of the result should be the same as the sum of the lengths of the two strings summed.
-We can use property-based testing and the QuickCheck's implementation to make tests for this property.
+We can use property-based testing and QuickCheck's implementation to make tests for this property.
 
 ```java
 @Runwith(JUnitQuickcheck.class)
@@ -65,10 +65,10 @@ With property-based testing, by means of QuickCheck's implementation, we also au
 
 ## Property-based testing and AI
 
-A lot of today's research goes into a AI for software testing is about generating good input values for the tests.
-We try to apply artificial intelligence to find inputs that exercise an important parts of the system.
+A lot of today's research goes into creating AI for software testing that generates good input values for tests.
+We try to apply artificial intelligence to find inputs that exercise important parts of the system.
 
-While the research's results are very promising, there still exist difficulties with this test approach.
+While the research's results are very promising, there still exist difficulties with this testing approach.
 The main problem is that if the AI generates random inputs, how do we know for sure that the outcome is correct, i.e., how do we know that the problem behaved correctly for that random value?
 With the unit test we made so far we manually took certain inputs, thought about the correct outcome, and made the assertion to expect that outcome.
 When generating random inputs, we cannot think about the outcome every time.
@@ -76,7 +76,7 @@ The pre- and postconditions, contracts, and properties we discussed in this chap
 By well-defining the system in these terms, we can use them as oracles in the test cases.
 The properties always have to be true, so we can use them in all the randomly generated test cases.
 
-We will discuss more about AI techniques in a future chapter.
+We will discuss AI techniques more in a future chapter.
 
 {% set video_id = "7kB6JaSH9p8" %}
 {% include "/includes/youtube.md" %}

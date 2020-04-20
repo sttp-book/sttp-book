@@ -8,7 +8,7 @@ of the program.
 
 Given that specification-based techniques require no knowledge
 of how the software inside the “box” is structured
-(i.e., it does not matter if it is developed in Java or Python), they are also known
+(i.e., it does not matter if it is developed in Java or Python and concrete implementation details [such as usage of a particular data structure] are not of importance), these techniques are also referred to
 as **black box testing**.
 
 
@@ -35,19 +35,19 @@ Let's use a small program as an example. The specification below talks about a p
 To find a good set of test cases, often referred to as a *test suite*,
 we split the program into *classes*.
 In other words, we divide the input space of
-the program in such a way that each class is 1)
-different, i.e. it is unique, where
-no two partitions represent/exercise the same behaviour,
-2) can easily verify whether that behaviour is correct or not.
+the program in such a way that:
+1) Each class is different, i.e. it is unique, where
+no two partitions represent/exercise the same behaviour;
+2) We can easily verify whether the behaviour for a given input is correct or not.
 
 
 By looking at the requirements above, we can derive the
 following classes/partitions:
 
-* Year is divisible by 4, but not divisible by 100 = leap year, TRUE
-* Year is divisible by 4, divisible by 100, divisible by 400 = leap year, TRUE
-* Not divisible by 4 = not a leap year, FALSE
-* Divisible by 4, divisible by 100, but not divisible by 400 = not leap year, FALSE
+* Year is divisible by 4, but not divisible by 100 = `leap year, TRUE`
+* Year is divisible by 4, divisible by 100, divisible by 400 = `leap year, TRUE`
+* Not divisible by 4 = `not leap year, FALSE`
+* Divisible by 4, divisible by 100, but not divisible by 400 = `not leap year, FALSE`
 
 Note how each class above exercises the program in different ways.
 
@@ -114,11 +114,6 @@ the following inputs will be used for the partitions:
 Implementing this using JUnit gives the following code for the tests:
 
 ```java
-package tudelft.leapyear;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 public class LeapYearTests {
 
   private LeapYear leapYear;
@@ -158,8 +153,8 @@ Note that each test method covers one of the partitions and the naming of the me
 
 For those who are learning JUnit: Note that the `setup` method is executed 
 before each test, thanks to the `BeforeEach` annotation.
-For each test, it creates a `LeapYear` object.
-This is then used by the tests to execute the method under test.
+For each test, it creates a new `LeapYear` object.
+This object is then used by the tests to execute the method under test.
 In each test we first determine the result of the method.
 After the method returns a value, we assert that this is the expected value.
 
@@ -225,7 +220,7 @@ Let's explore another example:
 
 > **Requirement: Chocolate bars**
 > 
-> A package should store a total number of kilos. 
+> A package should store a total number of kilos of chocolate. 
 > There are small bars (1 kilo each) and big bars (5 kilos each). 
 > We should calculate the number of small bars to use, 
 > assuming we always use big bars before small bars. Return -1 if it is impossible.
@@ -233,7 +228,7 @@ Let's explore another example:
 > The input of the program is thus the number of small bars, the number of big bars,
 > and the total number of kilos to store.
 
-A possible implementation for this program is:
+A possible implementation for this program is as follows:
 
 ```java
 public class ChocolateBars {
@@ -276,7 +271,8 @@ In JUnit code:
 
 ```java
 public class ChocolateBarsTest {
-  private final ChocolateBars bars = new ChocolateBars();
+    private final ChocolateBars bars = new ChocolateBars();
+
     @Test
     void notEnoughBars() {
         assertEquals(-1, bars.calculate(1, 1, 10));
@@ -298,14 +294,14 @@ public class ChocolateBarsTest {
     }
 
     @Test
-  void invalidValues() {
+    void invalidValues() {
       assertEquals(-1, bars.calculate(-1, -1, -1));
     }
 }
 ```
 
-This example shows why deriving good test cases becomes more challenging, 
-when the specifications are complex.
+This example shows a case where deriving good test cases becomes more challenging due to the
+specifications being complex.
 
 {% set video_id = "T8caAUwgquQ" %}
 {% include "/includes/youtube.md" %}
@@ -321,7 +317,7 @@ a tester just keeps giving random inputs to the program?
 Although random testing can definitely help us in finding bugs, it is not an effective way to find bugs in a large input space. 
 Developers/testers use their experience and knowledge of the program to test trouble-prone areas more effectively.
 However, they generate a limited number of tests in a specific time period such as a day,
-while computers can generate millions.
+while computers can generate millions of tests in the same period of time.
 A combination of random testing and partition testing is therefore the most beneficial.
 
 {% hint style='tip' %}
@@ -336,16 +332,21 @@ What is an Equivalence Partition?
 
 
 1. A group of results that is produced by one method
-2. A group of results that is produced by one input into different methods
-3. A group of inputs that all make a method behave the same way
-4. A group of inputs that exactly gives the same output in every method
+2. A group of results that is produced by one input passed into different methods
+3. A group of inputs that all make a method behave in the same way
+4. A group of inputs that gives exactly the same output in every method
 
 **Exercise 2.**
 We have a program called FizzBuzz.
 It does the following:
-Given an integer `n`, return the string form of the number followed by `"!"`.
-So the integer 6 yields `"6!"`.
-Except if the number is divisible by 3 use `"Fizz"` instead of the number, and if the number is divisible by 5 use `"Buzz"`, and if divisible by both 3 and 5, use `"FizzBuzz"`.
+> Given an integer `n`, return the string form of the number followed by `"!"`.
+> If the number is divisable by 3 use `"Fizz"` instead of the number,
+> and if the number is divisable by 5 use `"Buzz"` instead of the number,
+> and if the number is divisable by both 3 and 5, use `"FizzBuzz"`
+
+Examples:
+* The integer 4 yields `"4!"`
+* The integer 5 yields `"Fizz!"`
 
 A novice tester is trying hard to devise as many tests as she can for
 the FizzBuzz method.
@@ -362,13 +363,13 @@ Which of these tests can be removed while keeping a good test suite?
 Which concept can we use to determine the tests that can be removed?
 
 **Exercise 3.**
-See a slightly modified version of HashMap's `put` method Javadoc. (Source code [here](http://developer.classpath.org/doc/java/util/HashMap-source.html)).
+See a slightly modified version of the HashMap's `put` method Javadoc below. (Source code [here](http://developer.classpath.org/doc/java/util/HashMap-source.html)).
 
 ```java
 /**
  * Puts the supplied value into the Map,
  * mapped by the supplied key.
- * If the key is already on the map, its
+ * If the key is already in the map, its
  * value will be replaced by the new value.
  *
  * NOTE: Nulls are not accepted as keys;
@@ -387,15 +388,15 @@ Apply the category/partition method.
 What are the minimal and most suitable partitions?
 
 **Exercise 4.**
-Zip codes in country X are always composed of 4 numbers + 2 letters, e.g., 2628CD.
-Numbers are in the range [1000, 4000].
-Letters are in the range [C, M].
+Zip codes in country X are always composed of 4 numbers + 2 letters, e.g., `2628CD`.
+Numbers are in the range `[1000, 4000]`.
+Letters are in the range `[C, M]`.
 
-Consider a program that receives two inputs: an integer (for the 4 numbers) and a string (for the 2 letters), and returns true (valid zip code) or false (invalid zip code).
+Consider a program that receives two inputs: an integer (for the 4 numbers) and a string (for the 2 letters), and returns `true` (valid zip code) or `false` (invalid zip code).
 
 A tester comes up with the following partitions:
 
-1. [0,999]
+1. [0, 999]
 2. [1000, 4000]
 3. [2001, 3500]
 4. [3500, 3999]
@@ -408,11 +409,11 @@ Note that with [a, b] all numbers between and including a and b are in the domai
 The same goes with letters like [A-Z].
 
 Which of these partitions are valid (and good) partitions, i.e. which can actually be used as partitions?
-Name each of the valid partitions, corresponding to how they exercise the program.
+Name each of the valid partitions, and describe how they exercise the program.
 
 **Exercise 5.**
-See a slightly modified version of HashSet's `add()`'s Javadoc below.
-Apply the category/partition method. What is **the minimal and most suitable partitions** for the `e` input parameter? 
+See a slightly modified version of the HashSet's `add()` Javadoc below.
+Apply the category/partition method. What are the **minimal and most suitable partitions** for the `e` input parameter? 
 
 ```java
 /**
@@ -436,13 +437,13 @@ public boolean add(E e) {
 
 
 **Exercise 6.**
-Which of the following statements **is false** about applying the category/partition method in method below?
+Which of the following statements **is false** about applying the category/partition method in the Java method below?
 
 ```java
 /**
  * Puts the supplied value into the Map, 
  * mapped by the supplied key.
- * If the key is already on the map, its
+ * If the key is already in the map, its
  * value will be replaced by the new value.
  *
  * NOTE: Nulls are not accepted as keys; 
@@ -478,11 +479,11 @@ find <pattern> <file>
 A tester, after reading the specs and following the Category-Partition method, devised the following test specification:
 
 
-* Pattern size: empty, single character, many characters, longer than any line in the file.
-* Quoting: pattern is quoted, pattern is not quoted, pattern is improperly quoted.
-* File name: good file name, no file name with this name, omitted.
-* Occurrences in the file: none, exactly one, more than one.
-* Occurrences in a single line, assuming line contains the pattern: one, more than one.
+* **Pattern size:** empty, single character, many characters, longer than any line in the file.
+* **Quoting:** pattern is quoted, pattern is not quoted, pattern is improperly quoted.
+* **File name:** good file name, no file name with this name, omitted.
+* **Occurrences in the file:** none, exactly one, more than one.
+* **Occurrences in a single line, assuming line contains the pattern:** one, more than one.
 
 However, the number of combinations is too high now. What actions could we take to reduce the number of combinations?
 
