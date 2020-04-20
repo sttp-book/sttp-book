@@ -101,9 +101,8 @@ For B2:
 * B2.1 = input={score 500, remaining lives=3}, output={200}
 * B2.2 = input={score 500, remaining lives=2}, output={130}
 
-In JUnit code (note how we wrote the two test cases for a boundary in a single test - and not splitting it into two
-test methods - that makes the test more cohesive; if
-there is a boundary bug, a single test will let us know):
+In JUnit code, the two test cases will look like below. Note how we wrote the two test cases for a boundary in a single test, and not splitting it into two test methods. That makes the test more cohesive. If 
+there is a boundary bug, a single test will let us know.
 
 ```java
 @Test
