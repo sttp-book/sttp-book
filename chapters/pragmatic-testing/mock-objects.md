@@ -460,9 +460,7 @@ Pragmatically, developers often mock/stub the following types of dependencies:
 
 On the other hand, developers tend not to mock/stub:
 
-[comment]: # (DISCUSS: Entities never get defined in this chapter, do we assume people are familiar with them from the course Information & Data Management? I assume that with "entities" we actually mean POGOs? Java data classes that mirror database entries.)
-
-* **Entities**. In business systems, it is quite common that entities depend on other entities, e.g., a `Order` depends on `OrderItem`. When testing `Order`, developers tend not to stub `OrderItem`. The reason is that `OrderItem` is probably also a well-contained class that is easy to set up. Mocking it would take more time than the actual implementation would take. Exceptions can be made for heavy entities.
+* **Entities**. An entity is a simple class that mirrors a collection in a database, while instances of this class mirror the entries of that collection. In Java we tend to call these POJOs (Plain Old Java Objects), as they mostly consist of fields only. In business systems, it is quite common that entities depend on other entities, e.g., a `Order` depends on `OrderItem`. When testing `Order`, developers tend not to stub `OrderItem`. The reason is that `OrderItem` is probably also a well-contained class that is easy to set up. Mocking it would take more time than the actual implementation would take. Exceptions can be made for heavy entities.
 
 * **Native libraries and utility methods**. It is not common to mock/stub libraries that come with our programming language and utility methods. For example, why would one mock `ArrayList` or a call to `String.format`? As shown with the `Calendar` example above, any library or utility methods that harm testability can be abstracted away.
 
