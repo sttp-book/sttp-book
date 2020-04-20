@@ -101,8 +101,8 @@ For B2:
 * B2.1 = input={score 500, remaining lives=3}, output={200}
 * B2.2 = input={score 500, remaining lives=2}, output={130}
 
-In JUnit code, the two test cases will look like below. Note how we wrote the two test cases for a boundary in a single test, and not splitting it into two test methods. That makes the test more cohesive. If 
-there is a boundary bug, a single test will let us know.
+An implementation using JUnit is shown below. Note that we have written just a single test for each pair of test cases. This makes the test more cohesive.
+If there is a boundary bug, a single test will let us know.
 
 ```java
 @Test
@@ -156,7 +156,7 @@ We show all these points in the diagram below.
 
 ![On- and off-points, in- and out-points](img/boundary-testing/examples/on_off_points.svg)
 
-Let us now study a similar but slightly different condition: $$x \leq 100$$ (note how similar they are; the only difference is that, in this one, we use "less than or equal to"):
+Let us now study a similar but slightly different condition: $$x \leq 100$$ (the only difference is that, in this one, we use "less than or equal to"):
 
 - The on-point is still $$100$$: this is the value that is precisely in the condition.
 - The condition is evaluated as true for the on-point. So, the off-point should be the closest number to the on-point, but making the condition false. The off-point is thus $$101$$.
