@@ -157,7 +157,7 @@ We show all these points in the diagram below.
 
 ![On- and off-points, in- and out-points](img/boundary-testing/examples/on_off_points.svg)
 
-Let us now study a similar but slightly different condition: $$x \leq 100$$ (note how similar they are; the only difference is that, in this one, we use smaller than or equal to):
+Let us now study a similar but slightly different condition: $$x \leq 100$$ (note how similar they are; the only difference is that, in this one, we use "less than or equal to"):
 
 - The on-point is still $$100$$: this is the value that is precisely in the condition.
 - The condition is evaluated as true for the on-point. So, the off-point should be the closest number to the on-point, but making the condition false. The off-point is thus $$101$$.
@@ -634,7 +634,6 @@ Which one of the following statements about the **CORRECT** principles is **true
 * Jeng, B., & Weyuker, E. J. (1994). A simplified domain-testing strategy. ACM Transactions on Software Engineering and Methodology (TOSEM), 3(3), 254-270.
 
 * Chapter 7 of Pragmatic Unit Testing in Java 8 with Junit. Langr, Hunt, and Thomas. Pragmatic Programmers, 2015.
-
 
 
 
