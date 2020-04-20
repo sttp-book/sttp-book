@@ -94,7 +94,7 @@ can lead to unexpected behaviour.
 Unit and system testing are the two extremes of test levels.
 As we saw, unit tests focus on the smallest parts of the system 
 while system tests focus on the whole system at once.
-However, something in between is often needed.
+However, sometimes we need something in between.
 
 **Integration testing** is the test level we use when we need something more
 integrated (or less isolated) than a unit test but without the need of exercising
