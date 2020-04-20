@@ -483,6 +483,57 @@ Finally, [Sage](https://dl.acm.org/doi/pdf/10.1145/2090147.2094081) is a white-b
 - Behavioral logs are very useful for forensic analysis of the SUT.
 - Combining fuzzing with Symbolic execution leads to finding optimal test cases that can maximize code coverage and find maximum security problems.
 
+## Exercises
+
+**Exercise 1.** Why is security testing hard?
+1. To find a vulnerability, you must fully understand assembly code.
+2. Pointers are hard to follow since they can point to any memory location.
+3. Hacking is difficult and requires many years of specialization.
+4. There exist a lot of strange inputs, and only few trigger a vulnerability.
+
+**Exercise 2.** Give an example of a software bug that also qualifies as a security vulnerability, and also explain how.
+
+**Exercise 3.** Static analysis can detect some classes of injection vulnerabilities more reliably than others. Which vulnerability is static analysis most likely to _prevent_?
+1. Cross-Site Scripting
+2. Cross-Site Request Forgery
+3. Update attack
+4. Format string injection
+
+**Exercise 4.** What is the underlying defect that enables arbitrary code execution?
+1. Buffer overflows
+2. Deserializing bugs
+3. Type confusion
+4. All of the above
+
+**Exercise 5.** In the following table, several testing objectives and techniques are given. Associate each _Objective_ with the most appropriate _Testing technique_. Note that no repetitions are allowed.
+
+| Objective | Testing Technique | (Answer option) Testing Technique |
+|----------------------------------------|------------------------|-----------------------------------|
+| 3. Detect pre-defined patterns in code | A. Fuzzing | __ |
+| 2. Branch reachability analysis | B. Regular expressions | __ |
+| 1. Testing like an attacker  | C. Symbolic execution | __ |
+| 4. Generate complex test cases | D. Penetration testing | __ |
+
+**Exercise 6.** How can you use Tainting to detect spyware?
+
+**Exercise 7.** Perform Reaching Definitions Analysis on the following piece of code. Which values of the variables does the analysis produce?
+``` java
+        int x = 0;
+        int y = 1;
+        while(y < 5) {
+    	    y++;
+        	if(y > 7)
+        		x = 12;
+        	else
+        		x = 21;
+    	}
+        return x;
+```
+1. $$x = \{0\}; y = \{0,1,2,3,...\}$$
+2. $$x = \{0,21\}; y = \{1,2,3,...\}$$
+3. $$x = \{0,12,21\}; y = \{1,2,3,...\}$$
+4. $$x = \{21\}; y = \{1,2,3,4\}$$
+
 ## References
 * Bruschi, Danilo, Lorenzo Martignoni, and Mattia Monga. "Detecting self-mutating malware using control-flow graph matching." In International conference on detection of intrusions and malware, and vulnerability assessment, pp. 129-143. Springer, Berlin, Heidelberg, 2006.
 * Chen, Hao, Drew Dean, and David A. Wagner. "Model Checking One Million Lines of C Code." In NDSS, vol. 4, pp. 171-185. 2004.

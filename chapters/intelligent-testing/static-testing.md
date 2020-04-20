@@ -72,6 +72,21 @@ Abstract Syntax Trees are used by compilers to find sematic errors &mdash; compi
 
 The signatures that static analysis uses to detect bugs need to be kept up-to-date as they codebase evolves. Additionally, while static analysis can see the entire codebase, it does not see how the application behaves in action, so if a piece of code is added at runtime, the static analysis will miss it completely. This is why static analysis tools generally produce a large amount of False positives &mdash; raises alarms when there are none, and False negatives &mdash; miss bugs.
 
+## Exercises
+
+**Exercise 1.** Regular expressions _CANNOT DO_ which of the following tasks?
+1. Matching patterns
+2. Count instances
+3. Define wild cards
+4. Detect coding mistakes
+
+**Exercise 2.** What is the quality of results that Static analysis produces?
+1. Sound and Precise
+2. Sound but Imprecise
+3. Unsound but Precise
+4. Unsound and Imprecise
+
+
 ## References
 
 * Grune, D., Van Reeuwijk, K., Bal, H.E., Jacobs, C.J. and Langendoen, K., 2012. Modern compiler design. Springer Science & Business Media.
