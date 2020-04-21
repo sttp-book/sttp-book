@@ -8,7 +8,7 @@ property-based testing are.
 ## Self Testing
 
 A self testing system is, in principle, a system that tests itself.
-This may sound a bit weird. Let's take a step back first.
+This may sound a bit weird, so let's take a step back first.
 
 The way we tested systems so far was by creating separate classes for the tests.
 The production code and test code were completely separated.
@@ -98,7 +98,7 @@ Instead of focusing on a specific instances, like we did so far, property checks
 Assertions also serve as an extra safety measure.
 If it is crucial that a system runs correctly, we can use the asserts to add some additional testing during the system's execution.
 
-We note that assertions do not replace unit tests.
+Note that assertions do not replace unit tests.
 Assertions are often of a more general nature.
 We still need the specific cases in the unit tests. A combination of
 both is what we desire.
