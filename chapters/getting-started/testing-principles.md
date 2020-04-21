@@ -116,7 +116,7 @@ however large they might be,
 will never ensure that the software system is 100% bug-free. They will only ensure
 that the cases we test for behave as expected.
 
-To test our software we need a lot of variation in our tests.
+To test our software, we need a lot of variation in our tests.
 For example, we want variety in the inputs when testing a method, 
 like we saw in the examples above.
 To test the software well, however, we also need variation in 
