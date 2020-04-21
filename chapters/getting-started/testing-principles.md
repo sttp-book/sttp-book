@@ -90,7 +90,7 @@ After all, resources (e.g., money, developers, infrastructure) are limited. Ther
 the goal should always be to maximise the number of bugs found while minimising the 
 amount of resources we had to spend on finding those bugs.
 Creating too few tests might leave us with a software system that does not behave as intended (i.e., _full of bugs_).
-On the other hand, creating tests after tests, without proper consideration might lead to ineffective tests (besides costing too much time and money).
+On the other hand, creating tests after tests, without proper consideration, might lead to ineffective tests (besides costing too much time and money).
 
 
 Given resource constraints, we highlight an important principle in 
