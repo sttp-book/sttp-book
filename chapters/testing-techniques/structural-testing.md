@@ -176,7 +176,7 @@ public class BlackJack {
 }
 ```
 
-A basic block is composed of "maximum number of statements that are executed together no matter what happens". In the code above, lines 1-2 are always executed together. Basic blocks are often represented by a square.
+A basic block is composed of "the maximum number of statements that are executed together no matter what happens". In the code above, lines 1-2 are always executed together. Basic blocks are often represented by a square.
 
 At this moment, our control-flow graph looks like the following:
 
