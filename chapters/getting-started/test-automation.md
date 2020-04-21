@@ -223,6 +223,11 @@ class RomanNumeralTest {
 
 Feel free to read more about [JUnit's annotations](https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations) in its documentation.
 
+You can also see a video of us refactoring the `MinMax` test cases. Although the test suite was still small, it had many opportunities for better test code.
+
+{% set video_id = "q5mq_Bkc8-s" %}
+{% include "/includes/youtube.md" %}
+
 We discuss test code quality in a more systematic way in a future 
 chapter.
 
