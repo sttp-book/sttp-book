@@ -98,8 +98,8 @@ For B1:
 * B1.2 = input={score=50, remaining lives=5}, output={150}
 
 For B2:
-* B2.1 = input={score 500, remaining lives=3}, output={200}
-* B2.2 = input={score 500, remaining lives=2}, output={130}
+* B2.1 = input={score 500, remaining lives=3}, output={1500}
+* B2.2 = input={score 500, remaining lives=2}, output={530}
 
 An implementation using JUnit is shown below. Note that we have written just a single test for each pair of test cases. This makes the test more cohesive.
 If there is a boundary bug, a single test will let us know.
