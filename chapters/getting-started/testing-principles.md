@@ -30,7 +30,7 @@ A broken connection is an example of a hardware fault.
 
 > Note that the existence of a fault in the source code does not necessarily lead to a failure.
 > If the code containing the fault is never executed, it will never cause a failure.
-> Failures only occur when the system is being used, when someone notices it not behaving as expected.
+> Failures only occur when the system is being used, and someone notices it not behaving as expected.
 
 Finally, we have an **error**, also called *mistake*.
 An error is the human action that caused the system to run not as expected.
