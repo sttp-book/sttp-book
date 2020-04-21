@@ -88,7 +88,7 @@ Indeed, a very important part of any software testing process is
 to know _when to stop testing_.
 After all, resources (e.g., money, developers, infrastructure) are limited. Therefore,
 the goal should always be to maximise the number of bugs found while minimising the 
-amount of resources we had to spend in finding those bugs.
+amount of resources we had to spend for finding those bugs.
 Creating too few tests might leave us with a software system that does not behave as intended (i.e., _full of bugs_).
 On the other hand, creating tests after tests, without proper consideration might lead to ineffective tests (besides costing too much time and money).
 
