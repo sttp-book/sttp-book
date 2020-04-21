@@ -61,7 +61,7 @@ public class MyStack {
 In this method, we check if a condition holds at the start: the stack should have at least one element.
 Then, after the actual method, we check whether the count is now one lower than before popping.
 
-These conditions are also known as *pre- and postconditions*.
+These conditions are also known as *pre- and post-conditions*.
 We cover these in the following section.
 
 {% hint style='tip' %}
@@ -108,21 +108,21 @@ both is what we desire.
 {% include "/includes/youtube.md" %}
 
 
-## Pre- and Postconditions
+## Pre- and Post-conditions
 
-We briefly mentioned pre- and postcondition in an example.
-Let us formalise the idea and see how to create good pre- and postconditions and their influence on the code that we are writing.
+We briefly mentioned pre- and post-condition in an example.
+Let us formalise the idea and see how to create good pre- and post-conditions and their influence on the code that we are writing.
 
 Tony Hoare pioneered reasoning about programs with assertions, proposing what is now called **Hoare Triples**.
-A Hoare Triple consists of a set of preconditions $$\{ P \}$$, a program $$A$$ and a set of postconditions $$\{ Q \}$$
+A Hoare Triple consists of a set of pre-conditions $$\{ P \}$$, a program $$A$$ and a set of post-conditions $$\{ Q \}$$
 We can express the Hoare Triple as follows: $$\{ P \}\ A\ \{ Q \}$$.
 This can be read as: if we know that $$P$$ holds, and we execute $$A$$, then, we end up in a state where $$Q$$ holds.
-If there are no preconditions, i.e., no assumptions needed for the execution of $$A$$, we can simply set $$P$$ to true.
+If there are no pre-conditions, i.e., no assumptions needed for the execution of $$A$$, we can simply set $$P$$ to true.
 
 In a Hoare Triple, the $$A$$ can be a single statement or a whole program.
 We will take $$A$$ to be a method.
-As such, $$P$$ and $$Q$$ are the pre- and postcondition of the method $$A$$ respectively.
-Now we can write the Hoare Triple as: $$\{ \mathit{preconditions} \}\ \mathit{method}\ \{ \mathit{postconditions} \}$$.
+As such, $$P$$ and $$Q$$ are the pre- and post-condition of the method $$A$$ respectively.
+Now we can write the Hoare Triple as: $$\{ \mathit{pre-conditions} \}\ \mathit{method}\ \{ \mathit{post-conditions} \}$$.
 
 ### Pre-conditions
 
@@ -180,7 +180,7 @@ One might want to *weaken the pre-condition*, so that the method accepts/is able
 To that aim, we can remove a pre-condition as the method itself can handle the situation where the pre-condition would be false.
 This makes the method more generally applicable, but is also increases its complexity.
 The method always has to check some extra things to handle the cases that could had been pre-conditions.
-Finding the balance between the number of preconditions and complexity of the method is part of designing the system.
+Finding the balance between the number of pre-conditions and complexity of the method is part of designing the system.
 
 
 We can remove some of the pre-conditions of the `merge` method by adding some if-statements to the method.
@@ -265,7 +265,7 @@ Unfortunately, we cannot easily formalise it as a post-condition.
 In a test suite, we would probably mock the `pushNotification` and then use `Mockito.verify` to verify that `booksAdded` was called.
 
 
-It is important to realise that these post-conditions only have to hold if the preconditions held when the method was called. **In other words, if the method's pre-conditions were not fully satisfied, the method might not guarantee its post-conditions.**
+It is important to realise that these post-conditions only have to hold if the pre-conditions held when the method was called. **In other words, if the method's pre-conditions were not fully satisfied, the method might not guarantee its post-conditions.**
 
 You also saw in the example that we could not really write assertions for
 some of post-conditions of the method. 
@@ -298,17 +298,17 @@ return ...;
 The method above has three conditions and three different return statements.
 This also gives us three post-conditions.
 In the example, if `A` and `B` are true, post-condition 1 should hold.
-If `A` is true but `B` is false, postcondition 2 should hold.
-Finally, if `A` is false, postcondition 3 should hold.
+If `A` is true but `B` is false, post-condition 2 should hold.
+Finally, if `A` is false, post-condition 3 should hold.
 
-The placing of these post-conditions now becomes quite important, so the whole method is becoming rather complex with the postconditions.
+The placing of these post-conditions now becomes quite important, so the whole method is becoming rather complex with the post-conditions.
 Refactoring the method so that it has just a single return statement
 with a general post-condition is advisable.
 Otherwise, the post-condition essentially becomes a disjunction of propositions.
 Each return statement forms a possible post-condition (proposition) and the method guarantees that one of these post-conditions is met.
 
 
-### How weak pre-conditions affect the post-conditions?
+### How do weak pre-conditions affect the post-conditions?
 
 Based on what we saw about pre- and post-conditions, we can come up with a few
 rules:
@@ -319,7 +319,7 @@ However, with weak pre-conditions, the method will always have to do
 the checking.
 
 * The post-conditions are only guaranteed if the pre-conditions held; if not,
-the outcome can any anything. With weak pre-conditions, the method might have
+the outcome can be anything. With weak pre-conditions the method might have
 to handle different situations, leading to multiple post-conditions guarded
 by conditions over the inputs or the program state.
 
@@ -331,7 +331,7 @@ by conditions over the inputs or the program state.
 
 ## Invariants
 
-We have seen that preconditions should hold before a method's execution and postconditions should hold after a method's execution.
+We have seen that pre-conditions should hold before a method's execution and post-conditions should hold after a method's execution.
 Now we move to conditions that always have to hold, before and after a method's execution.
 These conditions are called **invariants**.
 An invariant is thus a condition that holds throughout the entire lifetime of a system, an object, or a data structure.
@@ -381,7 +381,7 @@ Moreover, methods can assume that, when they start, the class invariant holds.
 A private method invoked by a public method can leave the object with the class invariant being false.
 However, the public method that invoked the private method should then fix this and end with the class invariant again being true.
 
-This is all formalised by Bertrand Meyer as: _"The class variant indicates that a proposition P can be a class invariant if it holds after construction, and before and after any call to a public method assuming that the public methods are called with their preconditions being true."_
+This is all formalised by Bertrand Meyer as: _"The class variant indicates that a proposition P can be a class invariant if it holds after construction, and before and after any call to a public method assuming that the public methods are called with their pre-conditions being true."_
 
 
 To implement simple class invariant in Java, we can use the Boolean method that checks if the representation is okay.
@@ -415,7 +415,7 @@ public class FavoriteBooks {
   public void merge(List<Book> books) {
     assert invariant();
 
-    // Remaining preconditions
+    // Remaining pre-conditions
     assert books != null;
 
     List<Book> newBooks = books.removeAll(favorites);
@@ -425,7 +425,7 @@ public class FavoriteBooks {
       pushNotification.booksAdded(newBooks);
     }
 
-    // Remaining postconditions
+    // Remaining post-conditions
     assert favorites.containsAll(books);
 
     assert invariant();
@@ -453,7 +453,7 @@ Suppose a client system and a server system. The client makes use of the server'
 The client and server are bound by a *contract*.
 The server does its job as long as its methods are used properly by the client.
 This relates strongly to the pre- and post-conditions that we discussed earlier.
-The client has to use the server's methods in a way that their preconditions hold.
+The client has to use the server's methods in a way that their pre-conditions hold.
 The server then guarantees that the post-conditions will hold after the method call, i.e., makes sure the method delivers what it promises.
 
 Note how the pre- and post-conditions of the server forms a contract
@@ -475,10 +475,10 @@ In the UML diagram above, we see that the implementation can have different pre-
 
 In terms of pre-conditions, the new implementation must be able to work with the pre-conditions that were specified in the interface.
 After all, the interface is the only thing the client sees of the system.
-The implementation cannot add any pre-conditions to the server's preconditions.
+The implementation cannot add any pre-conditions to the server's pre-conditions.
 In terms of strength, we now know that $$P'$$ has to be **weaker** than (or as weak as) $$P$$.
 
-The postcondition works the other way around.
+The post-condition works the other way around.
 The implementation must do at least the same work as the interface, but is allowed to do a bit more.
 Therefore, $$Q'$$ should be **stronger** than (or as strong as) $$Q$$.
 
@@ -632,8 +632,8 @@ What assertion(s), if any, can be turned into a class invariant?
 Consider the piece of code in the previous example.
 Suppose we remove the last assertion (line 10), which states that the result can never be null.
 
-Are the existing preconditions of the `squareAt` method enough to ensure the property in the original line 10?
-What can we add to the class (other than the just removed postcondition) to guarantee this property?
+Are the existing pre-conditions of the `squareAt` method enough to ensure the property in the original line 10?
+What can we add to the class (other than the just removed post-condition) to guarantee this property?
 
 
 
@@ -694,7 +694,7 @@ class Square extends Rectangle {
 }
 ```
 
-Inspired by Bertrand Meyer's design by contracts, he also use asserts to make sure contracts are followed. He explicitly defines preconditions and postconditions in various methods of the base Rectangle class and the derived Square class.
+Inspired by Bertrand Meyer's design by contracts, he also use asserts to make sure contracts are followed. He explicitly defines pre-conditions and post-conditions in various methods of the base Rectangle class and the derived Square class.
 
 A second colleague comes in and expresses concerns about the design.
 How can you use the assertions provided to discuss the correctness of this design?
@@ -708,7 +708,7 @@ Explain with the assertions shown in the code.
 You run your application with assertion checking enabled. 
 Unfortunately, it reports an assertion failure signalling a class invariant violation in one of the libraries your application makes use of.
 
-Assume that the contract of the library in question is correct, and that all relevant preconditions are encoded in assertions as well.
+Assume that the contract of the library in question is correct, and that all relevant pre-conditions are encoded in assertions as well.
 
 Can you fix this problem? 
 If so, how? 
@@ -725,17 +725,17 @@ A well known example is the 404 (Page not found) status code.
 - A 5xx status code "indicates cases in which the server is aware that it has encountered an error or is otherwise incapable of performing the request."
 A well known example is the 500 (Internal Server Error) status code.
 
-What is the best correspondence between these status codes and pre- and postconditions?
+What is the best correspondence between these status codes and pre- and post-conditions?
 
 
 
 
 **Exercise 6.**
-A method M belongs to a class C and has a precondition P and a postcondition Q. 
+A method M belongs to a class C and has a pre-condition P and a post-condition Q. 
 Now, suppose that a developer creates a class C' that extends C, and 
 creates a method M' that overrides M. 
 Which one of the following statements correctly explains the relative
-strength of the pre (P') and postconditions (Q') of the overridden method M'?
+strength of the pre (P') and post-conditions (Q') of the overridden method M'?
 
 
 1. P' should be equal or weaker than P, and Q' should be equal or stronger than Q.
