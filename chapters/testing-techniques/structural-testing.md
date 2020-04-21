@@ -23,8 +23,9 @@ Watch a summary of one of our lectures in structural testing:
 
 ## Why do we need structural testing?
 
-In a nutshell, for two reasons: 1) to systematically
-derive tests from source code, 2) to know when to stop testing.
+In a nutshell, for two reasons: 
+1) to systematically derive tests from source code;
+2) to know when to stop testing;
 
 As a tester, when performing specification-based testing, 
 your goal was clear: to derive classes out of the requirement specifications, and then to derive test cases for each of the
@@ -51,7 +52,7 @@ See the following example:
 
 > **Requirement**: Black-jack
 >
-> The program receives the number of points of two black jack players.
+> The program receives the number of points of two blackjack players.
 > The program must return the number of points of the winner.
 > In blackjack, whoever gets closer to 21 points wins. 
 > If a player goes over 21 points,
@@ -504,7 +505,7 @@ In this case, we start with selecting the pairs of combinations (or tests) for c
 
   We find this in test 6. The outcome from test 6 (`false`) is not the same as the outcome of test 2 (`true`), so this means that the pair of tests $$\{T_2, T_6\}$$ is also able to independently show how A can affect the final outcome.
 
-* We repeat the process for test 3. We will find here that the pair $$\{T_3, T_7\}$$ also independently tests how the condition A affects the outcome.
+* We repeat the process for test 3. We will find here that the pair $$\{T_3, T_7\}$$ also independently tests how condition A affects the outcome.
 
 * We repeat the process for test 4 (A=`true`, B=`false`, C=`false`). Its pair is test 8 (A=`false`, B=`false`, C=`false`). We note that the outcome of both tests is the same (`false`). This means that the pair $$\{T_4, T_8\}$$ does not show how A can independently affect the overall outcome; after all, A is the only thing that changes in these two tests, but the outcome is still the same.
 
@@ -551,7 +552,7 @@ In terms of coverage criteria, what to do when we have loops? When there is a lo
 Think of a `while(true)` loop which can be non-terminating. If we wanted to be rigorous about it, we would have to test the program where the loop block is executed one time, two times, three times, etc. Imagine a `for(i = 0; i < 10; i++)` loop with a `break` inside of the body. We would have to test what happens if the loop body executes one time, two times, three times, ..., up to ten times.
 It might be impossible to exhaustively test all the combinations.
 
-How can we handle long lasting loops (a loop that runs for many iterations), or unbounded loops (where we do not know how many times it will be executed)? 
+How can we handle long-lasting loops (a loop that runs for many iterations), or unbounded loops (where we do not know how many times it will be executed)? 
 
 Given that exhaustive testing is impossible,
 testers often rely on the **loop boundary adequacy criterion**
@@ -569,7 +570,7 @@ Pragmatically speaking, the main challenge comes when devising
 the test case for the loop being executed multiple times.
 Should the test case force the loop to iterate for 2, 5, or 10 times?
 That requires a good understanding of the program/requirement itself. 
-Our suggestion for testers is to rely on specification-based techniques. With optimal understanding of the specs, one should be able to devise good tests for the particular loop.
+Our suggestion for testers is to rely on specification-based techniques. With an optimal understanding of the specs, one should be able to devise good tests for the particular loop.
 
 
 ## Criteria subsumption
@@ -581,7 +582,7 @@ Formally, a strategy X subsumes strategy Y if all elements that Y exercises are 
 
 ![Criteria subsumption](img/structural-testing/subsumption.png)<!--{width=50%}-->
 
-For example, in the picture, one can see that branch coverage subsumes line coverage. This means that 100% of branch coverage always implies in 100% line coverage. However, 100% line coverage does not imply 100% branch coverage. Moreover, 100% of branch + condition coverage always implies 100% branch coverage and 100% line coverage.
+For example, in the picture, one can see that branch coverage subsumes line coverage. This means that 100% of branch coverage always implies 100% line coverage. However, 100% line coverage does not imply 100% branch coverage. Moreover, 100% of branch + condition coverage always implies 100% branch coverage and 100% line coverage.
 
 
 ## More examples of Control-Flow Graphs
@@ -637,7 +638,7 @@ We quote two of these studies:
 * Hutchins et al.: "Within the limited domain of our experiments, test sets achieving coverage levels over 90% usually showed significantly better fault detection than randomly chosen test sets of the same size. In addition, significant improvements in the effectiveness of coverage-based tests usually occurred as coverage increased from 90% to 100%. However, the results also indicate that 100% code coverage alone is not a reliable indicator of the effectiveness of a test set."
 * Namin and Andrews: "Our experiments indicate that coverage is sometimes correlated with effectiveness when [test suite] size is controlled for, and that using both size and coverage yields a more accurate prediction of effectiveness than [test suite] size alone. This in turn suggests that both size and coverage are important to test suite effectiveness."
 
-For interested readers, a extensive literature review on the topic can be found in
+For interested readers, an extensive literature review on the topic can be found in
 Zhu, H., Hall, P. A., & May, J. H. (1997). Software unit test coverage and adequacy. ACM computing surveys (csur), 29(4), 366-427.
 
 
