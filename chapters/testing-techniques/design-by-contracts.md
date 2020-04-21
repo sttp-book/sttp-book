@@ -514,11 +514,10 @@ Keep the LSP in mind when designing and implementing a software system.
 How can we test that our classes follow the LSP?
 To test the LSP, we have to make some test cases for the public methods of the super class and execute these tests with all its subclasses.
 We could just create the same tests to each of the subclasses' test suites.
-This, however, leads to a lot of code duplication in the test code, which we would like to avoid.
+However, this leads to a lot of code duplication in the test code, which we would like to avoid.
 
 
-In Java, the List interface is implemented by various sub-classes.
-Two examples are the `ArrayList` and `LinkedList`.
+In Java, the List interface is implemented by various sub-classes, such as `ArrayList` and `LinkedList`.
 Creating the tests for each of the sub-classes separately will result in the following structure.
 
 ![Test classes architecture](img/design-by-contracts/examples/subclass_test.svg)
