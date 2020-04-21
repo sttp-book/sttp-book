@@ -189,7 +189,7 @@ Which of the following testing principles might explain why this is **not** poss
 
 **Exercise 4.**
 John strongly believes in unit testing. In fact, this is the only type of testing he actually
-does at any project he's in. All the testing principles below, but one, might help in convincing John that he should also focus on different types of testing. 
+does at any project he's in. All the testing principles below, but one, might help convince John that he should also focus on different types of testing. 
 
 Which of the following **is the least related** when we want to convince John to move away from his 'only unit testing' approach?
 
