@@ -168,13 +168,13 @@ Fill in the blanks with one of the following terms: failure, fault, or error.
 
 **Exercise 2.**
 Kelly, a very experienced software tester, visits *Books!*, a social network focused on matching people based on books they read.
-Users do not report bugs so often; *Books!* developers have strong testing practices in place.
+Users do not report bugs so often. *Books!* developers have strong testing practices in place.
 However, users do say that the software is not really delivering what it promises.
 
 What testing principle applies to this problem?
 
 **Exercise 3.**
-Suzanne, a junior software testing, just joined a very large online payment company in the Netherlands. As a first task, Suzanne analysed their past two years of bug reports.
+Suzanne, a junior software tester, has just joined a very large online payment company in the Netherlands. As a first task, Suzanne analysed their past two years of bug reports.
 Suzanne observes that more than 50% of bugs have been happening in the *International payments* module. 
 
 Suzanne then promises her manager that she will design test cases that will completely cover the *International payments* module, and thus, find 
