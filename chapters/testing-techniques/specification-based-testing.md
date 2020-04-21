@@ -470,7 +470,7 @@ public V put(K key, V value) {
 
 
 **Exercise 7.**
-With a `find` program that finds occurrences of a pattern in a file, the program has the following syntax:
+Consider a `find` program that finds occurrences of a pattern in a file, the program has the following syntax:
 
 ```
 find <pattern> <file>
