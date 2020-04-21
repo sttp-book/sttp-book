@@ -457,6 +457,7 @@ Also give an example for both an in-point and an out-point.
 **Exercise 4.**
 Regarding **boundary analysis of inequalities** (e.g. `a < 10`), which of the following statements **is true**?
 
+
 1. There can only be a single on-point which always makes the condition true.
 2. There can be multiple on-points for a given condition which may or may not make the condition true.
 3. There can only be a single off-point which may or may not make the condition false.
