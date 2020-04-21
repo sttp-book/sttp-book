@@ -95,7 +95,7 @@ each boundary will require *at least* two test cases:
 
 For B1:
 * B1.1 = input={score=49, remaining lives=5}, output={99}
-* B1.2 = input={score=50, remaining lives=5}, output={100}
+* B1.2 = input={score=50, remaining lives=5}, output={150}
 
 For B2:
 * B2.1 = input={score 500, remaining lives=3}, output={200}
