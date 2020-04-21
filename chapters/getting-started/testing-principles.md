@@ -40,8 +40,8 @@ the requirement. Plugging a cable into the wrong socket is an example of a hardw
 In other words: a *mistake* by a developer can lead to a *fault* in the source code that will
 eventually result in a *failure*.
 
-In the _Min-Max_ code example of the previous chapter: the Failure was the program returning
-a large number, the fault was a bad `if/else if` condition, and the Mistake was me not dealing 
+In the _Min-Max_ code example of the previous chapter: the *failure* was the program returning
+a large number, the *fault* was a bad `if/else if` condition, and the *mistake* was me not dealing 
 properly with that case.
 
 {% set video_id = "zAty8Rpg92I" %}
