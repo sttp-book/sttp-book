@@ -10,15 +10,15 @@ This book covers the most important testing techniques needed to build high-qual
 
 We expect readers to be able to:
 
-* Create unit, integration, and system tests using current existing tools (i.e., JUnit, Mockito, and JaCoCo) that effectively test complex software systems.
+* Create unit, integration, and system tests using current existing tools (i.e. JUnit, Mockito, and JaCoCo) that effectively test complex software systems.
 
-* Derive test cases that deal with exceptional, corner, and bad weather cases by performing several different techniques (i.e., boundary analysis, state-based testing, decision tables)
+* Derive test cases that deal with exceptional, corner, and bad weather cases by performing several different techniques (i.e. boundary analysis, state-based testing, decision tables)
 as well as able to reflect on their limitations, when and when not to apply them in a given context.
 
-* Measure and reflect on the efficiency of the developed test suites by means of different test adequacy metrics (i.e., line, branch, condition, MC/DC coverage).
+* Measure and reflect on the efficiency of the developed test suites by means of different test adequacy metrics (i.e. line, branch, condition, MC/DC coverage).
 
 * Design and implement testable software systems by means of architectural patterns such as dependency injection, and ports and adapters.
 
-* Write maintainable test code by avoiding well-known test code smells (e.g., Assertion Roulette, Slow or Obscure Tests).
+* Write maintainable test code by avoiding well-known test code smells (e.g. Assertion Roulette, Slow or Obscure Tests).
 
 *Target audience:* first-year Computer Science students. Knowledge in programming is required. Code examples are in Java, although easily transferrable to other languages.
