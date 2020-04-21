@@ -226,7 +226,7 @@ public class FavoriteBooks {
 }
 ```
 
-Note that, although we increased the complexity of method by removing some of its pre-conditions and dealing with these cases in the implementation, the method is now also easier to be called by clients. After all, the method has less pre-conditions to be called.
+Note that, although we increased the complexity of method by removing some of its pre-conditions and dealing with these cases in the implementation, the method is now also easier to be called by clients. After all, the method has less pre-conditions to be considered.
 
 
 
@@ -237,7 +237,7 @@ In other words, the post-conditions formalise the effects that a method guarante
 
 
 The `merge` method of the previous examples does two things.
-It adds the new books to the `favorites` list.
+First, it adds the new books to the `favorites` list.
 Let's turn this into a Boolean expression, so we can formulate this as a post-condition.
 
 ```java
@@ -298,7 +298,7 @@ return ...;
 The method above has three conditions and three different return statements.
 This also gives us three post-conditions.
 In the example, if `A` and `B` are true, post-condition 1 should hold.
-If `A` is true and `B` is false, postcondition 2 should hold.
+If `A` is true but `B` is false, postcondition 2 should hold.
 Finally, if `A` is false, postcondition 3 should hold.
 
 The placing of these post-conditions now becomes quite important, so the whole method is becoming rather complex with the postconditions.
