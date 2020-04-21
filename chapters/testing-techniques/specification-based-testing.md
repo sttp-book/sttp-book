@@ -166,9 +166,9 @@ After the method returns a value, we assert that this is the expected value.
 
 So far we have derived partitions by just looking at the specification of the program.
 We basically used our experience and knowledge to derive the test cases.
-We now go over a more systematic way of deriving these partitions: the **Category-Partition** method.
+We will discuss a more systematic way of deriving these partitions: the **Category-Partition** method.
 
-The method gives us a systematic way of deriving test cases, based on the characteristics of the input parameters. It also brings down the number of tests to a feasible number.
+The method provides us with a systematic way of deriving test cases, based on the characteristics of the input parameters. It also reduces the number of tests to a feasible number.
 
 We now set out the steps of this method and then we illustrate the process with an example.
 
