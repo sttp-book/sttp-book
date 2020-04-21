@@ -340,9 +340,9 @@ What is an Equivalence Partition?
 We have a program called FizzBuzz.
 It does the following:
 > Given an integer `n`, return the string form of the number followed by `"!"`.
-> If the number is divisable by 3 use `"Fizz"` instead of the number,
-> and if the number is divisable by 5 use `"Buzz"` instead of the number,
-> and if the number is divisable by both 3 and 5, use `"FizzBuzz"`
+> If the number is divisible by 3 use `"Fizz"` instead of the number,
+> and if the number is divisible by 5 use `"Buzz"` instead of the number,
+> and if the number is divisible by both 3 and 5, use `"FizzBuzz"`
 
 Examples:
 * The integer 4 yields `"4!"`
