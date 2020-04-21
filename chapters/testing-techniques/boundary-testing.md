@@ -170,136 +170,6 @@ on-point, a test case for the off-point, a test case for a single in-point (as a
 belong to the same equivalence partition), and a test case for a single out-point (as all
 out-points also belong to the same equivalence partition).
 
-## Deriving tests for multiple conditions
-
-In the previous example, we looked at one condition and its boundary.
-However, in most programs you will find statements that consist of multiple conditions,
-e.g., `a > 10 && b < 20 && c == 10 && d >= 50`. (Note that these conditions might be
-expressed in a single `if` statement, but also spread all over a method or a class; it
-is up to the tester to identify how these different conditions interact with each other).
-
-In such cases, the number of boundary tests might explode. Imagine a program composed
-of 5 different conditions. If we decide to write 4 test cases (on, off, in, out points) for 
-each of the conditions, and make sure we test all the possible combinations among them,
-we end up with $$4^5=1024$$ tests. This is simply too much.
-
-To effectively test the boundaries in these more complicated decisions, while
-minimising the number of required tests,
-we can use the **simplified domain testing strategy**, proposed by Jeng and Weyuker.
-The idea of this strategy is to test each boundary separately, i.e. independent of the other conditions.
-
-To do so, **for each boundary**:
-
-* We pick the on- and off-point and we create one test case for each of these two points.
-* As we want to test each boundary independently, we choose in-points for the other variables/conditions. Note that we always choose in-points, regardless of the Boolean expression being connected by means of ANDs or ORs. In practice, we want all the other conditions to return true, so that we can evaluate the outcome of the condition under test independently.
-* It is important to vary the chosen in-points in the different tests, and to not choose the on- or off-point. This gives us the ability to partially check that the program gives the correct results for some in-points. If we would set the in-point to the on- or off-point, we would be testing two boundaries at once.
-
-To find these values and display the test cases in a structured manner, we use a **domain matrix**.
-In general, the table looks like the following:
-
-![Template for domain matrix](img/boundary-testing/boundary_template.png)
-
-In this template, we have two conditions with two parameters (see the $$x > a \land y > b$$ condition).
-We list the variables, with all their conditions.
-Each condition has two rows: one for the on-point and one for the off-point.
-Each variable has an additional row for the typical (in-) values.
-These are used when testing the other boundary.
-
-Each column that corresponds to a test case has two coloured cells.
-In the coloured cells you have to fill in the correct values.
-Each of these pairs of values will then give a test case.
-If we implement all the test cases that the domain matrix gives us, 
-we exercise each boundary both for the on- and off-point independent of the other parameters.
-
-Let us walk through another example:
-
-> **Requirement: Pizza or pasta**
->
-> The program decides whether a person should eat pizza or pasta.
-> Given two random numbers, x and y, if x is in between $$[5,20]$$
-> and y is smaller than or equal to 89, the program returns "pizza".
-> Otherwise it returns "pasta". 
-
-A simple implementation of this program would be:
-
-```java
-public String pizzaOrPasta(int x, int y) {
-  return (x >= 5 && x < 20 && y <= 89) ?
-    "pizza" :
-    "pasta";
-}
-```
-
-If we derive test cases based on the specification, we end up with at least two partitions:
-
-* **Pizza**: the program returns pizza. T1={x=15, y=50}.
-* **Pasta**: the program returns pasta. T2={x=15, y=100}.
-
-(Now that you are more experienced in testing, you can probably see that these
-two partitions are not enough.)
-
-```java
-public class PizzaPastaTest {
-
-  private final PizzaPasta pp = new PizzaPasta();
-
-  @Test
-  void pizza() {
-    assertEquals("pizza", pp.pizzaOrPasta(15, 50));
-  }
-
-  @Test
-  void pasta() {
-    assertEquals("pasta", pp.pizzaOrPasta(15, 100));
-  }
-}
-```
-
-Let us now apply boundary testing. Note how easy it is for a developer to
-make a mistake, e.g., confusing $$x >= 5$$ with $$x > 5$$.
-
-We start by making the domain matrix, having space for each of the conditions and both parameters.
-
-![Empty boundary table example](img/boundary-testing/examples/boundary_table_empty.png)
-
-Given that the statement has three conditions, we therefore will devise
-$$2 \times 3 = 6$$ tests.
-If we fill the table with the on-, off-, and typical random in points, we end up
-with the following tests:
-
-![Boundary tables example filled in](img/boundary-testing/examples/boundary_table.png)
-
-Now we have derived the six test cases that we can use to test the boundaries:
-
-* T1={x=5, y=24}, output=pizza
-* T2={x=4, y=13}, output=pasta
-* T3={x=20, y=-75}, output=pasta
-* T4={x=19, y=48}, output=pizza
-* T5={x=15, y=89}, output=pizza
-* T6={x=8, y=90}, output=pasta
-
-```java
-@Test
-void boundary_x1() {
-  assertEquals("pizza", pp.pizzaOrPasta(5, 24));
-  assertEquals("pasta", pp.pizzaOrPasta(4, 13));
-}
-
-@Test
-void boundary_x2() {
-  assertEquals("pasta", pp.pizzaOrPasta(20, -75));
-  assertEquals("pizza", pp.pizzaOrPasta(19, 48));
-}
-
-@Test
-void boundary_y() {
-  assertEquals("pizza", pp.pizzaOrPasta(15, 89));
-  assertEquals("pasta", pp.pizzaOrPasta(8, 90));
-}
-```
-
-{% set video_id = "rPcMJg62wM4" %}
-{% include "/includes/youtube.md" %}
 
 
 ## Boundaries that are not so explicit
@@ -588,16 +458,6 @@ Also give an example for both an in-point and an out-point.
 
 
 **Exercise 4.**
-We extend the game with a more complicated condition: `(numberOfPoints <= 570 && numberOfLives > 10) || energyLevel == 5`.
-
-Perform boundary analysis on this condition.
-What is the resulting domain matrix?
-
-
-
-
-
-**Exercise 5.**
 Regarding **boundary analysis of inequalities** (e.g., `a < 10`), which of the following statements **is true**?
 
 1. There can only be a single on-point which always makes the condition true.
@@ -606,19 +466,11 @@ Regarding **boundary analysis of inequalities** (e.g., `a < 10`), which of the f
 4. There can be multiple off-points for a given condition which always make the condition false.
 
 
-
-
-
-
-
-**Exercise 6.**
+**Exercise 5.**
 A game has the following condition: `numberOfPoints > 1024`. Perform a boundary analysis.
 
 
-
-
-
-**Exercise 7.**
+**Exercise 6.**
 Which one of the following statements about the **CORRECT** principles is **true**?
 
 1. We assume that external dependencies are already on the right state for the test (REFERENCE).
