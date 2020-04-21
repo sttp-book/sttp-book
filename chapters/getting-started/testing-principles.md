@@ -168,7 +168,7 @@ Fill in the blanks with one of the following terms: failure, fault, or error.
 
 **Exercise 2.**
 Kelly, a very experienced software tester, visits *Books!*, a social network focused on matching people based on books they read.
-Users do not report bugs so often. *Books!* developers have strong testing practices in place.
+Users do not report bugs so often, as *Books!* developers have strong testing practices in place.
 However, users do say that the software is not really delivering what it promises.
 
 What testing principle applies to this problem?
