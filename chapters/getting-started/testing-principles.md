@@ -1,7 +1,7 @@
 # Principles of software testing
 
-In this chapter, we first define some terminology; using the right
-terms help us understand each other better. We then discuss the differences
+In this chapter, we first define some terminology. Using the right
+terms helps us understand each other better. We then discuss the differences
 between *verification* and *validation*. Finally, we discuss some testing principles
 that will guide us (or, more specifically, force us to perform trade-offs whenever
 we choose a testing technique) throughout the book.
