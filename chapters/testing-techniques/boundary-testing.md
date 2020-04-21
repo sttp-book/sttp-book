@@ -406,9 +406,6 @@ Authors call it the **CORRECT** way, as each letter represents one boundary cond
 {% include "/includes/youtube.md" %}
 
 
-{% set video_id = "PRVqsJ5fT2I" %}
-{% include "/includes/youtube.md" %}
-
 
 
 ## Exercises
