@@ -978,18 +978,18 @@ TDD literature says nothing about team integration.
 
 **Exercise 1**
 
-Correct: Both tests are very slow.
+Both tests are very slow.
 
 
 **Exercise 2**
 
-Correct answer: Mystery guest
+Mystery guest
 
 
 **Exercise 3**
 
 
-Correct answer: It is hard to tell which of several assertions within the same test method will cause a test failure.
+It is hard to tell which of several assertions within the same test method will cause a test failure.
 
 
 **Exercise 4**
