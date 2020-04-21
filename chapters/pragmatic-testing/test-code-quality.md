@@ -59,12 +59,12 @@ code is always better.
 	are responsible for setting up all the environment they need. If tests A and B depend on
 	similar resources, make sure they can share the same code, so that you avoid duplicating
 	code. JUnit's `@BeforeEach` or `@BeforeAll` methods can become handy. Moreover, make sure
-	that your tests "clean up their messes", e.g., by deleting any possible files it created
+	that your tests "clean up their messes", e.g. by deleting any possible files it created
 	on the disk, or cleaning up values it inserted in a database.
 
 
 - **Repeatable**: A repeatable test is a test that gives the same result, no matter how many times it is executed.
-Developers tend to lose their trust in tests that present a flaky behaviour (i.e., it sometimes passes, and sometimes fails without any changes in the system and/or in the test code).
+Developers tend to lose their trust in tests that present a flaky behaviour (i.e. it sometimes passes, and sometimes fails without any changes in the system and/or in the test code).
 Flaky tests might happen for different reasons, and some of the causes can be tricky
 to be identified (companies have reported extreme examples where a test presented a flaky behaviour
 only once in a month). Common causes are dependencies on external resources, not waiting
@@ -189,13 +189,13 @@ to understand it.
 
 
 **Resource Optimism**:
-Resource optimism happens when a test assumes that a necessary resource (e.g., a database) is readily available at the start of its execution. This is related to the _isolated_ principle
+Resource optimism happens when a test assumes that a necessary resource (e.g. a database) is readily available at the start of its execution. This is related to the _isolated_ principle
 of the FIRST principles and of Beck's test desiderata.
 
 To avoid resource optimism, a test should not assume that the resource is already in the correct state. The test should be the one responsible for setting up the state itself. This might mean
 the test is the one responsible for populating a database, for writing the required files in the disk, or for starting up a Tomcat server. (This set up might require complex code, and developers
-should also do their best effort in abstracting way such complexity by, e.g., moving such 
-code to other classes, e.g., `DatabaseInitialization` or `TomcatLoader`, allowing the
+should also do their best effort in abstracting way such complexity by, e.g. moving such 
+code to other classes, e.g. `DatabaseInitialization` or `TomcatLoader`, allowing the
 test code to focus on the test cases themselves).
 
 Similarly, another incarnation of the resource optimism smell happens
@@ -278,7 +278,7 @@ Less cohesive tests harm productivity. How do developers where tests for a given
 are? If test classes focus on more than a single class, tests for `B` might be every anywhere.
 Developers would have to look for them. 
 It is also expected that, without proper care, tests for a single class would live in
-many other test classes, e.g., tests for `B` might exist in `ATest`, `BTest`, `CTest`, etc.
+many other test classes, e.g. tests for `B` might exist in `ATest`, `BTest`, `CTest`, etc.
 
 Tests, and more specifically, unit test classes and methods, should have a clear focus.
 They should test a single unit. If they have to depend on other classes, the use of
@@ -298,7 +298,7 @@ Good assertions are fundamental in test cases. A bad assertion might lead a test
 to not fail in it should fail. However, a bad assertion might also lead a test _to fail
 when it should not_.
 Engineering a good assertion statement is challenging. Even more so when components
-produce fragile outputs, i.e., outputs that tend to change often. 
+produce fragile outputs, i.e. outputs that tend to change often. 
 Test code should be as resilient as possible to the implementation details
 of the component under test. Assertions should also be not too sensitive to internal
 changes. 
@@ -557,7 +557,7 @@ the remedy that is applied to this smell.
 ## Test code readability
 
 We have discussed several test code best practices and smells. In many situations,
-we have argued for the need of comprehensible, i.e., easy to read, test code.
+we have argued for the need of comprehensible, i.e. easy to read, test code.
 
 We reinforce the fact that it 
 is crucial that the developers can understand the test code easily.
@@ -575,7 +575,7 @@ three different parts. Where is the fixture? Where is the behaviour/method under
 Where are the assertions?
 
 A second tip concerns the **comprehensibility of the information** in a test code.
-Test code is full of information, i.e., the input values that will be provided
+Test code is full of information, i.e. the input values that will be provided
 to the class under test, how the information flows up to the method under test, 
 how the output comes back from the exercise behaviour, and what are the expected outcomes.
 
@@ -658,7 +658,7 @@ is to compare whether they are close enough.
 
 The `InvoiceBuilder` is an example of an implementation of a **Test Data Builder**, the design
 pattern we mentioned before. The builder helps developers in creating fixtures, by providing
-them with a clear and expressive API. The use of fluent interface (e.g., `asCompany().withAValueOf()...`) is also a common implementation choice, as it enables
+them with a clear and expressive API. The use of fluent interface (e.g. `asCompany().withAValueOf()...`) is also a common implementation choice, as it enables
 developers to simply type less. In terms of coding, the `InvoiceBuilder` is simply
 a Java class. The trick that allows methods to be chained is to return the class itself
 in the methods (note that methods return `this`).
@@ -764,7 +764,7 @@ the next developer and the database was not in a clean state.
 
 * The tests can be flaky due to improper time-outs.
 This is a common cause in web testing.
-Suppose a test has to wait for something to happen in the system, e.g., a request
+Suppose a test has to wait for something to happen in the system, e.g. a request
 coming back from a webservice, which is then displayed in some HTML element.
 If the web application is a bit slower than normal, the test might suddenly fail, just
 because "it did not wait enough".
@@ -819,7 +819,7 @@ Jeanette just heard that two tests are behaving strangely: when executed in isol
 
 
 **Exercise 2.**
-RepoDriller is a project that extracts information from Git repositories. Its integration tests consumes lots of real Git repositories, each one with a different characteristic, e.g., one repository contains a merge commit, another repository contains a revert operation, etc.
+RepoDriller is a project that extracts information from Git repositories. Its integration tests consumes lots of real Git repositories, each one with a different characteristic, e.g. one repository contains a merge commit, another repository contains a revert operation, etc.
 
 Its tests look like what you see below:
 
@@ -940,7 +940,7 @@ In the code below, we show an actual test from Apache Commons Lang, a very popul
 ```java
 /**
  * Test homogeneity of random strings generated --
- * i.e., test that characters show up with expected frequencies
+ * i.e. test that characters show up with expected frequencies
  * in generated strings.  Will fail randomly about 1 in 1000 times.
  * Repeated failures indicate a problem.
  */

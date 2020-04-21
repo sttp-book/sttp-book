@@ -69,7 +69,7 @@ A lot of today's research goes into creating AI for software testing that genera
 We try to apply artificial intelligence to find inputs that exercise important parts of the system.
 
 While the research's results are very promising, there still exist difficulties with this testing approach.
-The main problem is that if the AI generates random inputs, how do we know for sure that the outcome is correct, i.e., how do we know that the problem behaved correctly for that random value?
+The main problem is that if the AI generates random inputs, how do we know for sure that the outcome is correct, i.e. how do we know that the problem behaved correctly for that random value?
 With the unit test we made so far we manually took certain inputs, thought about the correct outcome, and made the assertion to expect that outcome.
 When generating random inputs, we cannot think about the outcome every time.
 The pre- and postconditions, contracts, and properties we discussed in this chapter can help us solve the problem.

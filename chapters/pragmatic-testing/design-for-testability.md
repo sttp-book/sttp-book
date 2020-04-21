@@ -88,7 +88,7 @@ The use of dependency injection improves our code in many ways:
 * It enables us to mock/stub the dependencies in the test code, increasing the productivity of the developer during the testing phase.
 * It makes all the dependencies more explicit; after all, they all need to be injected (via constructor, for example).
 * It affords better separation of concerns: classes now do not need to worry about how to build their dependencies, as they are injected to them.
-* The class becomes more extensible. As a client of the class, you can pass any dependency via the constructor. Suppose a class depends on a type `A` (and receives it via constructor). As a client, you can pass `A` or any implementation of `A`, e.g., if `A` is `List`, you can pass `ArrayList` or `LinkedList`. Your class can now work with many different implementations of `A`.
+* The class becomes more extensible. As a client of the class, you can pass any dependency via the constructor. Suppose a class depends on a type `A` (and receives it via constructor). As a client, you can pass `A` or any implementation of `A`, e.g. if `A` is `List`, you can pass `ArrayList` or `LinkedList`. Your class can now work with many different implementations of `A`.
  
 {% hint style='tip'%}
 If you want to understand more advanced OOP concepts, we suggest reading more about:
@@ -217,7 +217,7 @@ A common coupling-related refactoring is to group dependencies together into a h
 Imagine that class A depends on B, C, D and E. After inspection, you notice that B interacts with C, and D interacts with E.
 Devising a new class that handles the communication between B and C (let us call it BC), and other one that handles the communication between D and E (let us call it DE), already reduces A's coupling. After all, it now depends only on BC, and DE. In general, pushing responsibilities and dependencies to smaller classes and later connecting them via larger abstractions is the way to go.
  
-- **Complex conditions and testability**: We have seen in previous chapters that conditions that are very complex (e.g., an `if` statement composed of multiple Boolean operations) require great effort from testers. For example, the number of tests one might devise after applying some boundary testing or condition+branch coverage criteria might be
+- **Complex conditions and testability**: We have seen in previous chapters that conditions that are very complex (e.g. an `if` statement composed of multiple Boolean operations) require great effort from testers. For example, the number of tests one might devise after applying some boundary testing or condition+branch coverage criteria might be
 too high. 
  
 Reducing the complexity of such conditions, for example by breaking it into multiple smaller conditions, will not reduce the overall complexity of the problem, but will "spread" it.
@@ -230,7 +230,7 @@ In terms of the design this might mean that this private method does not belong 
 - **Static methods and testability**: As we have seen before, static methods adversely affect testability, as they can not be stubbed easily. Therefore, a good rule of thumb is to avoid the creation of static methods whenever possible.
 Exceptions to this rule are utility methods. As we saw before, utility methods are often not mocked.
  
-If your system has to depend on a specific static method, e.g., because it comes with the framework your software depends on, adding an abstraction on top of it, similar to what we did with the `Calendar` class in the previous chapter, might be a good decision to facilitate testability.
+If your system has to depend on a specific static method, e.g. because it comes with the framework your software depends on, adding an abstraction on top of it, similar to what we did with the `Calendar` class in the previous chapter, might be a good decision to facilitate testability.
  
 The same recommendation applies when your system needs code from others or external dependencies.
 Again, creating layers/classes that abstract away the dependency might help you in increasing testability.

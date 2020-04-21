@@ -79,9 +79,9 @@ test cases for the program.
 Use your experience as a developer to devise as many test cases as you can.
 To get you started, a few examples: 
 
-* T1 = Just one letter, e.g., C should equal 100
-* T2 = Different letters combined, e.g., CLV = 155
-* T3 = Subtractive notation, e.g., CM = 900
+* T1 = Just one letter, e.g. C should equal 100
+* T2 = Different letters combined, e.g. CLV = 155
+* T3 = Subtractive notation, e.g. CM = 900
 
 In future chapters, we will explore how to devise those test cases. The output
 of that stage will often be similar to the one above: a test case number,
@@ -101,7 +101,7 @@ The steps to create a JUnit class/test is often the following:
 
 * For each test case we devise for the program/class, we write a test method. A JUnit test method returns `void` and is annotated with `@Test` (an annotation that comes from JUnit 5's `org.junit.jupiter.api.Test`). The name of the test method does not matter to JUnit, but it does matter to us. A best practice is to name the test after the case it tests. 
 
-* The test method instantiates the class under test and invokes the method under test. The test method passes the previously defined input in the test case definition to the method/class. The test method then stores the result of the method call (e.g., in a variable).
+* The test method instantiates the class under test and invokes the method under test. The test method passes the previously defined input in the test case definition to the method/class. The test method then stores the result of the method call (e.g. in a variable).
 
 * The test method asserts that the actual output matches the expected output. The expected output was defined during the test case definition phase. To check the outcome with the expected value, we use assertions. An assertion checks whether a certain expectation is met; if not, it throws an `AssertionError` and thereby causes the test to fail. A couple of useful assertions are:
 
@@ -335,7 +335,7 @@ Lessons to be learned:
 Having an automated test suite brings several advantages to software
 development teams. Automated test suites:
 
-* **Are less prone to obvious mistakes.** Developers who perform manual testing several times a day might make mistakes, e.g., by forgetting to execute a test case, by mistakenly marking a test as passed when the software actually exhibited faulty behaviour, etc.
+* **Are less prone to obvious mistakes.** Developers who perform manual testing several times a day might make mistakes, e.g. by forgetting to execute a test case, by mistakenly marking a test as passed when the software actually exhibited faulty behaviour, etc.
 
 * **Execute tests faster than developers.** The machine can run test cases way faster than developers can. Just imagine more complicated scenarios where the developers would have to type long sequences of inputs, verify the output at several different parts of the system. An automated test runs and gives feedback orders of magnitude faster than developers.
 

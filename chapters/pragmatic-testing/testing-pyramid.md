@@ -5,7 +5,7 @@ In previous chapters, we studied different techniques to derive test cases for r
 A large software system, however, is composed of many units and responsibilities.
 
 In this chapter, we are going to discuss 
-the different **test levels** (i.e., unit, integration, and system), their advantages and disadvantages, and the trade-offs that a tester has to make in real-world testing.
+the different **test levels** (i.e. unit, integration, and system), their advantages and disadvantages, and the trade-offs that a tester has to make in real-world testing.
 
 ## Unit testing
 
@@ -77,7 +77,7 @@ then retrieves data from the database and writes a JSON response to the test.
 This obviously takes more time than running a simple unit test, which has virtually no dependencies.
 
 * System tests are also **harder to write**.
-Some of the components (e.g., databases) might require complex setup before they can be used in a testing scenario. Think of not only connection and authentication, but also making sure that the database has all the data that is required by that
+Some of the components (e.g. databases) might require complex setup before they can be used in a testing scenario. Think of not only connection and authentication, but also making sure that the database has all the data that is required by that
 test case. This takes additional code that is needed just for automating the tests.
 
 * Lastly, **system tests tend to become flaky**.
@@ -130,7 +130,7 @@ probably do not want your tests to mess with production data),
 * put the database into a state expected by the test by adding or removing rows,
 * and clean everything afterwards (so that the next tests do not fail because of the data that was left behind by the previous test).
 
-The same effort happens to any other type of integration test you can imagine (e.g., web services, file reads and writes, etc.).
+The same effort happens to any other type of integration test you can imagine (e.g. web services, file reads and writes, etc.).
 
 {% set video_id = "MPjQXVYqadQ" %}
 {% include "/includes/youtube.md" %}
@@ -176,19 +176,19 @@ The next question is: **how do I decide whether a component should be tested at 
 
 > When the component is about an algorithm or a single piece of business logic of the software system.
 
-If we think of enterprise/business systems, most of them are about "transforming data". Such business logics is often expressed by means of entity classes (e.g., an _Invoice_ class and a _Order_ class) exchanging messages.
+If we think of enterprise/business systems, most of them are about "transforming data". Such business logics is often expressed by means of entity classes (e.g. an _Invoice_ class and a _Order_ class) exchanging messages.
 Business logic often does not depend on external services and so it can easily be tested and fully exercised by means of unit tests. Unit tests give testers full control in terms of the input data, as well as full observability in terms of asserting that the behaviour was as expected.
 
-If you have a piece of code that deals with specific business logic but you are not able to test it via unit tests (e.g., it is only possible to exercise that business logic with the full system running), it is probably because of previous design or architectural decisions that prevent you from writing unit tests.
+If you have a piece of code that deals with specific business logic but you are not able to test it via unit tests (e.g. it is only possible to exercise that business logic with the full system running), it is probably because of previous design or architectural decisions that prevent you from writing unit tests.
 The way you design your classes has a high impact on how easy it is to write unit tests for your code. We discuss more about design for testability in a future chapter.
 
 #### When to write integration tests?
 
-> Whenever the component under test interacts with an external component (e.g., a database or a web service) integration tests are appropriate.
+> Whenever the component under test interacts with an external component (e.g. a database or a web service) integration tests are appropriate.
 
 Following our example in the integration testing section, a Data Access Object class is better tested at the integration level.
 
-Again, note that integration tests are more expensive and harder to set up than a unit test. Therefore making sure that the component that performs the integration is _solely_ responsible for that integration and nothing else (i.e., no business rules together with integration code), will reduce the cost of the testing.
+Again, note that integration tests are more expensive and harder to set up than a unit test. Therefore making sure that the component that performs the integration is _solely_ responsible for that integration and nothing else (i.e. no business rules together with integration code), will reduce the cost of the testing.
 
 #### When to write system tests?
 
@@ -220,7 +220,7 @@ However, the software development community has relied on it for years, and smal
 
 That being said, in our point of view, the testing pyramid approach is viable in most enterprise / business systems. Imagine an [ERP](https://en.wikipedia.org/wiki/Enterprise_resource_planning) or a [CRM](https://en.wikipedia.org/wiki/Customer_relationship_management) system. Most business rules there can be expressed by classes/units which exchange messages and transform data. Unit tests will then deliver benefits as testers can easily gain control and observability of the actions of the system.
 
-However, in many other systems, unit testing might not be enough. Imagine the development of a database management system itself (e.g., MySQL, Oracle, or a distributed computing system like Hadoop). While MySQL's code probably contains lots of individual components that can be unit tested, a lot happens at "low-level" - like disk I/O or socket communication. In these cases, system tests may be the ones that would reveal most of the important bugs. 
+However, in many other systems, unit testing might not be enough. Imagine the development of a database management system itself (e.g. MySQL, Oracle, or a distributed computing system like Hadoop). While MySQL's code probably contains lots of individual components that can be unit tested, a lot happens at "low-level" - like disk I/O or socket communication. In these cases, system tests may be the ones that would reveal most of the important bugs. 
 
 The same might happen with cyber-physical systems. Imagine a water management station.
 Although a lot of software is used there, the system depends highly on physical constraints, such as the dynamics of water that affect the reading of the water level sensors. In such situations, it can be challenging or even unrealistic to write unit tests.
@@ -240,7 +240,7 @@ Fill in the correct corresponding terms.
 
 
 **Exercise 2.**
-As a tester, you have to decide which test level (i.e., unit, integration, or system test) you will apply.
+As a tester, you have to decide which test level (i.e. unit, integration, or system test) you will apply.
 Which of the following statements is true?
 
 1. Integration tests, although more complicated (in terms of automation) than unit tests, would provide more help in finding bugs in the communication with the webservice and/or the communication with the database.

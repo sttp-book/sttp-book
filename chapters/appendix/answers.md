@@ -181,7 +181,7 @@ An on-point is the (single) number on the boundary. It may or may not make the c
 
 on point = 1024, off point = 1025, in point = 1028, out point = 512
 
-The on point is the number precisely in the boundary = 1024. off point is the closest number to the boundary and has the opposite result of on point. In this case, 1024 makes the condition false, so the off point should make it true. 1025. In point makes conditions true, e.g., 1028. Out point makes the condition false, e.g., 512.
+The on point is the number precisely in the boundary = 1024. off point is the closest number to the boundary and has the opposite result of on point. In this case, 1024 makes the condition false, so the off point should make it true. 1025. In point makes conditions true, e.g. 1028. Out point makes the condition false, e.g. 512.
 
 
 **Exercise 7**
@@ -962,7 +962,7 @@ How did it feel to practice TDD?
 
 Option 1 is the least important one.
 
-Although a few studies show that the number of tests written by TDD practitioners are often higher than the number of tests written by developers not practicing TDD, this is definitely not the main reason why developers have been using TDD. In fact, among the alternatives, it's the least important one. All other alternatives are more important reasons, according to the TDD literature (e.g., Kent Beck's book, Freeman's and Pryce's book.
+Although a few studies show that the number of tests written by TDD practitioners are often higher than the number of tests written by developers not practicing TDD, this is definitely not the main reason why developers have been using TDD. In fact, among the alternatives, it's the least important one. All other alternatives are more important reasons, according to the TDD literature (e.g. Kent Beck's book, Freeman's and Pryce's book.
 
 
 **Exercise 4**

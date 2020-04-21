@@ -274,7 +274,7 @@ void multipleWords() {
 
 ## Branch/Decision coverage
 
-Complex programs often rely on lots of complex conditions (e.g., `if` statements composed of many conditions).
+Complex programs often rely on lots of complex conditions (e.g. `if` statements composed of many conditions).
 When testing these programs, aiming at 100% line or block coverage might not be enough to cover all the cases we want.
 We need a stronger criterion.
 
@@ -286,7 +286,7 @@ A test suite will achieve 100% branch (or decision) coverage when tests exercise
 $$\text{branch coverage} = \frac{\text{decision outcomes covered}}{\text{decision outcomes total}} \cdot 100\%$$
 
 Decisions (or branches) are easy to identify in a CFG. 
-Arrows with either `true` or `false` (i.e., both the arrows going out of a decision block) are branches, and therefore must be exercised.
+Arrows with either `true` or `false` (i.e. both the arrows going out of a decision block) are branches, and therefore must be exercised.
 
 Let's aim at 100% branch coverage for the Count Letter's `count` implementation above: 
 
@@ -332,13 +332,13 @@ In the video, we use _squares_ to represent decision blocks. We did it just beca
 ## (Basic) condition coverage
 
 Branch coverage gives two branches for each decision, no matter how complicated or complex the decision is.
-When a decision gets complicated, i.e., it contains more than one condition like `a > 10 && b < 20 && c < 10`, 
+When a decision gets complicated, i.e. it contains more than one condition like `a > 10 && b < 20 && c < 10`, 
 branch coverage might not be enough to test all the possible outcomes of all these decisions. 
 
 For example, suppose one aims at testing the decision above.
 A test T1 (a=20, b=10, c=5), which makes the condition `true`, and a test T2 (a=5, b=10, c=5), which makes the condition `false`, already fully cover this decision block, in terms of branch coverage. 
 However, these two tests do not cover all the
-possibilities/different combinations for this decision to be evaluated to `false`; e.g., T3 (a=20, b=30, c=5), etc.
+possibilities/different combinations for this decision to be evaluated to `false`; e.g. T3 (a=20, b=30, c=5), etc.
 
 When using *condition coverage* as a criterion, we split each compound condition into multiple decision blocks. This means each of the conditions will be tested separately, and not only the "big decision block".
 
@@ -395,7 +395,7 @@ we achieved 100% basic condition coverage, but only 50% branch coverage. This is
 **basic condition coverage**.
 
 In practice, whenever we use condition coverage, we actually perform **branch + condition coverage**. In other words, we make sure
-that we achieve 100% condition coverage (i.e., all the outcomes of all conditions are exercised) and 100% branch coverage (all the outcomes
+that we achieve 100% condition coverage (i.e. all the outcomes of all conditions are exercised) and 100% branch coverage (all the outcomes
 of the compound decisions are exercised).
 
 From now on, whenever we mention **condition coverage**, we mean **condition + branch coverage**.
@@ -468,7 +468,7 @@ The idea of MC/DC is to *exercise each condition
 in a way that it can, independently of the other conditions,
 affect the outcome of the entire decision*. The example that is about to come will clarify it.
 
-Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is $$N+1$$, where $$N$$ is the number of conditions in the decision. 
+Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e. `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is $$N+1$$, where $$N$$ is the number of conditions in the decision. 
 $$N+1$$ is definitely smaller than $$2^N$$!
 
 Again, to devise a test suite that achieves 100% MC/DC coverage, we should devise $$N+1$$ test cases that, when combined, 
@@ -618,7 +618,7 @@ A CFG for this piece of code would look like:
 
 ![CFG in Python](img/structural-testing/examples/cfg-python.png)
 
-We applied the same idea we have seen for Java programs in a Python program. The notions of basic and decision blocks are the same. A small difference to note is in the *foreach* loop (which is simply written using the `for` keyword in Python). Given that *foreach* loops do not follow the same format as traditional `for` loops, we modelled it differently: the *foreach* loop is fully represented by a single decision block (i.e., no blocks for the increment, or condition). As with any decision blocks, it has two outcomes, `true` and `false`.
+We applied the same idea we have seen for Java programs in a Python program. The notions of basic and decision blocks are the same. A small difference to note is in the *foreach* loop (which is simply written using the `for` keyword in Python). Given that *foreach* loops do not follow the same format as traditional `for` loops, we modelled it differently: the *foreach* loop is fully represented by a single decision block (i.e. no blocks for the increment, or condition). As with any decision blocks, it has two outcomes, `true` and `false`.
 
 
 ## The effectiveness of structural testing

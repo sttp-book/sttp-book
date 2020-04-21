@@ -192,7 +192,7 @@ Our new approach for testing `InvoiceFilter` is faster, easier to write, and mor
 {% include "/includes/youtube.md" %}
 
 
-> From a developer's perspective, the use of stubs enables them to develop their software, "without caring too much about external details". Imagine a developer working on this "Low value invoices" requirement. The developer knows that the invoices will come from the database. However, while developing the main logic of the requirement (i.e., the filtering logic), the developer "does not care about the database"; they only care about the list of invoices that will come from it.
+> From a developer's perspective, the use of stubs enables them to develop their software, "without caring too much about external details". Imagine a developer working on this "Low value invoices" requirement. The developer knows that the invoices will come from the database. However, while developing the main logic of the requirement (i.e. the filtering logic), the developer "does not care about the database"; they only care about the list of invoices that will come from it.
 > 
 > In other words, the developer only cares about the existence of a method that returns all the existing invoices. In object-oriented languages, that can be represented by means of an interface:
 > 
@@ -347,7 +347,7 @@ public double applyDiscount(double amount) {
 }
 ```
 
-The implementation is quite straightforward. And given the characteristics of the class, unit testing seems to be a perfect fit for testing it. The question is: _how can we write unit tests for it?_ To test both cases (i.e., Christmas/not Christmas), we need to be able to control/stub the `Calendar` class, so that it returns the dates we want.
+The implementation is quite straightforward. And given the characteristics of the class, unit testing seems to be a perfect fit for testing it. The question is: _how can we write unit tests for it?_ To test both cases (i.e. Christmas/not Christmas), we need to be able to control/stub the `Calendar` class, so that it returns the dates we want.
 
 We can then ask a more specific question: _how can we stub the Calendar API?_
 
@@ -457,7 +457,7 @@ Pragmatically, developers often mock/stub the following types of dependencies:
 
 On the other hand, developers tend not to mock/stub:
 
-* **Entities**. An entity is a simple class that mirrors a collection in a database, while instances of this class mirror the entries of that collection. In Java we tend to call these POJOs (Plain Old Java Objects), as they mostly consist of fields only. In business systems, it is quite common that entities depend on other entities, e.g., a `Order` depends on `OrderItem`. When testing `Order`, developers tend not to stub `OrderItem`. The reason is that `OrderItem` is probably also a well-contained class that is easy to set up. Mocking it would take more time than the actual implementation would take. Exceptions can be made for heavy entities.
+* **Entities**. An entity is a simple class that mirrors a collection in a database, while instances of this class mirror the entries of that collection. In Java we tend to call these POJOs (Plain Old Java Objects), as they mostly consist of fields only. In business systems, it is quite common that entities depend on other entities, e.g. a `Order` depends on `OrderItem`. When testing `Order`, developers tend not to stub `OrderItem`. The reason is that `OrderItem` is probably also a well-contained class that is easy to set up. Mocking it would take more time than the actual implementation would take. Exceptions can be made for heavy entities.
 
 * **Native libraries and utility methods**. It is not common to mock/stub libraries that come with our programming language and utility methods. For example, why would one mock `ArrayList` or a call to `String.format`? As shown with the `Calendar` example above, any library or utility methods that harm testability can be abstracted away.
 
@@ -556,7 +556,7 @@ Which of the following statements is **false** about this class?
 
 1. Integration tests would help us achieve a 100% branch coverage, which is not possible solely via unit tests.
 2. Its implementation allows for dependency injection, which enables mocking.
-3. It is possible to write completely isolated unit tests for it by, e.g., using mocks.
+3. It is possible to write completely isolated unit tests for it by, e.g. using mocks.
 4. The InvoiceDao class (a direct dependency of the InvoiceFilter) itself should be tested by means of integration tests.
 
 

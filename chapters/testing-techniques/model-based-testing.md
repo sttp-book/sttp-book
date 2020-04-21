@@ -40,7 +40,7 @@ This table contains all the combinations of conditions explicitly.
 Later we will look at ways to reduce the number of combinations in the table and in this way reduce the cost of testing all the combinations.
  
 The selected conditions should always be independent of each other.
-Also, in this type of decision table, the order of the conditions does not matter, e.g., making `<Condition2>` true and `<Condition1>` false or making `<Condition1>` false and after that `<Condition2>` true, should result in the same outcome.
+Also, in this type of decision table, the order of the conditions does not matter, e.g. making `<Condition2>` true and `<Condition1>` false or making `<Condition1>` false and after that `<Condition2>` true, should result in the same outcome.
 (If the order *does* matter in some way, a state machine might be a better model. We cover state machines later in this chapter.)
  
 Let us devise a first concrete decision table for an example program.
@@ -288,8 +288,8 @@ public void pricePerMonthTest(boolean international, boolean autoRenewal,
  
 ### Non-binary choices and final guidelines
 
-So far, all the decision tables dicussed have boolean conditions (i.e., values in the cells were either `true` or `false`).
-The decision tables can be generalized to contain non-boolean values (non-binary choices). In other words, instead of only `true` and `false`, the values can now also be, e.g., a number.
+So far, all the decision tables dicussed have boolean conditions (i.e. values in the cells were either `true` or `false`).
+The decision tables can be generalized to contain non-boolean values (non-binary choices). In other words, instead of only `true` and `false`, the values can now also be, e.g. a number.
 
 Take the decision table for the phone subscriptions, discussed earlier.
 Initially, this only contained the international and auto-renewal conditions.
@@ -468,7 +468,7 @@ These combinations of transitions are called paths.
  
 A logical thought might be: let's test all the paths in the state machine.
 While this looks like a good objective, the number of paths will probably be too high.
-Take a state machine that has a loop, i.e., a transition from state X to Y and a transition from state Y to X.
+Take a state machine that has a loop, i.e. a transition from state X to Y and a transition from state Y to X.
 When creating paths we can keep going back and forth between these two states.
 This leads to an infinite number of paths.
 Obviously, we cannot test all the paths so we need to take a different approach.
@@ -951,7 +951,7 @@ To that end, assume that the system employs the following rules to decide whethe
 We can model this procedure in a decision table, in various ways.
 The complete table would have four conditions and 16 variants. We will try to create a more compact decision table. Note: We will use Boolean conditions only.
  
-One way is to focus on the positive cases only, i.e., specify only the variants in which ad *A* is being served to user *U*. If you do not use 'DC' (don't care) values, how will the decision table look?
+One way is to focus on the positive cases only, i.e. specify only the variants in which ad *A* is being served to user *U*. If you do not use 'DC' (don't care) values, how will the decision table look?
  
  
  

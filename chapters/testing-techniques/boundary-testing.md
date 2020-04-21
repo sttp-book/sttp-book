@@ -13,7 +13,7 @@ we understood the concept of classes/partitions.
 When we devise classes, these have "close boundaries"
 with the other classes. 
 In other words, if we keep performing small changes 
-to an input that belongs to some partition (e.g., by adding +1 to it), 
+to an input that belongs to some partition (e.g. by adding +1 to it), 
 at some point this input will belong to another class. 
 The precise point where the input changes from one class to another is what we call a *boundary*.
 And this is precisely what boundary testing is about: to make the program behave correctly
@@ -174,7 +174,7 @@ out-points also belong to the same equivalence partition).
 
 In the previous example, we looked at one condition and its boundary.
 However, in most programs you will find statements that consist of multiple conditions,
-e.g., `a > 10 && b < 20 && c == 10 && d >= 50`. (Note that these conditions might be
+e.g. `a > 10 && b < 20 && c == 10 && d >= 50`. (Note that these conditions might be
 expressed in a single `if` statement, but also spread all over a method or a class; it
 is up to the tester to identify how these different conditions interact with each other).
 
@@ -256,7 +256,7 @@ public class PizzaPastaTest {
 ```
 
 Let us now apply boundary testing. Note how easy it is for a developer to
-make a mistake, e.g., confusing $$x >= 5$$ with $$x > 5$$.
+make a mistake, e.g. confusing $$x >= 5$$ with $$x > 5$$.
 
 We start by making the domain matrix, having space for each of the conditions and both parameters.
 
@@ -598,7 +598,7 @@ What is the resulting domain matrix?
 
 
 **Exercise 5.**
-Regarding **boundary analysis of inequalities** (e.g., `a < 10`), which of the following statements **is true**?
+Regarding **boundary analysis of inequalities** (e.g. `a < 10`), which of the following statements **is true**?
 
 1. There can only be a single on-point which always makes the condition true.
 2. There can be multiple on-points for a given condition which may or may not make the condition true.

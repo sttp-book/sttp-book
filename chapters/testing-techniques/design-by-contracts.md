@@ -117,7 +117,7 @@ Tony Hoare pioneered reasoning about programs with assertions, proposing what is
 A Hoare Triple consists of a set of preconditions $$\{ P \}$$, a program $$A$$ and a set of postconditions $$\{ Q \}$$
 We can express the Hoare Triple as follows: $$\{ P \}\ A\ \{ Q \}$$.
 This can be read as: if we know that $$P$$ holds, and we execute $$A$$, then, we end up in a state where $$Q$$ holds.
-If there are no preconditions, i.e., no assumptions needed for the execution of $$A$$, we can simply set $$P$$ to true.
+If there are no preconditions, i.e. no assumptions needed for the execution of $$A$$, we can simply set $$P$$ to true.
 
 In a Hoare Triple, the $$A$$ can be a single statement or a whole program.
 We look at $$A$$ as a method.
@@ -374,7 +374,7 @@ In Object-Oriented Programming, these checks can also be applied at the class-le
 This gives us **class invariants**.
 A class invariant ensures that its conditions will be true throughout the entire lifetime of the object.
 
-The first time a class invariant should be true is right after its construction (i.e., when the constructor method is done).
+The first time a class invariant should be true is right after its construction (i.e. when the constructor method is done).
 The class invariant should also hold after each public method invocation.
 Moreover, methods can assume that, when they start, the class invariant holds.
 
@@ -454,7 +454,7 @@ The client and server are bound by a *contract*.
 The server does its job as long as its methods are used properly by the client.
 This relates strongly to the pre- and post-conditions that we discussed earlier.
 The client has to use the server's methods in a way that their preconditions hold.
-The server then guarantees that the post-conditions will hold after the method call, i.e., makes sure the method delivers what it promises.
+The server then guarantees that the post-conditions will hold after the method call, i.e. makes sure the method delivers what it promises.
 
 Note how the pre- and post-conditions of the server forms a contract
 between the server and the client.
@@ -469,7 +469,7 @@ The following UML diagram illustrates it:
 ### Subcontracting
 
 Imagine now an interface. This interface has its own pre- and post-conditions.
-Now, what happens to these conditions when we create another implementation of this interface (i.e., a class that implements the interface, or a class that extends some base class)?
+Now, what happens to these conditions when we create another implementation of this interface (i.e. a class that implements the interface, or a class that extends some base class)?
 
 In the UML diagram above, we see that the implementation can have different pre-, post-conditions, and invariants than its base interface.
 
