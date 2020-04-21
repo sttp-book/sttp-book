@@ -219,14 +219,16 @@ Each of the test cases corresponds to one of the partitions that we want to test
 Let's explore another example:
 
 > **Requirement: Chocolate bars**
-> 
-> A package should store a total number of kilos of chocolate. 
-> There are small bars (1 kilo each) and big bars (5 kilos each). 
-> We should calculate the number of small bars to use, 
-> assuming we always use big bars before small bars. Return -1 if it is impossible.
 >
-> The input of the program is thus the number of small bars, the number of big bars,
-> and the total number of kilos to store.
+> A package can store a certain amount of chocolate bars in kilos.
+> There are small bars (1 kilo each) and big bars (5 kilos each).
+> Assume that the package is always filled with big bars first, 
+> if there's room left, the package will then be topped of with small bars.
+> We should calculate the number of small bars used in order to fill the packages.
+> Return -1 if it is not possible to fill the package.
+>
+> The input of the program is thus: the number of small bars, the number of big bars,
+> and the total number of kilos the package can hold.
 
 A possible implementation for this program is as follows:
 
