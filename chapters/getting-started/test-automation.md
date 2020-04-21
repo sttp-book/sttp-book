@@ -22,11 +22,17 @@ We will now introduce an example program and then use it to demonstrate how to w
 > * M = 1000
 >
 > Letters can be combined to form numbers.
-> The letters should be ordered from the highest to the lowest value.
-> For example `CCXVI` would be 216.
-> 
+> For example we make 6 by using $$5 + 1 = 6$$ and have the roman number `VI`
+> Example: 7 is `VII`, 11 is `XI` and 101 is `CI`.
 > Some numbers need to make use of a subtractive notation to be represented.
-> Example: 9 is `IX`, 40 is `XL`, 14 is `XIV`.
+> For example we make 40 not by `XXXX`, but instead we use $50 - 10 = 40$ and have the roman number `XL`.
+> Other examples: 9 is `XI`, 40 is `XL`, 14 is `XIV`.
+> 
+> The letters should be ordered from the highest to the lowest value.
+> The values of each individual letter is added together.
+> Unless the subtractive notation is used in which a letter with a lower value is placed in front of a letter with a higher value.
+>
+> Combining both these principles we could give our method `MDCCCXLII` and it should return 1842.
 
 
 {% set video_id = "srJ91NRpT_w" %}
