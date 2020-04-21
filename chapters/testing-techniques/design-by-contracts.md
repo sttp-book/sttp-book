@@ -176,7 +176,7 @@ public class FavoriteBooks {
 
 The number of assumptions made before a method can be executed (and, with that, the number of pre-conditions) is a design choice.
 
-One might want to *weaken the pre-conditions*, so that the method accepts/is able to handle more situations.
+One might want to *weaken the pre-condition*, so that the method accepts/is able to handle more situations.
 To that aim, we can remove a pre-condition as the method itself can handle the situation where the pre-condition would be false.
 This makes the method more generally applicable, but is also increases its complexity.
 The method always has to check some extra things to handle the cases that could had been pre-conditions.
