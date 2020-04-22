@@ -320,39 +320,70 @@ The `CsvSource` is an annotation itself, so in an implementation
 it would like like the following: `@CsvSource({"value11, value12", "value21, value22", "value31, value32", ...})`
 
 
-Let us implement the boundary test cases that we derived in the _Pizza or Pasta_ example, using a parameterised test.
+```java
+@ParameterizedTest(name = "small={0}, big={1}, total={2}, result={3}")
+    @CsvSource({
+      // The total is higher than the amount of small and big bars.
+      "1,1,5,0", "1,1,6,1", "1,1,7,-1", "1,1,8,-1",
+      // No need for small bars.
+      "4,0,10,-1", "4,1,10,-1", "5,2,10,0", "5,3,10,0",
+      // Need for big and small bars.
+      "0,3,17,-1", "1,3,17,-1", "2,3,17,2", "3,3,17,2",
+      "0,3,12,-1", "1,3,12,-1", "2,3,12,2", "3,3,12,2",
+      // Only small bars.
+      "4,2,3,3", "3,2,3,3", "2,2,3,-1", "1,2,3,-1"
+    })
+    void boundaries(int small, int big, int total, int expectedResult) {
+        int result = new ChocolateBars().calculate(small, big, total);
+        Assertions.assertEquals(expectedResult, result);
+    }
+```
 
-
-To automate the tests we create a test method with three parameters: `x`, `y`, `expectedResult`.
-`x` and `y` are integers.
-The `expectedResult` is a String, containing the expected output, _pasta_ or _pizza_.
+Some developers prefer not to pass a list of CSV/strings. For those, JUnit provides a `@MethodSource` option, which allows developers to provide the input for the parameterized test through a method. The developer simply needs to define a method that returns a `Stream<Arguments>` (and set the name of this method in the `@MethodSource` annotation). See the implementation below:
 
 ```java
-@ParameterizedTest
-@CsvSource({
-    "5, 24, pizza",
-    "4, 13, pasta",
-    "20, -75, pasta",
-    "19, 48, pizza",
-    "15, 89, pizza",
-    "8, 90, pasta"
-})
-void boundary(int x, int y, String expectedResult) {
-  assertEquals(expectedResult, pp.pizzaOrPasta(x, y));
+public class ChocolateBarsTest {
+
+    @ParameterizedTest(name = "small={0}, big={1}, total={2}, result={3}")
+    @MethodSource("generator")
+    void boundaries(int small, int big, int total, int expectedResult) {
+        int result = new ChocolateBars().calculate(small, big, total);
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    private static Stream<Arguments> generator() {
+      return Stream.of(
+        // The total is higher than the amount of small and big bars.
+        Arguments.of(1,1,5,0),
+        Arguments.of(1,1,6,1),
+        Arguments.of(1,1,7,-1),
+        Arguments.of(1,1,8,-1),
+        // No need for small bars.
+        Arguments.of(4,0,10,-1),
+        Arguments.of(4,1,10,-1),
+        Arguments.of(5,2,10,0),
+        Arguments.of(5,3,10,0),
+        // Need for big and small bars.
+        Arguments.of(0,3,17,-1),
+        Arguments.of(1,3,17,-1),
+        Arguments.of(2,3,17,2),
+        Arguments.of(3,3,17,2),
+        Arguments.of(0,3,12,-1),
+        Arguments.of(1,3,12,-1),
+        Arguments.of(2,3,12,2),
+        Arguments.of(3,3,12,2),
+        // Only small bars.
+        Arguments.of(4,2,3,3),
+        Arguments.of(3,2,3,3),
+        Arguments.of(2,2,3,-1),
+        Arguments.of(1,2,3,-1)
+      );
+
+    }
 }
 ```
 
-The behaviour
-of this single test method is the same as the six test methods we declared before. However, this time we achieve the same result with a much smaller amount of code.
-
-JUnit will run the `boundary` test six times: one for each line in the `@CsvSource`. 
-In your IDE, you might even see JUnit showing each of the test cases being executed:
-
-![Parameterised tests in JUnit](img/boundary-testing/junit.png)
-
-
-JUnit's Parameterised tests have more functionalities and ways of providing input data.
-We point the reader to JUnit's manual.
+You can see all these implementation in our GitHub repository: https://github.com/sttp-book/code-examples/tree/master/src/test/java/tudelft/chocolate. 
 
 
 {% set video_id = "fFksNXJJfiE" %}
