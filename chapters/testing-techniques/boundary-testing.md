@@ -269,7 +269,7 @@ Finally, with the **only small bars** partition:
 * `(3, 2, 3)` returns 3. We need only small bars here, and therefore, this input belongs to the **only small bars** partition.
 * `(2, 2, 3)` returns -1. We can't make the boxes. This input belongs to the **Not enough bars** partition.
 
-A partition might have boundaries with more than just one single another partitions. 
+A partition might have boundaries with more than just a single other partition. 
 The **only small bars** partition has boundaries not only with the **not enough bars** partition (as we saw above), but also with the **only big bars** partition:
 
 * `(4, 2, 4)` returns 4. We need only small bars here, and therefore, this input belongs to the **only small bars** partition.
