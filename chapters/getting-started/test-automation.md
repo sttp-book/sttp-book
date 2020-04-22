@@ -247,36 +247,37 @@ of seconds or minutes, get a clear feedback from the tests.
 See this new version of the `RomanNumeral` class, where we deeply refactored the code:
 
 * We gave a better name to the method: we call it `asArabic()` now.
+* We made a method for single char conversion using method overloading with `asArabic()`
 * We inlined the declaration of the Map, and used the `Map.of` utility method.
-* We make use of an auxiliary array (`digits`) to get the current number inside the loop.
-* We extracted a private method that decides whether it is a subtractive operation.
+* We create an array of characters from the string
+* We make a stream of indices of the character array
+* We map each character to its subtractive value
+* We extracted a private method that decides whether it is a subtractive operation `isSubtractive()`.
+* We extracted `getSubtractiveValue()` to return a negative number if it's subtractive
 * We made use of the `var` keyword, as introduced in Java 10.
 
 ```java
 public class RomanNumeral {
   private final static Map<Character, Integer> CHAR_TO_DIGIT = 
-    Map.of('I', 1, 'V', 5, 'X', 10, 'L', 50, 'C', 100, 'D', 500, 'M', 1000);
+          Map.of('I', 1, 'V', 5, 'X', 10, 'L', 50, 'C', 100, 'D', 500, 'M', 1000);
 
-  public int asArabic(String roman) {
-    final var digits = roman
-      .chars()
-      .map(c -> CHAR_TO_DIGIT.get((char)c)).toArray();
-
-    var result = 0;
-    for(int i = 0; i < digits.length; i++) {
-      final var currentNumber = digits[i];
-
-      result += isSubtractive(digits, i, currentNumber) ? 
-                  -currentNumber : 
-                  currentNumber;
-    }
-
-    return result;
+  public static int asArabic(String roman) {
+    var chars = roman.toCharArray();
+    return IntStream.range(0, chars.length)
+            .map(i -> getSubtractiveValue(chars, i, asArabic(chars[i])))
+            .sum();
   }
 
-  private static boolean isSubtractive(int[] digits, int i, int currentNumber) {
-    return i + 1 < digits.length
-        && currentNumber < digits[i + 1];
+  public static int asArabic(char c) {
+    return CHAR_TO_DIGIT.get(c);
+  }
+
+  private static int getSubtractiveValue(char[] chars, int i, int currentNumber) {
+    return isSubtractive(chars, i, currentNumber) ? -currentNumber : currentNumber;
+  }
+
+  private static boolean isSubtractive(char[] chars, int i, int currentNumber) {
+    return i + 1 < chars.length && currentNumber < asArabic(chars[i + 1]);
   }
 }
 ```
