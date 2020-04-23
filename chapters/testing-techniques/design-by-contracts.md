@@ -53,7 +53,8 @@ public class MyStack {
 
     // ... actual method body ...
 
-    assert count() == oldCount - 1;
+    assert count() == oldCount - 1 : 
+        "Size of stack did not decrease by one";
   }
 }
 ```
@@ -163,10 +164,10 @@ public class FavoriteBooks {
   // ...
 
   public void merge(List<Book> books) {
-    assert books != null;
-    assert favorites != null;
-    assert !books.isEmpty();
-    assert !favorites.containsAll(books);
+    assert books != null : "The list of books is null";
+    assert favorites != null : "The favorites list is null";
+    assert !books.isEmpty() : "There are no books in the given list";
+    assert !favorites.containsAll(books) : "All books in the given list are already in favorites";
 
     favorites.addAll(books);
     pushNotification.booksAdded(books);
@@ -192,9 +193,9 @@ public class FavoriteBooks {
   // ...
 
   public void merge(List<Book> books) {
-    assert books != null;
-    assert favorites != null;
-    assert !favorites.containsAll(books);
+    assert books != null : "The list of books is null";
+    assert favorites != null : "The favorites list is null";
+    assert !favorites.containsAll(books) : "All books in the given list are already in favorites";
 
     if (!books.isEmpty()) {
       favorites.addAll(books);
@@ -213,8 +214,8 @@ public class FavoriteBooks {
   // ...
 
   public void merge(List<Book> books) {
-    assert books != null;
-    assert favorites != null;
+    assert books != null : "The list of books is null";
+    assert favorites != null : "The favorites list is null";
 
     List<Book> newBooks = books.removeAll(favorites);
 
@@ -245,8 +246,8 @@ public class FavoriteBooks {
   // ...
 
   public void merge(List<Book> books) {
-    assert books != null;
-    assert favorites != null;
+    assert books != null : "The list of books is null";
+    assert favorites != null : "The favorites list is null";
 
     List<Book> newBooks = books.removeAll(favorites);
 
@@ -255,7 +256,7 @@ public class FavoriteBooks {
       pushNotification.booksAdded(newBooks);
     }
 
-    assert favorites.containsAll(books);
+    assert favorites.containsAll(books) : "Not all books were added to favorites";
   }
 }
 ```
@@ -353,7 +354,8 @@ public void checkRep(BinaryTree tree) {
   BinaryTree right = tree.getRight();
 
   assert (left == null || left.getParent() == tree) &&
-      (right == null || right.getParent() == tree)
+      (right == null || right.getParent() == tree) :
+      "A child does not point to the correct parent";
 
   if (left != null) {
     checkRep(left);
@@ -405,7 +407,7 @@ public class FavoriteBooks {
 
     // ...
 
-    assert invariant();
+    assert invariant() : "Invariant does not hold";
   }
 
   protected boolean invariant() {
@@ -413,10 +415,10 @@ public class FavoriteBooks {
   }
 
   public void merge(List<Book> books) {
-    assert invariant();
+    assert invariant() : "Invariant does not hold";
 
     // Remaining pre-conditions
-    assert books != null;
+    assert books != null : "The list of books is null";
 
     List<Book> newBooks = books.removeAll(favorites);
 
@@ -426,9 +428,9 @@ public class FavoriteBooks {
     }
 
     // Remaining post-conditions
-    assert favorites.containsAll(books);
+    assert favorites.containsAll(books) : "Not all books were added to favorites";
 
-    assert invariant();
+    assert invariant() : "Invariant does not hold";
   }
 
 }
