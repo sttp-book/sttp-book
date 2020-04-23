@@ -648,7 +648,7 @@ void taxesForCompanies() {
 } 
 ```
 
-Note how our `InvoiceBuilder` (which we show the code of soon) clearly expresses what
+Note how our `InvoiceBuilder` (which we show the implementation soon) clearly expresses what
 this invoice is about: it is an invoice for a company (as clearly stated by the `asCompany()` 
 method), "NL" is the country of that invoice, and the invoice has a value of 2500. The
 result of the behaviour now goes to a variable whose name says it all (`calculatedValue`). 
