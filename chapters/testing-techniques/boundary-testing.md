@@ -95,11 +95,11 @@ each boundary will require *at least* two test cases:
 
 For B1:
 * B1.1 = input={score=49, remaining lives=5}, output={99}
-* B1.2 = input={score=50, remaining lives=5}, output={100}
+* B1.2 = input={score=50, remaining lives=5}, output={150}
 
 For B2:
-* B2.1 = input={score 500, remaining lives=3}, output={200}
-* B2.2 = input={score 500, remaining lives=2}, output={130}
+* B2.1 = input={score 500, remaining lives=3}, output={1500}
+* B2.2 = input={score 500, remaining lives=2}, output={530}
 
 An implementation using JUnit is shown below. Note that we have written just a single test for each pair of test cases. This makes the test more cohesive.
 If there is a boundary bug, a single test will let us know.
@@ -170,7 +170,14 @@ on-point, a test case for the off-point, a test case for a single in-point (as a
 belong to the same equivalence partition), and a test case for a single out-point (as all
 out-points also belong to the same equivalence partition).
 
+{% hint style='tip' %}
+Note that _on_ and _off_ points are also _in_ or _out points_. Therefore, tests that focus only on the _on_ and _off_ points would also be testing _in_ and _out_ points. This is totally true. In fact, some authors argue that testing boundaries is enough. Moreover, a test that exercises an in-point that is far away from the boundary might not have a strong fault detection capability. Why would we need them?
 
+There is _no perfect answer_ here. We suggest:
+
+* If the number of test cases is indeed too high, and it is just too expensive to do them all, prioritization is important, and we suggest testers to indeed **focus on the boundaries**.
+* Far away in/out points are sometimes easier to be seen or comprehended by a tester who is still learning about the system under test, and exploring its boundaries (_exploratory testing_). Deciding whether to perform such a test is thus a decision that a tester should take, taking the costs into account.
+{% endhint %}
 
 ## Boundaries that are not so explicit
 
@@ -320,39 +327,70 @@ The `CsvSource` is an annotation itself, so in an implementation
 it would like like the following: `@CsvSource({"value11, value12", "value21, value22", "value31, value32", ...})`
 
 
-Let us implement the boundary test cases that we derived in the _Pizza or Pasta_ example, using a parameterised test.
+```java
+@ParameterizedTest(name = "small={0}, big={1}, total={2}, result={3}")
+    @CsvSource({
+      // The total is higher than the amount of small and big bars.
+      "1,1,5,0", "1,1,6,1", "1,1,7,-1", "1,1,8,-1",
+      // No need for small bars.
+      "4,0,10,-1", "4,1,10,-1", "5,2,10,0", "5,3,10,0",
+      // Need for big and small bars.
+      "0,3,17,-1", "1,3,17,-1", "2,3,17,2", "3,3,17,2",
+      "0,3,12,-1", "1,3,12,-1", "2,3,12,2", "3,3,12,2",
+      // Only small bars.
+      "4,2,3,3", "3,2,3,3", "2,2,3,-1", "1,2,3,-1"
+    })
+    void boundaries(int small, int big, int total, int expectedResult) {
+        int result = new ChocolateBars().calculate(small, big, total);
+        Assertions.assertEquals(expectedResult, result);
+    }
+```
 
-
-To automate the tests we create a test method with three parameters: `x`, `y`, `expectedResult`.
-`x` and `y` are integers.
-The `expectedResult` is a String, containing the expected output, _pasta_ or _pizza_.
+Some developers prefer not to pass a list of CSV/strings. For those, JUnit provides a `@MethodSource` option, which allows developers to provide the input for the parameterized test through a method. The developer simply needs to define a method that returns a `Stream<Arguments>` (and set the name of this method in the `@MethodSource` annotation). See the implementation below:
 
 ```java
-@ParameterizedTest
-@CsvSource({
-    "5, 24, pizza",
-    "4, 13, pasta",
-    "20, -75, pasta",
-    "19, 48, pizza",
-    "15, 89, pizza",
-    "8, 90, pasta"
-})
-void boundary(int x, int y, String expectedResult) {
-  assertEquals(expectedResult, pp.pizzaOrPasta(x, y));
+public class ChocolateBarsTest {
+
+    @ParameterizedTest(name = "small={0}, big={1}, total={2}, result={3}")
+    @MethodSource("generator")
+    void boundaries(int small, int big, int total, int expectedResult) {
+        int result = new ChocolateBars().calculate(small, big, total);
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    private static Stream<Arguments> generator() {
+      return Stream.of(
+        // The total is higher than the amount of small and big bars.
+        Arguments.of(1,1,5,0),
+        Arguments.of(1,1,6,1),
+        Arguments.of(1,1,7,-1),
+        Arguments.of(1,1,8,-1),
+        // No need for small bars.
+        Arguments.of(4,0,10,-1),
+        Arguments.of(4,1,10,-1),
+        Arguments.of(5,2,10,0),
+        Arguments.of(5,3,10,0),
+        // Need for big and small bars.
+        Arguments.of(0,3,17,-1),
+        Arguments.of(1,3,17,-1),
+        Arguments.of(2,3,17,2),
+        Arguments.of(3,3,17,2),
+        Arguments.of(0,3,12,-1),
+        Arguments.of(1,3,12,-1),
+        Arguments.of(2,3,12,2),
+        Arguments.of(3,3,12,2),
+        // Only small bars.
+        Arguments.of(4,2,3,3),
+        Arguments.of(3,2,3,3),
+        Arguments.of(2,2,3,-1),
+        Arguments.of(1,2,3,-1)
+      );
+
+    }
 }
 ```
 
-The behaviour
-of this single test method is the same as the six test methods we declared before. However, this time we achieve the same result with a much smaller amount of code.
-
-JUnit will run the `boundary` test six times: one for each line in the `@CsvSource`. 
-In your IDE, you might even see JUnit showing each of the test cases being executed:
-
-![Parameterised tests in JUnit](img/boundary-testing/junit.png)
-
-
-JUnit's Parameterised tests have more functionalities and ways of providing input data.
-We point the reader to JUnit's manual.
+You can see all these implementation in our GitHub repository: https://github.com/sttp-book/code-examples/tree/master/src/test/java/tudelft/chocolate. 
 
 
 {% set video_id = "fFksNXJJfiE" %}
