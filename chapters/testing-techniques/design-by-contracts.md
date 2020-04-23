@@ -177,7 +177,7 @@ public class FavoriteBooks {
 
 The number of assumptions made before a method can be executed (and, with that, the number of pre-conditions) is a design choice.
 
-One might want to *weaken the pre-condition*, so that the method accepts/is able to handle more situations.
+One might want to *weaken the pre-conditions*, so that the method accepts/is able to handle more situations.
 To that aim, we can remove a pre-condition as the method itself can handle the situation where the pre-condition would be false.
 This makes the method more generally applicable, but is also increases its complexity.
 The method always has to check some extra things to handle the cases that could had been pre-conditions.
@@ -314,7 +314,7 @@ Each return statement forms a possible post-condition (proposition) and the meth
 Based on what we saw about pre- and post-conditions, we can come up with a few
 rules:
 
-* The weaker the pre-condition, the more situations a method
+* The weaker the pre-conditions, the more situations a method
 is able to handle, and the less thinking the client needs to do.
 However, with weak pre-conditions, the method will always have to do
 the checking.
