@@ -8,7 +8,7 @@ property-based testing are.
 ## Self Testing
 
 A self testing system is, in principle, a system that tests itself.
-This may sound a bit weird, so let's take a step back first.
+This may sound a bit weird, so let us take a step back first.
 
 The way we tested systems so far was by creating separate classes for the tests.
 The production code and test code were completely separated.
@@ -239,7 +239,7 @@ In other words, the post-conditions formalise the effects that a method guarante
 
 The `merge` method of the previous examples does two things.
 First, it adds the new books to the `favorites` list.
-Let's turn this into a Boolean expression, so we can formulate this as a post-condition.
+Let us turn this into a Boolean expression, so we can formulate this as a post-condition.
 
 ```java
 public class FavoriteBooks {
