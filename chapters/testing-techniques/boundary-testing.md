@@ -171,7 +171,7 @@ belong to the same equivalence partition), and a test case for a single out-poin
 out-points also belong to the same equivalence partition).
 
 {% hint style='tip' %}
-Note that _on_ and _off_ points are also _in_ or _out points_. Therefore, tests that focus only on the _on_ and _off_ points would also be testing _in_ and _out_ points. This is totally true. In fact, some authors argue that testing boundaries is enough. Moreover, a test that exercises an in-point that is far away from the boundary might not have a strong fault detection capability. Why would we need them?
+Note that _on_ and _off_ points are also _in_ or _out points_. Therefore, tests that focus only on the _on_ and _off_ points would also be testing _in_ and _out_ points. In fact, some authors argue that testing boundaries is enough. Moreover, a test that exercises an in-point that is far away from the boundary might not have a strong fault detection capability. Why would we need them?
 
 There is _no perfect answer_ here. We suggest:
 
