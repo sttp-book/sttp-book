@@ -198,21 +198,18 @@ class RomanNumeralTest {
   @Test
   void convertSingleDigit() {
     int result = roman.convert("C");
-
     assertEquals(100, result);
   }
 
   @Test
   void convertNumberWithDifferentDigits() {
     int result = roman.convert("CCXVI");
-
     assertEquals(216, result);
   }
 
   @Test
   void convertNumberWithSubtractiveNotation() {
     int result = roman.convert("XL");
-
     assertEquals(40, result);
   }
 }
