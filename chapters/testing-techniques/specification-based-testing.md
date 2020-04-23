@@ -347,8 +347,10 @@ It does the following:
 > and if the number is divisible by both 3 and 5, use `"FizzBuzz"`
 
 Examples:
+* The integer 3 yields `"Fizz!"`
 * The integer 4 yields `"4!"`
-* The integer 5 yields `"Fizz!"`
+* The integer 5 yields `"Buzz!"`
+* The integer 15 yields `"FizzBuzz"`
 
 A novice tester is trying hard to devise as many tests as she can for
 the FizzBuzz method.
