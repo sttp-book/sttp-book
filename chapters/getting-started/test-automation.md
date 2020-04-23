@@ -203,25 +203,19 @@ class RomanNumeralTest {
 
   @Test
   void convertSingleDigit() {
-    roman = new RomanNumeral();
     int result = roman.convert("C");
-
     assertEquals(100, result);
   }
 
   @Test
   void convertNumberWithDifferentDigits() {
-    roman = new RomanNumeral();
     int result = roman.convert("CCXVI");
-
     assertEquals(216, result);
   }
 
   @Test
   void convertNumberWithSubtractiveNotation() {
-    roman = new RomanNumeral();
     int result = roman.convert("XL");
-
     assertEquals(40, result);
   }
 }
