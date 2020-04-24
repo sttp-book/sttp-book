@@ -110,6 +110,40 @@ Possible actions:
 3. We should treat 'pattern is improperly quoted' as exceptional, and thus, test it just once.
 
 
+**Exercise 8**
+1. Identify parameters:
+  - Legs
+  - Tail
+  - Lives
+  - Sharp nails
+  - Sound
+
+2. Derive characteristics of parameters:
+  - int legs
+  - bool tail
+  - int lives
+  - bool sharp nails
+  - string sound
+
+3. Add constraints
+  - int legs = any even int
+  - bool tail = true
+  - int lives >= 0 && int lives <= 9
+  - bool sharp nails == true
+  - string sound == "miauw"
+  - If legs is an negative integer or 0, this is an exceptional case. Therefore it doesn't matter if the animal has sharp nails or not.
+  - If legs is not an even integer, we can test this with just one combination.
+
+4. Test cases
+Tests can be divided in 3 categories: is a cat, not a cat, exceptional cases.
+  - 2, true, 6, true, "miauws" --> cat
+  - 3, true, 6, true, "miauws" --> doge
+  - 4, false, 6, true, "miauws" --> doge
+  - 6, true, 11, true, "miauws" --> doge
+  - 8, true, 4, false, "miauws" --> doge
+  - 2, true, 3, true, "wow" --> doge
+  - 0, true, 2, true, "miauws" --> cat or invalid depending on the context of the program.
+
 
 ## Boundary testing
 
