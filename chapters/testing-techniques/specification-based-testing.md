@@ -166,7 +166,7 @@ After the method returns a value, we assert that this is the expected value.
 
 So far we have derived partitions by just looking at the specification of the program.
 We basically used our experience and knowledge to derive the test cases.
-We will discuss a more systematic way of deriving these partitions: the **Category-Partition** method.
+In this chapter, we will discuss a more systematic way of deriving these partitions: the **Category-Partition** method.
 
 The method provides us with a systematic way of deriving test cases, based on the characteristics of the input parameters. It also reduces the number of tests to a feasible number.
 
@@ -220,15 +220,13 @@ Let's explore another example:
 
 > **Requirement: Chocolate bars**
 >
-> A package can store a certain amount of chocolate bars in kilos.
-> There are small bars (1 kilo each) and big bars (5 kilos each).
-> Assume that the package is always filled with big bars first, 
-> if there's room left, the package will then be topped of with small bars.
-> We should calculate the number of small bars used in order to fill the packages.
-> Return -1 if it is not possible to fill the package.
+> A package stores a certain number of chocolate bars in kilos.
+> A package is composed of small bars (1 kilo each) and big bars (5 kilos each).
 >
-> The input of the program is thus: the number of small bars, the number of big bars,
-> and the total number of kilos the package can hold.
+> Assume that the package is always filled with the maximum number of big bars possible, return the number of small bars required to complete the package. 
+> Return -1 if it is not possible to fill the package completely.
+>
+> The input of the program is: the number of available small bars, the number of available big bars, and the total number of kilos of the package.
 
 A possible implementation for this program is as follows:
 
