@@ -73,20 +73,27 @@ We end up with three partitions:
 
 **Exercise 4**
 
-There are no right or wrong answers, but a lot of decisions that we do based on what we know about the system (or, in this case, what we assume about the system).
+There are no right or wrong answers to this exercise. 
+It services to show that a lot of decisions that we make are based on what we know about the system (or, in this case, what we assume about the system).
 But, when context kicks in, there might be more possible invalid test cases then just the cases in the boundaries.
+
+Whatever decisions you as a tester make regarding specific invalid test cases, it is important to justify those decisions.
 For example:
 * Do we feel the need of testing negative numbers separately from positive numbers? From the specification, there's no reason to do so. 
-If you look at the source code (supposing you have access to the source code; we'll discuss what to do with source code next week!), does it make you feel like this test is need?
+If you look at the source code (supposing you have access to the source code, does it make you feel like this test is needed?
 * Do we feel the need of testing trailing zeroes? Maybe the user inputs a string which is converted later... Then, testing might be important.
-* Do we feel we need to test extreme numbers, like Integer.MAX_VALUE or even passing a long int or float there?
+* Do we feel the need to test extreme numbers, like Integer.MAX_VALUE or even passing a long int or float there? 
+* Do we feel the need to test with a string consisting of only 1 letter, or maybe more than 2 letters? 
+If there's no input validation, unintended behaviour might be right around the corner 
+* Do we feel the need to test lowercase letters? Maybe the program can't distinguish between lower- and uppercase letters.
 
 Examples of possible invalid partitions:
 1. [Integer.MIN_VALUE, 999]
 2. [4001, Integer.MAX_VALUE] 
-3. [A, B]
+3. [AA, B]
 4. [N, Z]
 5. [0000, 0999] 
+6. [AAA, ZZZ]
 
 
 **Exercise 5**

@@ -394,10 +394,13 @@ Letters are in the range `[C, M]`.
 
 Consider a program that receives two inputs: an integer (for the 4 numbers) and a string (for the 2 letters), and returns `true` (valid zip code) or `false` (invalid zip code).
 
-The boundaries for this program appear to be straight forward:
+The boundaries for this program appear to be straightforward:
 - Anything below 1000 -> invalid
 - [1000, 4000] -> valid
 - Anything above 4000 -> invalid
+- [A, B] -> invalid
+- [C, M] -> valid
+- [N, Z] -> invalid
 
 Based on what you as a tester *assume* about the program, which invalid cases can you come up with?
 Describe these invalid cases and how they might exercise the program based on your assumptions.
