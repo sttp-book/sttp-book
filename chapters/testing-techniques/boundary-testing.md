@@ -324,7 +324,7 @@ To execute multiple tests with the same test method,
 the `CsvSource` expects list of strings, where each string represents 
 the input and output values for one test case.
 The `CsvSource` is an annotation itself, so in an implementation 
-it would like like the following: `@CsvSource({"value11, value12", "value21, value22", "value31, value32", ...})`
+it would look like the following: `@CsvSource({"value11, value12", "value21, value22", "value31, value32", ...})`
 
 
 ```java
