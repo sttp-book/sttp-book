@@ -163,6 +163,8 @@ The decision consists of two conditions, so we can analyse these separately.
 
 First note that the modulo function `%` is not a linear function, therefore there is no single on and off point.
 ![Graph of `f(n) = n % 3`](img/boundary-testing/exercises/modulo3-graph.png)
+(Graph of `f(n) = n % 3`, desmos.com)
+
 
 For `n % 3 == 0` any multiple of 3 would work as an on-point.
 Because we can't exhaustively test all multiples of 3, only one of them should be tested. Lets use 3 for this exercise.
