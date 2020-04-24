@@ -73,18 +73,21 @@ We end up with three partitions:
 
 **Exercise 4**
 
-We go over each given partition and identify whether it is a valid partition:
+There are no right or wrong answers, but a lot of decisions that we do based on what we know about the system (or, in this case, what we assume about the system).
+But, when context kicks in, there might be more possible invalid test cases then just the cases in the boundaries.
+For example:
+* Do we feel the need of testing negative numbers separately from positive numbers? From the specification, there's no reason to do so. 
+If you look at the source code (supposing you have access to the source code; we'll discuss what to do with source code next week!), does it make you feel like this test is need?
+* Do we feel the need of testing trailing zeroes? Maybe the user inputs a string which is converted later... Then, testing might be important.
+* Do we feel we need to test extreme numbers, like Integer.MAX_VALUE or even passing a long int or float there?
 
-1. Valid partition: Invalid numbers, which are too small.
-2. Valid partition: Valid numbers
-3. Invalid partition: Contains some valid numbers, but the range is too small to cover the whole partition.
-4. Invalid partition: Same reason as number 3.
-5. Valid partition: Invalid numbers, that are too large.
-6. Invalid partition: Contains both valid and invalid letters (the C is included in the domain).
-7. Valid partition: Valid letters.
-8. Valid partition: Invalid letters, past the range of valid letters.
+Examples of possible invalid partitions:
+1. [Integer.MIN_VALUE, 999]
+2. [4001, Integer.MAX_VALUE] 
+3. [A, B]
+4. [N, Z]
+5. [0000, 0999] 
 
-We have the following valid partitions: 1, 2, 5, 7, 8.
 
 **Exercise 5**
 
