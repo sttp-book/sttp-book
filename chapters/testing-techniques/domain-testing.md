@@ -14,6 +14,8 @@ We will follow a common strategy when applying domain testing, highly influenced
 6. We think of a strategy to derive test cases, focusing on minimizing the costs while maximizing fault detection capability.
 7. We generate a set of test cases that should be executed against the system under test.
 
+See the videos for detailed explanations. See also the JUnit test cases we implemented for them in https://github.com/sttp-book/code-examples/tree/master/src/test/java/tudelft/domain.
+
 {% set video_id = "6-SaTbc61eA" %}
 {% include "/includes/youtube.md" %}
 
