@@ -396,22 +396,16 @@ Letters are in the range `[C, M]`.
 
 Consider a program that receives two inputs: an integer (for the 4 numbers) and a string (for the 2 letters), and returns `true` (valid zip code) or `false` (invalid zip code).
 
-A tester comes up with the following partitions:
+The boundaries for this program appear to be straightforward:
+- Anything below 1000 -> invalid
+- [1000, 4000] -> valid
+- Anything above 4000 -> invalid
+- [A, B] -> invalid
+- [C, M] -> valid
+- [N, Z] -> invalid
 
-1. [0, 999]
-2. [1000, 4000]
-3. [2001, 3500]
-4. [3500, 3999]
-5. [4001, 9999]
-6. [A-C]
-7. [C-M]
-8. [N-Z]
-
-Note that with [a, b] all numbers between and including a and b are in the domain.
-The same goes with letters like [A-Z].
-
-Which of these partitions are valid (and good) partitions, i.e. which can actually be used as partitions?
-Name each of the valid partitions, and describe how they exercise the program.
+Based on what you as a tester *assume* about the program, which invalid cases can you come up with?
+Describe these invalid cases and how they might exercise the program based on your assumptions.
 
 **Exercise 5.**
 See a slightly modified version of the HashSet's `add()` Javadoc below.

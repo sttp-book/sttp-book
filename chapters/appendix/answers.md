@@ -73,18 +73,28 @@ We end up with three partitions:
 
 **Exercise 4**
 
-We go over each given partition and identify whether it is a valid partition:
+There are no right or wrong answers to this exercise. 
+It services to show that a lot of decisions that we make are based on what we know about the system (or, in this case, what we assume about the system).
+But, when context kicks in, there might be more possible invalid test cases then just the cases in the boundaries.
 
-1. Valid partition: Invalid numbers, which are too small.
-2. Valid partition: Valid numbers
-3. Invalid partition: Contains some valid numbers, but the range is too small to cover the whole partition.
-4. Invalid partition: Same reason as number 3.
-5. Valid partition: Invalid numbers, that are too large.
-6. Invalid partition: Contains both valid and invalid letters (the C is included in the domain).
-7. Valid partition: Valid letters.
-8. Valid partition: Invalid letters, past the range of valid letters.
+Whatever decisions you as a tester make regarding specific invalid test cases, it is important to justify those decisions.
+For example:
+* Do we feel the need of testing negative numbers separately from positive numbers? From the specification, there's no reason to do so. 
+If you look at the source code (supposing you have access to the source code, does it make you feel like this test is needed?
+* Do we feel the need of testing trailing zeroes? Maybe the user inputs a string which is converted later... Then, testing might be important.
+* Do we feel the need to test extreme numbers, like Integer.MAX_VALUE or even passing a long int or float there? 
+* Do we feel the need to test with a string consisting of only 1 letter, or maybe more than 2 letters? 
+If there's no input validation, unintended behaviour might be right around the corner 
+* Do we feel the need to test lowercase letters? Maybe the program can't distinguish between lower- and uppercase letters.
 
-We have the following valid partitions: 1, 2, 5, 7, 8.
+Examples of possible invalid partitions:
+1. [Integer.MIN_VALUE, 999]
+2. [4001, Integer.MAX_VALUE] 
+3. [AA, B]
+4. [N, Z]
+5. [0000, 0999] 
+6. [AAA, ZZZ]
+
 
 **Exercise 5**
 
