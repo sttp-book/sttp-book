@@ -339,3 +339,8 @@ We might look at the plot of the function. In the plot, we identify 5 boundaries
 
 {% set video_id = "9ij_kqj78eA" %}
 {% include "/includes/youtube.md" %}
+
+
+## References
+
+* Kaner, Cem, Sowmya Padmanabhan, and Douglas Hoffman. The Domain Testing Workbook. Context Driven Press, 2013.
