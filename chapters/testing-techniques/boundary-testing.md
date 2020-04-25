@@ -276,7 +276,7 @@ Finally, with the **only small bars** partition:
 * `(3, 2, 3)` returns 3. We need only small bars here, and therefore, this input belongs to the **only small bars** partition.
 * `(2, 2, 3)` returns -1. We can't make the boxes. This input belongs to the **Not enough bars** partition.
 
-A partition might have boundaries with more than just one single another partitions. 
+A partition might have boundaries with more than just a single other partition. 
 The **only small bars** partition has boundaries not only with the **not enough bars** partition (as we saw above), but also with the **only big bars** partition:
 
 * `(4, 2, 4)` returns 4. We need only small bars here, and therefore, this input belongs to the **only small bars** partition.
@@ -324,7 +324,7 @@ To execute multiple tests with the same test method,
 the `CsvSource` expects list of strings, where each string represents 
 the input and output values for one test case.
 The `CsvSource` is an annotation itself, so in an implementation 
-it would like like the following: `@CsvSource({"value11, value12", "value21, value22", "value31, value32", ...})`
+it would look like the following: `@CsvSource({"value11, value12", "value21, value22", "value31, value32", ...})`
 
 
 ```java
