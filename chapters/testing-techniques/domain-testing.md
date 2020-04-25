@@ -1,0 +1,339 @@
+# Domain testing
+
+In the two previous chapters, we discussed _equivalent class analysis_ and _boundary testing_. In this chapter, we now revisit these techniques, and show how testers combine them both to derive test cases. We call it _domain testing_.
+
+This chapter follows a problem-based approach. We first show a program requirement, and then, show how we would apply equivalent class analysis and boundary testing.
+
+We will follow a common strategy when applying domain testing, highly influenced by how Kaner et al. do:
+
+1. We read the requirement
+2. We identify the input and output variables in play, their types, and their ranges.
+3. We identify the dependencies (or independence) among input variables, and how input variables influence the output variable.
+4. We perform equivalent class analysis (valid and invalid classes).
+5. We explore the boundaries of these classes.
+6. We think of a strategy to derive test cases, focusing on minimizing the costs while maximizing fault detection capability.
+7. We generate a set of test cases that should be executed against the system under test.
+
+{% set video_id = "6-SaTbc61eA" %}
+{% include "/includes/youtube.md" %}
+
+## Exercise 1: The Sum Of Integers
+
+{% set video_id = "ElO9sKkG-2w" %}
+{% include "/includes/youtube.md" %}
+
+## Exercise 2: The Sum Of Integers, part 2
+
+{% set video_id = "w2er-p_tyRc" %}
+{% include "/includes/youtube.md" %}
+
+## Exercise 3: Passing Grade
+
+A student passes an exam if s/he gets a grade >= 5.0. Grades below that are a fail.
+
+Grades range from [1.0, 10.0]. Assume the system doesn't allow for invalid grades (e.g., 0.9, 10.5).
+
+### Variables
+
+| Variables | Types   | Ranges     | Notes                |
+|-----------|---------|------------|----------------------|
+| grade     | float   | [1, 10]    | (no one gets a 0...) |
+| pass      | boolean | true/false | output variable      |
+
+### Dependencies among variables
+
+- No dependencies among input variables (grade is the only one).
+- Grade is used to decide the pass/fail.
+
+### Equivalence partitioning / Boundary analysis
+
+| Variable | Equivalence Classes | Invalid Classes | Boundaries |
+|----------|---------------------|-----------------|------------|
+| grade    | [1,5[               |                 | 1          |
+|          |                     |                 | 4.9        |
+|          |                     |                 | 5          |
+|          | [5, 10]             |                 | 4.9        |
+|          |                     |                 | 5          |
+|          |                     |                 | 10         |
+
+We do not need to test 0.9 and 10.1 because we assume that the system doesn't allow for them.
+
+### Strategy
+
+Boundaries seem to be enough.
+
+| Test Case | Grade (input) | Pass (output) | Notes          |
+|-----------|---------------|---------------|----------------|
+| T1        | 1             | false         |                |
+| T2        | 4.9           | false         |                |
+| T3        | 5             | true          |                |
+| T4        | 7.5           | true          |                |
+| T5        | 10            | true          | extra in-point |
+
+{% set video_id = "S_90_sYP7GA" %}
+{% include "/includes/youtube.md" %}
+
+
+
+## Exercise 4: Passing Concepts
+
+The final grade of a student is calculated as follows:
+
+* `1 <= grade < 5` => **`F`**
+* `5 <= grade < 6` => **`E`**
+* `6 <= grade < 7` => **`D`**
+* `7 <= grade < 8` => **`C`**
+* `8 <= grade < 9` => **`B`**
+* `9 <= grade <= 10` => **`A`**
+ 
+The system does not allow for invalid grades (e.g. 0.9, 10.5)
+
+### Variables
+
+| Variable | type | range | remark |
+| -------- | ---- | ----- | ------- |
+| Grade | float | [1, 10] | no one gets a 0 |
+| Concept | Enumerate | [F, E, D, B, C, A] | output variable |
+
+### Dependency among variables
+
+*There are no dependencies among the input variables, since we only have one variable.
+
+* The grade is used to decide the concept.
+
+### Equivalence Partitioning/Boundary Analysis
+
+| Variable | Equivalence classes | Invalid classes | Boundaries |
+| -------- | ------------------- | --------------- | ---------- |
+| Grade | [1,5[ | | |
+| | | | 1 |
+| | | | 5 |
+| | | | 4.9 |
+| | [5,6[ | | |
+| | | | 4.9 |
+| | | | 5 |
+| | | | 6 |
+| | | | 5.9 |
+| | [6,7[ | | |
+| | | | 5.9 |
+| | | | 6 |
+| | | | 7 |
+| | | | 6.9 |
+| | [7,8[ | | |
+| | | | 6.9 |
+| | | | 7 |
+| | | | 8 |
+| | | | 7.9 |
+| | [8,9[ | | |
+| | | | 7.9 |
+| | | | 8 |
+| | | | 9 |
+| | | | 8.9 |
+| | [9,10] | | |
+| | | | 8.9 |
+| | | | 9 |
+| | | | 10 |
+
+
+
+### Strategy
+
+Test all boundaries, yielding 12 tests.
+
+
+| Test case | Grade | Concept (output) |
+| --------- | ----- | ---------------- |
+| T1 | 1 | F |
+| T2 | 4.9 | F |
+| T3 | 5 | E |
+| T4 | 5.9 | E |
+| T5 | 6 | D |
+| T6 | 6.9 | D |
+| T7 | 7 | C |
+| T8 | 7.9 | C |
+| T9 | 8 | B |
+| T10 | 8.9 | B |
+| T11 | 9 | A |
+| T12 | 10 | A |
+
+
+{% set video_id = "YGomnAMt7RA" %}
+{% include "/includes/youtube.md" %}
+
+
+## Exercise 5: The MSc admission problem
+
+{% set video_id = "g9pk25_6MrY" %}
+{% include "/includes/youtube.md" %}
+
+## Exercise 6: The printing label
+
+{% set video_id = "JoHwLORk0cw" %}
+{% include "/includes/youtube.md" %}
+
+## Exercise 7: Tax Income
+
+Your income is taxed as follows:*
+
+* `0 <= Income < 22100` → **Tax = `0.15 x Income`**
+* `22100 <= Income < 53500` → **Tax = `3315 + 0.28 * (Income - 22100)`**
+* `53500 <= Income < 115000` → **Tax = `12107 + 0.31 * (Income - 53500)`**
+* `115000 <= Income < 250000` → **Tax = `31172 + 0.36 * (Income - 115000)`**
+* `250000 <= Income` → **Tax = `79772 + 0.396 * (Income - 250000)`**
+
+### Variables, Types, Ranges
+
+| Variable | Type | Range | Remark |
+| -------- | ---- | ----- | ------ |
+| Income | double | `[0, infinite]` | input |
+| Tax | double | `[0, infinite]` | output |
+
+### Dependency between variables
+
+* Income is used to calculate Tax
+
+### Equivalence partitioning / Boundary analysis
+
+| Variable | Equivalence classes | Invalid classes | Boundaries | Remark |
+| -------- | ------------------- | --------------- | ---------- | ------ |
+| Income | [0, 22100[ | | -1 | negative number |
+|  | | | 0 | |
+|  | | | 22099 | 22099.99 is better! |
+|  | | | 22100 | |
+| | | | | |
+| | [22100,53500[ | | 22099 | |
+|  | | | 22100 | |
+|  | | | 53499 | |
+|  | | | 53500 | |
+| | | | | |
+| | [53500,115000[ | | 53499 | |
+|  | | | 53500 | |
+|  | | | 114999 | |
+|  | | | 115000 | |
+| | | | | |
+| | [115000,250000[ | | 114999 | |
+|  | | | 115000 | |
+|  | | | 250000 | |
+|  | | | 250001 | |
+| | | | | |
+| | [250000, infinite[ | | 249999 | |
+|  | | | 250000 | |
+
+### Strategy
+
+Test the boundaries (removing duplicates) → 10 tests
+
+### Test cases
+
+|  #  | Income | Tax |
+| --- | ------ | --- |
+| T1 | -1 | *CANNOT CALC TAX* |
+| T2 | 0 | 0 |
+| T3 | 22099 | 3314.85 |
+| T4 | 22100 | 3315 |
+| T5 | 53499 | 12106.72 |
+| T6 | 53500 | 12107 |
+| T7 | 114999 | 31171.69 |
+| T8 | 115000 | 31172 |
+| T9 | 249999 | 79771.64 |
+| T10 | 250000 | 79772 |
+
+### Question
+
+* Would you consider 22100 and 22099 a duplicate?
+
+{% set video_id = "IaWioXqM1g4" %}
+{% include "/includes/youtube.md" %}
+
+## Exercise 8: The ATM
+
+{% set video_id = "A9sjzHGcpiA" %}
+{% include "/includes/youtube.md" %}
+
+## Exercise 9: Piecewise
+
+The input domain of a function is a set of all points (x, y) that meet the criteria:
+
+* `1 < x <= 10`
+* `1 <= y <= 10`
+* `y <= 14 - x`
+
+## Variables
+| Variable | Type | Range |
+| -------- | ---- | ----- |
+| x | integer | `1 < x <= 10`
+| y | integer | `1 <= y <= 10`, `y <= 14 - x`
+
+## Dependency among variables
+
+* `x` and `y` are dependent, since the range in `y` varies according to `x`.
+
+## Equivalence Partitioning/Boundary Analysis
+| Variable | Equivalence classes | Invalid classes | Boundaries |
+| -------- | ------------------- | --------------- | ---------- |
+| x | `1 < x <= 10` | | |
+| | | | `(1, in)` |
+| | | | `(2, in)` |
+| | | | `(10, in)` |
+| | | | `(11, in)` |
+| y | `1 <= y <= 10` | | |
+| | | | `(in, 1)` |
+| | | | `(in, 0)` |
+| | | | `(in, 10)` |
+| | | | `(in, 11)` |
+| | `y <= 14 - x` | | |
+| | | | `(4, 10)` |
+| | | | `(5, 10)` |
+| | | | `(10, 4)` |
+| | | | `(11, 4)` |
+
+
+## Strategy
+Make tests for all 12 boundaries
+
+| Test case | x | y | output |
+| --------- | - | - | ------ |
+| T1 | 1 | 5 | false |
+| T2 | 2 | 5 | true |
+| T3 | 10 | 2 | true |
+| T4 | 11 | 2 | false |
+| T5 | 3 | 1 | true |
+| T6 | 3 | 0 | false |
+| T7 | 3 | 10 | true |
+| T8 | 3 | 11 | false |
+| T9 | 4 | 10 | true |
+| T10 | 5 | 10 | false |
+| T11 | 10 | 4 | true |
+| T12 | 11 | 4 | false |
+
+## Another approach
+
+We might look at the plot of the function. In the plot, we identify 5 boundaries (one at each of the extremes of the figure). As a tester, we can exercise these boundaries.
+
+![Boundary testing chart](img/domain-testing/piecewise-boundary-chart.png)
+
+| Test case | x | y | output |
+| --------- | - | - | ------ |
+| T1 | 1 | 1 | false |
+| T2 | 2 | 1 | true |
+| T3 | 10 | 1 | true |
+| T4 | 11 | 1 | false |
+| T5 | 2 | 0 | false |
+| T6 | 2 | 10 | true |
+| T7 | 2 | 11 | false |
+| T8 | 4 | 10 | true |
+| T9 | 4 | 11 | false |
+| T10 | 10 | 4 | true |
+| T11 | 10 | 5 | false |
+| T12 | 11 | 4 | false |
+| T13 | 1 | 10 | false |
+| T14 | 5 | 10 | false |
+
+
+{% set video_id = "2c8D_KGqZ-g" %}
+{% include "/includes/youtube.md" %}
+
+## Exercise 10: Chocolate bars
+
+{% set video_id = "9ij_kqj78eA" %}
+{% include "/includes/youtube.md" %}
