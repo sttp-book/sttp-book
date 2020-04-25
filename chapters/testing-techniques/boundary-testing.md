@@ -458,7 +458,7 @@ We suggest the following strategy when applying domain testing, highly influence
 6. We think of a strategy to derive test cases, focusing on minimizing the costs while maximizing fault detection capability.
 7. We generate a set of test cases that should be executed against the system under test.
 
-See a series of [domain testing examples](chapters/testing-techniques/domain-testing.md) in our appendix.
+See a series of [domain testing examples](chapters/testing-techniques/domain-testing.html) in our appendix.
 
 
 ## Exercises
