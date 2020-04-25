@@ -480,7 +480,7 @@ You can give the points in terms of the variables used in the method.
 
 
 **Exercise 2.**
-Perform boundary analysis on the following decision: `n % 3 == 0 && n % 5 == 0`.
+Perform boundary analysis on the following equality: `x == 10`.
 What are the on- and off-points?
 
 
@@ -506,6 +506,11 @@ A game has the following condition: `numberOfPoints > 1024`. Perform a boundary 
 
 
 **Exercise 6.**
+Perform boundary analysis on the following decision: `n % 3 == 0 && n % 5 == 0`.
+What are the on- and off-points?
+
+
+**Exercise 7.**
 Which one of the following statements about the **CORRECT** principles is **true**?
 
 1. We assume that external dependencies are already on the right state for the test (REFERENCE).

@@ -138,14 +138,9 @@ The out-points are the values that make the condition false: all values equal to
 
 **Exercise 2**
 
-The decision consists of two conditions, so we can analyse these separately.
-
-For `n % 3 == 0` we have an on point of 3.
+The on-point is 10.
 Here we are dealing with an equality; the value can both go up and down to make the condition false.
-As such, we have two off-points: 2 and 4.
-
-Similarly to the first condition for `n % 5 == 0` we have an on-point of 5.
-Now the off-points are 4 and 6.
+As such, we have two off-points: 9 and 11.
 
 
 **Exercise 3**
@@ -173,6 +168,23 @@ The on point is the number precisely in the boundary = 1024. off point is the cl
 
 
 **Exercise 6**
+
+The decision consists of two conditions, so we can analyse these separately.
+
+First note that the modulo function `%` is not a linear function, therefore there is no single on and off point.
+![Graph of `f(n) = n % 3`](img/boundary-testing/exercises/modulo3-graph.png)
+(Graph of `f(n) = n % 3`, desmos.com)
+
+
+For `n % 3 == 0` any multiple of 3 would work as an on-point.
+Because we can't exhaustively test all multiples of 3, only one of them should be tested. Lets use 3 for this exercise.
+There are also infinitely many off points we can pick. Choosing the respective off-points of our on-point should suffice. Off-points: 2 and 4.
+
+Similarly to the first condition for `n % 5 == 0` we have an on-point of 5.
+Now the off-points are 4 and 6.
+
+
+**Exercise 7**
 
 We should always test the behaviour of our program when any expected data actually does not exist (EXISTENCE).
 
