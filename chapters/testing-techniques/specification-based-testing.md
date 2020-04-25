@@ -166,9 +166,9 @@ After the method returns a value, we assert that this is the expected value.
 
 So far we have derived partitions by just looking at the specification of the program.
 We basically used our experience and knowledge to derive the test cases.
-We now go over a more systematic way of deriving these partitions: the **Category-Partition** method.
+In this chapter, we will discuss a more systematic way of deriving these partitions: the **Category-Partition** method.
 
-The method gives us a systematic way of deriving test cases, based on the characteristics of the input parameters. It also brings down the number of tests to a feasible number.
+The method provides us with a systematic way of deriving test cases, based on the characteristics of the input parameters. It also reduces the number of tests to a feasible number.
 
 We now set out the steps of this method and then we illustrate the process with an example.
 
@@ -219,14 +219,14 @@ Each of the test cases corresponds to one of the partitions that we want to test
 Let's explore another example:
 
 > **Requirement: Chocolate bars**
-> 
-> A package should store a total number of kilos of chocolate. 
-> There are small bars (1 kilo each) and big bars (5 kilos each). 
-> We should calculate the number of small bars to use, 
-> assuming we always use big bars before small bars. Return -1 if it is impossible.
 >
-> The input of the program is thus the number of small bars, the number of big bars,
-> and the total number of kilos to store.
+> A package stores a certain number of chocolate bars in kilos.
+> A package is composed of small bars (1 kilo each) and big bars (5 kilos each).
+>
+> Assume that the package is always filled with the maximum number of big bars possible, return the number of small bars required to complete the package. 
+> Return -1 if it is not possible to fill the package completely.
+>
+> The input of the program is: the number of available small bars, the number of available big bars, and the total number of kilos of the package.
 
 A possible implementation for this program is as follows:
 
@@ -340,13 +340,15 @@ What is an Equivalence Partition?
 We have a program called FizzBuzz.
 It does the following:
 > Given an integer `n`, return the string form of the number followed by `"!"`.
-> If the number is divisable by 3 use `"Fizz"` instead of the number,
-> and if the number is divisable by 5 use `"Buzz"` instead of the number,
-> and if the number is divisable by both 3 and 5, use `"FizzBuzz"`
+> If the number is divisible by 3 use `"Fizz"` instead of the number,
+> and if the number is divisible by 5 use `"Buzz"` instead of the number,
+> and if the number is divisible by both 3 and 5, use `"FizzBuzz"`
 
 Examples:
+* The integer 3 yields `"Fizz!"`
 * The integer 4 yields `"4!"`
-* The integer 5 yields `"Fizz!"`
+* The integer 5 yields `"Buzz!"`
+* The integer 15 yields `"FizzBuzz"`
 
 A novice tester is trying hard to devise as many tests as she can for
 the FizzBuzz method.
@@ -470,7 +472,7 @@ public V put(K key, V value) {
 
 
 **Exercise 7.**
-With a `find` program that finds occurrences of a pattern in a file, the program has the following syntax:
+Consider a `find` program that finds occurrences of a pattern in a file, the program has the following syntax:
 
 ```
 find <pattern> <file>
