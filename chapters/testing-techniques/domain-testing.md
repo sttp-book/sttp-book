@@ -1,13 +1,11 @@
-# Domain testing
-
-In the two previous chapters, we discussed _equivalent class analysis_ and _boundary testing_. In this chapter, we now revisit these techniques, and show how testers combine them both to derive test cases. We call it _domain testing_.
+# Domain testing examples
 
 This chapter follows a problem-based approach. We first show a program requirement, and then, show how we would apply equivalent class analysis and boundary testing.
 
 We will follow a common strategy when applying domain testing, highly influenced by how Kaner et al. do:
 
 1. We read the requirement
-2. We identify the input and output variables in play, their types, and their ranges.
+2. We identify the input and output variables in play, together with their types, and their ranges.
 3. We identify the dependencies (or independence) among input variables, and how input variables influence the output variable.
 4. We perform equivalent class analysis (valid and invalid classes).
 5. We explore the boundaries of these classes.

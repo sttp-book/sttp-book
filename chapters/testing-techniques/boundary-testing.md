@@ -444,6 +444,21 @@ Authors call it the **CORRECT** way, as each letter represents one boundary cond
 {% include "/includes/youtube.md" %}
 
 
+## Equivalent classes and boundary analysis altogether
+
+We discussed _equivalent class analysis_ and _boundary testing_. In practice, testers combine both, in what they call _domain testing_.
+
+We suggest the following strategy when applying domain testing, highly influenced by how Kaner et al. do:
+
+1. We read the requirement
+2. We identify the input and output variables in play, together with their types, and their ranges.
+3. We identify the dependencies (or independence) among input variables, and how input variables influence the output variable.
+4. We perform equivalent class analysis (valid and invalid classes).
+5. We explore the boundaries of these classes.
+6. We think of a strategy to derive test cases, focusing on minimizing the costs while maximizing fault detection capability.
+7. We generate a set of test cases that should be executed against the system under test.
+
+See a series of [domain testing examples](chapters/testing-techniques/domain-testing.md) in our appendix.
 
 
 ## Exercises
@@ -526,6 +541,4 @@ Which one of the following statements about the **CORRECT** principles is **true
 
 * Chapter 7 of Pragmatic Unit Testing in Java 8 with Junit. Langr, Hunt, and Thomas. Pragmatic Programmers, 2015.
 
-
-
-
+* * Kaner, Cem, Sowmya Padmanabhan, and Douglas Hoffman. The Domain Testing Workbook. Context Driven Press, 2013.
