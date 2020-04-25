@@ -21,10 +21,125 @@ See the videos for detailed explanations. See also the JUnit test cases we imple
 
 ## Exercise 1: The Sum Of Integers
 
+A program receives two numbers and returns the sum of these two integers. Numbers are between 1 *inclusive* and 99 *inclusive*.
+
+| Variables         | Types     | Ranges    |
+| ---               | ---       | ---       |
+| X - First number  | Integer   | [1, 99]   |
+| Y - Second number | Integer   | [1, 99]   |
+| Sum - Output      | Integer   | [1, inf]  |
+
+### Dependency among variables:
+
+* X and Y are independent (X doesn't influence the range of Y, and vice-versa).
+* X and Y are used to calculate Sum.
+  
+### Equivalence partitioning / Boundary analysis
+
+| Variable  | Equivalence classes   | Invalid classes   | Boundaries    |
+| ---       | ---                   | ---               | :---:         |
+| X         | [1, 99]               | < 1               | *valid* 1 &#124; 0 *invalid*    |
+|           |                       | > 99              | 99 &#124; 100 |
+| Y         | [1, 99]               | < 1               | 1 &#124; 0    |
+|           |                       | > 99              | 99 &#124; 100 |
+
+### Strategy 
+
+* X has 7 partitions, Y has 7 partitions.
+* All combinations would be 7 * 7 = 49.
+* Variables are independent (X does not affect the range of Y, and vice-versa).
+* 14 tests 
+* 7 partitions of X, in point for Y, 
+* 7 partitions of Y, in points for X.
+
+*In-point X = 50, In-point Y = 50.*
+
+| Test cases    | X     | Y     | Sum       | Remark    |
+| ---           | ---   | ---   | ---       | ---       |
+| T1            | 50    | 50    | 100       | x &isinv; [1, 99], &Tab; *y remains fixed for T1-T7*|
+| T2            | -100  | 50    | *invalid* | x < 1     |
+| T3            | 250   | 50    | *invalid* | x > 99    |
+| T4            | 0     | 50    | *invalid* | x = 0     |
+| T5            | 1     | 50    | 51        | x = 1     |
+| T6            | 99    | 50    | 149       | x = 99    |
+| T7            | 100   | 50    | *invalid* | x = 100   |
+| T8            | 50    | 50    | 100       | y &isinv; [1, 99], &Tab; *x remains fixed for T8-T14*|
+| T9            | 50    | -100  | *invalid* | y < 1     |
+| T10           | 50    | 250   | *invalid* | y > 99    |
+| T11           | 50    | 0     | *invalid* | y = 0     |
+| T12           | 50    | 1     | 51        | y = 1     |
+| T13           | 50    | 99    | 149       | y = 99    |
+| T14           | 50    | 100   | *invalid* | y = 100   |
+
+**Questions:**
+
+* Do we need T3 and T7? Or are they testing the same thing (i.e. > 99)? (Same applies to T10 and T14.) If we remove one of them, we end up with 12 tests.
+* What would change if the requirement had something like sum < 167 ?
+  
+
+
 {% set video_id = "ElO9sKkG-2w" %}
 {% include "/includes/youtube.md" %}
 
 ## Exercise 2: The Sum Of Integers, part 2
+
+A program receives two numbers and returns the sum of these two integers. Numbers are between 1 *inclusive* and 99 *inclusive*. 
+Final sum should be <= 165.
+
+| Variables         | Types     | Ranges    |
+| ---               | ---       | ---       |
+| X - First number  | Integer   | [1, 99]   |
+| Y - Second number | Integer   | [1, 99]   |
+| Sum - Output      | Integer   | [0, 165]  |
+
+### Dependency among variables:
+
+* X and Y are independent (X doesn't influence the range of Y, and vice-versa).
+* X and Y are used to calculate Sum.
+* X + Y <= 165
+  
+### Equivalence partitioning / Boundary analysis
+
+| Variable  | Equivalence classes   | Invalid classes   | Boundaries    |
+| ---       | ---                   | ---               | :---:         |
+| X         | [1, 99]               | < 1               | *valid* 1 &#124; 0 *invalid*    |
+|           |                       | > 99              | 99 &#124; 100 |
+| Y         | [1, 99]               | < 1               | 1 &#124; 0    |
+|           |                       | > 99              | 99 &#124; 100 |
+| Sum       | [0, 165]              | > 165             | 165 &#124; 166    |
+
+### Strategy
+
+* X has 7 partitions, Y has 7 partitions, Sum has 4 partitions.
+* All combinations would be 7 * 7 * 4 = 196.
+* Variables are independent (X does not affect the range of Y, and vice-versa).
+* 16 tests 
+* 7 partitions of X, in point for Y, 
+* 7 partitions of Y, in points for X.
+* 2 for the extra boundary on sum.
+
+*In-point X = 50 (taking into consideration that X <= 165 - Y),  
+In-point Y = 50 (taking into consideration that Y <= 165 - X).*
+
+| Test cases    | X     | Y     | Sum       | Remark    |
+| ---           | ---   | ---   | ---       | ---       |
+| T1            | 50    | 50    | 100       | x &isinv; [1, 99], &Tab; *y remains fixed for T1-T7*|
+| T2            | -100  | 50    | *invalid* | x < 1     |
+| T3            | 250   | 50    | *invalid* | x > 99    |
+| T4            | 0     | 50    | *invalid* | x = 0     |
+| T5            | 1     | 50    | 51        | x = 1     |
+| T6            | 99    | 50    | 149       | x = 99    |
+| T7            | 100   | 50    | *invalid* | x = 100   |
+| T8            | 50    | 50    | 100       | y &isinv; [1, 99], &Tab; *x remains fixed for T8-T14*|
+| T9            | 50    | -100  | *invalid* | y < 1     |
+| T10           | 50    | 250   | *invalid* | y > 99    |
+| T11           | 50    | 0     | *invalid* | y = 0     |
+| T12           | 50    | 1     | 51        | y = 1     |
+| T13           | 50    | 99    | 149       | y = 99    |
+| T14           | 50    | 100   | *invalid* | y = 100   |
+| T15           | 82    | 83    | 165       |           |
+| T16           | 83    | 83    | *invalid* |           |
+
 
 {% set video_id = "w2er-p_tyRc" %}
 {% include "/includes/youtube.md" %}
