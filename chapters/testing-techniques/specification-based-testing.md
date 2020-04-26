@@ -483,6 +483,32 @@ A tester, after reading the specs and following the Category-Partition method, d
 
 However, the number of combinations is too high now. What actions could we take to reduce the number of combinations?
 
+**Exercise 8.**
+What test cases should be created when taking both the partition of the input parameters and the internal state of the object into account?
+
+```java
+/**
+ * Adds the specified element to this set if it 
+ * is not already present.
+ * If this set already contains the element, 
+ * the call leaves the set unchanged
+ * and returns false.
+ *
+ * If the specified element is NULL, the call leaves the
+ * set unchanged and returns false.
+ *
+ * If the attribute isFull of the calling object equals to true,
+ * the call leaves the set unchanged and return false.
+ *
+ * @param e element to be added to this set
+ * @return true if this set did not already contain 
+ *   the specified element
+ */
+public boolean add(E e) {
+    // implementation here
+}
+```
+
 
 
 ## References

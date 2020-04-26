@@ -120,6 +120,19 @@ Possible actions:
 3. We should constrain the options in the 'occurrences in a single line' category to happen only if 'occurrences in the file' are either exactly one or more than one. It does not make sense to have none occurrences in a file and one pattern in a line.
 4. We should treat 'pattern is improperly quoted' as exceptional, and thus, test it just once.
 
+**Exercise 8**
+
+* Partition of the input parameter e: as specified in the answer to Exercise 5
+
+* Internal states of the calling object: isFull equals true, isFull equals false
+
+* We can combine the internal state with isFull equals to false with all 3 partitions if the input parameters in order to check whether the method correctly adds the element into the set without the influence of the isFull attribute. Then we can create a test case with an object whose isFull attribute is true, try add a new element into the set and check whether the method returns false.
+
+* T1: isFull = false, e: Element not present in the set
+* T2: isFull = false, e: Element present in the set
+* T3: isFull = false, e: Null element
+* T4: isFull = true, e: Element not present in the set
+
 
 
 ## Boundary testing
