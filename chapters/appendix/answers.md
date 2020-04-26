@@ -115,9 +115,10 @@ This is a functional testing technique. No need for source code.
 
 Possible actions:
 
-1. We should treat pattern size 'empty' as exceptional, and thus, test it just once.
-2. We should constrain the options in the 'occurrences in a single line' category to happen only if 'occurrences in the file' are either exactly one or more than one. It does not make sense to have none occurrences in a file and one pattern in a line.
-3. We should treat 'pattern is improperly quoted' as exceptional, and thus, test it just once.
+1. We should treat file names 'no-filename with this name' and 'omitted' as exceptional, and thus, test them just once.
+2. We should treat pattern size 'empty' as exceptional, and thus, test it just once.
+3. We should constrain the options in the 'occurrences in a single line' category to happen only if 'occurrences in the file' are either exactly one or more than one. It does not make sense to have none occurrences in a file and one pattern in a line.
+4. We should treat 'pattern is improperly quoted' as exceptional, and thus, test it just once.
 
 
 
