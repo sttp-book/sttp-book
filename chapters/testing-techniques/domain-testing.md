@@ -614,6 +614,60 @@ We might look at the plot of the function. In the plot, we identify 5 boundaries
 
 ## Exercise 10: Chocolate bars
 
+A package should store a total number of kilograms. There are small bars (1 kg each) and big bars (5 kg each).
+* The input of the program is the number of small bars and big bars available and the total number of kilos to store.
+* We should calculate the number of small bars to use, assuming we always use big bars before small bars. Output -1, if it can't be done.
+
+| Variables			| Types		| Ranges	|
+| ---				| ---		| ---		|
+| Small bars 		| integer	| [0, inf]	|
+| Big bars			| integer	| [0, inf]	|
+| Total kilos		| integer	| [0, inf]	|
+| Used small bars (output)	| integer	| [-1, inf]	|
+
+### Dependency between variables
+* Input variables are independent (they don't affect each other's range).
+* Output variable depends on the three input values.
+* **Constraint**: Use big bars before small bars.
+
+*Analyse it from the perspective of the output variable: how can the input variables influence the result?*
+
+### Equivalence partitioning / Boundary analysis
+
+| Variable					| Equivalence classes	| Boundaries		|
+| ---						| ---					| ---				|
+| (small, big, total weight)| only big bars			| only big bars -> small and big bars 	|
+|							| 						| only big bars -> not enough bars		|
+|							| only small bars		| only small bars -> small and big bars	|
+|							| 						| only small bars -> not enough bars	|
+|							| small and big bars	| small and big bars -> only big bars	|
+|							| 						| small and big bars -> only small bars	|
+|							| 						| small and big bars -> not enough bars	|
+|							| not enough bars		| not enough bars -> only big bars		|
+|							| 						| not enough bars -> only small bars	|
+|							| 						| not enough bars -> small and big bars	|
+
+![Visualization of boundaries](img/domain-testing/chocolate-bar-diagram.png)
+
+### Strategy
+* There are 4 equivalence classes and 10 boundaries, but many of these boundaries are actually the same.
+  * For example, boundary 1 and 5 are in fact the same boundary. *Boundaries are not directional*
+
+| Test cases	| (Small bars, Big bars, Total weight)	| Used small bars (output)	| Remark	|
+| ---			| ---									| ---						| ---		|
+| T2			| (10, 2, 10)							| 0							| small and big bars ->	|
+| T1			| (10, 1, 10)							| 5							| only big bars			|
+| T3			| (10, 1, 10)							| 5							| small and big bars ->	|
+| T4			| (10, 0, 10)							| 10						| only small bars		|
+| T5			| (5, 0, 5)								| 5							| only small bars ->	|
+| T6			| (4, 0, 5)								| -1						| not enough bars		|
+| T7			| (4, 2, 10)							| 0							| only big bars ->		|
+| T8			| (4, 1, 10)							| -1						| not enough bars		|
+| T9			| (3, 1, 8)								| 3							| small and big bars -> |
+| T10			| (2, 1, 8)								| -1						| not enough bars (needed more small bars)	|
+| T11			| (3, 1, 8)								| 3							| small and big bars ->	|
+| T12			| (3, 0, 8)								| -1						| not enough bars (needed more big bars)	|
+
 {% set video_id = "9ij_kqj78eA" %}
 {% include "/includes/youtube.md" %}
 
