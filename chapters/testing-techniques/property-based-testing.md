@@ -68,6 +68,9 @@ With property-based testing, by means of QuickCheck's implementation, we also au
 {% include "/includes/youtube.md" %}
 
 
+{% hint style='tip' %}
+Note that, in the video, we still use the `@RunWith` annotation that was required in JUnit 4 (back then, we also used the _QuickCheck_ framework, and not _jqwik_. The code in this chapter was updated to _jqwik_, which natively supports JUnit 5. Nevertheless, the underlying idea is still the same.
+{% endhint %}
 
 ## Other examples
 
