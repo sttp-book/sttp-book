@@ -63,6 +63,12 @@ Property-based testing changes the way we automate our tests.
 We have only been automating the execution of our tests; the design and instantiation of test cases were always done by us, testers.
 With property-based testing, by means of QuickCheck's implementation, we also automatically generate the inputs of the tests.
 
+
+{% set video_id = "7kB6JaSH9p8" %}
+{% include "/includes/youtube.md" %}
+
+
+
 ## Other examples
 
 Suppose the following requirement:
@@ -200,10 +206,6 @@ By well-defining the system in these terms, we can use them as oracles in the te
 The properties always have to be true, so we can use them in all the randomly generated test cases.
 
 We will discuss AI techniques more in a future chapter.
-
-{% set video_id = "7kB6JaSH9p8" %}
-{% include "/includes/youtube.md" %}
-
 
 ## Exercises
 
