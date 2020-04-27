@@ -347,7 +347,7 @@ For `"aa"` the expected output is `"a"`.
 **Exercise 8**
 
 
-Answer 4. is correct.
+Answer 4. is incorrect.
 The loop in the method makes it impossible to achieve 100% path coverage.
 This would require us to test all possible number of iterations.
 For the other answers we can come up with a test case: `"aXYa"`
