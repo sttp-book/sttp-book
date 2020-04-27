@@ -31,7 +31,7 @@ A program receives two numbers and returns the sum of these two integers. Number
 
 * X and Y are independent (X doesn't influence the range of Y, and vice-versa).
 * X and Y are used to calculate Sum.
-  
+
 ### Equivalence partitioning / Boundary analysis
 
 | Variable  | Equivalence classes   | Invalid classes   | Boundaries    |
@@ -41,13 +41,13 @@ A program receives two numbers and returns the sum of these two integers. Number
 | Y         | [1, 99]               | < 1               | 1 &#124; 0    |
 |           |                       | > 99              | 99 &#124; 100 |
 
-### Strategy 
+### Strategy
 
 * X has 7 partitions, Y has 7 partitions.
 * All combinations would be 7 * 7 = 49.
 * Variables are independent (X does not affect the range of Y, and vice-versa).
-* 14 tests 
-* 7 partitions of X, in point for Y, 
+* 14 tests
+* 7 partitions of X, in point for Y,
 * 7 partitions of Y, in points for X.
 
 *In-point X = 50, In-point Y = 50.*
@@ -73,7 +73,7 @@ A program receives two numbers and returns the sum of these two integers. Number
 
 * Do we need T3 and T7? Or are they testing the same thing (i.e. > 99)? (Same applies to T10 and T14.) If we remove one of them, we end up with 12 tests.
 * What would change if the requirement had something like sum < 167 ?
-  
+
 
 
 {% set video_id = "ElO9sKkG-2w" %}
@@ -81,7 +81,7 @@ A program receives two numbers and returns the sum of these two integers. Number
 
 ## Exercise 2: The Sum Of Integers, part 2
 
-A program receives two numbers and returns the sum of these two integers. Numbers are between 1 *inclusive* and 99 *inclusive*. 
+A program receives two numbers and returns the sum of these two integers. Numbers are between 1 *inclusive* and 99 *inclusive*.
 Final sum should be <= 165.
 
 | Variables         | Types     | Ranges    |
@@ -95,7 +95,7 @@ Final sum should be <= 165.
 * X and Y are independent (X doesn't influence the range of Y, and vice-versa).
 * X and Y are used to calculate Sum.
 * X + Y <= 165
-  
+
 ### Equivalence partitioning / Boundary analysis
 
 | Variable  | Equivalence classes   | Invalid classes   | Boundaries    |
@@ -111,12 +111,12 @@ Final sum should be <= 165.
 * X has 7 partitions, Y has 7 partitions, Sum has 4 partitions.
 * All combinations would be 7 * 7 * 4 = 196.
 * Variables are independent (X does not affect the range of Y, and vice-versa).
-* 16 tests 
-* 7 partitions of X, in point for Y, 
+* 16 tests
+* 7 partitions of X, in point for Y,
 * 7 partitions of Y, in points for X.
 * 2 for the extra boundary on sum.
 
-*In-point X = 50 (taking into consideration that X <= 165 - Y),  
+*In-point X = 50 (taking into consideration that X <= 165 - Y),
 In-point Y = 50 (taking into consideration that Y <= 165 - X).*
 
 | Test cases    | X     | Y     | Sum       | Remark    |
@@ -200,7 +200,7 @@ The final grade of a student is calculated as follows:
 * `7 <= grade < 8` => **`C`**
 * `8 <= grade < 9` => **`B`**
 * `9 <= grade <= 10` => **`A`**
- 
+
 The system does not allow for invalid grades (e.g. 0.9, 10.5)
 
 ### Variables
@@ -278,6 +278,92 @@ Test all boundaries, yielding 12 tests.
 
 ## Exercise 5: The MSc admission problem
 
+A student can only join the MSc if :
+* `ACT = 36` and `GPA >= 3.5`
+* `ACT >= 35` and `GPA >= 3.6`
+* `ACT >= 34` and `GPA >= 3.7`
+* `ACT >= 33` and `GPA >= 3.8`
+* `ACT >= 32` and `GPA >= 3.9`
+* `ACT >= 31` and `GPA = 4.0`
+*ACT is an integer between 0 and 36 (inclusive).*
+*GPA are float variables between 0.0 and 4.0 (single decimal digit) (inclusive).*
+
+### Variables
+| Variables	| Types		| Ranges 	|
+| ---		| ---		| ---		|
+| ACT		| integer	| [0, 36]	|
+| GPA		| float		| [0.0, 4.0]	|
+| Decision	| boolean 	| true/false	|
+
+### Dependency among variables
+* ACT and GPA have a joint effect
+* ACT and GPA are used to calculate Decision.
+
+### Equivalence partitioning / Boundary Analysis
+
+| Variable	| Equivalence classes	| Boundaries	| Remark	|
+| ---		| ---					| ---			| ---		|
+|(ACT, GPA)	| (= 36, >= 3.5)		| (35, in)		| in-point GPA = 3.5 	|
+|			| 						| (37, in)		| 			|
+|			| 						| (in, 3.5)		| in-point ACT = 36		|
+|			| 						| (in, 3.4)		| 			|
+|			| (>= 35, >= 3.6)		| (35, in)		| in-point GPA = 3.6 	|
+|			| 						| (34, in)		| 			|
+|			| 						| (in, 3.6)		| in-point ACT = 35		|
+|			| 						| (in, 3.5)		| 			|
+|			| (>= 34, >= 3.7)		| (34, in)		| in-point GPA = 3.7 	|
+|			| 						| (33, in)		| 			|
+|			| 						| (in, 3.7)		| in-point ACT = 34		|
+|			| 						| (in, 3.6)		| 			|
+|			| (>= 33, >= 3.8)		| (33, in)		| in-point GPA = 3.8 	|
+|			| 						| (32, in)		| 			|
+|			| 						| (in, 3.8)		| in-point ACT = 33		|
+|			| 						| (in, 3.7)		| 			|
+|			| (>= 32, >= 3.9)		| (32, in)		| in-point GPA = 3.9 	|
+|			| 						| (31, in)		| 			|
+|			| 						| (in, 3.9)		| in-point ACT = 32		|
+|			| 						| (in, 3.8)		| 			|
+|			| (>= 31, = 4.0)		| (31, in)		| in-point GPA = 4.0 	|
+|			| 						| (30, in)		| 			|
+|			| 						| (in, 4.0)		| in-point ACT = 31		|
+|			| 						| (in, 3.9)		| 			|
+|			| (= 36, >= 3.5)		| (35, in)		| in-point GPA = 3.5 	|
+|			| 						| (37, in)		| 			|
+|			| 						| (in, 3.5)		| in-point ACT = 36		|
+|			| 						| (in, 3.4)		| 			|
+|			| (< 0, < 0.0)			| (-1, in)		| in-point GPA = 0.1 	|
+|			| 						| (in, -0.1)	| in-point ACT = 1		|
+|			| (> 36, > 4.0)			| (37, in)		| in-point GPA = 4 		|
+|			| 						| (in, 4.1)		| in-point ACT = 36		|
+
+*Note that we are using in-points that are on-points too. This is less common, but in the case of this problem choosing anohter in-point might make the final outcome to still not change between the boundary tests we devised.*
+*For example, if we choose a GPA in-point of 3.6, the 35 and 37 ACT will have the same outcome value (as the next rule will intervene).*
+
+### Strategy
+* There are 24 boundaries *(for conditions on valid inputs)*, but some are repeated. 14 boundary tests.
+  * (37, 3.5) is an invalid path, so we can ignore. Therefore 13 test cases.
+
+| Test cases	| ACT	| GPA	| Decision	|
+| ---			| ---	| ---	| ---		|
+| T1 			| 35 	| 3.5	| False		|
+| T2 			| 36 	| 3.5	| True		|
+| T3 			| 36 	| 3.4	| False		|
+| T4 			| 35 	| 3.6	| True		|
+| T5 			| 34 	| 3.7	| True		|
+| T6 			| 34 	| 3.6	| False		|
+| T7 			| 33 	| 3.8	| True		|
+| T8 			| 32 	| 3.8	| False		|
+| T9 			| 33 	| 3.7	| False		|
+| T10 			| 32 	| 3.9	| True		|
+| T11			| 31 	| 4.0	| True		|
+| T12 			| 30 	| 4.0	| False		|
+| T13 			| 31 	| 3.9	| False		|
+| T14 			| -1 	| 4.0	| *Invalid*	|
+| T15 			| 40 	| 4.0	| *Invalid*	|
+| T16 			| 36 	| -0.1	| *Invalid*	|
+| T17			| 36	| 4.1	| *Invalid* |
+
+
 {% set video_id = "g9pk25_6MrY" %}
 {% include "/includes/youtube.md" %}
 
@@ -332,7 +418,7 @@ Let's not combine "invalid strings" with them all. So: 3 tests for exceptional c
 
 If we focus on the on-points and off-points, and in-points for others, we'd have 4 + 4 + 4 = 12 tests plus invalid cases: 15 tests.
 
-In-points always taking the FN + MN + LN <= 68 restriction into account. 
+In-points always taking the FN + MN + LN <= 68 restriction into account.
 Two tests for the extra restriction: 17 tests.
 
 | Test Case | FN             | MN             | LN             | (length) | output  |                          |
