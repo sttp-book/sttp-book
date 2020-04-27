@@ -195,6 +195,8 @@ public class FizzBuzzTest {
 }
 ```
 
+You may see other examples in our [code repository](https://www.github.com/sttp-book/code-examples).
+
 ## Property-based testing and AI
 
 A lot of today's research goes into creating AI for software testing that generates good input values for tests.
