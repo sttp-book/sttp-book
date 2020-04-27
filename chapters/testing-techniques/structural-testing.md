@@ -469,7 +469,7 @@ The idea of MC/DC is to *exercise each condition
 in a way that it can, independently of the other conditions,
 affect the outcome of the entire decision*. The example that is about to come will clarify it.
 
-Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is $$N+1$$, where $$N$$ is the number of conditions in the decision. 
+Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is, on average, $$N+1$$, where $$N$$ is the number of conditions in the decision. 
 $$N+1$$ is definitely smaller than $$2^N$$!
 
 Again, to devise a test suite that achieves 100% MC/DC coverage, we should devise $$N+1$$ test cases that, when combined, 
@@ -539,6 +539,14 @@ We pick 6, randomly. You can indeed have more than one set of tests that achieve
 * Therefore, the tests that we need for 100% MC/DC coverage are {2, 3, 4, 6}.
 These are the only 4 tests we need.
 This is indeed cheaper when compared to the 8 tests we would need for path coverage.
+
+Let us now discuss some details about the MC/DC coverage:
+
+* We have applied what we call unique-cause MC/DC criteria. We identify an independence pair (T1, T2), where only a single condition changes between T1 and T2, as well as the final outcome. That might not be possible in all cases. For example, `(A and B) or (A and C)`. Ideally, we would demonstrate the independence of the first A, B, the second A, and C. It is however impossible to change the first A and not change the second A. Thus, we can not demonstrate the independence of each A in the expression. In such cases, we then allow A to vary, but we still fix all other variables (this is what is called masked MC/DC).
+
+* It might not be possible to achieve MC/DC coverage in some expressions. See `(A and B) or (A and not B)`. While the independence pairs (TT, FT) would show the independence of A, there are no pairs that show the independence of B. While logically possible, in such cases, we recommend the developer to revisit the (degenerative) expression as it might had been poorly designed. In our example, the expression could be reformulated to simply `A`.
+
+* Mathematically speaking, $$N+1$$ is the minimum number of tests required for MC/DC coverage (and $$2 * N$$ the theoretical upper bound). However, empirical studies indeed show that $$N+1$$ is often the required number of tests.
 
 
 {% set video_id = "HzmnCVaICQ4" %}
@@ -894,6 +902,8 @@ If we aim to achieve $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC),
 
 * Hayhurst, K., Veerhusen, D., Chilenski, J., Rierson, L. A Practical Tutorial on Modified Condition/Decision Coverage, 2001. URL: https://shemesh.larc.nasa.gov/fm/papers/Hayhurst-2001-tm210876-MCDC.pdf. Short version: https://www.cs.odu.edu/~mln/ltrs-pdfs/NASA-2001-20dasc-kjh.pdf.
 
+* Chilenski, J. J. (2001). An investigation of three forms of the modified condition decision coverage (MCDC) criterion. Office of Aviation Research.
+
 * Cem Kaner on Code Coverage: http://www.badsoftware.com/coverage.htm
 
 * Arie van Deursen on Code Coverage: http://avandeursen.com/2013/11/19/test-coverage-not-for-managers/
@@ -901,5 +911,4 @@ If we aim to achieve $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC),
 * Hutchins, M., Foster, H., Goradia, T., & Ostrand, T. (1994, May). Experiments of the effectiveness of data flow-and control flow-based test adequacy criteria. In Proceedings of the 16th international conference on Software engineering (pp. 191-200). IEEE Computer Society Press.
 
 * Namin, A. S., & Andrews, J. H. (2009, July). The influence of size and coverage on test suite effectiveness. In Proceedings of the eighteenth international symposium on Software testing and analysis (pp. 57-68). ACM.
-
 
