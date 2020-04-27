@@ -665,7 +665,7 @@ So there will be two fewer transitions.
 
 
 
-## Design-by-contracts and property-based testing
+## Design-by-contracts
 
 **Exercise 1**
 
@@ -733,9 +733,9 @@ To make debugging easier.
 
 
 
+## Property-based testing
 
-
-
+1. We still need answers here. Maybe you want to help us and open a PR?
 
 
 

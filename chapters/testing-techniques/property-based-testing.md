@@ -218,3 +218,4 @@ We will discuss AI techniques more in a future chapter.
 
 ## Exercises
 
+1. Write property-based tests for all the exercises we discussed in the domain testing chapters and appendix.
