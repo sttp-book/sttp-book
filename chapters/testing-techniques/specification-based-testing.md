@@ -216,7 +216,7 @@ Each of the test cases corresponds to one of the partitions that we want to test
 {% set video_id = "frzRmafsPBk" %}
 {% include "/includes/youtube.md" %}
 
-Let's explore another example:
+## Walking example
 
 > **Requirement: Chocolate bars**
 >
@@ -251,15 +251,23 @@ public class ChocolateBars {
 In this requirement, the partitions are less clear and it is essential to understand the problem fully
 in order to derive the partitions.
 
-The classes/partitions are:
+One way to perform the analysis is to consider how the input variables affect the output variables. We observe that:
 
-* **Need only small bars**. A solution that only uses the provided small bars.
-* **Need only big bars**. A solution that only uses the provided big bars.
+* There are three input variables: _number of small bars_, _number of big bars_, _number of kilos in a package_. They are all integers and values can range from 0 to infinite.
+* Given a valid _number of kilos in a package_, the outcome is then based on the _number of big bars_ and _number of small bars_. This means we can not analyse each variable separately, but only together.
+
+We derive the following classes / partitions:
+
+* **Need only small bars**. A solution that only uses small bars (and does not use big bars).
+* **Need only big bars**. A solution that only uses the big bars (and does not use small bars).
 * **Need small + big bars**. A solution that has to use both small and big bars.
 * **Not enough bars**. A case in which it is impossible, because there are not enough bars.
-* **Not from the specs**: An exceptional case.
 
-For each of these classes, we can devise concrete test cases:
+We also derive an invalid class:
+
+* **Not from the specs**: An exceptional case (e.g., negative numbers in any of the inputs).
+
+For each of these classes, we can devise five concrete test cases:
 
 * **Need only small bars**. small = 4, big = 2, total = 3
 * **Need only big bars**. small = 5, big = 3, total = 10
@@ -302,6 +310,10 @@ public class ChocolateBarsTest {
 
 This example shows a case where deriving good test cases becomes more challenging due to the
 specifications being complex.
+
+{% hint style='tip' %}
+If you know some advanced features of JUnit, you might be wondering why we did not use, e.g., Parameterized Tests. We will refactor this test code in a future chapter.
+{% endhint %}
 
 {% set video_id = "T8caAUwgquQ" %}
 {% include "/includes/youtube.md" %}
