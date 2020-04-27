@@ -240,7 +240,7 @@ Finally a third test is needed to cover line 11 (`removeElementNotPresentInListT
 **Exercise 2**
 
 ![LinkedList exercise CFG](img/structural-testing/exercises/CFG-LinkedList.svg)
-L\<number\> in the diagram represents the line number of the code that is in the block or decision.
+Ln in the diagram represents the line number of the code that is in the block or decision.
 
 **Exercise 3**
 
