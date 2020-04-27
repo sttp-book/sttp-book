@@ -535,3 +535,5 @@ We might look at the plot of the function. In the plot, we identify 5 boundaries
 ## References
 
 * Kaner, Cem, Sowmya Padmanabhan, and Douglas Hoffman. The Domain Testing Workbook. Context Driven Press, 2013.
+
+* Kaner, Cem. What Is a Good Test Case?, 2003. URL: http://testingeducation.org/BBST/testdesign/Kaner_GoodTestCase.pdf
