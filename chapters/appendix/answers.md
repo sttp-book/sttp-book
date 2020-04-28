@@ -378,7 +378,8 @@ For the other answers we can come up with a test case: `"aXYa"`
 
 
 First the condition coverage.
-We have 8 conditions:
+When talking about condition coverage, we first have to split the condition on line 1 (n % 3 == 0 && n % 5 == 0) 
+into two decision blocks for the CFG. So in total we will have 8 conditions:
 
 1. Line 1: `n % 3 == 0`, true and false
 2. Line 1: `n % 5 == 0`, true and false
@@ -386,8 +387,11 @@ We have 8 conditions:
 4. Line 5: `n % 5 == 0`, true and false
 
 T1 makes conditions 1 and 2 true and then does not cover the other conditions.
-T2 makes all the conditions false.
-In total these test cases then cover $$2 + 4 = 6$$ conditions so the condition coverage is $$\frac{6}{8} \cdot 100\% = 75\%$$
+For T2 we need to pay special attention. The input number 8 is neither divisible by 3, nor divisible by 5. 
+Having the CFG in mind, notice that when the first part of the condition on line 1 (namely n % 3 == 0) is evaluated to false,
+the second part will not even be evaluated since the && is a lazy operator. Therefore, we will end up following the false paths 
+of the first, third and the forth decision block.
+In total these test cases then cover $$2 + 3 = 5$$ conditions so the condition coverage is $$\frac{5}{8} \cdot 100\% = 62.5\%$$
 
 Now the decision coverage.
 We have 6 decision:
