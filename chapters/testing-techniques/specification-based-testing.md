@@ -497,7 +497,7 @@ What test cases should be created when taking both the partition of the input pa
  * If the specified element is NULL, the call leaves the
  * set unchanged and returns false.
  *
- * If the attribute isFull of the calling object equals to true,
+ * If the method isFull of the calling object returns true,
  * the call leaves the set unchanged and return false.
  *
  * @param e element to be added to this set
