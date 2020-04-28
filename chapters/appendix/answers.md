@@ -122,20 +122,25 @@ Possible actions:
 
 **Exercise 8**
 
-Partition of the input parameter e: 
+This focus of this exercise is for you to see that the internal state of the object should also be taken into account in the partitions (and not only the direct input variables).
+
+Input parameter e: 
 * P1: Element not present in the set
 * P2: Element already present in the set
 * P3: NULL element.
 
-* Internal states of the calling object: isFull equals true, isFull equals false
+Set is full?  (`isFull` comes from the state of the class)
+* isFull == true
+* isFull == false
 
-* We can combine the internal state with isFull returning false with all 3 partitions if the input parameters in order to check whether the method correctly adds the element into the set without the influence of the isFull method. Then we can create a test case with an object whose isFull method returns true, try add a new element into the set and check whether the method returns false. In this case we just need one test case for the isFull method returning true, since it can be considered as an invalid situation when trying to add elements into a set.
+With the categories and partitions in hands, we can constrain the `isFull == true` and test it only once (i.e., without combining with other classes). 
+
+We then combine them all and end up with four tests:
 
 * T1: isFull returns false, e: Element not present in the set
 * T2: isFull returns false, e: Element present in the set
 * T3: isFull returns false, e: Null element
 * T4: isFull returns true, e: Element not present in the set
-
 
 
 ## Boundary testing

@@ -496,7 +496,7 @@ A tester, after reading the specs and following the Category-Partition method, d
 However, the number of combinations is too high now. What actions could we take to reduce the number of combinations?
 
 **Exercise 8.**
-What test cases should be created when taking both the partition of the input parameters and the internal state of the object into account?
+What test cases should be created when taking both the partition of the input parameters *and* the internal state of the object into account?
 
 ```java
 /**
@@ -509,8 +509,9 @@ What test cases should be created when taking both the partition of the input pa
  * If the specified element is NULL, the call leaves the
  * set unchanged and returns false.
  *
- * If the method isFull of the calling object returns true,
+ * If the set is full, 
  * the call leaves the set unchanged and return false.
+ * Use private method `isFull` to know whether the set is already full.
  *
  * @param e element to be added to this set
  * @return true if this set did not already contain 
