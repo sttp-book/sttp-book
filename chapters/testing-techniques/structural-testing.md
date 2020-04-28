@@ -515,6 +515,21 @@ The idea of MC/DC is to *exercise each condition
 in a way that it can, independently of the other conditions,
 affect the outcome of the entire decision*. The example that is about to come will clarify it.
 
+In short this means that every possible condition of each parameter must have influenced the outcome at least once.
+If we take the decision block from path coverage example, `A && (B || C)`, MC/DC dictates that:
+* For condition A:
+  * There must be one test case where `A=true` and the outcome is `true`. 
+  * There must be one test case where `A=false` and the outcome is `false`.
+  * In both test cases B & C should be the same!
+* For condition B:
+  * There must be one test case where `B=true` and the outcome is `true`. 
+  * There must be one test case where `B=false` and the outcome is `false`.
+  * In both test cases A & C should be the same!
+* For condition C:
+  * There must be one test case where `C=true` and the outcome is `true`. 
+  * There must be one test case where `C=false` and the outcome is `false`.
+  * In both test cases A & B should be the same!
+    
 Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is, on average, $$N+1$$, where $$N$$ is the number of conditions in the decision. 
 $$N+1$$ is definitely smaller than $$2^N$$!
 
@@ -523,68 +538,98 @@ exercise all the combinations independently from the others.
 
 The question is how to select such test cases. See the example below.
 
-Let's test the decision block from the previous example, `(A && (B || C))`, with its corresponding truth table. Note how each row
-represents a test $$T_n$$. In this case, tests go from 1 to 8, as we have 3 decisions, and $$2^3$$ is 8:
+Imagine a program that decides whether an applicant should be admitted to the 'University of Character':
+```java
+void admission(boolean degree, boolean experience, boolean character) {
+    if (character && (degree || experience)) {
+        System.out.println("Admitted");
+    } else {
+        System.out.println("Rejected");
+    }
+}
+```
 
-| Tests | A | B | C | Outcome |
-|-------|---|---|---|---------|
-| 1     | T | T | T | T       |
-| 2     | T | T | F | T       |
-| 3     | T | F | T | T       |
-| 4     | T | F | F | F       |
-| 5     | F | T | T | F       |
-| 6     | F | T | F | F       |
-| 7     | F | F | T | F       |
-| 8     | F | F | F | F       |
+The program takes 3 booleans as input: 
+* Whether the applicant has a good character (`true` or `false`),
+* Whether the applicant has a degree (`true` or `false`),
+* Whether the applicant has experience in a field of work (`true` or `false`).
 
+If the applicant has good character AND either a degree OR experience in the field he/she will be admitted.
+In any other case the applicant will be rejected.
 
-Our goal will be to select $$N+1$$, in this case, $$3+1=4$$, tests.
+In order to test this program, we will first use the truth table used in path coverage to test all possible combinations.
+In this case, we have 3 decisions and $$2^3$$ is 8, therefore we have tests that go from 1 to 8:
+
+| Tests | Character | Degree | Experience | Decision |
+|-------|:---------:|:------:|:----------:|----------|
+| 1     | T         | T      | T          | T        |
+| 2     | T         | T      | F          | T        |
+| 3     | T         | F      | T          | T        |
+| 4     | T         | F      | F          | F        |
+| 5     | F         | T      | T          | F        |
+| 6     | F         | T      | F          | F        |
+| 7     | F         | F      | T          | F        |
+| 8     | F         | F      | F          | F        |
+
+Our goal will be to apply the MC/DC criterion to these test cases,
+and select $$N+1$$, in this case $$3+1=4$$, tests.
 
 Let us go condition by condition.
-In this case, we start with selecting the pairs of combinations (or tests) for condition A:
+In this case, we start with selecting the pairs of combinations (or tests) for the `Character` parameter.
 
-* In test 1: A, B and C are all `true` and the outcome is `true` as well. We now look for another test in this table, where the value of A is flipped in comparison to test 1, but the others (B and C) are the same. In this case, we should look for a row where A=`false`, B=`true`, C=`true`. We find this in test 5. When we look at the outcome of test 5, we find it is `false`.
+* In test 1: `Character`, `Degree`, and `Experience` are all `true` and the `Decision` is `true` as well. We now look for another test in this table, where only the value of `Character` is the opposite of the value in test 1,
+but the others (`Degree` and `Experience`) are still the same. This means we have to look for a test where `Character = false`, `Degree = true`, `Experience = true`. This combination appears in test 5. The outcome of test 5 is `false`. 
 
-  This means we just found a pair of tests, $$T_1$$ and $$T_5$$, where A is the only condition that changed, and the outcome also changed. In other words, a pair of tests where A independently influences the outcome. Let's keep the pair $$\{T_1, T_5\}$$ in our list of tests.
+  Thus, we just found a pair of tests, $$T_1$$ and $$T_5$$, where `Character` is the only parameter which changed and the outcome (`Decision`) changed as well.
+  In other words, a pair of tests where the `Character` **independently** influences the outcome (`Decision`). Let's keep the pair $$\{T_1, T_5\}$$ in our list of test cases.
 
-* Now we look at the next test. In test 2, A is again `true`, B is `true`, and C is `false`. We repeat the process: we search for a test where A is flipped in comparison to test 2, but B and C are the same (B=`true`, C=`false`).
+* Now we look at the next test. In test 2, `Character = true`, `Degree = true`, and `Experience = false`. We repeat the process and search for a test where `Character` is the opposite of the value in test 2, but `Degree` and `Experience` remain the same (`Degree = true`, `Experience = false`). This set appears in test 6. The outcome of test 6 is `false`.
 
-  We find this in test 6. The outcome from test 6 (`false`) is not the same as the outcome of test 2 (`true`), so this means that the pair of tests $$\{T_2, T_6\}$$ is also able to independently show how A can affect the final outcome.
+    This means we just found another pair of tests, $$T_2$$ and $$T_6$$, where `Character` is the only parameter which changed and the outcome (`Decision`) changed as well.
 
-* We repeat the process for test 3. We will find here that the pair $$\{T_3, T_7\}$$ also independently tests how condition A affects the outcome.
+* Again, we repeat the process for test 3 (`Character = true`, `Degree = false`, `Experience = true`) and find that the `Character` parameter in test 7 (`Character = false`, `Degree = false`, `Experience = true`) is the opposite of the value in test 3 and changes the outcome (`Decision`). 
 
-* We repeat the process for test 4 (A=`true`, B=`false`, C=`false`). Its pair is test 8 (A=`false`, B=`false`, C=`false`). We note that the outcome of both tests is the same (`false`). This means that the pair $$\{T_4, T_8\}$$ does not show how A can independently affect the overall outcome; after all, A is the only thing that changes in these two tests, but the outcome is still the same.
+* For test 4 (`Character = true`, `Degree = false`, `Experience = false`). Its pair is test 8 (`Character = false`, `Degree = false`, `Experience = false`). But, the outcome of both tests is the same (`Decision = false`). This means that the pair $$\{T_4, T_8\}$$ does not show how `Character` can independently affect the overall outcome; after all, `Character` is the only thing that changes in these two tests, but the outcome is still the same.
 
-* We do not find another suitable pair when we repeat the process for tests 5, 6, 7 and 8.
+As we do not find another suitable pair when repeating the process for tests 5, 6, 7 and 8, we move on from the `Character` parameter to the `Degree` parameter. We repeat the same process, but now we search for the opposite value of parameter `Degree` whilst `Character` and `Experience` stay the same.
 
-* Now that we have tested condition A, we move to condition B. We repeat the same process, but now we flip the input of B, and keep A and C the same.
+* For test 1 (`Charater = true`, `Degree = true`, `Experience = true`), we search for a test where (`Charater = true`, `Degree = false`, `Experience = true`). This appears to be the case in test 3. However, the outcome for both test cases stay the same. Therefore, $$\{T_1, T_3\}$$ does not show how the `Degree` parameter can independently affect the outcome.
 
-* For $$T_1$$ (A=`true`, B=`true`, C=`true`), we search for a test where (A=`true`, B=`false`, C=`true`). We find test 3. However, the outcome is the same, so the pair $$\{T_1, T_3\}$$ does not show how B can independently affect the overall outcome.
+* After repeating all the steps for the other tests we find only $$\{T_2, T_4\}$$ to have different values for the `Degree` parameter where the outcome also changes.
 
-* You will only find the pair $$\{T_2, T_4\}$$ for condition B.
+Finally we move to the `Experience` parameter.
 
-* The final condition is C. There is only one pair of combinations that will work, which is $$\{T_3, T_4\}$$. (You should carry out the entire process to practise how the process works!)
+* As with the `Degree` parameter, there is only one pair of combinations that will work, which is $$\{T_3, T_4\}$$. 
 
-* We now have all the pairs for each of the conditions:
+We highly recommend carrying out the entire process yourself to get a feeling of how the process works!
 
-  - A: {1, 5}, {2, 6}, {3, 7}
-  - B: {2, 4}
-  - C: {3, 4}
+We now have all the pairs for each of the parameters:
+- `Character`: {1, 5}, {2, 6}, {3, 7}
+- `Degree`: {2, 4}
+- `Experience`: {3, 4}
 
-* To select the combinations that we want to test, we have to have at least one of the pairs for each condition (A, B, and C). We want to minimise the total number of tests, and we know for a fact that we can achieve this with $$N+1$$ tests.
+MC/DC states that we should have at least one of the pairs for each condition (`Character`, `Degree` and `Experience`). We want to minimise the total number of tests, and we know for a fact that we can
+achieve this with $$N+1$$ tests.
 
-* We do not have any choices with conditions B and C, as we only found one pair for each.
-This means that we have to test combinations 2, 3, and 4.
+We do not have any choices with conditions `Degree` and `Experience`, as we found only one pair of tests for each parameter.
+This means that we have to test combinations 2, 3 and 4.
 
-* We need to find the appropriate pair of A. Note that any
+Lastly, we need to find the appropriate pair of A. Note that any
 of them would fit. However, we want to reduce the total amount
 of tests in the test suite (and again, we know we only need 4 in this case).
-To do so we can either add test 6 or test 7. 
-We pick 6, randomly. You can indeed have more than one set of tests that achieves 100% MC/DC; all solutions are equally acceptable.
 
-* Therefore, the tests that we need for 100% MC/DC coverage are {2, 3, 4, 6}.
-These are the only 4 tests we need.
-This is indeed cheaper when compared to the 8 tests we would need for path coverage.
+If we were to pick either test 1 or test 5 we would have to include either test 5 or test 1 as well, 
+as they are their opposites, but therefore unneccesarily increasing our number of tests.
+In order to keep our test cases in accordance to $$N+1$$ or in this case $$3+1$$, thus 4 test cases we can 
+either add test 6 or test 7, as their opposites (test 2 or 3) are already included in our test cases.
+Randomly, we pick test 6.
+
+{% hint style='tip' %}
+You can indeed have more than one set of tests that achieve 100% MC/DC; all solutions are equally acceptable.
+{% endhint %}
+
+Therefore, the tests that we need for 100% MC/DC coverage are {2, 3, 4, 6}.
+These are the only 4 tests we need. This is indeed cheaper when compare to the 8 tests we would need for path coverage.
 
 Let us now discuss some details about the MC/DC coverage:
 
