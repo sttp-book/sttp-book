@@ -496,9 +496,9 @@ Imagine a program that decides whether an applicant should be admitted to the 'U
 ```java
 void admission(boolean degree, boolean experience, boolean character) {
     if (character && (degree || experience)) {
-        System.out.printl("Admitted");
+        System.out.println("Admitted");
     } else {
-        System.out.printl("Rejected");
+        System.out.println("Rejected");
     }
 }
 ```
