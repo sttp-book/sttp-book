@@ -649,6 +649,23 @@ We quote two of these studies:
 For interested readers, an extensive literature review on the topic can be found in
 Zhu, H., Hall, P. A., & May, J. H. (1997). Software unit test coverage and adequacy. ACM computing surveys (csur), 29(4), 366-427.
 
+## Structural testing vs structural coverage
+
+A common misconception among practitioners to *confuse structural testing with structural coverage*.
+
+Structural testing means *leveraging the structure of the source code to systematically exercise the system under test*. When compared to specification-based testing, we note that structural testing is: 
+
+- More objective. In other words, it does not depend on the opinions and experience of the tester. While different testers might come up with different specification-based tests, they would come with similar structural tests.
+
+- Implementation-aware. Implementations can vary from the specifications. After all, there are so many ways one can implement a program. Structural testing enables testers to explore the precise implementation.
+
+On the other hand, structural testing is a _check and balance_ (as Chilenski puts it) on the specification-based tests. Structural testing confirms and complements the tests that we derived before.
+
+It is common to see developers running their coverage tools and writing tests for the outputs they observe. Developers that are mostly focused on (simply) achieving high _structural coverage_ are missing the main point of structural testing. 
+
+Again, structural testing should complement your requirements-based testing. As Chilenski suggests (see Figure 3 in his paper), the first step of a tester should be to derive test cases out of any requirements-based technique. Once requirements are fully covered, testers then perform structural testing to cover what is missing from the structural-point of view. Any divergences should be brought back to the requirements-based testing phase: _why did we not find this class/partition before?_ Once requirements and structure are covered, one can consider the testing phase done.
+
+Therefore, do not aim at 100% coverage. Use structural testing to complement your specification-based tests.
 
 ## Exercises
 
