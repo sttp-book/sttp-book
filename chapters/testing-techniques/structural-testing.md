@@ -939,7 +939,7 @@ If we aim to achieve $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC),
 
 * Hayhurst, K., Veerhusen, D., Chilenski, J., Rierson, L. A Practical Tutorial on Modified Condition/Decision Coverage, 2001. URL: https://shemesh.larc.nasa.gov/fm/papers/Hayhurst-2001-tm210876-MCDC.pdf. Short version: https://www.cs.odu.edu/~mln/ltrs-pdfs/NASA-2001-20dasc-kjh.pdf.
 
-* Chilenski, J. J. (2001). An investigation of three forms of the modified condition decision coverage (MCDC) criterion. Office of Aviation Research.
+* Chilenski, J. J. (2001). An investigation of three forms of the modified condition decision coverage (MCDC) criterion. Office of Aviation Research. http://www.tc.faa.gov/its/worldpac/techrpt/ar01-18.pdf
 
 * Cem Kaner on Code Coverage: http://www.badsoftware.com/coverage.htm
 
