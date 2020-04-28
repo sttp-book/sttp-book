@@ -26,7 +26,6 @@
 * [Testing techniques](chapters/testing-techniques/README.md)
 	* [Specification-based testing](chapters/testing-techniques/specification-based-testing.md)
 	* [Boundary testing](chapters/testing-techniques/boundary-testing.md)
-	* [Domain testing](chapters/testing-techniques/domain-testing.md)
 	* [Structural testing](chapters/testing-techniques/structural-testing.md)
 	* [Model-based testing](chapters/testing-techniques/model-based-testing.md)
 	* [Design-by-contracts](chapters/testing-techniques/design-by-contracts.md)
@@ -74,5 +73,6 @@
 
 * Appendix
 	* [Answers to the exercises](chapters/appendix/answers.md)
+	* [Domain testing examples](chapters/testing-techniques/domain-testing.md)
 	* [Change log](chapters/appendix/changelog.md)
 

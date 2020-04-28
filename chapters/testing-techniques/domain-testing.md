@@ -1,13 +1,11 @@
-# Domain testing
-
-In the two previous chapters, we discussed _equivalent class analysis_ and _boundary testing_. In this chapter, we now revisit these techniques, and show how testers combine them both to derive test cases. We call it _domain testing_.
+# Domain testing examples
 
 This chapter follows a problem-based approach. We first show a program requirement, and then, show how we would apply equivalent class analysis and boundary testing.
 
 We will follow a common strategy when applying domain testing, highly influenced by how Kaner et al. do:
 
 1. We read the requirement
-2. We identify the input and output variables in play, their types, and their ranges.
+2. We identify the input and output variables in play, together with their types, and their ranges.
 3. We identify the dependencies (or independence) among input variables, and how input variables influence the output variable.
 4. We perform equivalent class analysis (valid and invalid classes).
 5. We explore the boundaries of these classes.
@@ -21,10 +19,125 @@ See the videos for detailed explanations. See also the JUnit test cases we imple
 
 ## Exercise 1: The Sum Of Integers
 
+A program receives two numbers and returns the sum of these two integers. Numbers are between 1 *inclusive* and 99 *inclusive*.
+
+| Variables         | Types     | Ranges    |
+| ---               | ---       | ---       |
+| X - First number  | Integer   | [1, 99]   |
+| Y - Second number | Integer   | [1, 99]   |
+| Sum - Output      | Integer   | [1, inf]  |
+
+### Dependency among variables:
+
+* X and Y are independent (X doesn't influence the range of Y, and vice-versa).
+* X and Y are used to calculate Sum.
+  
+### Equivalence partitioning / Boundary analysis
+
+| Variable  | Equivalence classes   | Invalid classes   | Boundaries    |
+| ---       | ---                   | ---               | :---:         |
+| X         | [1, 99]               | < 1               | *valid* 1 &#124; 0 *invalid*    |
+|           |                       | > 99              | 99 &#124; 100 |
+| Y         | [1, 99]               | < 1               | 1 &#124; 0    |
+|           |                       | > 99              | 99 &#124; 100 |
+
+### Strategy 
+
+* X has 7 partitions, Y has 7 partitions.
+* All combinations would be 7 * 7 = 49.
+* Variables are independent (X does not affect the range of Y, and vice-versa).
+* 14 tests 
+* 7 partitions of X, in point for Y, 
+* 7 partitions of Y, in points for X.
+
+*In-point X = 50, In-point Y = 50.*
+
+| Test cases    | X     | Y     | Sum       | Remark    |
+| ---           | ---   | ---   | ---       | ---       |
+| T1            | 50    | 50    | 100       | x &isinv; [1, 99], &Tab; *y remains fixed for T1-T7*|
+| T2            | -100  | 50    | *invalid* | x < 1     |
+| T3            | 250   | 50    | *invalid* | x > 99    |
+| T4            | 0     | 50    | *invalid* | x = 0     |
+| T5            | 1     | 50    | 51        | x = 1     |
+| T6            | 99    | 50    | 149       | x = 99    |
+| T7            | 100   | 50    | *invalid* | x = 100   |
+| T8            | 50    | 50    | 100       | y &isinv; [1, 99], &Tab; *x remains fixed for T8-T14*|
+| T9            | 50    | -100  | *invalid* | y < 1     |
+| T10           | 50    | 250   | *invalid* | y > 99    |
+| T11           | 50    | 0     | *invalid* | y = 0     |
+| T12           | 50    | 1     | 51        | y = 1     |
+| T13           | 50    | 99    | 149       | y = 99    |
+| T14           | 50    | 100   | *invalid* | y = 100   |
+
+**Questions:**
+
+* Do we need T3 and T7? Or are they testing the same thing (i.e. > 99)? (Same applies to T10 and T14.) If we remove one of them, we end up with 12 tests.
+* What would change if the requirement had something like sum < 167 ?
+  
+
+
 {% set video_id = "ElO9sKkG-2w" %}
 {% include "/includes/youtube.md" %}
 
 ## Exercise 2: The Sum Of Integers, part 2
+
+A program receives two numbers and returns the sum of these two integers. Numbers are between 1 *inclusive* and 99 *inclusive*. 
+Final sum should be <= 165.
+
+| Variables         | Types     | Ranges    |
+| ---               | ---       | ---       |
+| X - First number  | Integer   | [1, 99]   |
+| Y - Second number | Integer   | [1, 99]   |
+| Sum - Output      | Integer   | [0, 165]  |
+
+### Dependency among variables:
+
+* X and Y are independent (X doesn't influence the range of Y, and vice-versa).
+* X and Y are used to calculate Sum.
+* X + Y <= 165
+  
+### Equivalence partitioning / Boundary analysis
+
+| Variable  | Equivalence classes   | Invalid classes   | Boundaries    |
+| ---       | ---                   | ---               | :---:         |
+| X         | [1, 99]               | < 1               | *valid* 1 &#124; 0 *invalid*    |
+|           |                       | > 99              | 99 &#124; 100 |
+| Y         | [1, 99]               | < 1               | 1 &#124; 0    |
+|           |                       | > 99              | 99 &#124; 100 |
+| Sum       | [0, 165]              | > 165             | 165 &#124; 166    |
+
+### Strategy
+
+* X has 7 partitions, Y has 7 partitions, Sum has 4 partitions.
+* All combinations would be 7 * 7 * 4 = 196.
+* Variables are independent (X does not affect the range of Y, and vice-versa).
+* 16 tests 
+* 7 partitions of X, in point for Y, 
+* 7 partitions of Y, in points for X.
+* 2 for the extra boundary on sum.
+
+*In-point X = 50 (taking into consideration that X <= 165 - Y),  
+In-point Y = 50 (taking into consideration that Y <= 165 - X).*
+
+| Test cases    | X     | Y     | Sum       | Remark    |
+| ---           | ---   | ---   | ---       | ---       |
+| T1            | 50    | 50    | 100       | x &isinv; [1, 99], &Tab; *y remains fixed for T1-T7*|
+| T2            | -100  | 50    | *invalid* | x < 1     |
+| T3            | 250   | 50    | *invalid* | x > 99    |
+| T4            | 0     | 50    | *invalid* | x = 0     |
+| T5            | 1     | 50    | 51        | x = 1     |
+| T6            | 99    | 50    | 149       | x = 99    |
+| T7            | 100   | 50    | *invalid* | x = 100   |
+| T8            | 50    | 50    | 100       | y &isinv; [1, 99], &Tab; *x remains fixed for T8-T14*|
+| T9            | 50    | -100  | *invalid* | y < 1     |
+| T10           | 50    | 250   | *invalid* | y > 99    |
+| T11           | 50    | 0     | *invalid* | y = 0     |
+| T12           | 50    | 1     | 51        | y = 1     |
+| T13           | 50    | 99    | 149       | y = 99    |
+| T14           | 50    | 100   | *invalid* | y = 100   |
+| T15           | 82    | 83    | 165       |           |
+| T16           | 83    | 83    | *invalid* |           |
+
 
 {% set video_id = "w2er-p_tyRc" %}
 {% include "/includes/youtube.md" %}
@@ -169,6 +282,84 @@ Test all boundaries, yielding 12 tests.
 {% include "/includes/youtube.md" %}
 
 ## Exercise 6: The printing label
+
+A printer prints mailing labels.
+The first line is the name of the person.
+
+The program builds the name from three fields: first name, middle name, and last name.
+Each field can hold up to 30 characters.
+The label can be up to 70 characters wide.
+
+### Variables
+
+| Variables     | Types   | Ranges  |
+|---------------|---------|---------|
+| Len. of FN    | integer | [1, 30] |
+| Len. of MN    | integer | [0, 30] |
+| Len. of LN    | integer | [0, 30] |
+| Output length | integer | [1, 70] |
+
+### Dependencies among variables
+
+FN + MN + LN <= 68
+
+(The difference of 2 (to 70) happens as the system needs to add an empty space in between names)
+
+### Equivalence partitioning / Boundary analysis
+
+| Variable     | Equivalence Classes | Invalid Classes | Boundaries | Notes                           |
+|--------------|---------------------|-----------------|------------|---------------------------------|
+| FN           | [1, 30]             | invalid string  | 0          | everybody has a first name      |
+|              |                     |                 | 1          |                                 |
+|              |                     |                 | 30         |                                 |
+|              |                     |                 | 31         | same as >30                     |
+| MN           | [0, 30]             | invalid string  | 0          | not everybody has a middle name |
+|              |                     |                 | -1         |                                 |
+|              |                     |                 | 30         |                                 |
+|              |                     |                 | 31         |                                 |
+| LN           | [0, 30]             | invalid string  | 0          | not everybody has a last name   |
+|              |                     |                 | -1         |                                 |
+|              |                     |                 | 30         |                                 |
+|              |                     |                 | 31         |                                 |
+| (FN, MN, LN) | FM + MN + LN <= 68  |                 | 68         |                                 |
+|              |                     |                 | 69         |                                 |
+
+### Strategy
+
+Each variable has 6 partitions, thus: 6 * 6 * 6 = 216 tests.
+
+Let's not combine "invalid strings" with them all. So: 3 tests for exceptional cases + 5 * 5 * 5 = 125 + 3 = 128.
+
+If we focus on the on-points and off-points, and in-points for others, we'd have 4 + 4 + 4 = 12 tests plus invalid cases: 15 tests.
+
+In-points always taking the FN + MN + LN <= 68 restriction into account. 
+Two tests for the extra restriction: 17 tests.
+
+| Test Case | FN             | MN             | LN             | (length) | output  |                          |
+|-----------|----------------|----------------|----------------|----------|---------|--------------------------|
+| T1        | 0              | 15             | 7              | 22       | invalid | FN boundaries            |
+| T2        | 1              | 7              | 2              | 10       | valid   |                          |
+| T3        | 30             | 3              | 9              | 42       | valid   |                          |
+| T4        | 31             | 21             | 12             | 64       | invalid |                          |
+| T5        | 15             | 0              | 15             | 30       | valid   | MN boundaries            |
+| T6        | 20             | -1             | 7              | 26       | invalid |                          |
+| T7        | 21             | 30             | 6              | 57       | valid   |                          |
+| T8        | 22             | 31             | 3              | 56       | invalid |                          |
+| T9        | 7              | 3              | 0              | 10       | valid   | LN boundaries            |
+| T10       | 2              | 6              | -1             | 7        | invalid |                          |
+| T11       | 9              | 18             | 30             | 57       | valid   |                          |
+| T12       | 12             | 27             | 31             | 70       | invalid |                          |
+| T13       | invalid string | 14             | 20             |          | invalid | invalid classes          |
+| T14       | 11             | invalid string | 23             |          | invalid |                          |
+| T15       | 9              | 19             | invalid string |          | invalid |                          |
+| T16       | 23             | 23             | 22             | 68       | valid   | FN + MN + LN restriction |
+| T17       | 23             | 23             | 23             | 69       | invalid |                          |
+
+### Notes:
+
+* We simplified the output by basically returning "valid" or "invalid". You might also wanna check the final name that was generated.
+* Test cases with strings of length -1 might then not be possible.
+
 
 {% set video_id = "JoHwLORk0cw" %}
 {% include "/includes/youtube.md" %}
@@ -344,3 +535,5 @@ We might look at the plot of the function. In the plot, we identify 5 boundaries
 ## References
 
 * Kaner, Cem, Sowmya Padmanabhan, and Douglas Hoffman. The Domain Testing Workbook. Context Driven Press, 2013.
+
+* Kaner, Cem. What Is a Good Test Case?, 2003. URL: http://testingeducation.org/BBST/testdesign/Kaner_GoodTestCase.pdf
