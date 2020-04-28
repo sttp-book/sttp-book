@@ -471,18 +471,18 @@ affect the outcome of the entire decision*. The example that is about to come wi
 
 In short this means that every possible condition of each parameter must have influenced the outcome at least once.
 If we take the decision block from path coverage example, `A && (B || C)`, MC/DC dictates that:
-    For condition A:
-        There must be one test case where A=`true` and the outcome is `true`. 
-        There must be one test case where A=`false` and the outcome is `false`.
-        In both test cases B & C should be the same!
-    For condition B:
-        There must be one test case where B=`true` and the outcome is `true`. 
-        There must be one test case where B=`false` and the outcome is `false`.
-        In both test cases A & C should be the same!
-    For condition C:
-        There must be one test case where B=`true` and the outcome is `true`. 
-        There must be one test case where C=`false` and the outcome is `false`.
-        In both test cases A & B should be the same!
+* For condition A:
+  * There must be one test case where A=`true` and the outcome is `true`. 
+  * There must be one test case where A=`false` and the outcome is `false`.
+  * In both test cases B & C should be the same!
+* For condition B:
+  * There must be one test case where B=`true` and the outcome is `true`. 
+  * There must be one test case where B=`false` and the outcome is `false`.
+  * In both test cases A & C should be the same!
+* For condition C:
+  * There must be one test case where B=`true` and the outcome is `true`. 
+  * There must be one test case where C=`false` and the outcome is `false`.
+  * In both test cases A & B should be the same!
     
 Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is $$N+1$$, where $$N$$ is the number of conditions in the decision. 
 $$N+1$$ is definitely smaller than $$2^N$$!
