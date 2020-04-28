@@ -534,12 +534,12 @@ In this case, we start with selecting the pairs of combinations (or tests) for t
 * In test 1: Character, Degree, and Experience are all `true` and the Decision is `true` as well. We now look for another test in this table, where only the value of Character is the opposite of the value in test 1,
 but the others (Degree and Experience) are still the same. This means we have to look for a test where Character=`false`, Degree=`true`, Experience=`true`. This set appears in test 5. The outcome of test 5 is `false`. 
 
-    Thus, we just found a pair of tests, $$T_1$$ and $$T_5$$, where Character is the only parameter of which the condition changed and the outcome (Decision) changed as well.
+    Thus, we just found a pair of tests, $$T_1$$ and $$T_5$$, where Character is the only parameter which changed and the outcome (Decision) changed as well.
     In other words, a pair of tests where the Character **independently** influences the outcome (Decision). Let's keep the pair $$\{T_1, T_5\}$$ in our list of test cases.
 
 * Now we look at the next test. In test 2, Character is again `true`, Degree is `true`, and Experience is `false`. We repeat the process and search for a test where A is the opposite of the value in test 2, but Degree and Experience remain the same (Degree=`true`, Experience=`false`). This set appears in test 6. The outcome of test 6 is `false`.
 
-    This means we just found another pair of tests, $$T_2$$ and $$T_6$$, where Character is the only parameter of which the condition changed and the outcome (Decision) changed as well.
+    This means we just found another pair of tests, $$T_2$$ and $$T_6$$, where Character is the only parameter which changed and the outcome (Decision) changed as well.
 
 * Again, we repeat the process for test 3 (Character=`true`, Degree=`false`, Experience=`true`) and find that the Character parameter in test 7 (Character=`false`, Degree=`false`, Experience=`true`) is the opposite of the value in test 3 and changes the outcome (Decision). 
 
