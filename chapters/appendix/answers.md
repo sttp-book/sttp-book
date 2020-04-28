@@ -449,9 +449,23 @@ Option 1 is correct.
 
 
 
-Option 1 is the correct one.
+Option 1 is the correct one. Consider the following table:
 
-Tests for A = (2,6), B = (2,4), C = (3, 4), (5, 6), (7,8). Thus, from the options, tests 2, 3, 4 and 6 are the only ones that achieve 100% MC/DC. Note that 2, 4, 5, 6 could also be a solution.
+<table>
+    <tr><th>Decision</th><th>A</th><th>B</th><th>C</th><th>(A & B) | C</th></tr>
+    <tr><td>1</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+    <tr><td>2</td><td>T</td><td>T</td><td>F</td><td>T</td></tr>
+    <tr><td>3</td><td>T</td><td>F</td><td>T</td><td>T</td></tr>
+    <tr><td>4</td><td>T</td><td>F</td><td>F</td><td>F</td></tr>
+    <tr><td>5</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+    <tr><td>6</td><td>F</td><td>T</td><td>F</td><td>F</td></tr>
+    <tr><td>7</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+    <tr><td>8</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+</table>
+
+Test pairs for `A = {(2,6)}`, `B = {(2,4)}` and `C = {(3, 4), (5, 6), (7,8)}`.
+Thus, from the options, tests 2, 3, 4 and 6 are the only ones that achieve 100% MC/DC.
+Note that 2, 4, 5, 6 could also be a solution.
 
 
 
