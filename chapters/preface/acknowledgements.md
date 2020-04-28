@@ -6,4 +6,5 @@
 * Frank Mulder for giving the book a full technical review.
 * Marsha Ginsberg for giving the book a complete grammar check.
 * For the many TAs that have helped us in improving the book. The complete list of contributors can be found at https://github.com/sttp-book/sttp-book/graphs/contributors 
+	* 2020 edition: Evaldas Latoškinas, Sára Juhošová, Dixit Sabharwal, Abel Mălan.
 
