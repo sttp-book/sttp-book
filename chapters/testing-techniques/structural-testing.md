@@ -402,6 +402,10 @@ of the compound decisions are exercised).
 From now on, whenever we mention **condition coverage**, we mean **condition + branch coverage**.
 
 
+{% hint style='tip' %}
+Another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in $$2^N$$ tests, given $$N$$ conditions.
+{% endhint %}
+
 {% set video_id = "oWPprB9GBdE" %}
 {% include "/includes/youtube.md" %}
 
@@ -450,14 +454,56 @@ We make a truth table to find the combinations:
 
 
 This means that, for full path coverage, we would need 8 tests just to cover this `if` statement.
-That is quite a lot for just a single statement.
+It is a large number for just a single statement. 
 
-By aiming at achieving path coverage of our program, testers can indeed come up with good tests.
-However, the main issue is that achieving 100% path coverage might not always be feasible or too costly.
-The number of tests needed for full path coverage will grow exponentially with the number of conditions in a decision.
+While this seems similar to the MCC criterion we quickly discussed above, imagine programs that rely on loops:
+
+```java
+boolean shouldRun = true;
+while(shouldRun) {
+  something();
+  something2();
+
+  shouldRun = something3();
+}
+```
+
+To satisfy all the criteria we studied so far, we would need to exercise the `shouldRun` as being true and false. That does not happen with path coverage. To satisfy path coverage, we would need to test all the possible paths that can happen. The unbounded loop might make this program to iterate an infinite number of times. Imagine now a program with two unbounded loops together. How many different possible paths does this program have?
+
+Achieving 100% path coverage might not always be feasible or too costly.
+The number of tests needed for full path coverage will grow exponentially with the number of conditions and unbounded loops.
 
 {% set video_id = "hpE-aZYulmk" %}
 {% include "/includes/youtube.md" %}
+
+
+## Loop boundary adequacy
+
+The section raised an interesting problem:
+in terms of coverage criteria, what to do when we have loops? When there is a loop, the block inside of the loop might be executed many times, making testing more complicated.
+
+Think of a `while(true)` loop which can be non-terminating. If we wanted to be rigorous about it, we would have to test the program where the loop block is executed one time, two times, three times, etc. Imagine a `for(i = 0; i < 10; i++)` loop with a `break` inside of the body. We would have to test what happens if the loop body executes one time, two times, three times, ..., up to ten times.
+It might be impossible to exhaustively test all the combinations.
+
+How can we handle long-lasting loops (a loop that runs for many iterations), or unbounded loops (where we do not know how many times it will be executed)? 
+
+Given that exhaustive testing is impossible,
+testers often rely on the **loop boundary adequacy criterion**
+to decide when to stop testing a loop. A test suite satisfies this criterion if and only if for every loop:
+
+* A test case exercises the loop zero times;
+* A test case exercises the loop once;
+* A test case exercises the loop multiple times.
+
+The idea behind the criterion is to make sure the program
+is tested when the loop is never executed (does the program
+behave correctly when the loop is simply 'skipped'?), when it only iterates once (as we empirically know that algorithms may not handle single cases correctly), and many times.
+
+Pragmatically speaking, the main challenge comes when devising
+the test case for the loop being executed multiple times.
+Should the test case force the loop to iterate for 2, 5, or 10 times?
+That requires a good understanding of the program/requirement itself. 
+Our suggestion for testers is to rely on specification-based techniques. With an optimal understanding of the specs, one should be able to devise good tests for the particular loop.
 
 
 ## MC/DC (Modified Condition/Decision Coverage)
@@ -553,32 +599,6 @@ Let us now discuss some details about the MC/DC coverage:
 {% include "/includes/youtube.md" %}
 
 
-## Loop boundary adequacy
-
-In terms of coverage criteria, what to do when we have loops? When there is a loop, the block inside of the loop might be executed many times, making testing more complicated.
-
-Think of a `while(true)` loop which can be non-terminating. If we wanted to be rigorous about it, we would have to test the program where the loop block is executed one time, two times, three times, etc. Imagine a `for(i = 0; i < 10; i++)` loop with a `break` inside of the body. We would have to test what happens if the loop body executes one time, two times, three times, ..., up to ten times.
-It might be impossible to exhaustively test all the combinations.
-
-How can we handle long-lasting loops (a loop that runs for many iterations), or unbounded loops (where we do not know how many times it will be executed)? 
-
-Given that exhaustive testing is impossible,
-testers often rely on the **loop boundary adequacy criterion**
-to decide when to stop testing a loop. A test suite satisfies this criterion if and only if for every loop:
-
-* A test case exercises the loop zero times;
-* A test case exercises the loop once;
-* A test case exercises the loop multiple times.
-
-The idea behind the criterion is to make sure the program
-is tested when the loop is never executed (does the program
-behave correctly when the loop is simply 'skipped'?), when it only iterates once (as we empirically know that algorithms may not handle single cases correctly), and many times.
-
-Pragmatically speaking, the main challenge comes when devising
-the test case for the loop being executed multiple times.
-Should the test case force the loop to iterate for 2, 5, or 10 times?
-That requires a good understanding of the program/requirement itself. 
-Our suggestion for testers is to rely on specification-based techniques. With an optimal understanding of the specs, one should be able to devise good tests for the particular loop.
 
 
 ## Criteria subsumption
