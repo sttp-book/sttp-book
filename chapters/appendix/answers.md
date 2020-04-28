@@ -115,9 +115,10 @@ This is a functional testing technique. No need for source code.
 
 Possible actions:
 
-1. We should treat pattern size 'empty' as exceptional, and thus, test it just once.
-2. We should constrain the options in the 'occurrences in a single line' category to happen only if 'occurrences in the file' are either exactly one or more than one. It does not make sense to have none occurrences in a file and one pattern in a line.
-3. We should treat 'pattern is improperly quoted' as exceptional, and thus, test it just once.
+1. We should treat file names 'no-filename with this name' and 'omitted' as exceptional, and thus, test them just once.
+2. We should treat pattern size 'empty' as exceptional, and thus, test it just once.
+3. We should constrain the options in the 'occurrences in a single line' category to happen only if 'occurrences in the file' are either exactly one or more than one. It does not make sense to have none occurrences in a file and one pattern in a line.
+4. We should treat 'pattern is improperly quoted' as exceptional, and thus, test it just once.
 
 
 
@@ -239,7 +240,7 @@ Finally a third test is needed to cover line 11 (`removeElementNotPresentInListT
 **Exercise 2**
 
 ![LinkedList exercise CFG](img/structural-testing/exercises/CFG-LinkedList.svg)
-L\<number\> in the diagram represents the line number of the code that is in the block or decision.
+Ln in the diagram represents the line number of the code that is in the block or decision.
 
 **Exercise 3**
 
@@ -664,7 +665,7 @@ So there will be two fewer transitions.
 
 
 
-## Design-by-contracts and property-based testing
+## Design-by-contracts
 
 **Exercise 1**
 
@@ -732,9 +733,9 @@ To make debugging easier.
 
 
 
+## Property-based testing
 
-
-
+1. We still need answers here. Maybe you want to help us and open a PR?
 
 
 

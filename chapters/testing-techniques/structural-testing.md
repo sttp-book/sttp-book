@@ -402,6 +402,10 @@ of the compound decisions are exercised).
 From now on, whenever we mention **condition coverage**, we mean **condition + branch coverage**.
 
 
+{% hint style='tip' %}
+Another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in $$2^N$$ tests, given $$N$$ conditions.
+{% endhint %}
+
 {% set video_id = "oWPprB9GBdE" %}
 {% include "/includes/youtube.md" %}
 
@@ -450,14 +454,56 @@ We make a truth table to find the combinations:
 
 
 This means that, for full path coverage, we would need 8 tests just to cover this `if` statement.
-That is quite a lot for just a single statement.
+It is a large number for just a single statement. 
 
-By aiming at achieving path coverage of our program, testers can indeed come up with good tests.
-However, the main issue is that achieving 100% path coverage might not always be feasible or too costly.
-The number of tests needed for full path coverage will grow exponentially with the number of conditions in a decision.
+While this seems similar to the MCC criterion we quickly discussed above, imagine programs that rely on loops:
+
+```java
+boolean shouldRun = true;
+while(shouldRun) {
+  something();
+  something2();
+
+  shouldRun = something3();
+}
+```
+
+To satisfy all the criteria we studied so far, we would need to exercise the `shouldRun` as being true and false. That does not happen with path coverage. To satisfy path coverage, we would need to test all the possible paths that can happen. The unbounded loop might make this program to iterate an infinite number of times. Imagine now a program with two unbounded loops together. How many different possible paths does this program have?
+
+Achieving 100% path coverage might not always be feasible or too costly.
+The number of tests needed for full path coverage will grow exponentially with the number of conditions and unbounded loops.
 
 {% set video_id = "hpE-aZYulmk" %}
 {% include "/includes/youtube.md" %}
+
+
+## Loop boundary adequacy
+
+The section raised an interesting problem:
+in terms of coverage criteria, what to do when we have loops? When there is a loop, the block inside of the loop might be executed many times, making testing more complicated.
+
+Think of a `while(true)` loop which can be non-terminating. If we wanted to be rigorous about it, we would have to test the program where the loop block is executed one time, two times, three times, etc. Imagine a `for(i = 0; i < 10; i++)` loop with a `break` inside of the body. We would have to test what happens if the loop body executes one time, two times, three times, ..., up to ten times.
+It might be impossible to exhaustively test all the combinations.
+
+How can we handle long-lasting loops (a loop that runs for many iterations), or unbounded loops (where we do not know how many times it will be executed)? 
+
+Given that exhaustive testing is impossible,
+testers often rely on the **loop boundary adequacy criterion**
+to decide when to stop testing a loop. A test suite satisfies this criterion if and only if for every loop:
+
+* A test case exercises the loop zero times;
+* A test case exercises the loop once;
+* A test case exercises the loop multiple times.
+
+The idea behind the criterion is to make sure the program
+is tested when the loop is never executed (does the program
+behave correctly when the loop is simply 'skipped'?), when it only iterates once (as we empirically know that algorithms may not handle single cases correctly), and many times.
+
+Pragmatically speaking, the main challenge comes when devising
+the test case for the loop being executed multiple times.
+Should the test case force the loop to iterate for 2, 5, or 10 times?
+That requires a good understanding of the program/requirement itself. 
+Our suggestion for testers is to rely on specification-based techniques. With an optimal understanding of the specs, one should be able to devise good tests for the particular loop.
 
 
 ## MC/DC (Modified Condition/Decision Coverage)
@@ -484,7 +530,7 @@ If we take the decision block from path coverage example, `A && (B || C)`, MC/DC
   * There must be one test case where C=`false` and the outcome is `false`.
   * In both test cases A & B should be the same!
     
-Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is $$N+1$$, where $$N$$ is the number of conditions in the decision. 
+Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is, on average, $$N+1$$, where $$N$$ is the number of conditions in the decision. 
 $$N+1$$ is definitely smaller than $$2^N$$!
 
 Again, to devise a test suite that achieves 100% MC/DC coverage, we should devise $$N+1$$ test cases that, when combined, 
@@ -585,37 +631,19 @@ You can indeed have more than one set of tests that achieve 100% MC/DC; all solu
 Therefore, the tests that we need for 100% MC/DC coverage are {2, 3, 4, 6}.
 These are the only 4 tests we need. This is indeed cheaper when compare to the 8 tests we would need for path coverage.
 
+Let us now discuss some details about the MC/DC coverage:
+
+* We have applied what we call unique-cause MC/DC criteria. We identify an independence pair (T1, T2), where only a single condition changes between T1 and T2, as well as the final outcome. That might not be possible in all cases. For example, `(A and B) or (A and C)`. Ideally, we would demonstrate the independence of the first A, B, the second A, and C. It is however impossible to change the first A and not change the second A. Thus, we can not demonstrate the independence of each A in the expression. In such cases, we then allow A to vary, but we still fix all other variables (this is what is called masked MC/DC).
+
+* It might not be possible to achieve MC/DC coverage in some expressions. See `(A and B) or (A and not B)`. While the independence pairs (TT, FT) would show the independence of A, there are no pairs that show the independence of B. While logically possible, in such cases, we recommend the developer to revisit the (degenerative) expression as it might had been poorly designed. In our example, the expression could be reformulated to simply `A`.
+
+* Mathematically speaking, $$N+1$$ is the minimum number of tests required for MC/DC coverage (and $$2 * N$$ the theoretical upper bound). However, empirical studies indeed show that $$N+1$$ is often the required number of tests.
+
 
 {% set video_id = "HzmnCVaICQ4" %}
 {% include "/includes/youtube.md" %}
 
 
-## Loop boundary adequacy
-
-In terms of coverage criteria, what to do when we have loops? When there is a loop, the block inside of the loop might be executed many times, making testing more complicated.
-
-Think of a `while(true)` loop which can be non-terminating. If we wanted to be rigorous about it, we would have to test the program where the loop block is executed one time, two times, three times, etc. Imagine a `for(i = 0; i < 10; i++)` loop with a `break` inside of the body. We would have to test what happens if the loop body executes one time, two times, three times, ..., up to ten times.
-It might be impossible to exhaustively test all the combinations.
-
-How can we handle long-lasting loops (a loop that runs for many iterations), or unbounded loops (where we do not know how many times it will be executed)? 
-
-Given that exhaustive testing is impossible,
-testers often rely on the **loop boundary adequacy criterion**
-to decide when to stop testing a loop. A test suite satisfies this criterion if and only if for every loop:
-
-* A test case exercises the loop zero times;
-* A test case exercises the loop once;
-* A test case exercises the loop multiple times.
-
-The idea behind the criterion is to make sure the program
-is tested when the loop is never executed (does the program
-behave correctly when the loop is simply 'skipped'?), when it only iterates once (as we empirically know that algorithms may not handle single cases correctly), and many times.
-
-Pragmatically speaking, the main challenge comes when devising
-the test case for the loop being executed multiple times.
-Should the test case force the loop to iterate for 2, 5, or 10 times?
-That requires a good understanding of the program/requirement itself. 
-Our suggestion for testers is to rely on specification-based techniques. With an optimal understanding of the specs, one should be able to devise good tests for the particular loop.
 
 
 ## Criteria subsumption
@@ -686,6 +714,23 @@ We quote two of these studies:
 For interested readers, an extensive literature review on the topic can be found in
 Zhu, H., Hall, P. A., & May, J. H. (1997). Software unit test coverage and adequacy. ACM computing surveys (csur), 29(4), 366-427.
 
+## Structural testing vs structural coverage
+
+A common misconception among practitioners to *confuse structural testing with structural coverage*.
+
+Structural testing means *leveraging the structure of the source code to systematically exercise the system under test*. When compared to specification-based testing, we note that structural testing is: 
+
+- More objective. In other words, it does not depend on the opinions and experience of the tester. While different testers might come up with different specification-based tests, they would come with similar structural tests.
+
+- Implementation-aware. Implementations can vary from the specifications. After all, there are so many ways one can implement a program. Structural testing enables testers to explore the precise implementation.
+
+On the other hand, structural testing is a _check and balance_ (as Chilenski puts it) on the specification-based tests. Structural testing confirms and complements the tests that we derived before.
+
+It is common to see developers running their coverage tools and writing tests for the outputs they observe. Developers that are mostly focused on (simply) achieving high _structural coverage_ are missing the main point of structural testing. 
+
+Again, structural testing should complement your requirements-based testing. As Chilenski suggests (see Figure 3 in his paper), the first step of a tester should be to derive test cases out of any requirements-based technique. Once requirements are fully covered, testers then perform structural testing to cover what is missing from the structural-point of view. Any divergences should be brought back to the requirements-based testing phase: _why did we not find this class/partition before?_ Once requirements and structure are covered, one can consider the testing phase done.
+
+Therefore, do not aim at 100% coverage. Use structural testing to complement your specification-based tests.
 
 ## Exercises
 
@@ -937,6 +982,10 @@ If we aim to achieve $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC),
 
 * Zhu, H., Hall, P. A., & May, J. H. (1997). Software unit test coverage and adequacy. ACM computing surveys (csur), 29(4), 366-427.
 
+* Hayhurst, K., Veerhusen, D., Chilenski, J., Rierson, L. A Practical Tutorial on Modified Condition/Decision Coverage, 2001. URL: https://shemesh.larc.nasa.gov/fm/papers/Hayhurst-2001-tm210876-MCDC.pdf. Short version: https://www.cs.odu.edu/~mln/ltrs-pdfs/NASA-2001-20dasc-kjh.pdf.
+
+* Chilenski, J. J. (2001). An investigation of three forms of the modified condition decision coverage (MCDC) criterion. Office of Aviation Research. http://www.tc.faa.gov/its/worldpac/techrpt/ar01-18.pdf
+
 * Cem Kaner on Code Coverage: http://www.badsoftware.com/coverage.htm
 
 * Arie van Deursen on Code Coverage: http://avandeursen.com/2013/11/19/test-coverage-not-for-managers/
@@ -944,5 +993,4 @@ If we aim to achieve $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC),
 * Hutchins, M., Foster, H., Goradia, T., & Ostrand, T. (1994, May). Experiments of the effectiveness of data flow-and control flow-based test adequacy criteria. In Proceedings of the 16th international conference on Software engineering (pp. 191-200). IEEE Computer Society Press.
 
 * Namin, A. S., & Andrews, J. H. (2009, July). The influence of size and coverage on test suite effectiveness. In Proceedings of the eighteenth international symposium on Software testing and analysis (pp. 57-68). ACM.
-
 
