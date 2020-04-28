@@ -575,7 +575,7 @@ Our goal will be to apply the MC/DC criterion to these test cases,
 and select $$N+1$$, in this case $$3+1=4$$, tests.
 
 Let us go condition by condition.
-In this case, we start with selecting the pairs of combinations (or tests) for the Character parameter.
+In this case, we start with selecting the pairs of combinations (or tests) for the `Character` parameter.
 
 * In test 1: `Character`, `Degree`, and `Experience` are all `true` and the `Decision` is `true` as well. We now look for another test in this table, where only the value of `Character` is the opposite of the value in test 1,
 but the others (`Degree` and `Experience`) are still the same. This means we have to look for a test where `Character = false`, `Degree = true`, `Experience = true`. This combination appears in test 5. The outcome of test 5 is `false`. 
@@ -587,7 +587,7 @@ but the others (`Degree` and `Experience`) are still the same. This means we hav
 
     This means we just found another pair of tests, $$T_2$$ and $$T_6$$, where `Character` is the only parameter which changed and the outcome (`Decision`) changed as well.
 
-* Again, we repeat the process for test 3 (`Character = true`, `Degree = false`, `Experience = true`) and find that the `Character` parameter in test 7 (`Character = false`, `Degree = false`, `Experience =true`) is the opposite of the value in test 3 and changes the outcome (`Decision`). 
+* Again, we repeat the process for test 3 (`Character = true`, `Degree = false`, `Experience = true`) and find that the `Character` parameter in test 7 (`Character = false`, `Degree = false`, `Experience = true`) is the opposite of the value in test 3 and changes the outcome (`Decision`). 
 
 * For test 4 (`Character = true`, `Degree = false`, `Experience = false`). Its pair is test 8 (`Character = false`, `Degree = false`, `Experience = false`). But, the outcome of both tests is the same (`Decision = false`). This means that the pair $$\{T_4, T_8\}$$ does not show how `Character` can independently affect the overall outcome; after all, `Character` is the only thing that changes in these two tests, but the outcome is still the same.
 
