@@ -472,16 +472,16 @@ affect the outcome of the entire decision*. The example that is about to come wi
 In short this means that every possible condition of each parameter must have influenced the outcome at least once.
 If we take the decision block from path coverage example, `A && (B || C)`, MC/DC dictates that:
 * For condition A:
-  * There must be one test case where A=`true` and the outcome is `true`. 
-  * There must be one test case where A=`false` and the outcome is `false`.
+  * There must be one test case where `A=true` and the outcome is `true`. 
+  * There must be one test case where `A=false` and the outcome is `false`.
   * In both test cases B & C should be the same!
 * For condition B:
-  * There must be one test case where B=`true` and the outcome is `true`. 
-  * There must be one test case where B=`false` and the outcome is `false`.
+  * There must be one test case where `B=true` and the outcome is `true`. 
+  * There must be one test case where `B=false` and the outcome is `false`.
   * In both test cases A & C should be the same!
 * For condition C:
-  * There must be one test case where B=`true` and the outcome is `true`. 
-  * There must be one test case where C=`false` and the outcome is `false`.
+  * There must be one test case where `C=true` and the outcome is `true`. 
+  * There must be one test case where `C=false` and the outcome is `false`.
   * In both test cases A & B should be the same!
     
 Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is $$N+1$$, where $$N$$ is the number of conditions in the decision. 
@@ -531,41 +531,41 @@ and select $$N+1$$, in this case $$3+1=4$$, tests.
 Let us go condition by condition.
 In this case, we start with selecting the pairs of combinations (or tests) for the Character parameter.
 
-* In test 1: Character, Degree, and Experience are all `true` and the Decision is `true` as well. We now look for another test in this table, where only the value of Character is the opposite of the value in test 1,
-but the others (Degree and Experience) are still the same. This means we have to look for a test where Character=`false`, Degree=`true`, Experience=`true`. This set appears in test 5. The outcome of test 5 is `false`. 
+* In test 1: `Character`, `Degree`, and `Experience` are all `true` and the `Decision` is `true` as well. We now look for another test in this table, where only the value of `Character` is the opposite of the value in test 1,
+but the others (`Degree` and `Experience`) are still the same. This means we have to look for a test where `Character = false`, `Degree = true`, `Experience = true`. This combination appears in test 5. The outcome of test 5 is `false`. 
 
-    Thus, we just found a pair of tests, $$T_1$$ and $$T_5$$, where Character is the only parameter which changed and the outcome (Decision) changed as well.
-    In other words, a pair of tests where the Character **independently** influences the outcome (Decision). Let's keep the pair $$\{T_1, T_5\}$$ in our list of test cases.
+  Thus, we just found a pair of tests, $$T_1$$ and $$T_5$$, where `Character` is the only parameter which changed and the outcome (`Decision`) changed as well.
+  In other words, a pair of tests where the `Character` **independently** influences the outcome (`Decision`). Let's keep the pair $$\{T_1, T_5\}$$ in our list of test cases.
 
-* Now we look at the next test. In test 2, Character is again `true`, Degree is `true`, and Experience is `false`. We repeat the process and search for a test where A is the opposite of the value in test 2, but Degree and Experience remain the same (Degree=`true`, Experience=`false`). This set appears in test 6. The outcome of test 6 is `false`.
+* Now we look at the next test. In test 2, `Character = true`, `Degree = true`, and `Experience = false`. We repeat the process and search for a test where `Character` is the opposite of the value in test 2, but `Degree` and `Experience` remain the same (`Degree = true`, `Experience = false`). This set appears in test 6. The outcome of test 6 is `false`.
 
-    This means we just found another pair of tests, $$T_2$$ and $$T_6$$, where Character is the only parameter which changed and the outcome (Decision) changed as well.
+    This means we just found another pair of tests, $$T_2$$ and $$T_6$$, where `Character` is the only parameter which changed and the outcome (`Decision`) changed as well.
 
-* Again, we repeat the process for test 3 (Character=`true`, Degree=`false`, Experience=`true`) and find that the Character parameter in test 7 (Character=`false`, Degree=`false`, Experience=`true`) is the opposite of the value in test 3 and changes the outcome (Decision). 
+* Again, we repeat the process for test 3 (`Character = true`, `Degree = false`, `Experience = true`) and find that the `Character` parameter in test 7 (`Character = false`, `Degree = false`, `Experience =true`) is the opposite of the value in test 3 and changes the outcome (`Decision`). 
 
-* For test 4 (Character=`true`, Degree=`false`, Experience=`false`). Its pair is test 8 (Character=`false`, Degree=`false`, Experience=`false`). But, the outcome of both tests is the same (Decision=`false`). This means that the pair $$\{T_4, T_8\}$$ does not show how Character can independently affect the overall outcome; after all, Character is the only thing that changes in these two tests, but the outcome is still the same.
+* For test 4 (`Character = true`, `Degree = false`, `Experience = false`). Its pair is test 8 (`Character = false`, `Degree = false`, `Experience = false`). But, the outcome of both tests is the same (`Decision = false`). This means that the pair $$\{T_4, T_8\}$$ does not show how `Character` can independently affect the overall outcome; after all, `Character` is the only thing that changes in these two tests, but the outcome is still the same.
 
-As we do not find another suitable pair when repeating the process for tests 5, 6, 7 and 8, we move on from the Character parameter to the Degree parameter. We repeat the same process, but now we search for the opposite value of parameter Degree whilst Character and Experience stay the same.
+As we do not find another suitable pair when repeating the process for tests 5, 6, 7 and 8, we move on from the `Character` parameter to the `Degree` parameter. We repeat the same process, but now we search for the opposite value of parameter `Degree` whilst `Character` and `Experience` stay the same.
 
-* For test 1 (Charater=`true`, Degree=`true`, Experience=`true`), we search for a test where (Charater=`true`, Degree=`false`, Experience=`true`). This appears to be the case in test 3. However, the outcome for both test cases stay the same. Therefore, $$\{T_1, T_3\}$$ does not show how the Degree parameter can independently affect the outcome.
+* For test 1 (`Charater = true`, `Degree = true`, `Experience = true`), we search for a test where (`Charater = true`, `Degree = false`, `Experience = true`). This appears to be the case in test 3. However, the outcome for both test cases stay the same. Therefore, $$\{T_1, T_3\}$$ does not show how the `Degree` parameter can independently affect the outcome.
 
-* After repeating all the steps for the other tests we find only $$\{T_2, T_4\}$$ to have different values for the Degree parameter where the outcome also changes.
+* After repeating all the steps for the other tests we find only $$\{T_2, T_4\}$$ to have different values for the `Degree` parameter where the outcome also changes.
 
-Finally we move to the Experience parameter.
+Finally we move to the `Experience` parameter.
 
-* As with the Degree parameter, there is only one pair of combinations that will work, which is $$\{T_3, T_4\}$$. 
+* As with the `Degree` parameter, there is only one pair of combinations that will work, which is $$\{T_3, T_4\}$$. 
 
 We highly recommend carrying out the entire process yourself to get a feeling of how the process works!
 
 We now have all the pairs for each of the parameters:
-- Character: {1, 5}, {2, 6}, {3, 7}
-- Degree: {2, 4}
-- Experience: {3, 4}
+- `Character`: {1, 5}, {2, 6}, {3, 7}
+- `Degree`: {2, 4}
+- `Experience`: {3, 4}
 
-MC/DC states that we should have at least one of the pairs for each condition (Character, Degree and Experience). We want to minimise the total number of tests, and we know for a fact that we can
+MC/DC states that we should have at least one of the pairs for each condition (`Character`, `Degree` and `Experience`). We want to minimise the total number of tests, and we know for a fact that we can
 achieve this with $$N+1$$ tests.
 
-We do not have any choices with conditions Degree and Experience, as we found only one pair of tests for each parameter.
+We do not have any choices with conditions `Degree` and `Experience`, as we found only one pair of tests for each parameter.
 This means that we have to test combinations 2, 3 and 4.
 
 Lastly, we need to find the appropriate pair of A. Note that any
