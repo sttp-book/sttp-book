@@ -647,7 +647,7 @@ A package should store a total number of kilograms. There are small bars (1 kg e
 |							| 						| not enough bars -> only small bars	|
 |							| 						| not enough bars -> small and big bars	|
 
-![Visualization of boundaries](img/domain-testing/chocolate-bar-diagram.png)
+![Boundaries in the chocolate bars problem](img/boundary-testing/chocolate-boundaries.png)
 
 ### Strategy
 * There are 4 equivalence classes and 10 boundaries, but many of these boundaries are actually the same.
