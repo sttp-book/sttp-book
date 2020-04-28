@@ -829,7 +829,7 @@ Given an integer `n`, it returns the string form of the number followed by `"!"`
 So the integer 6 would yield `"6!"`.
 Except if the number is divisible by 3 it returns "Fizz!" and if it is divisible by 5 it returns "Buzz!".
 If the number is divisible by both 3 and 5 it returns "FizzBuzz!"
-Based on a [CodingBat problem](https://codingbat.com/prob/p115243)
+Based on a [CodingBat problem](https://codingbat.com/prob/p115243).
 
 ```java
 public String fizzString(int n) {
