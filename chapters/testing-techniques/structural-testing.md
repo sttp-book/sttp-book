@@ -511,7 +511,7 @@ The program takes 3 booleans as input:
 If the applicant has good character AND either a degree OR experience in the field he/she will be admitted.
 In any other case the applicant will be rejected.
 
-In order to test this function, we will first use the truth table used in path coverage to test all possible combinations.
+In order to test this program, we will first use the truth table used in path coverage to test all possible combinations.
 In this case, we have 3 decisions and $$2^3$$ is 8, therefore we have tests that go from 1 to 8:
 
 | Tests | Character | Degree | Experience | Decision |
@@ -531,13 +531,13 @@ and select $$N+1$$, in this case $$3+1=4$$, tests.
 Let us go condition by condition.
 In this case, we start with selecting the pairs of combinations (or tests) for the Character parameter.
 
-* In test 1: Character, Degree and Experience are all `true` and the Decision is `true` as well. We now look for another test in this table, where only the value of Character is the opposite of the value in test 1,
+* In test 1: Character, Degree, and Experience are all `true` and the Decision is `true` as well. We now look for another test in this table, where only the value of Character is the opposite of the value in test 1,
 but the others (Degree and Experience) are still the same. This means we have to look for a test where Character=`false`, Degree=`true`, Experience=`true`. This set appears in test 5. The outcome of test 5 is `false`. 
 
-    This means we just found a pair of tests, $$T_1$$ and $$T_5$$, where Character is the only parameter of which the condition changed and the outcome (Decision) changed as well.
+    Thus, we just found a pair of tests, $$T_1$$ and $$T_5$$, where Character is the only parameter of which the condition changed and the outcome (Decision) changed as well.
     In other words, a pair of tests where the Character **independently** influences the outcome (Decision). Let's keep the pair $$\{T_1, T_5\}$$ in our list of test cases.
 
-* Now we look at the next test. In test 2, Character is again `true`, Degree is `true` and Experience is `false`. We repeat the process and search for a test where A is the opposite of the value in test 2, but Degree and Experience remain the same (Degree=`true`, Experience=`false`). This set appears in test 6. The outcome of test 6 is `false`.
+* Now we look at the next test. In test 2, Character is again `true`, Degree is `true`, and Experience is `false`. We repeat the process and search for a test where A is the opposite of the value in test 2, but Degree and Experience remain the same (Degree=`true`, Experience=`false`). This set appears in test 6. The outcome of test 6 is `false`.
 
     This means we just found another pair of tests, $$T_2$$ and $$T_6$$, where Character is the only parameter of which the condition changed and the outcome (Decision) changed as well.
 
@@ -545,7 +545,7 @@ but the others (Degree and Experience) are still the same. This means we have to
 
 * For test 4 (Character=`true`, Degree=`false`, Experience=`false`). Its pair is test 8 (Character=`false`, Degree=`false`, Experience=`false`). But, the outcome of both tests is the same (Decision=`false`). This means that the pair $$\{T_4, T_8\}$$ does not show how Character can independently affect the overall outcome; after all, Character is the only thing that changes in these two tests, but the outcome is still the same.
 
-As we do not find another suitable pair when repeating the process for tests 5, 6, 7 and 8 we move on from the Character parameter to the Degree parameter. We repeat the same process, but now we search for the opposite value of parameter Degree whilst Character and Experience stay the same.
+As we do not find another suitable pair when repeating the process for tests 5, 6, 7 and 8, we move on from the Character parameter to the Degree parameter. We repeat the same process, but now we search for the opposite value of parameter Degree whilst Character and Experience stay the same.
 
 * For test 1 (Charater=`true`, Degree=`true`, Experience=`true`), we search for a test where (Charater=`true`, Degree=`false`, Experience=`true`). This appears to be the case in test 3. However, the outcome for both test cases stay the same. Therefore, $$\{T_1, T_3\}$$ does not show how the Degree parameter can independently affect the outcome.
 
@@ -555,7 +555,7 @@ Finally we move to the Experience parameter.
 
 * As with the Degree parameter, there is only one pair of combinations that will work, which is $$\{T_3, T_4\}$$. 
 
-We highly recommend carrying out the entire process yourself to get a feeling for how the process works!
+We highly recommend carrying out the entire process yourself to get a feeling of how the process works!
 
 We now have all the pairs for each of the parameters:
 - Character: {1, 5}, {2, 6}, {3, 7}
