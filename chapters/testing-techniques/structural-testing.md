@@ -405,7 +405,7 @@ $$\text{C/DC coverage} = \frac{\text{conditions outcome covered}}{\text{conditio
 
 Others prefer to count, for each decision block, the number of outcomes per condition plus the number of outcomes per decision. For example, an `if(a>10 && b < 10)` would count as 6, as 2 for the `a>10` condition, 2 for the `b<10` condition, and 2 for the `a>10 && b<10`. This formula would give us a clear differentiation between basic condition and decision+condition coverage:
 
-$$\text{C/DC coverage} = \frac{\text{conditions outcome covered + decisions outcome total}}{\text{conditions outcome total + decisions outcome total}} \cdot 100\%$$
+$$\text{C/DC coverage} = \frac{\text{conditions outcome covered + decisions outcome covered}}{\text{conditions outcome total + decisions outcome total}} \cdot 100\%$$
 
 
 From now on, whenever we mention **condition coverage**, we mean **condition + branch coverage**.
