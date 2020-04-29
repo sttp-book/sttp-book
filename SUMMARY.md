@@ -73,5 +73,6 @@
 
 * Appendix
 	* [Answers to the exercises](chapters/appendix/answers.md)
+	* [Domain testing examples](chapters/testing-techniques/domain-testing.md)
 	* [Change log](chapters/appendix/changelog.md)
 
