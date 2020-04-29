@@ -423,12 +423,12 @@ See the following example that focus on a small piece of the `count` method:
 
 ```java
 if (!Character.isLetter(str.charAt(i)) 
-        && (last == 's' || last == 'r')) {
+        & (last == 's' | last == 'r')) {
     words++;
 }
 ```
 
-The decision in this if-statement contains three conditions and can be generalised to `(A && (B || C))`, with:
+The decision in this if-statement contains three conditions and can be generalised to `(A & (B | C))`, with:
 * A = `!Character.isLetter(str.charAt(i))`
 * B = `last == 's'`
 * C = `last == 'r'`
@@ -451,6 +451,20 @@ We make a truth table to find the combinations:
 
 This means that, for full path coverage, we would need 8 tests just to cover this `if` statement.
 That is quite a lot for just a single statement.
+
+Note: Let's take as an example the same expression,but we will use lazy operators and it will look like this: `(A && (B || C))`
+
+We make the truth table to find the combinations:
+
+| Tests | A | B | C | Outcome |
+|-------|---|---|---|---------|
+| 1     | T | T | X | T       |
+| 2     | T | F | T | T       |
+| 3     | T | F | F | F       |
+| 4     | F | X | X | F       |
+
+Therefore, we can observe that 'X' represents a notation for a don't care value. For this particular example, if the A is false, then the rest of the expression will be not evaluated anymore because the result of the entire statement will be automatically false. Moreover, for the next part, if B is already true, then the proposition `(B || C)` is already true, so we don't care about the value of the C.
+
 
 By aiming at achieving path coverage of our program, testers can indeed come up with good tests.
 However, the main issue is that achieving 100% path coverage might not always be feasible or too costly.
@@ -881,7 +895,7 @@ If we aim to achieve $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC),
 3. {2, 3, 5, 6}
 4. {3, 4, 7, 8}
 
-Tip: The truth table must contain solution in the inverse lexicographic order for the variables. Moreover, the columns will be A, B and C in this order. 
+Tip: The truth table must contain the solution in the inverse lexicographic order for the variables. Moreover, the columns will be A, B and C in this order. 
 
 
 
