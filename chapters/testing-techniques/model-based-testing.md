@@ -314,7 +314,7 @@ In small decision tables, non-boolean conditions can be useful.
 However, with many non-boolean conditions, the amount of possible combinations in the decision table can be large.
 Due to this combinatorial explosion of possible variants, the decision table becomes very hard to work with.
 For example, a decision table with three conditions, each having $$4$$ possible values, results in $$4 \cdot 4 \cdot 4 = 64$$ possible combinations.
-In such case, other strategies like _pair-wise combinatorial testing_ offer better scalability. 
+In such cases, other strategies like _pair-wise combinatorial testing_ offer better scalability. 
 
 The testing techniques for decision tables with only boolean conditions can also be generalized to tables with non-boolean conditions.
 For the MC/DC criteria (discussed in the structural testing chapter), this requires modifying one of its three properties: instead of making each condition `true` and `false` at least once in the test suite, each of its possible values should appear at least once in the test suite.
@@ -325,7 +325,7 @@ Finally, these are some general quidelines to keep in mind when designing decisi
 2. **Use DC values when possible.** This decreases the amount of variants, making the decision table easier to read and easier to understand.
 3. **Variants with DC values should not overlap.** If they do, they should at least have the same action.
 4. **Add a default column.** This provides an action for the variants that are not in the decision table, allowing the decision table to not include all possible variants.
-5. **Consider non-boolean conditions if conditions are mutually exclusive.** Mutually means that the conditions can never be true at the same time. These conditions then probably encode a single non-boolean condition.
+5. **Consider non-boolean conditions if conditions are mutually exclusive.** Mutually exclusive means that the conditions can never be true at the same time. These conditions then probably encode a single non-boolean condition.
 6. **If most conditions are non-boolean, consider using a different combinatorial testing technique instead**. One example would be pair-wise testing.
 
 {% set video_id = "RHB_HaGfNjM" %}
@@ -372,9 +372,8 @@ We can use these events in the state machine.
  
 ![](img/model-based-testing/examples/locked_unlocked_machine.svg)
  
-In the diagram the initial state is `LOCKED`.
-Usually when someone starts using their phone, it is locked.
-Therefore the initial state of the state machine should also be `LOCKED`.
+In the diagram the initial state is `LOCKED`, because usually when someone starts using their phone, it is locked.
+This should be represented in the initial state of the state machine.
  
  
  
@@ -488,7 +487,7 @@ Such a transition tree is created as follows:
  
 This is demonstrated in the example below.
  
-To make the transition table more interesting, we modify the phone's state machine to have an `OFF` state instead of a `BLOCKED` state.
+To make the transition tree more interesting, we modify the phone's state machine to have an `OFF` state instead of a `BLOCKED` state.
 See the state machine below:
  
 ![Phone state machine with off](img/model-based-testing/examples/phone_off_machine.svg)
@@ -849,7 +848,7 @@ Consider the following decision table:
   <tr><td></td><td>10%</td><td>0%</td><td>5%</td><td>2%</td><td>6%</td><td>3%</td></tr>
 </table>
  
-Which decision do we have to test for full MC/DC?
+Which decisions do we have to test for full MC/DC?
  
 Use as few decisions as possible.
  
@@ -878,7 +877,7 @@ Our product team defined the following rules:
 * An administrator checks the content of the ad. If it follows all the rules, the ad then waits for payment. If the ad contains anything illegal, it then goes back to the beginning of the process.
 * As soon as the company makes the payment, the ad becomes available to users.
 * When the target number of visualisations is reached, the ad is considered done. At this time, the company might consider running the campaign again, which moves the ad to wait for payment again. The company might also decide to end the campaign at that moment, which puts the ad in a final state.  
-* While appearing for the users, if more than 10\% of the users complain about the ad, the ad is then marked as blocked. The company then gets contacted. After understanding the case, the ad either starts to appear again, or is labelled as inappropriate. An inappropriate ad will never be shown again.
+* While appearing for the users, if more than 10% of the users complain about the ad, the ad is then marked as blocked. The company then gets contacted. After understanding the case, the ad either starts to appear again, or is labelled as inappropriate. An inappropriate ad will never be shown again.
  
 Devise a state diagram that describes the life cycle of an ad.
  
