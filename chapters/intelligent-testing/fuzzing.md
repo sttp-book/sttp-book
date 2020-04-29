@@ -2,7 +2,9 @@
 
 Fuzzing is a popular dynamic testing technique used for automatically generating complex test cases. Fuzzers bombards the System Under Test (SUT) with randomly generated inputs in the hope to cause crashes. A crash can either originate from *failing assertions*, *memory leaks*, or *improper error handling*. Fuzzing has been successful in discovering [unknown bugs](https://lcamtuf.coredump.cx/afl/) in software.
 
-{% hint style='tip' %} Note that fuzzing cannot identify flaws that don't trigger a crash. {% endhint %}
+{% hint style='tip' %} 
+Note that fuzzing cannot identify flaws that do not trigger a crash. 
+{% endhint %}
 
 **Random fuzzing** is the most primitive type of fuzzing, where the SUT is considered as a complete black-box, with no assumptions about the type and format of the input. It can be used for exploratory purposes, but it takes a long time to generate any meaningful test cases. In practice, most software takes some form of _structured input_ that is pre-specified, so we can exploit that knowledge to build more efficient fuzzers.
 
@@ -18,7 +20,7 @@ Compared to mutative fuzzers, generative fuzzers are _less generalizable_ and _d
 
 ## Maximizing code coverage
 
-A difficult thing about effective software testing is to generate test cases that not only _maximizs the code coverage, but do so in a way that tests for a wide range of possible values_. Fuzzing helps achieve this goal by generating wildly diverse test cases. For example, [this blog](https://blog.regehr.org/archives/896) describes the use of fuzzing in order to optimally test an ADT implementation.
+A difficult thing about effective software testing is to generate test cases that not only _maximizes the code coverage, but do so in a way that tests for a wide range of possible values_. Fuzzing helps achieve this goal by generating wildly diverse test cases. For example, [this blog](https://blog.regehr.org/archives/896) describes the use of fuzzing in order to optimally test an ADT implementation.
 
 We want the fuzzer to generate these test cases in a reasonable time.
 There are various ways in which we achieve maximal code coverage in less time:
@@ -55,15 +57,15 @@ We can then construct formula of a **Path predicate** that answers this question
 
 The path predicate for the `else if()` branch in the previous code snippet will be: $$((N+M <= 2) \& (N < 100))$$. The procedure to derive it is as follows:
 
-> `a` and  `b` are converted into symbolic variables, such that their values are: $$a=N$$ and $$b=M$$.
+1. `a` and  `b` are converted into symbolic variables, such that their values are: $$a=N$$ and $$b=M$$.
 
->Then, $$a = N+M$$ and $$b = (N+M) - M => N$$
+1. Then, $$a = N+M$$ and $$b = (N+M) - M => N$$
 
->The path constraint for the `if()` branch is: $$(N+M > 2)$$, so the constraint for other branches will be its inverse: $$(N+M <= 2)$$.
+1. The path constraint for the `if()` branch is: $$(N+M > 2)$$, so the constraint for other branches will be its inverse: $$(N+M <= 2)$$.
 
->The path constraint for `else if()` branch is: $$(N < 100)$$.
+1. The path constraint for `else if()` branch is: $$(N < 100)$$.
 
->Hence, the final path predicate for the `else if()` branch is the combination of the two: $$(N+M <= 2) \& (N < 100)$$
+1. Hence, the final path predicate for the `else if()` branch is the combination of the two: $$(N+M <= 2) \& (N < 100)$$
 
 
 Note that it is not always possible to determine the potential values of a variable because of the *halting problem* &mdash; answering whether a loop terminates with certainty is an undecidable problem. So, for a code snippet given below, Symbolic execution may give an imprecise answer.
@@ -79,8 +81,10 @@ func(int a, bool b){
 
 ```
 
-## References
+{% hint style='tip' %} 
+For interested readers, we recommend the "fuzzing book": [https://www.fuzzingbook.org](https://www.fuzzingbook.org)! 
+{% endhint %}
 
-* {% hint style='tip' %} The fuzzing book. [https://www.fuzzingbook.org](https://www.fuzzingbook.org)! {% endhint %}
+## References
 
 * Fuzzing for bug hunting. https://www.welcometothejungle.com/en/articles/btc-fuzzing-bugs

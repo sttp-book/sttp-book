@@ -34,9 +34,9 @@ You can think of the attack surface as the surface of a rubber balloon, as shown
 
 ## Understanding Java vulnerabilities
 
-In this chapter, we investigate the threat landscape of Java applications because of its popularity: 3 billion devices run Java globally [according to Oracle](https://www.oracle.com/java/). Also, Java is often considered to be a more mature language: Java handles memory management and garbage collection itself, unlike C that requires developers to handle these tasks manually. However, the added abstraction layers make Java code slower than native C code. This is why some Java components are built upon native code for optimization purposes.
+In this chapter, we investigate the threat landscape of Java applications because of its popularity: 3 billion devices run Java globally [according to Oracle](https://www.oracle.com/java/). Also, Java is often considered to be a more mature language: Java handles memory management and garbage collection itself, unlike C that requires developers to handle these tasks manually. However, the added abstraction layers might make Java code slower than native C code; this is why some Java components are built upon native code for optimization purposes.
 
-> For example, the Java Virtual Machine, the sandbox that enables Java programs to execute platform-independently, is itself written in C.
+> The Java Virtual Machine, the sandbox that enables Java programs to execute platform-independently, is itself written in C.
 
 In order to understand the threat landscape for Java applications, we must analyze what kind of security vulnerabilities have been discovered in them over the years. There exist online repositories that consolidate such vulnerability information. The [NIST National Vulnerability Database](https://www.cvedetails.com/) is one such example.
 
@@ -171,7 +171,7 @@ The *design* and *implementation* plans of the application should include insigh
 
 >For example, the choice of certain libraries, and the permissions assigned to certain modules should be guided by the threat landscape under consideration.
 
-Security testing should be a part of the *testing and integration* phase. Code reviews should also be done from the perspective of the attacker (using abuse cases). Finally, during the *maintenance phase*, in addition to bug fixes, developers should keep an eye on the CVE database and update *(if possible)* the vulnerable components in the application.
+Security testing should be a part of the *testing and integration* phases. Code reviews should also be done from the perspective of the attacker (using abuse cases). Finally, during the *maintenance phase*, in addition to bug fixes, developers should keep an eye on the CVE database and update *(if possible)* the vulnerable components in the application.
 
 *Just like the traditional SDLC is not a one-time process, the Secure-SDLC is also a continuous process*. Therefore, security testing should also be integrated into the *Continuous Integration* framework as well.
 
@@ -200,11 +200,11 @@ Before we dive into further explanation of SAST and DAST techniques, let's look 
 ### Quality assessment criteria
 Designing an ideal testing tool requires striking a balance between two measures: (a) Soundness, and (b) Completeness.
 
-> **Soundness** dictates that there should be no False Negatives (FN) &mdash; no vulnerability should be skipped. This implies that no alarm is raised *IFF* there is no existing vulnerability in the *System Under Test (SUT)*. **Completeness** dictates that there should be no False Positives (FP) &mdash; no false alarm should be raised. This implies that an alarm is raised *IFF* a valid vulnerability is found.
+**Soundness** dictates that there should be no False Negatives (FN) &mdash; no vulnerability should be skipped. This implies that no alarm is raised *IFF* there is no existing vulnerability in the *System Under Test (SUT)*. **Completeness** dictates that there should be no False Positives (FP) &mdash; no false alarm should be raised. This implies that an alarm is raised *IFF* a valid vulnerability is found.
 
 A perfect testing tool is both sound and complete. However, this is an undecidable problem &mdash; given finite time, the tool will always be wrong for some input. In reality, tools often compromise of FPs or FNs.
 
-> Low FNs are ideal for security critical applications where a missed vulnerability can cause significant loss, e.g. banking apps. Low FPs are ideal for applications that don't have a lot of manpower to evaluate the correctness of each result.
+Low FNs are ideal for security critical applications where a missed vulnerability can cause significant loss, e.g. banking apps. Low FPs are ideal for applications that don't have a lot of manpower to evaluate the correctness of each result.
 
 Additionally, an ideal testing tool is **interpretable**: an analyst can trace the results to a solid cause, and are **scalable**: the tool can be used for large applications without compromising heavily on performance.
 
@@ -213,7 +213,7 @@ Additionally, an ideal testing tool is **interpretable**: an analyst can trace t
 ## Static Application Security Testing (SAST)
 
 
-SAST techniques aim to find security bugs without running the application. They can find bugs that can be observed in the source code and for which _signatures_ can be made, e.g. SQL Injection and basic Cross-Site Scripting. _SpotBugs_, _FindSecBugs_ and _Coverity_ are static analysis tools specially meant to test security problems in applications.
+SAST techniques aim to find security bugs without running the application. They can find bugs that can be observed in the source code and for which _signatures_ can be made, e.g. SQL Injection and basic Cross-Site Scripting. _SpotBugs_, _FindSecBugs_, and _Coverity_ are static analysis tools specially meant to test security problems in applications.
 
 SAST is not only limited to code checking &mdash; it includes any approach that does not require running the SUT. For example, **Risk-based testing**  is a business-level process where we model the worst-case scenarios (or abuse cases) using threat modelling. An application is tested against the generated abuse cases to check its resilience against them. *Risk-based testing can be done both statically and dynamically.*
 
@@ -272,7 +272,8 @@ The code snippet below shows a real case that DFA can detect. The variable `data
 
 ``` Java
 /* Uses bad source and bad sink */
-public void bad(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+public void bad(HttpServletRequest request, HttpServletResponse response) 
+  throws Throwable {
 
   String data;
 
@@ -283,7 +284,8 @@ public void bad(HttpServletRequest request, HttpServletResponse response) throws
     /* Potential flaw: Display of data in web pages after using
     * replaceAll() to remove script tags,
     * will still allow XSS with string like <scr<script>ipt>. */
-    response.getWriter().println("<br>bad(): data = " + data.replaceAll("(<script>)", ""));
+    response.getWriter().println("<br>bad(): data = " + 
+    	data.replaceAll("(<script>)", ""));
   }
 }
 

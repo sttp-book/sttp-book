@@ -46,7 +46,7 @@
 	* [Mutation testing](chapters/intelligent-testing/mutation-testing.md)
 	* [Fuzz testing](chapters/intelligent-testing/fuzzing.md)
 	* [Search-based software testing](chapters/intelligent-testing/sbst.md) (soon)
-	* [Static testing](chapters/intelligent-testing/static-testing.md) (soon)
+	* [Static testing](chapters/intelligent-testing/static-testing.md)
 
 ----
 
@@ -60,7 +60,7 @@
 ----
 
 * [Non-functional testing](chapters/non-functional-testing/README.md)
-	* [Security testing (soon)](chapters/non-functional-testing/security-testing.md)
+	* [Security testing](chapters/non-functional-testing/security-testing.md)
 	* Performance testing (soon)
 
 ---
