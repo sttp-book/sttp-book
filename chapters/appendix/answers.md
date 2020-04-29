@@ -325,7 +325,7 @@ Then for the decision in line 2 the node that `remove` is looking at should not 
 The node is `null` when the end of the list had been reached.
 That only happens when the element that should be removed is not in the list.
 Note that the decision in line 2 only gets executed when the element to remove is `null`.
-In the tests, this means that the element should be found and not found at least once. 
+In the tests, this means that the element should be found and not found at least once.
 
 The decision in line 3 checks if the node that the method is at now has the element that should be deleted.
 The tests should cover a case where the element is not the item that has to be removed and a case where the element is the item that should be removed.
@@ -1036,3 +1036,50 @@ To avoid the flakiness, a developer could have mocked the random function. It do
 
 Mutation testing.
 
+## Static testing
+
+**Exercise 1.**
+
+Regular expressions cannot count instances.
+
+**Exercise 2.**
+
+Static analysis produces over-generalized results with some false positives, so the analysis is Sound but Imprecise.
+
+## Security testing
+
+**Exercise 1.**
+
+There exist a lot of strange inputs, and only few trigger a vulnerability.
+
+**Exercise 2.**
+
+An infinite loop can be triggered by attackers to do a Denial of Service attack. (Must explain _how_ an attacker may misuse it. )
+
+**Exercise 3.**
+
+4: _Format string injection_ can be done with syntax analysis. Update attack cannot be detected by static analysis. XSS and XSRF are also tricky because input sanitization methods can be bypassed at run-time.
+
+**Exercise 4.**
+
+All of the above. Anything that can potentially corrupt the memory can influence where the instruction pointer points to.  
+
+**Exercise 5.**
+
+| Objective | Testing Technique | (Answer option) Testing Technique |
+|----------------------------------------|------------------------|-----------------------------------|
+| 3. Detect pre-defined patterns in code | A. Fuzzing | **B** |
+| 2. Branch reachability analysis | B. Regular expressions | **C** |
+| 1. Testing like an attacker  | C. Symbolic execution | **D** |
+| 4. Generate complex test cases | D. Penetration testing | **A** |
+
+**Exercise 6.**
+
+Spyware usually accesses information that benign software does not and sends information to parties that benign software does not. Tracking which data the program under test (spyware) accesses, and where that data flows is one way to detect spyware. For example, we know that `/etc/passwd` is sensitive, so we taint it. If a program requests it, we can follow the taint and see if it is being sent over the network.
+
+**Exercise 7.**
+``` java
+x = {0,12,21}
+y = {1,2,3,...}
+```
+ Since reaching  definitions  analysis  produces all the  possible  values  a  variable  might take, resulting in over-generalization and false positives.
