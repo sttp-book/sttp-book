@@ -8,7 +8,7 @@ Given that the model preserves some of the original attributes of the system und
 Why should we use models at all? A model gives us a structured way to understand how the program operates (or should operate).
 Model-based testing makes use of models of the system to derive tests.
  
-In this chapter, we show what a model is (or can be), and go over some of the models used in software testing.
+In this chapter, we show what a model is (or can be) and go over some of the models used in software testing.
 The two models covered in this chapter are decision tables and state machines.
  
  
@@ -73,7 +73,7 @@ You can see the different prices for the combinations of international services 
  
  
  
-**Don't care values:** In some cases the value of a condition might not influence the action.
+**Don't care values:** In some cases, the value of a condition might not influence the action.
 This is represented as a "don't care" value, or "dc".
  
 Essentially, "dc" is a combination of two columns.
@@ -207,7 +207,7 @@ We want to cover all the actions in the test suite.
 Therefore, we need at least v4 and v8.
 With these decisions we also have covered the International Services condition.
 We need one of v1, v2, v3 and one of v5, v6, v7.
-To cover Loyal we add v7 and to cover Automatic Renewal we add v2.
+To cover Loyal, we add v7 and to cover Automatic Renewal we add v2.
 All the possible actions have now been covered.
  
 For full MC/DC, we test the decisions: v2, v4, v7, v8.
@@ -341,7 +341,7 @@ A system often has multiple states and various transitions between these states.
 The state machine model uses these states and transitions to illustrate the system's behaviour.
  
 The main focus of a state machine is, as the name suggests, the states of a system.
-So it is useful to think about what a state actually is.
+So, it is useful to think about what a state actually is.
 The states in a state machine model describe where a program is in its execution. 
 Transitions are actions that take the system from one state to another.
 We can use as many states as we need to describe the system's behaviour well.
@@ -374,7 +374,7 @@ We can use these events in the state machine.
  
 In the diagram the initial state is `LOCKED`.
 Usually when someone starts using their phone, it is locked.
-Therefore the initial state of the state machine should also be `LOCKED`.
+Therefore, the initial state of the state machine should also be `LOCKED`.
  
  
  
@@ -382,7 +382,7 @@ Sometimes an event can lead to multiple states, depending on a certain condition
 To model this in the state machines, we use *conditional transitions*.
 These transitions are only performed if the event happens and if the condition is true.
 The conditions often depend on a certain value being used in the state machine.
-To modify these values when a transition is taken in the state machine we use actions.
+To modify these values when a transition is taken in the state machine, we use actions.
 Actions are associated with a transition and are performed when the system uses that transition to go into another state.
 The notation for conditions and actions is as follows:
  
@@ -446,7 +446,7 @@ To test a single transition (for transition coverage), more steps are needed:
 5. Assert that the system is in the new state that the transition points to.
  
  
-To achieve full state coverage we need to arrive in each state once.
+To achieve full state coverage, we need to arrive in each state once.
 For the phone example we have three states so we can make three tests.
  
 - Check that the system is `LOCKED` when it is started;
@@ -469,9 +469,9 @@ These combinations of transitions are called paths.
 A logical thought might be: let's test all the paths in the state machine.
 While this looks like a good objective, the number of paths will probably be too high.
 Take a state machine that has a loop, i.e., a transition from state X to Y and a transition from state Y to X.
-When creating paths we can keep going back and forth between these two states.
+When creating paths, we can keep going back and forth between these two states.
 This leads to an infinite number of paths.
-Obviously, we cannot test all the paths so we need to take a different approach.
+Obviously, we cannot test all the paths, so we need to take a different approach.
  
 The idea is that when using paths to derive test cases, we want each loop to be executed once.
 This way we have a finite number of paths to be tested.
@@ -507,7 +507,7 @@ One node was added, so we continue by adding children to that node.
 ![Three level transition tree](img/model-based-testing/examples/transition_tree/transition_tree_2.svg)
  
 The only state we have not seen yet is `UNLOCKED` in the `UNLOCKED_0` node.
-Therefore this is the only node we should add children to.
+Therefore, this is the only node we should add children to.
  
 ![Final phone transition tree](img/model-based-testing/examples/transition_tree/transition_tree_3.svg)
  
@@ -654,7 +654,7 @@ We can see that there is, for example, a transition from `UNLOCKED` to `LOCKED` 
  
 When we have the transition table, we have to decide the intended behaviour for the cells that are empty.
 The default is to ignore the event and stay in the same state.
-In some cases one might want the system to throw an exception.
+In some cases, one might want the system to throw an exception.
 These decisions depend on the project and the customer's needs.
  
 As discussed earlier, we can use the transition table to derive tests for sneak paths.
@@ -711,9 +711,9 @@ Now we can also simplify the state machine by collapsing the super state:
  
  
 **Regions**:
-So far we have had super states that contain one state machine.
+So far, we have had super states that contain one state machine.
 Here, the system is in only one state of the super state at once.
-In some cases it may be useful to allow the system to be in multiple states at once.
+In some cases, it may be useful to allow the system to be in multiple states at once.
 This is achieved with regions.
  
 A super state can be split into multiple regions.
@@ -728,9 +728,9 @@ Expanding regions is possible, but is highly impractical and usually not wanted,
 This causes the number of states and transitions to explode quickly.
 For this reason, we will not cover how to expand regions.
  
-In general it is best to use small state machines and to link these together using super states and regions.
+In general, it is best to use small state machines and to link these together using super states and regions.
  
-So far when the phone was `ON` we modelled the `LOCKED` and `UNLOCKED` state.
+So far when the phone was `ON`, we modelled the `LOCKED` and `UNLOCKED` state.
 When the phone is on, it drains the battery.
 The system keeps track of the level of the battery.
 Let's assume that our phone has two battery levels: low and normal.
@@ -826,7 +826,7 @@ Use sensible naming for the states in your transition tree.
  
  
 **Exercise 5.**
-With the transition tree you devised in the previous exercise and the state machine in that exercise, what is the transition coverage of a test that the following events: [order placed, order received, order fulfilled, order delivered]?
+With the transition tree you devised in the previous exercise and the state machine in that exercise, what is the transition coverage of a test that includes the following events: [order placed, order received, order fulfilled, order delivered]?
  
  
 **Exercise 6.**
@@ -836,7 +836,7 @@ Ignore the initial transition `Order placed`.
  
 **Exercise 7.**
 How many sneak paths are there in the state machine we used in the previous exercises?
-Again ignore the initial `Order placed` transition.
+Again, ignore the initial `Order placed` transition.
  
  
 **Exercise 8.**
@@ -900,7 +900,7 @@ Also, remember that, if a transition is not specified in the requirements, it si
 Devise a state transition tree for the microwave state machine.
  
 **Exercise 13.**
-Again consider the state machine requirements for the microwave.
+Again, consider the state machine requirements for the microwave.
 There appears to be some redundancy in the defrosting and warming up functionality, which potentially can be described using super states (also called OR-states).
 Which effect does this have on the total number of states and transitions for the resulting diagram with a super state?
  
