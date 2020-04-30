@@ -288,7 +288,7 @@ public void pricePerMonthTest(boolean international, boolean autoRenewal,
  
 ### Non-binary choices and final guidelines
 
-So far, all the decision tables dicussed have boolean conditions (i.e., values in the cells were either `true` or `false`).
+So far, all the decision tables we have discussed have boolean conditions (i.e., values in the cells were either `true` or `false`).
 The decision tables can be generalized to contain non-boolean values (non-binary choices). In other words, instead of only `true` and `false`, the values can now also be, e.g., a number.
 
 Take the decision table for the phone subscriptions, discussed earlier.
@@ -319,7 +319,7 @@ In such case, other strategies like _pair-wise combinatorial testing_ offer bett
 The testing techniques for decision tables with only boolean conditions can also be generalized to tables with non-boolean conditions.
 For the MC/DC criteria (discussed in the structural testing chapter), this requires modifying one of its three properties: instead of making each condition `true` and `false` at least once in the test suite, each of its possible values should appear at least once in the test suite.
 
-Finally, these are some general quidelines to keep in mind when designing decision tables:
+Finally, these are some general guidelines to keep in mind when designing decision tables:
 
 1. **Keep conditions independent.** The order of the conditions should not matter, otherwise a state machine might be more fitting.
 2. **Use DC values when possible.** This decreases the amount of variants, making the decision table easier to read and easier to understand.
