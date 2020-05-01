@@ -110,7 +110,7 @@ Possible actions:
 3. We should treat 'pattern is improperly quoted' as exceptional, and thus, test it just once.
 
 
-**Exercise 8**
+**Exercise 9**
 We have a lot of boundaries to test for:
 
 ![Boundary Analysis Legs](img/specification-based-testing/legs.png)

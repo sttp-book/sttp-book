@@ -487,8 +487,8 @@ A tester, after reading the specs and following the Category-Partition method, d
 
 However, the number of combinations is too high now. What actions could we take to reduce the number of combinations?
 
-**Exercise 8.**
-We have a program called IsCat
+**Exercise 9.**
+We have a program called <ins>IsCat</ins>.
 It works as follows:
 > Given an list of prerequisites, it returns either the string "Cat" or the string "Doge".
 > If the number of legs is an even number, it has a tail, the number of lives left is between [0, 9], it has sharp nails and the sounds it produces is "miauw", it is a cat.
