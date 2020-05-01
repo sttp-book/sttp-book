@@ -799,7 +799,7 @@ Slack shared their internal flow chart that decides whether to send a notificati
 **Exercise 1.**
 The *ColdHot* air conditioning system has the following requirements:
  
-- When the user turns it on, the machine is in an *idle* state.
+- When the user turns it on, the machine is in an *idle* state. This is the initial state.
 - If it is *too hot*, then, the *cooling* process starts. It goes back to *idle* when the defined *temperature is reached*.
 - If it is *too cold*, then, the *heating* process starts. It goes back to *idle* when the defined *temperature is reached*.
 - If the user *turns it off*, the machine is *off*. If the user *turns it on* again, the machine is back to *idle*.
