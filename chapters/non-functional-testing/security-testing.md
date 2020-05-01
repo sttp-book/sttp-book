@@ -285,7 +285,7 @@ public void bad(HttpServletRequest request, HttpServletResponse response)
     /* Potential flaw: Display of data in web pages after using
     * replaceAll() to remove script tags,
     * will still allow XSS with string like <scr<script>ipt>. */
-    response.getWriter().println("<br>bad(): data = " +
+    response.getWriter().println("<br>bad(): data = " + 
     	data.replaceAll("(<script>)", ""));
   }
 }
