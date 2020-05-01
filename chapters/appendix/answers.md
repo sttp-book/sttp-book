@@ -111,6 +111,16 @@ Possible actions:
 
 
 **Exercise 8**
+We have a lot of boundaries to test for:
+
+![Boundary Analysis Legs](img/specification-based-testing/legs.png)
+![Boundary Analysis Tail](img/specification-based-testing/tail.png)
+![Boundary Analysis Lives](img/specification-based-testing/lives.png)
+![Boundary Analysis SharpNails](img/specification-based-testing/nails.png)
+![Boundary Analysis Sound](img/specification-based-testing/sound.png)
+
+To establish the needed tests in the category/partition method, we need to identify the parameters, derive the characteristics, add constraints and final make the tests.
+As we last step we can identify duplicate tests and remove those.
 1. Identify parameters:
   - Legs
   - Tail
@@ -119,30 +129,40 @@ Possible actions:
   - Sound
 
 2. Derive characteristics of parameters:
-  - int legs
-  - bool tail
-  - int lives
-  - bool sharp nails
-  - string sound
+  - int legs: [0,2,4,6,8,10,integer.MAX_VALUE], [1,3,5,7,9,integer.MAX_VALUE], [negative value]
+  - bool tail: [true], [false]
+  - int lives: [1-9], no lives, more than 10 lives
+  - bool sharp nails: [true], [false]
+  - string sound: ['miauw'], ['woof'], [empty]
+
 
 3. Add constraints
-  - int legs = any even int
-  - bool tail = true
-  - int lives >= 0 && int lives <= 9
-  - bool sharp nails == true
-  - string sound == "miauw"
+  - If `lives <= 0`, we can test this with just one combination.
   - If legs is an negative integer or 0, this is an exceptional case. Therefore it doesn't matter if the animal has sharp nails or not.
   - If legs is not an even integer, we can test this with just one combination.
+  - If `lives >= 10`, we can test this with just one combination. 
 
 4. Test cases
 Tests can be divided in 3 categories: is a cat, not a cat, exceptional cases.
-  - 2, true, 6, true, "miauws" --> cat
-  - 3, true, 6, true, "miauws" --> doge
-  - 4, false, 6, true, "miauws" --> doge
-  - 6, true, 11, true, "miauws" --> doge
-  - 8, true, 4, false, "miauws" --> doge
-  - 2, true, 3, true, "wow" --> doge
-  - 0, true, 2, true, "miauws" --> cat or invalid depending on the context of the program.
+  **Cat**
+  1. 2, true, 6, true, "miauws" --> cat
+  **Not a cat**
+  1. 3, true, 6, true, "miauws" --> not a cat
+  2. 4, false, 6, true, "miauws" --> not a cat
+  3. 6, true, 11, true, "miauws" --> not a cat
+  4. 8, true, 4, false, "miauws" --> not a cat
+  5. 2, true, 3, true, "woof" --> not a cat
+  **Exceptional**
+  1. 0, true, 2, false, "miauws" --> cat or invalid depending on the context of the program.
+  2. 2, true, 11, true, "miauws" --> not a cat
+  3. 3, true, 8, true, "miauws" --> not a cat
+  4. 4, true, 0, true, "miauws" --> not a cat or invalid depending on the context of the program.
+
+Note that some tests can be combined! For example: 
+  - TEST-1 from not a cat is the same as TEST-3 from exceptional
+  - TEST-3 from not a cat is the same as TEST-2 from exceptional
+
+So the total number of tests = 8.
 
 
 ## Boundary testing
