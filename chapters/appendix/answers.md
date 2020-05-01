@@ -73,18 +73,28 @@ We end up with three partitions:
 
 **Exercise 4**
 
-We go over each given partition and identify whether it is a valid partition:
+There are no right or wrong answers to this exercise. 
+It services to show that a lot of decisions that we make are based on what we know about the system (or, in this case, what we assume about the system).
+But, when context kicks in, there might be more possible invalid test cases then just the cases in the boundaries.
 
-1. Valid partition: Invalid numbers, which are too small.
-2. Valid partition: Valid numbers
-3. Invalid partition: Contains some valid numbers, but the range is too small to cover the whole partition.
-4. Invalid partition: Same reason as number 3.
-5. Valid partition: Invalid numbers, that are too large.
-6. Invalid partition: Contains both valid and invalid letters (the C is included in the domain).
-7. Valid partition: Valid letters.
-8. Valid partition: Invalid letters, past the range of valid letters.
+Whatever decisions you as a tester make regarding specific invalid test cases, it is important to justify those decisions.
+For example:
+* Do we feel the need of testing negative numbers separately from positive numbers? From the specification, there's no reason to do so. 
+If you look at the source code (supposing you have access to the source code, does it make you feel like this test is needed?
+* Do we feel the need of testing trailing zeroes? Maybe the user inputs a string which is converted later... Then, testing might be important.
+* Do we feel the need to test extreme numbers, like Integer.MAX_VALUE or even passing a long int or float there? 
+* Do we feel the need to test with a string consisting of only 1 letter, or maybe more than 2 letters? 
+If there's no input validation, unintended behaviour might be right around the corner 
+* Do we feel the need to test lowercase letters? Maybe the program can't distinguish between lower- and uppercase letters.
 
-We have the following valid partitions: 1, 2, 5, 7, 8.
+Examples of possible invalid partitions:
+1. [Integer.MIN_VALUE, 999]
+2. [4001, Integer.MAX_VALUE] 
+3. [AA, B]
+4. [N, Z]
+5. [0000, 0999] 
+6. [AAA, ZZZ]
+
 
 **Exercise 5**
 
@@ -105,10 +115,32 @@ This is a functional testing technique. No need for source code.
 
 Possible actions:
 
-1. We should treat pattern size 'empty' as exceptional, and thus, test it just once.
-2. We should constrain the options in the 'occurrences in a single line' category to happen only if 'occurrences in the file' are either exactly one or more than one. It does not make sense to have none occurrences in a file and one pattern in a line.
-3. We should treat 'pattern is improperly quoted' as exceptional, and thus, test it just once.
+1. We should treat file names 'no-filename with this name' and 'omitted' as exceptional, and thus, test them just once.
+2. We should treat pattern size 'empty' as exceptional, and thus, test it just once.
+3. We should constrain the options in the 'occurrences in a single line' category to happen only if 'occurrences in the file' are either exactly one or more than one. It does not make sense to have none occurrences in a file and one pattern in a line.
+4. We should treat 'pattern is improperly quoted' as exceptional, and thus, test it just once.
 
+**Exercise 8**
+
+This focus of this exercise is for you to see that the internal state of the object should also be taken into account in the partitions (and not only the direct input variables).
+
+Input parameter e: 
+* P1: Element not present in the set
+* P2: Element already present in the set
+* P3: NULL element.
+
+Set is full?  (`isFull` comes from the state of the class)
+* isFull == true
+* isFull == false
+
+With the categories and partitions in hands, we can constrain the `isFull == true` and test it only once (i.e., without combining with other classes). 
+
+We then combine them all and end up with four tests:
+
+* T1: isFull returns false, e: Element not present in the set
+* T2: isFull returns false, e: Element present in the set
+* T3: isFull returns false, e: Null element
+* T4: isFull returns true, e: Element not present in the set
 
 **Exercise 9**
 We have a lot of boundaries to test for:
@@ -182,14 +214,9 @@ The out-points are the values that make the condition false: all values equal to
 
 **Exercise 2**
 
-The decision consists of two conditions, so we can analyse these separately.
-
-For `n % 3 == 0` we have an on point of 3.
+The on-point is 10.
 Here we are dealing with an equality; the value can both go up and down to make the condition false.
-As such, we have two off-points: 2 and 4.
-
-Similarly to the first condition for `n % 5 == 0` we have an on-point of 5.
-Now the off-points are 4 and 6.
+As such, we have two off-points: 9 and 11.
 
 
 **Exercise 3**
@@ -206,36 +233,31 @@ An example of an out-point, where the condition evaluates to false, is 893.
 
 **Exercise 4**
 
-
-![Answer domain matrix](img/boundary-testing/exercises/domain_exercise.png)
-
-Note that we require 7 test cases in total: `numberOfPoints <= 570` and `numberOfLives > 10` each have one on- and one off-point.
-`energyLevel == 5` is an equality, so we have two off-points and one on-point.
-This gives a total of 7 test cases.
-
-For one of the first two conditions we need two typical rows.
-
-Let's rewrite the whole condition to: `(c1 && c2) || c3`.
-
-To test `c1` we have to make `c2` true, otherwise the result will always be false.
-
-The same goes for testing `c2` and then making `c1` true.
-
-However, when testing `c3`, we need to make `(c1 && c2)` false, otherwise the result will always be true.
-That is why, when testing `c3`, `c1` or `c2` has to be false, i.e. and out-point instead of an in-point.
-Therefore we use two different typical rows for the `numberOfLives` variable.
-The same could have been done with two typical rows for the `numberOfPoints` variable.
-
-**Exercise 5**
-
 An on-point is the (single) number on the boundary. It may or may not make the condition true. The off point is the closest number to the boundary that makes the condition to be evaluated to the opposite of the on point. Given it's an inequality, there's only a single off-point.
 
 
-**Exercise 6**
+**Exercise 5**
 
 on point = 1024, off point = 1025, in point = 1028, out point = 512
 
 The on point is the number precisely in the boundary = 1024. off point is the closest number to the boundary and has the opposite result of on point. In this case, 1024 makes the condition false, so the off point should make it true. 1025. In point makes conditions true, e.g., 1028. Out point makes the condition false, e.g., 512.
+
+
+**Exercise 6**
+
+The decision consists of two conditions, so we can analyse these separately.
+
+First note that the modulo function `%` is not a linear function, therefore there is no single on and off point.
+![Graph of `f(n) = n % 3`](img/boundary-testing/exercises/modulo3-graph.png)
+(Graph of `f(n) = n % 3`, desmos.com)
+
+
+For `n % 3 == 0` any multiple of 3 would work as an on-point.
+Because we can't exhaustively test all multiples of 3, only one of them should be tested. Lets use 3 for this exercise.
+There are also infinitely many off points we can pick. Choosing the respective off-points of our on-point should suffice. Off-points: 2 and 4.
+
+Similarly to the first condition for `n % 5 == 0` we have an on-point of 5.
+Now the off-points are 4 and 6.
 
 
 **Exercise 7**
@@ -293,7 +315,7 @@ Finally a third test is needed to cover line 11 (`removeElementNotPresentInListT
 **Exercise 2**
 
 ![LinkedList exercise CFG](img/structural-testing/exercises/CFG-LinkedList.svg)
-L\<number\> in the diagram represents the line number of the code that is in the block or decision.
+Ln in the diagram represents the line number of the code that is in the block or decision.
 
 **Exercise 3**
 
@@ -357,7 +379,7 @@ Then for the decision in line 2 the node that `remove` is looking at should not 
 The node is `null` when the end of the list had been reached.
 That only happens when the element that should be removed is not in the list.
 Note that the decision in line 2 only gets executed when the element to remove is `null`.
-In the tests, this means that the element should be found and not found at least once. 
+In the tests, this means that the element should be found and not found at least once.
 
 The decision in line 3 checks if the node that the method is at now has the element that should be deleted.
 The tests should cover a case where the element is not the item that has to be removed and a case where the element is the item that should be removed.
@@ -401,7 +423,7 @@ For `"aa"` the expected output is `"a"`.
 **Exercise 8**
 
 
-Answer 4. is correct.
+Option 4 is the incorrect one.
 The loop in the method makes it impossible to achieve 100% path coverage.
 This would require us to test all possible number of iterations.
 For the other answers we can come up with a test case: `"aXYa"`
@@ -410,7 +432,8 @@ For the other answers we can come up with a test case: `"aXYa"`
 
 
 First the condition coverage.
-We have 8 conditions:
+When talking about condition coverage, we first have to split the condition on line 1 (n % 3 == 0 && n % 5 == 0) 
+into two decision blocks for the CFG. In total, we will have 8 conditions:
 
 1. Line 1: `n % 3 == 0`, true and false
 2. Line 1: `n % 5 == 0`, true and false
@@ -418,11 +441,14 @@ We have 8 conditions:
 4. Line 5: `n % 5 == 0`, true and false
 
 T1 makes conditions 1 and 2 true and then does not cover the other conditions.
-T2 makes all the conditions false.
-In total these test cases then cover $$2 + 4 = 6$$ conditions so the condition coverage is $$\frac{6}{8} \cdot 100\% = 75\%$$
+For T2 we need to pay special attention. The input number 8 is neither divisible by 3, nor divisible by 5. 
+Having the CFG in mind, notice that when the first part of the condition on line 1 (namely n % 3 == 0) is evaluated to false,
+the second part will not even be evaluated since the && is a lazy operator. Therefore, we will end up following the false paths 
+of the first, third and the forth decision block.
+In total, these test cases then cover $$2 + 3 = 5$$ conditions so the condition coverage is $$\frac{5}{8} \cdot 100\% = 62.5\%$$
 
 Now the decision coverage.
-We have 6 decision:
+We have 6 decisions:
 
 1. Line 1: `n % 3 == 0 && n % 5 == 0`, true and false
 2. Line 3: `n % 3 == 0`, true and false
@@ -430,7 +456,7 @@ We have 6 decision:
 
 Now T1 makes decision 1 true and does not cover the other decisions.
 T2 makes all the decision false.
-Therefore the coverage is $$\frac{4}{6} \cdot 100\% = 66\%$$.
+Therefore, the coverage is $$\frac{4}{6} \cdot 100\% = 66\%$$.
 
 
 **Exercise 10**
@@ -718,7 +744,7 @@ So there will be two fewer transitions.
 
 
 
-## Design-by-contracts and property-based testing
+## Design-by-contracts
 
 **Exercise 1**
 
@@ -786,9 +812,9 @@ To make debugging easier.
 
 
 
+## Property-based testing
 
-
-
+1. We still need answers here. Maybe you want to help us and open a PR?
 
 
 
@@ -1032,18 +1058,18 @@ TDD literature says nothing about team integration.
 
 **Exercise 1**
 
-Correct: Both tests are very slow.
+Both tests are very slow.
 
 
 **Exercise 2**
 
-Correct answer: Mystery guest
+Mystery guest
 
 
 **Exercise 3**
 
 
-Correct answer: It is hard to tell which of several assertions within the same test method will cause a test failure.
+It is hard to tell which of several assertions within the same test method will cause a test failure.
 
 
 **Exercise 4**
@@ -1064,3 +1090,50 @@ To avoid the flakiness, a developer could have mocked the random function. It do
 
 Mutation testing.
 
+## Static testing
+
+**Exercise 1.**
+
+Regular expressions cannot count instances.
+
+**Exercise 2.**
+
+Static analysis produces over-generalized results with some false positives, so the analysis is Sound but Imprecise.
+
+## Security testing
+
+**Exercise 1.**
+
+There exist a lot of strange inputs, and only few trigger a vulnerability.
+
+**Exercise 2.**
+
+An infinite loop can be triggered by attackers to do a Denial of Service attack. (Must explain _how_ an attacker may misuse it. )
+
+**Exercise 3.**
+
+4: _Format string injection_ can be done with syntax analysis. Update attack cannot be detected by static analysis. XSS and XSRF are also tricky because input sanitization methods can be bypassed at run-time.
+
+**Exercise 4.**
+
+All of the above. Anything that can potentially corrupt the memory can influence where the instruction pointer points to.  
+
+**Exercise 5.**
+
+| Objective | Testing Technique | (Answer option) Testing Technique |
+|----------------------------------------|------------------------|-----------------------------------|
+| 3. Detect pre-defined patterns in code | A. Fuzzing | **B** |
+| 2. Branch reachability analysis | B. Regular expressions | **C** |
+| 1. Testing like an attacker  | C. Symbolic execution | **D** |
+| 4. Generate complex test cases | D. Penetration testing | **A** |
+
+**Exercise 6.**
+
+Spyware usually accesses information that benign software does not and sends information to parties that benign software does not. Tracking which data the program under test (spyware) accesses, and where that data flows is one way to detect spyware. For example, we know that `/etc/passwd` is sensitive, so we taint it. If a program requests it, we can follow the taint and see if it is being sent over the network.
+
+**Exercise 7.**
+``` java
+x = {0,12,21}
+y = {1,2,3,...}
+```
+ Since reaching  definitions  analysis  produces all the  possible  values  a  variable  might take, resulting in over-generalization and false positives.

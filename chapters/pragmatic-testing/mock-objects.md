@@ -465,8 +465,6 @@ Ultimately, remember that whenever you mock, you reduce the reality of the test.
 
 ## Exercises
 
-The code implemented in this chapter can be found at the `invoice`, `invoicestubbed`, and `invoicesap` packages in the [code examples](https://github.com/sttp-book/code-examples/) repository.
-
 
 **Exercise 1.**
 See the following class:
