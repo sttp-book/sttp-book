@@ -125,9 +125,6 @@ Did you notice the `assertThat...containsExactlyInAnyOrder` assertion we used? T
 Such assertions do not come with JUnit 5. These assertions are part of the [AssertJ](https://joel-costigliola.github.io/assertj/) project. AssertJ is a fluent assertions API for Java, giving us several interesting assertions that are especially useful when dealing with lists or complex objects. We recommend you get familiar with it!
 {% endhint %}
 
-{% set video_id = "0WY7IWbANd8" %}
-{% include "/includes/youtube.md" %}
-
 Let us now re-write the test. This time we will stub the `IssuedInvoices` class.
 
 For that to happen, we first need to make sure the stub can be "injected" into the `InvoiceFilter` class. If you look at the previous implementation of the `InvoiceFilter` class, you will notice that the class instantiates the `IssuedInvoices` class on its own. If we are to use a stub, the class should allow the stub to be injected.
