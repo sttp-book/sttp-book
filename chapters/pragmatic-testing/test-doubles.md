@@ -513,6 +513,7 @@ The "Software Engineering at Google" book has an entire chapter dedicated to tes
 * When mocking, prefer _state testing_ rather than _iteraction testing_. In other words, make sure you are asserting a change of state and/or the consequence of the action under test, rather than the precise interaction that the action has with the mocked object. After all, interaction testing tends to be too coupled with the implementation of the system under test.
 * Use _interaction testing_ when state testing is not possible, or when a bad interaction might have an impact in the system (e.g., calling the same method twice would make the system twice as slow).
 * Avoid overspecified interaction tests. Focus on the relevant arguments and functions.
+* Good _interaction testing_ requires strict guidelines when designing the system under test. Google engineers tend not to do it.
 
 ## Exercises
 
@@ -638,6 +639,6 @@ Referring to the previous chapter, apply boundary testing techniques to the `Inv
 
 * Freeman, S., & Pryce, N. (2009). Growing object-oriented software, guided by tests. Pearson Education.
 
-* Winters, T., Manshreck, T., Wright, H. Software Engineering at Google: Lessons Learned from Programming Over Time. O'Reilly, 2020.
+* Winters, T., Manshreck, T., Wright, H. Software Engineering at Google: Lessons Learned from Programming Over Time. O'Reilly, 2020. Chapter 13, "Test doubles".
 
 * Freeman, S., Mackinnon, T., Pryce, N., & Walnes, J. (2004, October). Mock roles, not objects. In Companion to the 19th annual ACM SIGPLAN conference on Object-oriented programming systems, languages, and applications (pp. 236-246).
