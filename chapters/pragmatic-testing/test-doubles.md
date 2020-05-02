@@ -17,7 +17,19 @@ The use of objects that simulate the behaviour of other objects has advantages:
 
 **Simulating dependencies is therefore a widely used technique in software testing, mainly to increase testability.**
 
-As you will see in the remainder of this chapter, you may need different types of "simulation objects", according to your problem. Such objects are also known as "test doubles".
+Such objects are also known as **test doubles**. In the rest of this chapter, we will:
+
+1. Explain the differences between dummies, fakes, stubs, spies, and mocks.
+1. Learn _Mockito_, a popular mocking framework in Java. Although Mockito has "mock" in the name, Mockito can be used for stubbing and spying as well. We also show, by means of a few examples, how simulations can help developers in writing unit tests more effectively.
+1. Discuss _interaction testing_ and how mocks can be used as a design technique.
+1. Discuss what Google has learned about test doubles.
+
+{% hint style='tip' %}
+You can read more about the history of Mock Objects at http://www.mockobjects.com.
+{% endhint %}
+
+
+## Dummies, fakes, stubs, spies, and mocks
 
 Meszaros, in his book, defines five different types: dummy objects, fake objects, stubs, spies, and mocks:
 
@@ -32,15 +44,7 @@ Stubs do not actually have a working implementation, as fake objects do. In the 
 
 * **Mocks**: Mock objects act like stubs that are pre-configured ahead of time to know what kind of interactions should occur with them. For example, imagine a mock object that is configured as follows: method A should be called twice and, for the first call it should return "1", and for the second call it should throw an exception, while method B should never be called.
 
-In the rest of this chapter, we will:
-
-1. Learn _Mockito_, a popular mocking framework in Java. Although Mockito has "mock" in the name, Mockito can be used for stubbing and spying as well. We also show, by means of a few examples, how simulations can help developers in writing unit tests more effectively.
-1. Discuss _interaction testing_ and how mocks can be used as a design technique.
-1. Discuss what Google has learned about test doubles.
-
-{% hint style='tip' %}
-You can read more about the history of Mock Objects at http://www.mockobjects.com.
-{% endhint %}
+As a tester, you should decide which test double to use. We will discuss some guidelines later.
 
 ## Mockito
 
