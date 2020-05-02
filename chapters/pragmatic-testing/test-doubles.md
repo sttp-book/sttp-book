@@ -24,11 +24,6 @@ Such objects are also known as **test doubles**. In the rest of this chapter, we
 1. Discuss _interaction testing_ and how mocks can be used as a design technique.
 1. Discuss what Google has learned about test doubles.
 
-{% hint style='tip' %}
-You can read more about the history of Mock Objects at http://www.mockobjects.com.
-{% endhint %}
-
-
 ## Dummies, fakes, stubs, spies, and mocks
 
 Meszaros, in his book, defines five different types: dummy objects, fake objects, stubs, spies, and mocks:
