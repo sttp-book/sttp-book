@@ -20,7 +20,7 @@ Compared to mutative fuzzers, generative fuzzers are _less generalizable_ and _d
 
 ## Maximizing code coverage
 
-A difficult thing about effective software testing is to generate test cases that not only _maximizes the code coverage, but do so in a way that tests for a wide range of possible values_. Fuzzing helps achieve this goal by generating wildly diverse test cases. For example, [this blog regehr](https://blog.regehr.org/archives/896) describes the use of fuzzing in order to optimally test an ADT implementation.
+A difficult thing about effective software testing is to generate test cases that not only _maximizes the code coverage, but do so in a way that tests for a wide range of possible values_. Fuzzing helps achieve this goal by generating wildly diverse test cases. For example, [this blog post by Regehr](https://blog.regehr.org/archives/896) describes the use of fuzzing in order to optimally test an ADT implementation.
 
 We want the fuzzer to generate these test cases in a reasonable time.
 There are various ways in which we achieve maximal code coverage in less time:
