@@ -212,7 +212,7 @@ We will discuss design for testability in future chapters.
 {% set video_id = "YpKxAicxasU" %}
 {% include "/includes/youtube.md" %}
 
-## A remark on the testing pyramid
+## The community of practice and the testing pyramid
 
 We have no scientific evidence that the testing pyramid or the idea
 of prioritising design for testability and focusing on unit tests is efficient.
@@ -227,6 +227,19 @@ Although a lot of software is used there, the system depends highly on physical 
 
 The message here is that although the testing pyramid makes sense in lots of systems that are developed in industry, for some others it might not be the best way of making trade-offs. You, as a tester, should understand the advantages and the disadvantages of each test level, their benefits and costs,
 and then decide which test levels to use, how much, and when. There is no silver bullet.
+
+## The testing pyramid at Google
+
+In "Software Engineeging at Google", authors mention that Google often opts for unit tests, as they tend to be cheaper to be developed, and execute faster. Similarly to the testing pyramid, integration and system tests also happen, although in less scale. According to the authors, around 80% of their tests are unit tests.
+
+Google has also an interesting definition of "test sizes", that engineers also take into consideration when designing test cases:
+
+* A "small test" is a test that can be executed in a single process. In other words, imagine that a tester wants to test a method in a class. This method makes no use of external components and/or threads and parallelism. This is a "small test". Their advantages is that such tests do not have access to main sources of test slowness or determinism; in other words, they are fast and not flaky.
+
+* A "medium test" can span multiple processes, use threads, and can make external calls (like network calls) to localhost. Integration tests to databases, as we discussed before, could be classified as a medium test, if the database also runs in the same machine as the tests. Clearly, medium tests tend to be somewhat slower and more flaky than small tests.
+
+* Finally, "large tests" remove the localhost restriction. Large tests can then require and make calls to multiple machines. Google reserves large tests for full end-to-end tests.
+
 
 ## Exercises
 
@@ -348,3 +361,5 @@ What is the main reason for the number of recommended system tests in the testin
 * Fowler, Martin. TestingPyramid (2012). https://martinfowler.com/bliki/TestPyramid.html
 
 * Wikipedia. Exploratory testing. https://en.wikipedia.org/wiki/Exploratory_testing. Last access on March, 2020.
+
+* * Winters, T., Manshreck, T., Wright, H. Software Engineering at Google: Lessons Learned from Programming Over Time. O'Reilly, 2020. Chapters 11 and 12.
