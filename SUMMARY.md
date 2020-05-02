@@ -43,10 +43,10 @@
 ----
 
 * [Intelligent testing](chapters/intelligent-testing/README.md)
+	* [Static testing](chapters/intelligent-testing/static-testing.md)
 	* [Mutation testing](chapters/intelligent-testing/mutation-testing.md)
 	* [Fuzz testing](chapters/intelligent-testing/fuzzing.md)
 	* [Search-based software testing](chapters/intelligent-testing/sbst.md) (soon)
-	* [Static testing](chapters/intelligent-testing/static-testing.md)
 
 ----
 
