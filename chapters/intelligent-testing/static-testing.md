@@ -68,9 +68,14 @@ For example, for a rule _allowing at most 3 methods_, and the following code sni
 
 Abstract Syntax Trees are used by compilers to find sematic errors &mdash; compile-time errors associated to the _meaning_ of the program. ASTs are also be used for program verification, type-checking, and translating the program from one language to another.  
 
-## Limitations of static analysis
+## Performance of static analysis
 
-The signatures that static analysis uses to detect bugs need to be kept up-to-date as they codebase evolves. Additionally, while static analysis can see the entire codebase, it does not see how the application behaves in action, so if a piece of code is added at runtime, the static analysis will miss it completely. This is why static analysis tools generally produce a large amount of False positives &mdash; raises alarms when there are none, and False negatives &mdash; miss bugs.
+ Typically, static analysis produces _sound_ results, i.e. zero false negatives. This is because the tools have access to the whole codebase, and they can track all the possible execution paths a program might take. So, if there are _any_ vulnerabilities, the tool should be able to find them. However, this comes at the cost of _Completeness_. Because it tracks all possible execution paths without seeing how the application behaves in action, some of the results might never be reached in an actual execution scenario, resulting in false positives.
+
+ >Note that static analysis _can produce unsound results_ if a piece of code is added at runtime, because then the analysis will not be done on the new code-piece. This is one reason why the signatures that static analysis uses to detect bugs need to be kept up-to-date as the codebase evolves. However, this strategy will still not work for dynamically induced bugs.
+
+
+{% hint style='tip' %} _Soundness_ and _Completeness_ are defined more extensively in the Security testing chapter. {% endhint %}
 
 ## Exercises
 
@@ -80,7 +85,7 @@ The signatures that static analysis uses to detect bugs need to be kept up-to-da
 3. Define wild cards
 4. Detect coding mistakes
 
-**Exercise 2.** What is the quality of results that Static analysis produces?
+**Exercise 2.** Given that a static analysis tool can view the entire codebase, what is the quality of results that the analysis will produce?
 1. Sound and Precise
 2. Sound but Imprecise
 3. Unsound but Precise

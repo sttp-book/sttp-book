@@ -110,7 +110,7 @@ Static analysis tools often fail to detect this attack, since the malicious code
 
 This vulnerability was present in the implementation of the `tryfinally()` method in the *Reflection API* of the [Hibernate ORM library](https://access.redhat.com/security/cve/cve-2014-3558). Due to insufficient type checks in this method, an attacker could cast objects into arbitrary types with varying privileges.
 
-The Type confusion vulnerability is explained in this [blog](https://www.thezdi.com/blog/2018/4/25/when-java-throws-you-a-lemon-make-limenade-sandbox-escape-by-type-confusion), from where we take the example below.
+The Type confusion vulnerability is explained in [this blog by Vincent Lee](https://www.thezdi.com/blog/2018/4/25/when-java-throws-you-a-lemon-make-limenade-sandbox-escape-by-type-confusion), from where we take the example below.
 
 ``` java
 class Cast1 extends Throwable {
@@ -157,7 +157,7 @@ Security testing is a type of non-functional testing, but if it fails to fix sec
 There is an interesting debate about *who gets the responsibility for security testing*.
 The pragmatic approach is to **include security testing in each phase of the SDLC**.
 
-The figure below shows the Secure-SDLC variant of the traditional SDLC taken from [this article](https://www.dignitasdigital.com/blog/easy-way-to-understand-sdlc/).
+The figure below shows the Secure-SDLC variant of the traditional SDLC taken from [this article by Rohit Singh](https://www.dignitasdigital.com/blog/easy-way-to-understand-sdlc/).
 
 
 ![The secure sdlc](img/security-testing/ssdlc.png)
@@ -198,6 +198,7 @@ In the context of automated security testing, _static_ and _dynamic_ analysis ar
 Before we dive into further explanation of SAST and DAST techniques, let's look at the assessment criteria evaluating the quality of security testing techniques.
 
 ### Quality assessment criteria
+The quality of testing tools is evaluated in a number of ways. You have already learnt about _code coverage_ in a previous chapter. Here, we discuss four new metrics that are often used in the context of security testing:
 Designing an ideal testing tool requires striking a balance between two measures: (a) Soundness, and (b) Completeness.
 
 **Soundness** dictates that there should be no False Negatives (FN) &mdash; no vulnerability should be skipped. This implies that no alarm is raised *IFF* there is no existing vulnerability in the *System Under Test (SUT)*. **Completeness** dictates that there should be no False Positives (FP) &mdash; no false alarm should be raised. This implies that an alarm is raised *IFF* a valid vulnerability is found.
@@ -253,11 +254,11 @@ For security testers, a CFG is an overall picture of an application's behavior, 
 * *an unintended transition going from a low- to a high- privileged code block*, or
 * *certain unreachable pieces of code* that can result in application hanging and eventually, a denial of service.
 
-Existing literature has used CFGs to detect the maliciousness of an application based on how its CFG looks like. For example, [this work](https://link.springer.com/chapter/10.1007/11790754_8) detects self-mutating malware by comparing its CFG with CFGs of known malwares, and [this work](https://link.springer.com/chapter/10.1007/978-3-642-55415-5_12) uses CFGs to measure code reuse as a means to detect malware variants.
+Existing literature has used CFGs to detect the maliciousness of an application based on how its CFG looks like. For example, [this work by Bruschi _et al._](https://link.springer.com/chapter/10.1007/11790754_8) detects self-mutating malware by comparing its CFG with CFGs of known malwares, and [this work by Sun _et al._](https://link.springer.com/chapter/10.1007/978-3-642-55415-5_12) uses CFGs to measure code reuse as a means to detect malware variants.
 
 #### Data Flow Diagram (DFD)
 
-A DFD is built on top of a CFG and shows how data traverses through a program. Since Data Flow Analysis (DFA) is also a static approach, a DFD tracks all possible values a variable might have during any execution of the program. This can be used to detect _sanitization problems_, such as the deserialization vulnerability that caused an ACE, and _code injection vulnerabilities_.
+A DFD is built on top of a CFG and shows how data traverses through a program. Since Data Flow Analysis (DFA) is also a static approach, a DFD tracks all possible values a variable might have during any execution of the program. This can be used to detect _sanitization problems_, such as the deserialization vulnerability that caused an ACE, and some simplistic _code injection vulnerabilities_.
 
 **How DFA works:** A user-controlled variable whose value we intend to track is called a ***Source***, and the other variables are called ***Sinks***. We say that the *Source variables are tainted* and *all Sinks are untainted*. For a Source to be connected to a Sink, it must first be untainted by proper input validation, for example.
 
@@ -272,7 +273,7 @@ The code snippet below shows a real case that DFA can detect. The variable `data
 
 ``` Java
 /* Uses bad source and bad sink */
-public void bad(HttpServletRequest request, HttpServletResponse response) 
+public void bad(HttpServletRequest request, HttpServletResponse response)
   throws Throwable {
 
   String data;
@@ -351,7 +352,7 @@ c = {1, b} -> {0, 1, 10}  // 1, 10 are impossible
 ## Dynamic Application Security Testing (DAST)
 
 Application crashes and hangs leading to Denial of Service attacks are common security problems. They cannot be detected by static analysis since they are only triggered when the application is executed.
-DAST techniques execute an application and observe its behavior. Since DAST tools typically do not have access to the source code, they can only test for functional code paths, and the analysis is only as good as the behavior triggering mechanism. This is why, search-based algorithms have been proposed to maximize the code coverage, e.g. see [this work](https://dl.acm.org/doi/abs/10.1145/2338965.2336762) and [this work](https://ieeexplore.ieee.org/abstract/document/8418633).
+DAST techniques execute an application and observe its behavior. Since DAST tools typically do not have access to the source code, they can only test for functional code paths, and the analysis is only as good as the behavior triggering mechanism. This is why, search-based algorithms have been proposed to maximize the code coverage, e.g. see [this work by Gross _et al._](https://dl.acm.org/doi/abs/10.1145/2338965.2336762) and [this work by Chen _et al._](https://ieeexplore.ieee.org/abstract/document/8418633).
 
 DAST tools are typically difficult to set-up, because they need to be hooked-up with the SUT, sometimes even requiring to modify the SUT's codebase, e.g. for instrumentation. They are also slower because of the added abstraction layer that monitors the application's behavior. Nevertheless, they typically produce less false positives and more advanced results compared to SAST tools. Even when attackers obfuscate the codebase to the extent that it is not statically analyzable anymore, dynamic testing can still monitor the behavior and report strange activities. _BurpSuite_, _SunarQube_, and _OWASP's ZAP_ are some dynamic security testing tools.
 
@@ -374,7 +375,7 @@ An example here is of the tool [Panorama](https://dl.acm.org/doi/abs/10.1145/131
 
 Dynamic validation does a functional testing of the SUT based on the system specifications. It basically checks for any deviations from the pre-defined specifications. **Model Checking** is a similar idea in which specifications are cross-checked with a model that is learnt from the SUT. Model checking is a broad field in the Software Verification domain.
 
-[This work](http://seclab.cs.ucdavis.edu/papers/Hao-Chen-papers/ndss04.pdf) codifies security vulnerabilities as _safety properties_ that can be analyzed using model checking. For example, they analyze processes that may contain _race conditions_ that an attacker may exploit to gain control over a system. In this regard, consider the following code snippet. Suppose that the process first checks the owner of `foo.txt`, and then reads `foo.txt`. An attacker may be able to introduce a race condition in between the two statements and alter the symbolic link of `foo.txt` such that it starts referring to `/etc/passwd` file. Hence, what the user reads as `foo.txt` is actually the `/etc/passwd` file that the attacker now has access to.
+[This work by Chen _et al._](http://seclab.cs.ucdavis.edu/papers/Hao-Chen-papers/ndss04.pdf) codifies security vulnerabilities as _safety properties_ that can be analyzed using model checking. For example, they analyze processes that may contain _race conditions_ that an attacker may exploit to gain control over a system. In this regard, consider the following code snippet. Suppose that the process first checks the owner of `foo.txt`, and then reads `foo.txt`. An attacker may be able to introduce a race condition in between the two statements and alter the symbolic link of `foo.txt` such that it starts referring to `/etc/passwd` file. Hence, what the user reads as `foo.txt` is actually the `/etc/passwd` file that the attacker now has access to.
 
 
 ```java

@@ -35,7 +35,7 @@
 
 * [Pragmatic software testing](chapters/pragmatic-testing/README.md)
 	* [The testing pyramid](chapters/pragmatic-testing/testing-pyramid.md)
-	* [Mock objects](chapters/pragmatic-testing/mock-objects.md)
+	* [Test doubles](chapters/pragmatic-testing/test-doubles.md)
 	* [Design for testability](chapters/pragmatic-testing/design-for-testability.md)
 	* [Test-driven development](chapters/pragmatic-testing/tdd.md)
 	* [Test code quality and engineering](chapters/pragmatic-testing/test-code-quality.md)
@@ -43,10 +43,10 @@
 ----
 
 * [Intelligent testing](chapters/intelligent-testing/README.md)
+	* [Static testing](chapters/intelligent-testing/static-testing.md)
 	* [Mutation testing](chapters/intelligent-testing/mutation-testing.md)
 	* [Fuzz testing](chapters/intelligent-testing/fuzzing.md)
 	* [Search-based software testing](chapters/intelligent-testing/sbst.md) (soon)
-	* [Static testing](chapters/intelligent-testing/static-testing.md)
 
 ----
 

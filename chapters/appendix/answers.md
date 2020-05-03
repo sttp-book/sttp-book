@@ -448,11 +448,23 @@ Option 1 is correct.
 **Exercise 15**
 
 
+Consider the following table:
 
-Option 1 is the correct one.
+<table>
+    <tr><th>Decision</th><th>A</th><th>B</th><th>C</th><th>(A & B) | C</th></tr>
+    <tr><td>1</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+    <tr><td>2</td><td>T</td><td>T</td><td>F</td><td>T</td></tr>
+    <tr><td>3</td><td>T</td><td>F</td><td>T</td><td>T</td></tr>
+    <tr><td>4</td><td>T</td><td>F</td><td>F</td><td>F</td></tr>
+    <tr><td>5</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+    <tr><td>6</td><td>F</td><td>T</td><td>F</td><td>F</td></tr>
+    <tr><td>7</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+    <tr><td>8</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+</table>
 
-Tests for A = (2,6), B = (2,4), C = (3, 4), (5, 6), (7,8). Thus, from the options, tests 2, 3, 4 and 6 are the only ones that achieve 100% MC/DC. Note that 2, 4, 5, 6 could also be a solution.
-
+Test pairs for `A = {(2,6)}`, `B = {(2,4)}` and `C = {(3, 4), (5, 6), (7,8)}`.
+Thus, from the options, tests 2, 3, 4 and 6 are the only ones that achieve 100% MC/DC.
+Note that 2, 4, 5, 6 could also be a solution.
 
 **Exercise 16**
 
@@ -469,13 +481,13 @@ From this table we can deduce sets of independence pairs for each of the paramet
 - `A`: {{1, 3}, {2, 4}}
 - `B`: {}
 
-We can see that there is no independence pair for `B`. Thus, it is not possible to achieve MC/DC coverage for this expression.
+We can see that there is no independence pair for `B`. 
+Thus, **it is not possible to achieve MC/DC coverage for this expression**.
 
 Since there is no independence pair for `B`, this parameter has no effect on the result.
 We should recommend the developer to restructure the expression without using `B`, which will make the code easier to maintain.
 
 This example shows that software testers can contribute to the code quality not only by spotting bugs, but also by suggesting changes that result in better maintainability.
-
 
 
 
@@ -546,8 +558,7 @@ There are 14 empty cells in the table, so there are 14 sneaky paths that we can 
 
 **Exercise 4**
 
-![](img/model-based-testing/exercises/order_transition_tree.svg)
-
+(Exercise removed)
 
 **Exercise 5**
 
