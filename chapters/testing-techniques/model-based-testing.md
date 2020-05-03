@@ -812,16 +812,11 @@ Derive the transition tree from the state machine of the assignment above.
 Derive the transition table of the *ColdHot* state machine.
  
 How many sneaky paths can be tested based on this transition table?
- 
- 
+  
 **Exercise 4.**
-Draw the transition tree of the following state machine:
- 
-![](img/model-based-testing/exercises/order_state_machine.svg)
- 
-Use sensible naming for the states in your transition tree.
- 
- 
+(Exercise removed)
+
+
 **Exercise 5.**
 With the transition tree you devised in the previous exercise and the state machine in that exercise, what is the transition coverage of a test that includes the following events: [order placed, order received, order fulfilled, order delivered]?
  
@@ -851,19 +846,12 @@ Which decisions do we have to test for full MC/DC?
 Use as few decisions as possible.
  
  
- 
- 
 **Exercise 9.**
 See the following generic state machine.
  
 ![](img/model-based-testing/exercises/generic_state_machine.svg)
  
 Draw the transition tree of this state machine.
- 
- 
- 
- 
- 
  
  
 **Exercise 10.**
