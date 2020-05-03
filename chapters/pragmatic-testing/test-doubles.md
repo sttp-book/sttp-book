@@ -448,7 +448,7 @@ public class InvoiceFilter {
   }
   public List<InvoicelowValueInvoices() {
       return issuedInvoices.all().stream()
-              .filter(invoice -invoice.value < 100)
+              .filter(invoice -> invoice.value < 100)
               .collect(toList());
   }
 }
@@ -460,34 +460,37 @@ Hence, once you get used to this way of developing, you will notice how your cod
 
 ## Mock Roles, Not Objects!
 
-In their seminal work _Mock Roles, Not Objects_, Freeman et al. show how mock objects can be used not as tool to solely support testing, but as a tool to drive the design of the system. In other words, by concentrating on the interactions between objects (achieved through TDD and mock objects), developers can better discover the roles, interfaces, contracts, and expectations of the classes in their software systems.
+In their seminal work _Mock Roles, Not Objects_, Freeman et al. show how Mock Objects can be used for thinking about _design_ as much as for testing. By treating an object (or a cluster of objects) as a closed box, the programmer can focus on how it interacts with its environment: if the object receives a triggering event (one or more method calls), what does it need to find out (stubs) and how does it change the world around it (mocks)? This, in turn, means that the programmer needs to make explicit what else the target object depends on. Because these tests focus on how an object interacts with its environment, this style of testing is sometimes calls "Interaction Testing."
 
-In the following, we summarize some of the best practices on _interaction testing_, that authors raise in their paper:
+This thinking of objects in terms of input and outputs was inspired by the "Roles, Responsibilities, and Collaborators" technique, best described by Wirfs-Brock and McKean. It has a history going back to the programming language Smalltalk, which used a biological metaphor of communicating cells (Ingalls).
 
-* **Only mock types you own.** Developers should not mock objects that they do not "own", e.g., a class from an external library. Rather, they should build abstractions on top of those.
+Interaction testing is most effective when combined with TDD. While writing a test, the programmer has to define what the object needs from its environment. For a new feature, this might require a new collaborating object, which introduces a new dependency. The type of this new dependency is defined in terms of what the target object needs, its caller not its implementation; in Java, this is usually an interface. Following this process, with regular refactorings, a programmer can grow a codebase written in the terminology of the domain. The result is a set of pluggable objects, with clear dependencies, that combined to build a system.
 
-* **Be explicit about things that should not happen**. Writing tests for interactions that should not happen makes intentions clearer.
+The authors summarized their best practices for _interaction testing_ as:
 
-* **Specify as little as possible in the test**. Overspecified tests tend to be more brittle. Focus on the interactions that really matter.
+* *Only mock types you own.* Developers should not mock objects that they do not "own", e.g., a class from an external library. Rather, they should build abstractions on top of those.
 
-* **Don't use mocks to test boundary objects**. Objects that have no relationships to other objects do not need to be mocked. In practice, these objects tend to "only" store data or represent atomic values.
+* *Be explicit about things that should not happen*. Writing tests for interactions that should not happen makes intentions clearer.
 
-* **Don't add behaviour**. Mocks are still stubs, and you should avoid adding any extra behavior on it.
+* *Specify as little as possible in the test*. Overspecified tests tend to be more brittle. Focus on the interactions that really matter.
 
-* **Only mock your immediate neighbours**. Mocking an entire network of objects adds extra complexity to the test. This might be a symptom that the component needs a better design.
+* *Don't use mocks to test boundary objects*. Objects that have no relationships to other objects do not need to be mocked. In practice, these objects tend to "only" store data or represent atomic values.
 
-* **Avoid too many mocks**. After all, mock objects add complexity to the overall test.
+* *Don't add behaviour*. Mocks are still stubs, and you should avoid adding any extra behavior on it.
+
+* *Only mock your immediate neighbours*. Mocking an entire network of objects adds extra complexity to the test. This might be a symptom that the component needs a better design.
+
+* *Avoid too many mocks*. After all, mock objects add complexity to the overall test.
 
 The authors also discuss some common misconception when using mocks:
 
-* **Mocks are just stubs**. Mock objects indeed act as stubs. However, their main goal (or, what makes it different from "just" stubs) is to assert the interaction of the target object with its neighbours.
+* *Mocks are just stubs*. Mock objects indeed act as stubs. However, their main goal (or, what makes it different from "just" stubs) is to assert the interaction of the target object with its neighbours.
 
-* **Mocks should not be used only to the boundaries of the system**. Some developers might argue that only classes that are at the boundaries of the system should be mocked (e.g., classes that talk to external systems). Mocks might be even more helpful when used _within_ the system, as the it can also drive developers to better class design.
+* *Mocks should not be used only to the boundaries of the system*. Some developers might argue that only classes that are at the boundaries of the system should be mocked (e.g., classes that talk to external systems). Mocks might be even more helpful when used _within_ the system, as the it can also drive developers to better class design.
 
-* **Gather state during the test and assert against it afterwards**. Making assertions only at the end of the test makes failing tests less easy to be understood. Favour immediate failures.
+* *Gather state during the test and assert against it afterwards*. Making assertions only at the end of the test makes failing tests less easy to be understood. Favour immediate failures.
 
-* **Testing using Mock Objects duplicates the code.** This often happens when mock objects act purely as a replacement for an external class, rather than to drive the design of the code.
-
+* *Testing using Mock Objects duplicates the code.* This might mnean that the code under test isn't doing very much. Perhaps it should be treated as a policy object and tested in a larger cluster of objects.
 
 
 ## Test doubles at Google
@@ -630,5 +633,9 @@ Referring to the previous chapter, apply boundary testing techniques to the `Inv
 * Freeman, S., & Pryce, N. (2009). Growing object-oriented software, guided by tests. Pearson Education.
 
 * Winters, T., Manshreck, T., Wright, H. Software Engineering at Google: Lessons Learned from Programming Over Time. O'Reilly, 2020. Chapter 13, "Test doubles".
+
+* Wirfs-Brock, R. & McKean, A., "Object Design", Addison-Wesley
+
+* Ingalls, D. "The Design Principles behind Smalltalk", http://www.cs.virginia.edu/~evans/cs655/readings/smalltalk.html
 
 * Freeman, S., Mackinnon, T., Pryce, N., & Walnes, J. (2004, October). Mock roles, not objects. In Companion to the 19th annual ACM SIGPLAN conference on Object-oriented programming systems, languages, and applications (pp. 236-246).
