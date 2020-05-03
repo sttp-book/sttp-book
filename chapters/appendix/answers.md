@@ -223,42 +223,39 @@ We have a lot of boundaries to test for:
 
 To establish the needed tests in the category/partition method, we need to identify the parameters, derive the characteristics, add constraints and final make the tests.
 As we last step we can identify duplicate tests and remove those.
+
 1. Identify parameters:
   - Legs
   - Tail
   - Lives
   - Sharp nails
   - Sound
-
-2. Derive characteristics of parameters:
+1. Derive characteristics of parameters:
   - int legs: [0,2,4,6,8,10,integer.MAX_VALUE], [1,3,5,7,9,integer.MAX_VALUE], [negative value]
   - bool tail: [true], [false]
   - int lives: [1-9], no lives, more than 10 lives
   - bool sharp nails: [true], [false]
   - string sound: ['miauw'], ['woof'], [empty]
-
-
-3. Add constraints
+1. Add constraints:
   - If `lives <= 0`, we can test this with just one combination.
   - If legs is an negative integer or 0, this is an exceptional case. Therefore it doesn't matter if the animal has sharp nails or not.
   - If legs is not an even integer, we can test this with just one combination.
   - If `lives >= 10`, we can test this with just one combination. 
+1. Test cases: Tests can be divided in 3 categories: is a cat, not a cat, exceptional cases.
+  - **Cat**
+    1. 2, true, 6, true, "miauws" --> cat
+  - **Not a cat**
+    1. 3, true, 6, true, "miauws" --> not a cat
+    2. 4, false, 6, true, "miauws" --> not a cat
+    3. 6, true, 11, true, "miauws" --> not a cat
+    4. 8, true, 4, false, "miauws" --> not a cat
+    5. 2, true, 3, true, "woof" --> not a cat
+  - **Exceptional**
+    1. 0, true, 2, false, "miauws" --> cat or invalid depending on the context of the program.
+    2. 2, true, 11, true, "miauws" --> not a cat
+    3. 3, true, 8, true, "miauws" --> not a cat
+    4. 4, true, 0, true, "miauws" --> not a cat or invalid depending on the context of the program.
 
-4. Test cases
-Tests can be divided in 3 categories: is a cat, not a cat, exceptional cases.
-  **Cat**
-  1. 2, true, 6, true, "miauws" --> cat
-  **Not a cat**
-  1. 3, true, 6, true, "miauws" --> not a cat
-  2. 4, false, 6, true, "miauws" --> not a cat
-  3. 6, true, 11, true, "miauws" --> not a cat
-  4. 8, true, 4, false, "miauws" --> not a cat
-  5. 2, true, 3, true, "woof" --> not a cat
-  **Exceptional**
-  1. 0, true, 2, false, "miauws" --> cat or invalid depending on the context of the program.
-  2. 2, true, 11, true, "miauws" --> not a cat
-  3. 3, true, 8, true, "miauws" --> not a cat
-  4. 4, true, 0, true, "miauws" --> not a cat or invalid depending on the context of the program.
 
 Note that some tests can be combined! For example: 
   - TEST-1 from not a cat is the same as TEST-3 from exceptional
@@ -534,8 +531,8 @@ The table for the given expression is:
 | 4     | T   | T   | F      |
 
 From this table we can deduce sets of independence pairs for each of the parameters:
-- `A`: {{1, 3}, {2, 4}}
-- `B`: {}
+- `A`: {(1, 3), (2, 4)}
+- `B`: { (empty) }
 
 We can see that there is no independence pair for `B`. 
 Thus, **it is not possible to achieve MC/DC coverage for this expression**.
