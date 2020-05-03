@@ -436,12 +436,12 @@ See the following example that focus on a small piece of the `count` method:
 
 ```java
 if (!Character.isLetter(str.charAt(i)) 
-        && (last == 's' || last == 'r')) {
+        & (last == 's' | last == 'r')) {
     words++;
 }
 ```
 
-The decision in this if-statement contains three conditions and can be generalised to `(A && (B || C))`, with:
+The decision in this if-statement contains three conditions and can be generalised to `(A & (B | C))`, with:
 * A = `!Character.isLetter(str.charAt(i))`
 * B = `last == 's'`
 * C = `last == 'r'`
@@ -479,8 +479,36 @@ while(shouldRun) {
 
 To satisfy all the criteria we studied so far, we would need to exercise the `shouldRun` as being true and false. That does not happen with path coverage. To satisfy path coverage, we would need to test all the possible paths that can happen. The unbounded loop might make this program to iterate an infinite number of times. Imagine now a program with two unbounded loops together. How many different possible paths does this program have?
 
-Achieving 100% path coverage might not always be feasible or too costly.
-The number of tests needed for full path coverage will grow exponentially with the number of conditions and unbounded loops.
+> Note that we have not been using lazy (short-circuit) operators (i.e., && and ||), on purpose, 
+> to make sure all conditions of the expression are evaluated. This allows us to devise test cases for
+> each possible combination we see in the decision table.
+> However, that might not be the case if we use lazy operators.
+> Let's take as an example the same expression, but now using lazy operators: `(A && (B || C))`
+>
+> We make the truth table to find the combinations:
+>
+> | Tests | A | B | C  | Outcome |
+> |-------|---|---|----|---------|
+> | 1     | T | T | dc | T       |
+> | 2     | T | F | T  | T       |
+> | 3     | T | F | F  | F       |
+> | 4     | F | X | dc | F       |
+>
+> ('dc' represents a notation for a "don't care" value.)
+>
+> For this particular example, if the A is false, then the rest of the expression will be not evaluated anymore, 
+> because the result of the entire statement will be automatically false. 
+> Moreover, for the second part of the expression, if B is true, then the entire proposition `(B || C)` is already true, 
+> so we "don't care" about the value of the C.
+>
+> Generically speaking, it might be not possible to devise test cases for all the combinations.
+> As a tester, you just have to take such constraints into consideration.
+
+
+By aiming at achieving path coverage of our program, testers can indeed come up with good tests.
+However, the main issue is that achieving 100% path coverage might not always be feasible or too costly.
+The number of tests needed for full path coverage will grow exponentially with the number of conditions in a decision.
+
 
 {% set video_id = "hpE-aZYulmk" %}
 {% include "/includes/youtube.md" %}
