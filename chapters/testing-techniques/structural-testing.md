@@ -501,7 +501,7 @@ We make the truth table to find the combinations:
 | 3     | T | F | F  | F       |
 | 4     | F | X | dc | F       |
 
-('dc' represents a notation for a "don't care" value.)
+('dc' represents "don't care" values.)
 
 For this particular example, if the A is false, then the rest of the expression will be not evaluated anymore, because the result of the entire statement will be automatically false. Moreover, for the second part of the expression, if B is true, then the entire proposition `(B || C)` is already true, so we "don't care" about the value of the C.
 
