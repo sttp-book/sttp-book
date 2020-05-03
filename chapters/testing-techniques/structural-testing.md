@@ -143,7 +143,7 @@ This urges for a better representation of source code. One that is
 independent of the developers' personal code styles.
 
 {% hint style='tip' %}
-Some coverage tools measure coverage as statement level. Statements are the unique instructions that your
+Some coverage tools measure coverage at statement level. Statements are the unique instructions that your
 JVM, for example, executes. This is a bit better, as splitting one line of code in two would not make a difference, but it is still not good enough.
 {% endhint %}
 
