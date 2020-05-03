@@ -120,6 +120,27 @@ Possible actions:
 3. We should constrain the options in the 'occurrences in a single line' category to happen only if 'occurrences in the file' are either exactly one or more than one. It does not make sense to have none occurrences in a file and one pattern in a line.
 4. We should treat 'pattern is improperly quoted' as exceptional, and thus, test it just once.
 
+**Exercise 8**
+
+This focus of this exercise is for you to see that the internal state of the object should also be taken into account in the partitions (and not only the direct input variables).
+
+Input parameter e: 
+* P1: Element not present in the set
+* P2: Element already present in the set
+* P3: NULL element.
+
+Set is full?  (`isFull` comes from the state of the class)
+* isFull == true
+* isFull == false
+
+With the categories and partitions in hands, we can constrain the `isFull == true` and test it only once (i.e., without combining with other classes). 
+
+We then combine them all and end up with four tests:
+
+* T1: isFull returns false, e: Element not present in the set
+* T2: isFull returns false, e: Element present in the set
+* T3: isFull returns false, e: Null element
+* T4: isFull returns true, e: Element not present in the set
 
 
 ## Boundary testing
@@ -240,7 +261,7 @@ Finally a third test is needed to cover line 11 (`removeElementNotPresentInListT
 **Exercise 2**
 
 ![LinkedList exercise CFG](img/structural-testing/exercises/CFG-LinkedList.svg)
-L\<number\> in the diagram represents the line number of the code that is in the block or decision.
+Ln in the diagram represents the line number of the code that is in the block or decision.
 
 **Exercise 3**
 
@@ -304,7 +325,7 @@ Then for the decision in line 2 the node that `remove` is looking at should not 
 The node is `null` when the end of the list had been reached.
 That only happens when the element that should be removed is not in the list.
 Note that the decision in line 2 only gets executed when the element to remove is `null`.
-In the tests, this means that the element should be found and not found at least once. 
+In the tests, this means that the element should be found and not found at least once.
 
 The decision in line 3 checks if the node that the method is at now has the element that should be deleted.
 The tests should cover a case where the element is not the item that has to be removed and a case where the element is the item that should be removed.
@@ -348,7 +369,7 @@ For `"aa"` the expected output is `"a"`.
 **Exercise 8**
 
 
-Answer 4. is correct.
+Option 4 is the incorrect one.
 The loop in the method makes it impossible to achieve 100% path coverage.
 This would require us to test all possible number of iterations.
 For the other answers we can come up with a test case: `"aXYa"`
@@ -357,7 +378,8 @@ For the other answers we can come up with a test case: `"aXYa"`
 
 
 First the condition coverage.
-We have 8 conditions:
+When talking about condition coverage, we first have to split the condition on line 1 (n % 3 == 0 && n % 5 == 0) 
+into two decision blocks for the CFG. In total, we will have 8 conditions:
 
 1. Line 1: `n % 3 == 0`, true and false
 2. Line 1: `n % 5 == 0`, true and false
@@ -365,11 +387,14 @@ We have 8 conditions:
 4. Line 5: `n % 5 == 0`, true and false
 
 T1 makes conditions 1 and 2 true and then does not cover the other conditions.
-T2 makes all the conditions false.
-In total these test cases then cover $$2 + 4 = 6$$ conditions so the condition coverage is $$\frac{6}{8} \cdot 100\% = 75\%$$
+For T2 we need to pay special attention. The input number 8 is neither divisible by 3, nor divisible by 5. 
+Having the CFG in mind, notice that when the first part of the condition on line 1 (namely n % 3 == 0) is evaluated to false,
+the second part will not even be evaluated since the && is a lazy operator. Therefore, we will end up following the false paths 
+of the first, third and the forth decision block.
+In total, these test cases then cover $$2 + 3 = 5$$ conditions so the condition coverage is $$\frac{5}{8} \cdot 100\% = 62.5\%$$
 
 Now the decision coverage.
-We have 6 decision:
+We have 6 decisions:
 
 1. Line 1: `n % 3 == 0 && n % 5 == 0`, true and false
 2. Line 3: `n % 3 == 0`, true and false
@@ -377,7 +402,7 @@ We have 6 decision:
 
 Now T1 makes decision 1 true and does not cover the other decisions.
 T2 makes all the decision false.
-Therefore the coverage is $$\frac{4}{6} \cdot 100\% = 66\%$$.
+Therefore, the coverage is $$\frac{4}{6} \cdot 100\% = 66\%$$.
 
 
 **Exercise 10**
@@ -424,9 +449,23 @@ Option 1 is correct.
 
 
 
-Option 1 is the correct one.
+Option 1 is the correct one. Consider the following table:
 
-Tests for A = (2,6), B = (2,4), C = (3, 4), (5, 6), (7,8). Thus, from the options, tests 2, 3, 4 and 6 are the only ones that achieve 100% MC/DC. Note that 2, 4, 5, 6 could also be a solution.
+<table>
+    <tr><th>Decision</th><th>A</th><th>B</th><th>C</th><th>(A & B) | C</th></tr>
+    <tr><td>1</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+    <tr><td>2</td><td>T</td><td>T</td><td>F</td><td>T</td></tr>
+    <tr><td>3</td><td>T</td><td>F</td><td>T</td><td>T</td></tr>
+    <tr><td>4</td><td>T</td><td>F</td><td>F</td><td>F</td></tr>
+    <tr><td>5</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+    <tr><td>6</td><td>F</td><td>T</td><td>F</td><td>F</td></tr>
+    <tr><td>7</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+    <tr><td>8</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+</table>
+
+Test pairs for `A = {(2,6)}`, `B = {(2,4)}` and `C = {(3, 4), (5, 6), (7,8)}`.
+Thus, from the options, tests 2, 3, 4 and 6 are the only ones that achieve 100% MC/DC.
+Note that 2, 4, 5, 6 could also be a solution.
 
 
 
@@ -1011,3 +1050,50 @@ To avoid the flakiness, a developer could have mocked the random function. It do
 
 Mutation testing.
 
+## Static testing
+
+**Exercise 1.**
+
+Regular expressions cannot count instances.
+
+**Exercise 2.**
+
+Static analysis produces over-generalized results with some false positives, so the analysis is Sound but Imprecise.
+
+## Security testing
+
+**Exercise 1.**
+
+There exist a lot of strange inputs, and only few trigger a vulnerability.
+
+**Exercise 2.**
+
+An infinite loop can be triggered by attackers to do a Denial of Service attack. (Must explain _how_ an attacker may misuse it. )
+
+**Exercise 3.**
+
+4: _Format string injection_ can be done with syntax analysis. Update attack cannot be detected by static analysis. XSS and XSRF are also tricky because input sanitization methods can be bypassed at run-time.
+
+**Exercise 4.**
+
+All of the above. Anything that can potentially corrupt the memory can influence where the instruction pointer points to.  
+
+**Exercise 5.**
+
+| Objective | Testing Technique | (Answer option) Testing Technique |
+|----------------------------------------|------------------------|-----------------------------------|
+| 3. Detect pre-defined patterns in code | A. Fuzzing | **B** |
+| 2. Branch reachability analysis | B. Regular expressions | **C** |
+| 1. Testing like an attacker  | C. Symbolic execution | **D** |
+| 4. Generate complex test cases | D. Penetration testing | **A** |
+
+**Exercise 6.**
+
+Spyware usually accesses information that benign software does not and sends information to parties that benign software does not. Tracking which data the program under test (spyware) accesses, and where that data flows is one way to detect spyware. For example, we know that `/etc/passwd` is sensitive, so we taint it. If a program requests it, we can follow the taint and see if it is being sent over the network.
+
+**Exercise 7.**
+``` java
+x = {0,12,21}
+y = {1,2,3,...}
+```
+ Since reaching  definitions  analysis  produces all the  possible  values  a  variable  might take, resulting in over-generalization and false positives.
