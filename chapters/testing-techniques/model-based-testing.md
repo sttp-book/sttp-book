@@ -657,7 +657,7 @@ These decisions depend on the project and the customer's needs.
 As discussed earlier, we can use the transition table to derive tests for sneak paths.
 Usually, we want the system to remain in its current state when we trigger an event that has an empty cell in the transition table.
 To test for all possible sneak paths, we create a test case for each empty cell in the transition table.
-First of all, the test will bring the system to the state corresponding to the empty cell's row (you can use the transition table to find a suitable path). Then the test triggers the event that corresponds to the empty cell's column. Finally the test asserts that the system is in the same state as before triggering the event.
+First of all, the test will bring the system to the state corresponding to the empty cell's row (you can use the transition tree to find a suitable path). Then the test triggers the event that corresponds to the empty cell's column. Finally, the test asserts that the system is in the same state as before triggering the event.
 The number of 'sneak path tests' is equal to the number of empty cells in the transition table.
  
 With these tests we can verify both existing and non-existing paths.
