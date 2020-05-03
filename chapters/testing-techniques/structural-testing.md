@@ -977,15 +977,7 @@ criterion if for every loop L:
 
 **Exercise 15.**
 Consider the expression `((A and B) or C)`.
-If we aim to achieve $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC),
-the **minimum** set of tests we should select is
-(considering a table starting with `A = true`, `B = true`, `C = true`):
-
-1. {2, 3, 4, 6}
-2. {1, 3, 4, 6}
-3. {2, 3, 5, 6}
-4. {3, 4, 7, 8}
-
+Devise a test suite that achieves $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC).
 
 
 

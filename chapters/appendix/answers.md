@@ -448,8 +448,7 @@ Option 1 is correct.
 **Exercise 15**
 
 
-
-Option 1 is the correct one. Consider the following table:
+Consider the following table:
 
 <table>
     <tr><th>Decision</th><th>A</th><th>B</th><th>C</th><th>(A & B) | C</th></tr>
@@ -466,8 +465,6 @@ Option 1 is the correct one. Consider the following table:
 Test pairs for `A = {(2,6)}`, `B = {(2,4)}` and `C = {(3, 4), (5, 6), (7,8)}`.
 Thus, from the options, tests 2, 3, 4 and 6 are the only ones that achieve 100% MC/DC.
 Note that 2, 4, 5, 6 could also be a solution.
-
-
 
 
 
