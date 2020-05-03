@@ -466,6 +466,29 @@ Test pairs for `A = {(2,6)}`, `B = {(2,4)}` and `C = {(3, 4), (5, 6), (7,8)}`.
 Thus, from the options, tests 2, 3, 4 and 6 are the only ones that achieve 100% MC/DC.
 Note that 2, 4, 5, 6 could also be a solution.
 
+**Exercise 16**
+
+The table for the given expression is:
+
+| Tests | A   | B   | Result |
+|-------|:---:|:---:|--------|
+| 1     | F   | F   | F      |
+| 2     | F   | T   | T      |
+| 3     | T   | F   | T      |
+| 4     | T   | T   | F      |
+
+From this table we can deduce sets of independence pairs for each of the parameters:
+- `A`: {{1, 3}, {2, 4}}
+- `B`: {}
+
+We can see that there is no independence pair for `B`. 
+Thus, **it is not possible to achieve MC/DC coverage for this expression**.
+
+Since there is no independence pair for `B`, this parameter has no effect on the result.
+We should recommend the developer to restructure the expression without using `B`, which will make the code easier to maintain.
+
+This example shows that software testers can contribute to the code quality not only by spotting bugs, but also by suggesting changes that result in better maintainability.
+
 
 
 ## Model-Based Testing
