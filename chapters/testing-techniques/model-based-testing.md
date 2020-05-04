@@ -822,7 +822,7 @@ With the transition tree you devised in the previous exercise and the state mach
  
  
 **Exercise 6.**
-Devise the decision table of the state machine that was given in the exercise above.
+Devise the transition table of the state machine that was given in the exercise above.
 Ignore the initial transition `Order placed`.
  
  
