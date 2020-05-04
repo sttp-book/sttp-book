@@ -1002,12 +1002,7 @@ Consider the expression `((A and B) or C)`.
 Devise a test suite that achieves $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC).
 
 **Exercise 16.**
-Draw the truth table for expression `A and (A or B)`.
-
-Is it possible to achieve MC/DC coverage for this expression?
-Why (not)?
-
-What feedback should you give to the developer, that used this expression, about your finding?
+(removed)
 
 
 
