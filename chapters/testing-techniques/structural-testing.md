@@ -985,6 +985,16 @@ If we aim to achieve $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC),
 4. {3, 4, 7, 8}
 
 
+**Exercise 16.**
+Draw the truth table for expression `A and (A or B)`.
+
+List all independence pairs for each variable in the expression. 
+
+How many independence pairs are there for `B`? What is the consequence of this?
+
+What feedback should you give to the developer, that used this expression, about your finding?
+
+
 
 
 ## References
