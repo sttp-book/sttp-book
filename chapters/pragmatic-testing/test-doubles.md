@@ -2,7 +2,7 @@
 
 While testing single units is simpler than testing entire systems, we still face challenges when unit testing classes that depend on other classes or on external infrastructure.
 
-As an example, consider an application in which all SQL-related code has been encapsulated in an `InvoiceDAO` class. Other parts of the system that depend on this `InvoiceDAO` class, then also depend (directly or indirectly) on a database. We therefore also have a dependency on the database when we write tests for those other parts, even though our focus might not even be the database part of the system. As we saw before, this can incur higher testing costs.
+As an example, consider an application in which all SQL-related code has been encapsulated in an `IssuedInvoices` class. Other parts of the system that depend on this `IssuedInvoices` class, then also depend (directly or indirectly) on a database. We therefore also have a dependency on the database when we write tests for those other parts, even though our focus might not even be the database part of the system. As we saw before, this can incur higher testing costs.
 
 In other words: **we want to unit test a component A, that depends on another component B. The dependency on component B increases the costs of unit testing A.**
 
