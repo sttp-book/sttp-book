@@ -53,7 +53,7 @@ We can use property-based testing and jqwik's implementation to make tests for t
 public class PropertyTest {
 
   @Property
-  void stringConcatenation(@ForAll String s1, @ForAll String s2) {
+  void concatenationLength(@ForAll String s1, @ForAll String s2) {
     String s3 = s1 + s2;
 
     Assertions.assertEquals(s1.length() + s2.length(), s3.length());
