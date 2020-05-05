@@ -171,7 +171,7 @@ belong to the same equivalence partition), and a test case for a single out-poin
 out-points also belong to the same equivalence partition).
 
 {% hint style='tip' %}
-Note that _on_ and _off_ points are also _in_ or _out points_. Therefore, tests that focus only on the _on_ and _off_ points would also be testing _in_ and _out_ points. This is totally true. In fact, some authors argue that testing boundaries is enough. Moreover, a test that exercises an in-point that is far away from the boundary might not have a strong fault detection capability. Why would we need them?
+Note that _on_ and _off_ points are also _in_ or _out points_. Therefore, tests that focus only on the _on_ and _off_ points would also be testing _in_ and _out_ points. In fact, some authors argue that testing boundaries is enough. Moreover, a test that exercises an in-point that is far away from the boundary might not have a strong fault detection capability. Why would we need them?
 
 There is _no perfect answer_ here. We suggest:
 
@@ -179,7 +179,7 @@ There is _no perfect answer_ here. We suggest:
 * Far away in/out points are sometimes easier to be seen or comprehended by a tester who is still learning about the system under test, and exploring its boundaries (_exploratory testing_). Deciding whether to perform such a test is thus a decision that a tester should take, taking the costs into account.
 {% endhint %}
 
-## Boundaries that are not so explicit
+## Revisiting the "chocolate bars" problem
 
 Let's revisit the example from the a previous chapter. There, we had a program
 where the goal was to return the number of bars needed in order to build some boxes of chocolates:
@@ -263,10 +263,13 @@ Let us focus on the bug caused by the `(2,3,17)` input:
 * `(1,3,17)` should return *not possible* (1 small bar is not enough). This test case belongs to the **not enough bars** partition.
 * `(2,3,17)` should return 2. This test case belongs to **need for small + big bars** partition.
 
-There is a boundary between `(1,3,17)` and `(2,3,17)`. We should make sure the software still behaves correctly in these cases.
+The `(1,3,17)` and `(2,3,17)` inputs exercise precisely the boundary between the **not enough bars** and the **need for small + big bars** partitions. 
 
-Looking at the **only big bars** partition, we should find inputs that transition from this
-partition to another one:
+Let us know explore the boundaries between other partitions. The figure below shows which boundaries can happen (and that we should test):
+
+![Boundaries in the chocolate bars problem](img/boundary-testing/chocolate-boundaries.png)
+
+Looking at the **only big bars** partition, we should find inputs that transition from this partition to another one:
 
 * `(10, 1, 10)` returns 5. This input belongs to the **need small + big bars** partition.
 * `(10, 2, 10)` returns 0. This input belongs to the **need only big bars** partition.
@@ -276,7 +279,7 @@ Finally, with the **only small bars** partition:
 * `(3, 2, 3)` returns 3. We need only small bars here, and therefore, this input belongs to the **only small bars** partition.
 * `(2, 2, 3)` returns -1. We can't make the boxes. This input belongs to the **Not enough bars** partition.
 
-A partition might have boundaries with more than just one single another partitions. 
+A partition might have boundaries with more than just a single other partition. 
 The **only small bars** partition has boundaries not only with the **not enough bars** partition (as we saw above), but also with the **only big bars** partition:
 
 * `(4, 2, 4)` returns 4. We need only small bars here, and therefore, this input belongs to the **only small bars** partition.
@@ -324,7 +327,7 @@ To execute multiple tests with the same test method,
 the `CsvSource` expects list of strings, where each string represents 
 the input and output values for one test case.
 The `CsvSource` is an annotation itself, so in an implementation 
-it would like like the following: `@CsvSource({"value11, value12", "value21, value22", "value31, value32", ...})`
+it would look like the following: `@CsvSource({"value11, value12", "value21, value22", "value31, value32", ...})`
 
 
 ```java
@@ -444,6 +447,21 @@ Authors call it the **CORRECT** way, as each letter represents one boundary cond
 {% include "/includes/youtube.md" %}
 
 
+## Equivalent classes and boundary analysis altogether
+
+We discussed _equivalent class analysis_ and _boundary testing_. In practice, testers combine both, in what they call _domain testing_.
+
+We suggest the following strategy when applying domain testing, highly influenced by how Kaner et al. do:
+
+1. We read the requirement
+2. We identify the input and output variables in play, together with their types, and their ranges.
+3. We identify the dependencies (or independence) among input variables, and how input variables influence the output variable.
+4. We perform equivalent class analysis (valid and invalid classes).
+5. We explore the boundaries of these classes.
+6. We think of a strategy to derive test cases, focusing on minimizing the costs while maximizing fault detection capability.
+7. We generate a set of test cases that should be executed against the system under test.
+
+See a series of [domain testing examples](/chapters/testing-techniques/domain-testing.html) in our appendix.
 
 
 ## Exercises
@@ -480,7 +498,7 @@ You can give the points in terms of the variables used in the method.
 
 
 **Exercise 2.**
-Perform boundary analysis on the following decision: `n % 3 == 0 && n % 5 == 0`.
+Perform boundary analysis on the following equality: `x == 10`.
 What are the on- and off-points?
 
 
@@ -506,12 +524,30 @@ A game has the following condition: `numberOfPoints > 1024`. Perform a boundary 
 
 
 **Exercise 6.**
+Perform boundary analysis on the following decision: `n % 3 == 0 && n % 5 == 0`.
+What are the on- and off-points?
+
+
+**Exercise 7.**
 Which one of the following statements about the **CORRECT** principles is **true**?
 
 1. We assume that external dependencies are already on the right state for the test (REFERENCE).
 1. We test different methods from the same class in an isolated way in order to avoid order issues (TIME).
 1. Whenever we encounter a loop, we always test whether the program works for 0, 1, and 10 iterations (CARDINALITY).
 1. We always test the behaviour of our program when any expected data does not exist (EXISTENCE).
+
+
+**Exercise 8.**
+We have a program called <ins>IsCat</ins>.
+It works as follows:
+> Given an list of prerequisites, it returns either the string "Cat" or the string "Doge".
+> If the number of legs is an even number, it has a tail, the number of lives left is between [0, 9], it has sharp nails and the sounds it produces is "miauw", it is a cat.
+> In any other case, it is a doge.
+
+First, do boundary analysis on the inputs.
+Think of on and off points for each of the conditions (while picking in points for the others).
+Next, appply the category/partition method.
+What are the minimal and most suitable partitions?
 
 
 
@@ -521,6 +557,6 @@ Which one of the following statements about the **CORRECT** principles is **true
 
 * Chapter 7 of Pragmatic Unit Testing in Java 8 with Junit. Langr, Hunt, and Thomas. Pragmatic Programmers, 2015.
 
+* * Kaner, Cem, Sowmya Padmanabhan, and Douglas Hoffman. The Domain Testing Workbook. Context Driven Press, 2013.
 
-
-
+* * Kaner, Cem. What Is a Good Test Case?, 2003. URL: http://testingeducation.org/BBST/testdesign/Kaner_GoodTestCase.pdf
