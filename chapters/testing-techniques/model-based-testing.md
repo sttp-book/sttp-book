@@ -889,13 +889,8 @@ Devise a state transition tree for the microwave state machine.
 **Exercise 13.**
 Again, consider the state machine requirements for the microwave.
 There appears to be some redundancy in the defrosting and warming up functionality, which potentially can be described using super states (also called OR-states).
-Which effect does this have on the total number of states and transitions for the resulting diagram with a super state?
- 
-1. There will be one extra state, and two fewer transitions.
-2. There will be one state less, and the same number of transitions.
-3. The total number of states will remain the same, and there will be two fewer transitions.
-4. This has no effect on the total number of states and transitions.
- 
+
+Make use of super states and re-design the state machine.
  
  
 **Exercise 14.**

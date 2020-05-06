@@ -720,9 +720,7 @@ In this case we need to test each explicit decision in the decision table.
 **Exercise 13**
 
 
-There will be one extra super state (ACTIVE), which will be a super-state of the existing WARMING and DEFROSTING states. The edges from ON to WARMING and DEFROSTING will remain.
-The two (cancel and time out) outgoing edges from WARMING and DEFROSTING (four edges in total) will be replaced by two edges going out of the super ACTIVE state.
-So there will be two fewer transitions.
+![](img/model-based-testing/exercises/superstate-microwave.svg)
 
 
 **Exercise 14**
