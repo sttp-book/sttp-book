@@ -592,7 +592,7 @@ There are 14 empty cells in the table, so there are 14 sneaky paths that we can 
 
 **Exercise 4**
 
-(Exercise removed)
+![](img/model-based-testing/exercises/order_transition_tree.svg)
 
 **Exercise 5**
 

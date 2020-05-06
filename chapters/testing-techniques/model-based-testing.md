@@ -814,7 +814,9 @@ Derive the transition table of the *ColdHot* state machine.
 How many sneaky paths can be tested based on this transition table?
   
 **Exercise 4.**
-(Exercise removed)
+Draw the transition tree of the following state machine:
+
+![](img/model-based-testing/exercises/statemachine-order.png)
 
 
 **Exercise 5.**
@@ -823,12 +825,12 @@ With the transition tree you devised in the previous exercise and the state mach
  
 **Exercise 6.**
 Devise the transition table of the state machine that was given in the exercise above.
-Ignore the initial transition `Order placed`.
+(Note that the initial transition `Order placed` should not be represented in the transition table; this transition is there as a way to indicate the developer what "external action" has to happen for this state machine to start).
  
  
 **Exercise 7.**
 How many sneak paths are there in the state machine we used in the previous exercises?
-Again, ignore the initial `Order placed` transition.
+(Again, ignore the initial `Order placed` transition.)
  
  
 **Exercise 8.**
