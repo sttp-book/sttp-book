@@ -90,8 +90,8 @@ We can identify two valid classes and one invalid class in the requirement: pass
 
 When doing property-based testing, we declare these properties in form of jqwik's properties:
 
-* The `pass` property: for all floats, ranging from 1 (inclusive) to 5.0 (exclusive), the program should return false.
-* The `fail` property: for all floats, ranging from 5 (inclusive) to 10 (inclusive), the program should return true.
+* The `fail` property: for all floats, ranging from 1 (inclusive) to 5.0 (exclusive), the program should return false.
+* The `pass` property: for all floats, ranging from 5 (inclusive) to 10 (inclusive), the program should return true.
 * The `invalid` property: for all invalid grades (which we define as any number below 0.9 or greater than 10.1), the program must throw an exception.
 
 ```java
