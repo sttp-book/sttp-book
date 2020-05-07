@@ -521,7 +521,27 @@ Note that 2, 4, 5, 6 could also be a solution.
 
 **Exercise 16**
 
-(removed)
+The table for the given expression is:
+
+| Tests | A   | B   | Result |
+|-------|:---:|:---:|--------|
+| 1     | F   | F   | F      |
+| 2     | F   | T   | F      |
+| 3     | T   | F   | T      |
+| 4     | T   | T   | T      |
+
+From this table we can deduce sets of independence pairs for each of the parameters:
+- `A`: {(1, 3), (2, 4)}
+- `B`: { (empty) }
+
+We can see that there is no independence pair for `B`. 
+Thus, **it is not possible to achieve MC/DC coverage for this expression**.
+
+Since there is no independence pair for `B`, this parameter has no effect on the result.
+We should recommend the developer to restructure the expression without using `B`, which will make the code easier to maintain.
+
+This example shows that software testers can contribute to the code quality not only by spotting bugs, but also by suggesting changes that result in better maintainability.
+
 
 
 
@@ -745,29 +765,6 @@ In this case we need to test each explicit decision in the decision table.
 | User has over 1000 followers       | T  | F  | F  |
 | Ad is highly relevant to user      | T  | T  | F  |
 | Serve ad?                          | T  | T  | T  |
-
-**Exercise 16**
-
-The table for the given expression is:
-
-| Tests | A   | B   | Result |
-|-------|:---:|:---:|--------|
-| 1     | F   | F   | F      |
-| 2     | F   | T   | F      |
-| 3     | T   | F   | T      |
-| 4     | T   | T   | T      |
-
-From this table we can deduce sets of independence pairs for each of the parameters:
-- `A`: {(1, 3), (2, 4)}
-- `B`: { (empty) }
-
-We can see that there is no independence pair for `B`. 
-Thus, **it is not possible to achieve MC/DC coverage for this expression**.
-
-Since there is no independence pair for `B`, this parameter has no effect on the result.
-We should recommend the developer to restructure the expression without using `B`, which will make the code easier to maintain.
-
-This example shows that software testers can contribute to the code quality not only by spotting bugs, but also by suggesting changes that result in better maintainability.
 
 
 
