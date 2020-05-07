@@ -244,7 +244,7 @@ Note that we split the `for` loop into three blocks: the variable initialisation
 
 As you can see, this CFG representation is quite generic. Even when you use a different programming language to write the same program, you might end up with the same CFG.
 
-## Control-Flow Graphs in Python
+## Control-Flow Graphs in other languages
 
 We can devise control-flow graphs for programs in any programming language. For example, see the piece of
 Python code below:
