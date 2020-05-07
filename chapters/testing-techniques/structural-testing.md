@@ -244,6 +244,42 @@ Note that we split the `for` loop into three blocks: the variable initialisation
 
 As you can see, this CFG representation is quite generic. Even when you use a different programming language to write the same program, you might end up with the same CFG.
 
+## Control-Flow Graphs in Python
+
+We can devise control-flow graphs for programs in any programming language. For example, see the piece of
+Python code below:
+
+```python
+# random_ads is a list of ads.
+# an ad contains three attributes:
+# * available: true/false indicating whether the ad 
+#   is still available.
+# * reached: true/false indicating 
+#   whether the number of paid prints was reached.
+# * prints: an integer indicating the 
+#   number of times that the ad was printed.
+def validate_ads(random_ads):
+01. valid_ads = []
+02. invalid_ads = []
+
+03. for random_ad in random_ads:
+04.   if random_ad.available and not random_ad.reached:
+05.     valid_ads.append(random_ad)
+06.   else:
+07.     invalid_ads.append(random_ad)
+
+08. for valid_ad in valid_ads:
+09.   valid_ad.prints += 1
+
+10. return valid_ads, invalid_ads
+```
+
+A CFG for this piece of code would look like:
+
+![CFG in Python](img/structural-testing/examples/cfg-python.png)
+
+We applied the same idea we have seen for Java programs in a Python program. The notions of basic and decision blocks are the same. A small difference to note is in the *foreach* loop (which is simply written using the `for` keyword in Python). Given that *foreach* loops do not follow the same format as traditional `for` loops, we modelled it differently: the *foreach* loop is fully represented by a single decision block (i.e., no blocks for the increment, or condition). As with any decision blocks, it has two outcomes, `true` and `false`.
+
 
 ## Block coverage
 
@@ -691,44 +727,6 @@ Formally, a strategy X subsumes strategy Y if all elements that Y exercises are 
 ![Criteria subsumption](img/structural-testing/subsumption.png)<!--{width=50%}-->
 
 For example, in the picture, one can see that branch coverage subsumes line coverage. This means that 100% of branch coverage always implies 100% line coverage. However, 100% line coverage does not imply 100% branch coverage. Moreover, 100% of branch + condition coverage always implies 100% branch coverage and 100% line coverage.
-
-
-## More examples of Control-Flow Graphs
-
-We can devise control-flow graphs for programs in any programming language. For example, see the piece of
-Python code below:
-
-```python
-# random_ads is a list of ads.
-# an ad contains three attributes:
-# * available: true/false indicating whether the ad 
-#   is still available.
-# * reached: true/false indicating 
-#   whether the number of paid prints was reached.
-# * prints: an integer indicating the 
-#   number of times that the ad was printed.
-def validate_ads(random_ads):
-01. valid_ads = []
-02. invalid_ads = []
-
-03. for random_ad in random_ads:
-04.   if random_ad.available and not random_ad.reached:
-05.     valid_ads.append(random_ad)
-06.   else:
-07.     invalid_ads.append(random_ad)
-
-08. for valid_ad in valid_ads:
-09.   valid_ad.prints += 1
-
-10. return valid_ads, invalid_ads
-```
-
-A CFG for this piece of code would look like:
-
-![CFG in Python](img/structural-testing/examples/cfg-python.png)
-
-We applied the same idea we have seen for Java programs in a Python program. The notions of basic and decision blocks are the same. A small difference to note is in the *foreach* loop (which is simply written using the `for` keyword in Python). Given that *foreach* loops do not follow the same format as traditional `for` loops, we modelled it differently: the *foreach* loop is fully represented by a single decision block (i.e., no blocks for the increment, or condition). As with any decision blocks, it has two outcomes, `true` and `false`.
-
 
 ## The effectiveness of structural testing
 
