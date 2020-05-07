@@ -179,7 +179,7 @@ There is _no perfect answer_ here. We suggest:
 * Far away in/out points are sometimes easier to be seen or comprehended by a tester who is still learning about the system under test, and exploring its boundaries (_exploratory testing_). Deciding whether to perform such a test is thus a decision that a tester should take, taking the costs into account.
 {% endhint %}
 
-## Boundaries that are not so explicit
+## Revisiting the "chocolate bars" problem
 
 Let's revisit the example from the a previous chapter. There, we had a program
 where the goal was to return the number of bars needed in order to build some boxes of chocolates:
@@ -263,10 +263,13 @@ Let us focus on the bug caused by the `(2,3,17)` input:
 * `(1,3,17)` should return *not possible* (1 small bar is not enough). This test case belongs to the **not enough bars** partition.
 * `(2,3,17)` should return 2. This test case belongs to **need for small + big bars** partition.
 
-There is a boundary between `(1,3,17)` and `(2,3,17)`. We should make sure the software still behaves correctly in these cases.
+The `(1,3,17)` and `(2,3,17)` inputs exercise precisely the boundary between the **not enough bars** and the **need for small + big bars** partitions. 
 
-Looking at the **only big bars** partition, we should find inputs that transition from this
-partition to another one:
+Let us know explore the boundaries between other partitions. The figure below shows which boundaries can happen (and that we should test):
+
+![Boundaries in the chocolate bars problem](img/boundary-testing/chocolate-boundaries.png)
+
+Looking at the **only big bars** partition, we should find inputs that transition from this partition to another one:
 
 * `(10, 1, 10)` returns 5. This input belongs to the **need small + big bars** partition.
 * `(10, 2, 10)` returns 0. This input belongs to the **need only big bars** partition.
@@ -534,6 +537,19 @@ Which one of the following statements about the **CORRECT** principles is **true
 1. We always test the behaviour of our program when any expected data does not exist (EXISTENCE).
 
 
+**Exercise 8.**
+We have a program called <ins>IsCat</ins>.
+It works as follows:
+> Given an list of prerequisites, it returns either the string "Cat" or the string "Doge".
+> If the number of legs is an even number, it has a tail, the number of lives left is between [0, 9], it has sharp nails and the sounds it produces is "miauw", it is a cat.
+> In any other case, it is a doge.
+
+First, do boundary analysis on the inputs.
+Think of on and off points for each of the conditions (while picking in points for the others).
+Next, appply the category/partition method.
+What are the minimal and most suitable partitions?
+
+
 
 ## References
 
@@ -542,3 +558,5 @@ Which one of the following statements about the **CORRECT** principles is **true
 * Chapter 7 of Pragmatic Unit Testing in Java 8 with Junit. Langr, Hunt, and Thomas. Pragmatic Programmers, 2015.
 
 * * Kaner, Cem, Sowmya Padmanabhan, and Douglas Hoffman. The Domain Testing Workbook. Context Driven Press, 2013.
+
+* * Kaner, Cem. What Is a Good Test Case?, 2003. URL: http://testingeducation.org/BBST/testdesign/Kaner_GoodTestCase.pdf

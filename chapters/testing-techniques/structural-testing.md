@@ -143,7 +143,7 @@ This urges for a better representation of source code. One that is
 independent of the developers' personal code styles.
 
 {% hint style='tip' %}
-Some coverage tools measure coverage as statement level. Statements are the unique instructions that your
+Some coverage tools measure coverage at statement level. Statements are the unique instructions that your
 JVM, for example, executes. This is a bit better, as splitting one line of code in two would not make a difference, but it is still not good enough.
 {% endhint %}
 
@@ -399,8 +399,21 @@ In practice, whenever we use condition coverage, we actually perform **branch + 
 that we achieve 100% condition coverage (i.e., all the outcomes of all conditions are exercised) and 100% branch coverage (all the outcomes
 of the compound decisions are exercised).
 
+The formula to calculate branch+condition coverage might vary among tools. Some consider the same as in condition coverage:
+
+$$\text{C/DC coverage} = \frac{\text{conditions outcome covered}}{\text{conditions outcome total}} \cdot 100\%$$
+
+Others prefer to count, for each decision block, the number of outcomes per condition plus the number of outcomes per decision. For example, an `if(a>10 && b < 10)` would count as 6, as 2 for the `a>10` condition, 2 for the `b<10` condition, and 2 for the `a>10 && b<10`. This formula would give us a clear differentiation between basic condition and decision+condition coverage:
+
+$$\text{C/DC coverage} = \frac{\text{conditions outcome covered + decisions outcome covered}}{\text{conditions outcome total + decisions outcome total}} \cdot 100\%$$
+
+
 From now on, whenever we mention **condition coverage**, we mean **condition + branch coverage**.
 
+
+{% hint style='tip' %}
+Another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in $$2^N$$ tests, given $$N$$ conditions.
+{% endhint %}
 
 {% set video_id = "oWPprB9GBdE" %}
 {% include "/includes/youtube.md" %}
@@ -423,12 +436,12 @@ See the following example that focus on a small piece of the `count` method:
 
 ```java
 if (!Character.isLetter(str.charAt(i)) 
-        && (last == 's' || last == 'r')) {
+        & (last == 's' | last == 'r')) {
     words++;
 }
 ```
 
-The decision in this if-statement contains three conditions and can be generalised to `(A && (B || C))`, with:
+The decision in this if-statement contains three conditions and can be generalised to `(A & (B | C))`, with:
 * A = `!Character.isLetter(str.charAt(i))`
 * B = `last == 's'`
 * C = `last == 'r'`
@@ -450,104 +463,55 @@ We make a truth table to find the combinations:
 
 
 This means that, for full path coverage, we would need 8 tests just to cover this `if` statement.
-That is quite a lot for just a single statement.
+It is a large number for just a single statement. 
+
+While this seems similar to the MCC criterion we quickly discussed above, imagine programs that rely on loops:
+
+```java
+boolean shouldRun = true;
+while(shouldRun) {
+  something();
+  something2();
+
+  shouldRun = something3();
+}
+```
+
+To satisfy all the criteria we studied so far, we would need to exercise the `shouldRun` as being true and false. That does not happen with path coverage. To satisfy path coverage, we would need to test all the possible paths that can happen. The unbounded loop might make this program to iterate an infinite number of times. Imagine now a program with two unbounded loops together. How many different possible paths does this program have?
+
 
 By aiming at achieving path coverage of our program, testers can indeed come up with good tests.
 However, the main issue is that achieving 100% path coverage might not always be feasible or too costly.
 The number of tests needed for full path coverage will grow exponentially with the number of conditions in a decision.
 
+
 {% set video_id = "hpE-aZYulmk" %}
 {% include "/includes/youtube.md" %}
 
+## Lazy vs eager operators (and how they affect test case design)
 
-## MC/DC (Modified Condition/Decision Coverage)
+Note that we have been avoiding lazy (short-circuit) operators (i.e., && and ||), on purpose, to make sure all conditions of the expression are evaluated. This allows us to devise test cases for each possible combination we see in the decision table. However, that might not be the case if we use lazy operators. Let's take as an example the same expression, but now using lazy operators: `(A && (B || C))`
 
-Modified condition/decision coverage (MC/DC) looks at the combinations of conditions like path coverage does.
-However, instead of aiming at testing all the possible combinations, we follow a process in order to identify the "important" combinations. The goal of focusing on these important combinations is to manage the large number of test cases that one needs to devise when aiming for 100% path coverage.
+We make the truth table to find the combinations:
 
-The idea of MC/DC is to *exercise each condition 
-in a way that it can, independently of the other conditions,
-affect the outcome of the entire decision*. The example that is about to come will clarify it.
+| Tests | A | B | C  | Outcome |
+|-------|---|---|----|---------|
+| 1     | T | T | dc | T       |
+| 2     | T | F | T  | T       |
+| 3     | T | F | F  | F       |
+| 4     | F | X | dc | F       |
 
-Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is $$N+1$$, where $$N$$ is the number of conditions in the decision. 
-$$N+1$$ is definitely smaller than $$2^N$$!
+('dc' represents "don't care" values.)
 
-Again, to devise a test suite that achieves 100% MC/DC coverage, we should devise $$N+1$$ test cases that, when combined, 
-exercise all the combinations independently from the others.
+For this particular example, if the A is false, then the rest of the expression will be not evaluated anymore, because the result of the entire statement will be automatically false. Moreover, for the second part of the expression, if B is true, then the entire proposition `(B || C)` is already true, so we "don't care" about the value of the C.
 
-The question is how to select such test cases. See the example below.
-
-Let's test the decision block from the previous example, `(A && (B || C))`, with its corresponding truth table. Note how each row
-represents a test $$T_n$$. In this case, tests go from 1 to 8, as we have 3 decisions, and $$2^3$$ is 8:
-
-| Tests | A | B | C | Outcome |
-|-------|---|---|---|---------|
-| 1     | T | T | T | T       |
-| 2     | T | T | F | T       |
-| 3     | T | F | T | T       |
-| 4     | T | F | F | F       |
-| 5     | F | T | T | F       |
-| 6     | F | T | F | F       |
-| 7     | F | F | T | F       |
-| 8     | F | F | F | F       |
-
-
-Our goal will be to select $$N+1$$, in this case, $$3+1=4$$, tests.
-
-Let us go condition by condition.
-In this case, we start with selecting the pairs of combinations (or tests) for condition A:
-
-* In test 1: A, B and C are all `true` and the outcome is `true` as well. We now look for another test in this table, where the value of A is flipped in comparison to test 1, but the others (B and C) are the same. In this case, we should look for a row where A=`false`, B=`true`, C=`true`. We find this in test 5. When we look at the outcome of test 5, we find it is `false`.
-
-  This means we just found a pair of tests, $$T_1$$ and $$T_5$$, where A is the only condition that changed, and the outcome also changed. In other words, a pair of tests where A independently influences the outcome. Let's keep the pair $$\{T_1, T_5\}$$ in our list of tests.
-
-* Now we look at the next test. In test 2, A is again `true`, B is `true`, and C is `false`. We repeat the process: we search for a test where A is flipped in comparison to test 2, but B and C are the same (B=`true`, C=`false`).
-
-  We find this in test 6. The outcome from test 6 (`false`) is not the same as the outcome of test 2 (`true`), so this means that the pair of tests $$\{T_2, T_6\}$$ is also able to independently show how A can affect the final outcome.
-
-* We repeat the process for test 3. We will find here that the pair $$\{T_3, T_7\}$$ also independently tests how condition A affects the outcome.
-
-* We repeat the process for test 4 (A=`true`, B=`false`, C=`false`). Its pair is test 8 (A=`false`, B=`false`, C=`false`). We note that the outcome of both tests is the same (`false`). This means that the pair $$\{T_4, T_8\}$$ does not show how A can independently affect the overall outcome; after all, A is the only thing that changes in these two tests, but the outcome is still the same.
-
-* We do not find another suitable pair when we repeat the process for tests 5, 6, 7 and 8.
-
-* Now that we have tested condition A, we move to condition B. We repeat the same process, but now we flip the input of B, and keep A and C the same.
-
-* For $$T_1$$ (A=`true`, B=`true`, C=`true`), we search for a test where (A=`true`, B=`false`, C=`true`). We find test 3. However, the outcome is the same, so the pair $$\{T_1, T_3\}$$ does not show how B can independently affect the overall outcome.
-
-* You will only find the pair $$\{T_2, T_4\}$$ for condition B.
-
-* The final condition is C. There is only one pair of combinations that will work, which is $$\{T_3, T_4\}$$. (You should carry out the entire process to practise how the process works!)
-
-* We now have all the pairs for each of the conditions:
-
-  - A: {1, 5}, {2, 6}, {3, 7}
-  - B: {2, 4}
-  - C: {3, 4}
-
-* To select the combinations that we want to test, we have to have at least one of the pairs for each condition (A, B, and C). We want to minimise the total number of tests, and we know for a fact that we can achieve this with $$N+1$$ tests.
-
-* We do not have any choices with conditions B and C, as we only found one pair for each.
-This means that we have to test combinations 2, 3, and 4.
-
-* We need to find the appropriate pair of A. Note that any
-of them would fit. However, we want to reduce the total amount
-of tests in the test suite (and again, we know we only need 4 in this case).
-To do so we can either add test 6 or test 7. 
-We pick 6, randomly. You can indeed have more than one set of tests that achieves 100% MC/DC; all solutions are equally acceptable.
-
-* Therefore, the tests that we need for 100% MC/DC coverage are {2, 3, 4, 6}.
-These are the only 4 tests we need.
-This is indeed cheaper when compared to the 8 tests we would need for path coverage.
-
-
-{% set video_id = "HzmnCVaICQ4" %}
-{% include "/includes/youtube.md" %}
+Generically speaking, it might be not possible to devise test cases for all the combinations. As a tester, you just have to take such constraints into consideration.
 
 
 ## Loop boundary adequacy
 
-In terms of coverage criteria, what to do when we have loops? When there is a loop, the block inside of the loop might be executed many times, making testing more complicated.
+The section raised an interesting problem:
+in terms of coverage criteria, what to do when we have loops? When there is a loop, the block inside of the loop might be executed many times, making testing more complicated.
 
 Think of a `while(true)` loop which can be non-terminating. If we wanted to be rigorous about it, we would have to test the program where the loop block is executed one time, two times, three times, etc. Imagine a `for(i = 0; i < 10; i++)` loop with a `break` inside of the body. We would have to test what happens if the loop body executes one time, two times, three times, ..., up to ten times.
 It might be impossible to exhaustively test all the combinations.
@@ -571,6 +535,150 @@ the test case for the loop being executed multiple times.
 Should the test case force the loop to iterate for 2, 5, or 10 times?
 That requires a good understanding of the program/requirement itself. 
 Our suggestion for testers is to rely on specification-based techniques. With an optimal understanding of the specs, one should be able to devise good tests for the particular loop.
+
+
+## MC/DC (Modified Condition/Decision Coverage)
+
+Modified condition/decision coverage (MC/DC) looks at the combinations of conditions like path coverage does.
+However, instead of aiming at testing all the possible combinations, we follow a process in order to identify the "important" combinations. The goal of focusing on these important combinations is to manage the large number of test cases that one needs to devise when aiming for 100% path coverage.
+
+The idea of MC/DC is to *exercise each condition 
+in a way that it can, independently of the other conditions,
+affect the outcome of the entire decision*. 
+In short, this means that every possible condition of each parameter must have influenced the outcome at least once.
+
+If we take the decision block from path coverage example, `A && (B || C)`, MC/DC dictates that:
+* For condition A:
+  * There must be one test case where `A=true` (say T1). 
+  * There must be one test case where `A=false` (say T2).
+  * T1 and T2 (which we call _independence pairs_) must have different outcomes (e.g., T1 makes the entire decision to evaluate to true, and T2 makes the entire decision to evaluate to false, or the other way around).
+  * In both test cases T1 and T2, variables B and C should be the same.
+* For condition B:
+  * There must be one test case where `B=true` (say T3). 
+  * There must be one test case where `B=false` (say T4).
+  * T3 and T4 have different outcomes.
+  * In both test cases T3 and T4, variables A and C should be the same.
+* For condition C:
+  * There must be one test case where `C=true` (say T5). 
+  * There must be one test case where `C=false` (say T6).
+  * T3 and T4 have different outcomes,
+  * In both test cases T3 and T4, variables A and B should be the same.
+    
+Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is, on average, $$N+1$$, where $$N$$ is the number of conditions in the decision. 
+Note that $$N+1$$ is definitely smaller than $$2^N$$!
+
+Again, to devise a test suite that achieves 100% MC/DC coverage, we should devise $$N+1$$ test cases that, when combined, 
+exercise all the combinations independently from the others.
+
+The question is how to select such test cases. See the example below.
+
+Imagine a program that decides whether an applicant should be admitted to the 'University of Character':
+```java
+void admission(boolean degree, boolean experience, boolean character) {
+    if (character && (degree || experience)) {
+        System.out.println("Admitted");
+    } else {
+        System.out.println("Rejected");
+    }
+}
+```
+
+The program takes three booleans as input (which, generically speaking, is the same as the `A && (B || C)` we just discussed): 
+* Whether the applicant has a good character (`true` or `false`),
+* Whether the applicant has a degree (`true` or `false`),
+* Whether the applicant has experience in a field of work (`true` or `false`).
+
+If the applicant has good character _and_ either a degree _or_ experience in the field, he/she will be admitted.
+In any other case the applicant will be rejected.
+
+To test this program, we first use the truth table for `A && (B || C)` to see all the combinations and their outcomes.
+In this case, we have 3 decisions and $$2^3$$ is 8, therefore we have tests that go from 1 to 8:
+
+| Tests | Character | Degree | Experience | Decision |
+|-------|:---------:|:------:|:----------:|----------|
+| 1     | T         | T      | T          | T        |
+| 2     | T         | T      | F          | T        |
+| 3     | T         | F      | T          | T        |
+| 4     | T         | F      | F          | F        |
+| 5     | F         | T      | T          | F        |
+| 6     | F         | T      | F          | F        |
+| 7     | F         | F      | T          | F        |
+| 8     | F         | F      | F          | F        |
+
+Our goal will be to apply the MC/DC criterion to these test cases,
+and select $$N+1$$, in this case $$3+1=4$$, tests.
+In this case, the 4 four tests that satisfy that MC/DC coverage is {2, 3, 4, 6}.
+
+How did we find them?
+We go test by test, condition by condition.
+
+We start with selecting the pairs of combinations (or tests) for the `Character` parameter.
+
+* In test 1, we see that `Character`, `Degree`, and `Experience` are all `true` and the `Decision` (i.e., the outcome of the entire boolean expression) is also `true`. We now look for another test in this table, where only the value of `Character` is the opposite of the value in test 1,
+but the others (`Degree` and `Experience`) are still the same. This means we have to look for a test where `Character = false`, `Degree = true`, `Experience = true`, and `Decision = false`. This combination appears in test 5. 
+
+  Thus, we just found a pair of tests (again, called _independence pairs_), $$T_1$$ and $$T_5$$, where `Character` is the only parameter which changed and the outcome (`Decision`) changed as well.
+  In other words, a pair of tests where the `Character` **independently** influences the outcome (`Decision`). Let's keep the pair $$\{T_1, T_5\}$$ in our list of test cases.
+
+* We could have stopped here and moved to the next variable. After all, we already found an independence pair for `Character`. However, finding them all might help us in reducing the number of test cases at the end, as you will see. So let us continue and we look at the next test. In test 2, `Character = true`, `Degree = true`, `Experience = false`, and `Decision = true`. We repeat the process and search for a test where `Character` is the opposite of the value in test 2, but `Degree` and `Experience` remain the same (`Degree = true`, `Experience = false`). This set appears in test 6.
+
+    This means we just found another pair of tests, $$T_2$$ and $$T_6$$, where `Character` is the only parameter which changed and the outcome (`Decision`) changed as well.
+
+* Again, we repeat the process for test 3 (`Character = true`, `Degree = false`, `Experience = true`) and find that the `Character` parameter in test 7 (`Character = false`, `Degree = false`, `Experience = true`) is the opposite of the value in test 3 and changes the outcome (`Decision`). 
+
+* For test 4 (`Character = true`, `Degree = false`, `Experience = false`). Its pair is test 8 (`Character = false`, `Degree = false`, `Experience = false`). Now, the outcome of both tests is the same (`Decision = false`). This means that the pair $$\{T_4, T_8\}$$ does not show how `Character` can independently affect the overall outcome; after all, `Character` is the only thing that changes in these two tests, but the outcome is still the same.
+
+As we do not find another suitable pair when repeating the process for tests 5, 6, 7 and 8, we move on from the `Character` parameter to the `Degree` parameter. We repeat the same process, but now we search for the opposite value of parameter `Degree` whilst `Character` and `Experience` stay the same.
+
+* For test 1 (`Charater = true`, `Degree = true`, `Experience = true`), we search for a test where (`Charater = true`, `Degree = false`, `Experience = true`). This appears to be the case in test 3. However, the outcome for both test cases stay the same. Therefore, $$\{T_1, T_3\}$$ does not show how the `Degree` parameter can independently affect the outcome.
+
+* After repeating all the steps for the other tests we find only $$\{T_2, T_4\}$$ to have different values for the `Degree` parameter where the outcome also changes.
+
+* Finally we move to the `Experience` parameter. As with the `Degree` parameter, there is only one pair of combinations that will work, which is $$\{T_3, T_4\}$$. 
+
+We highly recommend carrying out the entire process yourself to get a feeling of how the process works!
+
+We now have all the pairs for each of the parameters:
+- `Character`: {1, 5}, {2, 6}, {3, 7}
+- `Degree`: {2, 4}
+- `Experience`: {3, 4}
+
+Having a single independence pair per variable (`Character`, `Degree` and `Experience`) is enough. After all, we want to minimise the total number of tests, and we know that we can
+achieve this with $$N+1$$ tests.
+
+We do not have any choices with conditions `Degree` and `Experience`, as we found only one pair of tests for each parameter.
+This means that we have to test combinations 2, 3 and 4.
+
+Lastly, we need to find the appropriate pair of A. Note that any
+of them would fit. However, we want to reduce the total amount
+of tests in the test suite (and again, we know we only need 4 in this case).
+
+If we were to pick either test 1 or test 5 we would have to include either test 5 or test 1 as well, 
+as they are their opposites, but therefore unneccesarily increasing our number of tests.
+In order to keep our test cases in accordance to $$N+1$$ or in this case $$3+1$$, thus 4 test cases we can 
+either add test 6 or test 7, as their opposites (test 2 or 3) are already included in our test cases.
+Randomly, we pick test 6.
+
+{% hint style='tip' %}
+You can indeed have more than one set of tests that achieve 100% MC/DC. All solutions are equally acceptable.
+{% endhint %}
+
+Therefore, the tests that we need for 100% MC/DC coverage are {2, 3, 4, 6}.
+These are the only 4 tests we need. This is indeed cheaper when compare to the 8 tests we would need for path coverage.
+
+Let us now discuss some details about the MC/DC coverage:
+
+* We have applied what we call unique-cause MC/DC criteria. We identify an independence pair (T1, T2), where only a single condition changes between T1 and T2, as well as the final outcome. That might not be possible in all cases. For example, `(A and B) or (A and C)`. Ideally, we would demonstrate the independence of the first A, B, the second A, and C. It is however impossible to change the first A and not change the second A. Thus, we can not demonstrate the independence of each A in the expression. In such cases, we then allow A to vary, but we still fix all other variables (this is what is called masked MC/DC).
+
+* It might not be possible to achieve MC/DC coverage in some expressions. See `(A and B) or (A and not B)`. While the independence pairs (TT, FT) would show the independence of A, there are no pairs that show the independence of B. While logically possible, in such cases, we recommend the developer to revisit the (degenerative) expression as it might had been poorly designed. In our example, the expression could be reformulated to simply `A`.
+
+* Mathematically speaking, $$N+1$$ is the minimum number of tests required for MC/DC coverage (and $$2 * N$$ the theoretical upper bound). However, empirical studies indeed show that $$N+1$$ is often the required number of tests.
+
+
+{% set video_id = "HzmnCVaICQ4" %}
+{% include "/includes/youtube.md" %}
+
+
 
 
 ## Criteria subsumption
@@ -641,6 +749,23 @@ We quote two of these studies:
 For interested readers, an extensive literature review on the topic can be found in
 Zhu, H., Hall, P. A., & May, J. H. (1997). Software unit test coverage and adequacy. ACM computing surveys (csur), 29(4), 366-427.
 
+## Structural testing vs structural coverage
+
+A common misconception among practitioners to *confuse structural testing with structural coverage*.
+
+Structural testing means *leveraging the structure of the source code to systematically exercise the system under test*. When compared to specification-based testing, we note that structural testing is: 
+
+- More objective. In other words, it does not depend on the opinions and experience of the tester. While different testers might come up with different specification-based tests, they would come with similar structural tests.
+
+- Implementation-aware. Implementations can vary from the specifications. After all, there are so many ways one can implement a program. Structural testing enables testers to explore the precise implementation.
+
+On the other hand, structural testing is a _check and balance_ (as Chilenski puts it) on the specification-based tests. Structural testing confirms and complements the tests that we derived before.
+
+It is common to see developers running their coverage tools and writing tests for the outputs they observe. Developers that are mostly focused on (simply) achieving high _structural coverage_ are missing the main point of structural testing. 
+
+Again, structural testing should complement your requirements-based testing. As Chilenski suggests (see Figure 3 in his paper), the first step of a tester should be to derive test cases out of any requirements-based technique. Once requirements are fully covered, testers then perform structural testing to cover what is missing from the structural-point of view. Any divergences should be brought back to the requirements-based testing phase: _why did we not find this class/partition before?_ Once requirements and structure are covered, one can consider the testing phase done.
+
+Therefore, do not aim at 100% coverage. Use structural testing to complement your specification-based tests.
 
 ## Exercises
 
@@ -784,7 +909,7 @@ Given an integer `n`, it returns the string form of the number followed by `"!"`
 So the integer 6 would yield `"6!"`.
 Except if the number is divisible by 3 it returns "Fizz!" and if it is divisible by 5 it returns "Buzz!".
 If the number is divisible by both 3 and 5 it returns "FizzBuzz!"
-Based on a [CodingBat problem](https://codingbat.com/prob/p115243)
+Based on a [CodingBat problem](https://codingbat.com/prob/p115243).
 
 ```java
 public String fizzString(int n) {
@@ -874,12 +999,19 @@ criterion if for every loop L:
 
 **Exercise 15.**
 Consider the expression `((A and B) or C)`.
-If we aim to achieve $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC), the **minimum** set of tests we should select is:
+Devise a test suite that achieves $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC).
 
-1. {2, 3, 4, 6}
-2. {1, 3, 4, 6}
-3. {2, 3, 5, 6}
-4. {3, 4, 7, 8}
+**Exercise 16.**
+(removed)
+
+
+**Exercise 16.**
+Draw the truth table for expression `A and (A or B)`.
+
+Is it possible to achieve MC/DC coverage for this expression?
+Why (not)?
+
+What feedback should you give to the developer, that used this expression, about your finding?
 
 
 
@@ -894,6 +1026,8 @@ If we aim to achieve $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC),
 
 * Hayhurst, K., Veerhusen, D., Chilenski, J., Rierson, L. A Practical Tutorial on Modified Condition/Decision Coverage, 2001. URL: https://shemesh.larc.nasa.gov/fm/papers/Hayhurst-2001-tm210876-MCDC.pdf. Short version: https://www.cs.odu.edu/~mln/ltrs-pdfs/NASA-2001-20dasc-kjh.pdf.
 
+* Chilenski, J. J. (2001). An investigation of three forms of the modified condition decision coverage (MCDC) criterion. Office of Aviation Research. http://www.tc.faa.gov/its/worldpac/techrpt/ar01-18.pdf
+
 * Cem Kaner on Code Coverage: http://www.badsoftware.com/coverage.htm
 
 * Arie van Deursen on Code Coverage: http://avandeursen.com/2013/11/19/test-coverage-not-for-managers/
@@ -901,5 +1035,4 @@ If we aim to achieve $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC),
 * Hutchins, M., Foster, H., Goradia, T., & Ostrand, T. (1994, May). Experiments of the effectiveness of data flow-and control flow-based test adequacy criteria. In Proceedings of the 16th international conference on Software engineering (pp. 191-200). IEEE Computer Society Press.
 
 * Namin, A. S., & Andrews, J. H. (2009, July). The influence of size and coverage on test suite effectiveness. In Proceedings of the eighteenth international symposium on Software testing and analysis (pp. 57-68). ACM.
-
 

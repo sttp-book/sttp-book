@@ -1,7 +1,5 @@
 # Design for Testability
  
-## Introduction
- 
  
 We just learned how the use of mocks and stubs can help developers in being highly productive and efficient in writing test code.
 In our previous chapter, it was easy to pass an `IssuedInvoices` stub to the `InvoiceFilter` class. The refactoring operation we performed (where we made the class receive its dependencies via constructors) facilitated the testing of the `InvoiceFilter` class.
