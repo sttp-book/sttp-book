@@ -17,7 +17,7 @@ Nowadays, most languages have an implementation of quick check, including Java.
 The Java implementation we are going to use is [jqwik](https://jqwik.net).
 
 {% hint style='tip' %}
-Jqwik has several features to better support property based tests. In this chapter, we only skim through some of them. We recommend readers to dive into jqwik's manual.
+Jqwik has several features to better support property based tests. In this chapter, we only skim through some of them. We recommend to readers to dive into jqwik's manual.
 {% endhint %}
 
 ## Getting started with property-based tests
