@@ -995,9 +995,6 @@ criterion if for every loop L:
 Consider the expression `((A and B) or C)`.
 Devise a test suite that achieves $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC).
 
-**Exercise 16.**
-(removed)
-
 
 **Exercise 16.**
 Draw the truth table for expression `A and (A or B)`.
