@@ -383,7 +383,7 @@ Moreover, methods can assume that, when they start, the class invariant holds.
 A private method invoked by a public method can leave the object with the class invariant being false.
 However, the public method that invoked the private method should then fix this and end with the class invariant again being true.
 
-This is all formalised by Bertrand Meyer as: _"The class variant indicates that a proposition P can be a class invariant if it holds after construction, and before and after any call to a public method assuming that the public methods are called with their pre-conditions being true."_
+This is all formalised by Bertrand Meyer as: _"The class invariant indicates that a proposition P can be a class invariant if it holds after construction, and before and after any call to a public method assuming that the public methods are called with their pre-conditions being true."_
 
 
 To implement simple class invariant in Java, we can use the Boolean method that checks if the representation is okay.
@@ -393,7 +393,7 @@ In these public methods, the only pre-conditions and post-conditions that have t
 
 Let us return to the `FavoriteBooks` with the `merge` method.
 We had a pre-condition saying that `favorites != null`.
-Given that this should always be true, we can turn it into a class variant.
+Given that this should always be true, we can turn it into a class invariant.
 Additionally, we can add the condition that `pushNotification != null`.
 
 ```java
