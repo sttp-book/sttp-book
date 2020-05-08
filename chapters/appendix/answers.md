@@ -810,9 +810,9 @@ Only approach 2.
 Given that the condition we have in `InvoiceFilter` is `x < 100`, we have:
 
 * On-point: 100. 100 should be out of the returned list of invoices.
-* Off-point: 101. 101 should be in the returned list of invoices.
-* (Random) In-point: 500.
-* (Random off-point): 50.
+* Off-point: 99. 99 should be in the returned list of invoices.
+* (Random) In-point: 50.
+* (Random off-point): 500.
 
 A single test with these four invoices is a good test for the boundaries of the problem.
 
