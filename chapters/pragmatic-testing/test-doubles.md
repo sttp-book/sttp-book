@@ -1,4 +1,4 @@
-# Test doubles
+﻿# Test doubles
 
 While testing single units is simpler than testing entire systems, we still face challenges when unit testing classes that depend on other classes or on external infrastructure.
 
@@ -228,7 +228,7 @@ Let us now test the `SAPInvoiceSender` class.
 Note that, for this test, we now mock the `InvoiceFilter` class. After all, for the `SAPInvoiceSender`, `InvoiceFilter` class is "just a class that returns a list of invoices". As it is not the goal of the current test to test the filter itself, we should mock this class, in order to facilitate the testing of the method under test.
 
 After the execution of the method under test (`sendLowValuedInvoices()`), we 
-should expect that the `SAP` mock received `mauricio`'s, `steve`'s, and `arie`s invoices. For that, we use Mockito's `verify()` method:
+should expect that the `SAP` mock received `mauricio`'s and `steve`'s invoices. For that, we use Mockito's `verify()` method:
 
 ```java
 public class SAPInvoiceSenderTest {
@@ -241,15 +241,13 @@ public class SAPInvoiceSenderTest {
   void sendToSap() {
     final var mauricio = new Invoice("Mauricio", 20);
     final var steve = new Invoice("Steve", 99);
-    final var arie = new Invoice("Arie", 300);
 
-    when(filter.lowValueInvoices()).thenReturn(asList(mauricio, steve, arie));
+    when(filter.lowValueInvoices()).thenReturn(asList(mauricio, steve));
 
     sender.sendLowValuedInvoices();
 
     verify(sap).send(mauricio);
     verify(sap).send(steve);
-    verify(sap).send(arie);
   }
 }
 ```
@@ -261,14 +259,13 @@ This example illustrates the main difference between stubbing and mocking. Stubb
 Mockito actually enables us to define even more specific expectations. For example, see the expectations below:
 
 ```java
-verify(sap, times(3)).send(any(Invoice.class));
+verify(sap, times(2)).send(any(Invoice.class));
 verify(sap, times(1)).send(mauricio);
 verify(sap, times(1)).send(steve);
-verify(sap, times(1)).send(arie);
 ```
 
 These expectations are more restrictive than the ones we had before.
-We now expect the SAP mock to have its `send` method invoked precisely three times (for any given `Invoice`). We then expect the `send` method to called once for the `mauricio` invoice, once for the `steve` invoice, and once for the `arie` invoice. We point the reader to Mockito's manual for more details on how to configure expectations.
+We now expect the SAP mock to have its `send` method invoked precisely two times (for any given `Invoice`). We then expect the `send` method to called once for the `mauricio` invoice and once for the `steve` invoice. We point the reader to Mockito's manual for more details on how to configure expectations.
 
 > You might be asking yourself now: _Why did you not put this new SAP sending functionality inside of the existing `InvoiceFilter` class_?
 > 
@@ -431,7 +428,7 @@ In other words, the developer only cares about the existence of a method that re
 
 ```java
 public interface IssuedInvoices {
- List<Invoiceall();
+ List<Invoice> Invoiceall();
  void save(Invoice inv);
 }
 ```
@@ -446,7 +443,7 @@ public class InvoiceFilter {
   public InvoiceFilter(IssuedInvoices issuedInvoices) {
     this.issuedInvoices = issuedInvoices;
   }
-  public List<InvoicelowValueInvoices() {
+  public List<Invoice> InvoicelowValueInvoices() {
       return issuedInvoices.all().stream()
               .filter(invoice -> invoice.value < 100)
               .collect(toList());
@@ -503,7 +500,7 @@ The "Software Engineering at Google" book has an entire chapter dedicated to tes
 * Some trade-offs to consider when deciding whether to use a test double: the execution time of the real implementation, how much non-determinism we would get from using the real implementation.
 * When using the real implementation is not possible or too costly, prefer fakes over mocks. An in-memory database, for example, might be better (or more real) than a mock.
 * Excessive mocking can be dangerous, as tests become unclear (i.e., hard to comprehend), brittle (i.e., might break too often), and less effective (i.e., reduced fault capability detection).
-* When mocking, prefer _state testing_ rather than _iteraction testing_. In other words, make sure you are asserting a change of state and/or the consequence of the action under test, rather than the precise interaction that the action has with the mocked object. After all, interaction testing tends to be too coupled with the implementation of the system under test.
+* When mocking, prefer _state testing_ rather than _interaction testing_. In other words, make sure you are asserting a change of state and/or the consequence of the action under test, rather than the precise interaction that the action has with the mocked object. After all, interaction testing tends to be too coupled with the implementation of the system under test.
 * Use _interaction testing_ when state testing is not possible, or when a bad interaction might have an impact in the system (e.g., calling the same method twice would make the system twice as slow).
 * Avoid overspecified interaction tests. Focus on the relevant arguments and functions.
 * Good _interaction testing_ requires strict guidelines when designing the system under test. Google engineers tend not to do it.
