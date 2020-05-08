@@ -430,7 +430,7 @@ In other words, the developer only cares about the existence of a method that re
 
 ```java
 public interface IssuedInvoices {
- List<Invoiceall();
+ List<Invoice> Invoiceall();
  void save(Invoice inv);
 }
 ```
@@ -445,7 +445,7 @@ public class InvoiceFilter {
   public InvoiceFilter(IssuedInvoices issuedInvoices) {
     this.issuedInvoices = issuedInvoices;
   }
-  public List<InvoicelowValueInvoices() {
+  public List<Invoice> InvoicelowValueInvoices() {
       return issuedInvoices.all().stream()
               .filter(invoice -> invoice.value < 100)
               .collect(toList());
