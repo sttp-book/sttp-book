@@ -242,11 +242,7 @@ The corresponding CFG:
 Note that we split the `for` loop into three blocks: the variable initialisation, the decision block, and the increment.
 
 
-As you can see, this CFG representation is quite generic. Even when you use a different programming language to write the same program, you might end up with the same CFG.
-
-## Control-Flow Graphs in other languages
-
-We can devise control-flow graphs for programs in any programming language. For example, see the piece of
+**Control-Flow Graphs in other languages.** As you can see, this CFG representation is quite generic. Even when you use a different programming language to write the same program, you might end up with the same CFG. We can devise control-flow graphs for programs in any programming language. For example, see the piece of
 Python code below:
 
 ```python
