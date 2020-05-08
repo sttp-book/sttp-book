@@ -448,7 +448,7 @@ T1 makes conditions 1 and 2 true and then does not cover the other conditions. T
 
 At this moment, condition coverage = 2/8.
 
-For T2 the input number 8 is neither divisible by 3, nor divisible by 5. Therefore covers the cases of all 4 conditions to be false. We now have:
+For T2, the input number 8 is neither divisible by 3, nor divisible by 5. Therefore covers the cases of all 4 conditions to be false. We now have:
 
 * condition 1 = [true: exercised, false: exercised]
 * condition 2 = [true: exercised, false: exercised]
