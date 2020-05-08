@@ -241,7 +241,6 @@ public class SAPInvoiceSenderTest {
   void sendToSap() {
     final var mauricio = new Invoice("Mauricio", 20);
     final var steve = new Invoice("Steve", 99);
-    final var arie = new Invoice("Arie", 300);
 
     when(filter.lowValueInvoices()).thenReturn(asList(mauricio, steve));
 
@@ -263,11 +262,10 @@ Mockito actually enables us to define even more specific expectations. For examp
 verify(sap, times(2)).send(any(Invoice.class));
 verify(sap, times(1)).send(mauricio);
 verify(sap, times(1)).send(steve);
-verify(sap, never()).send(arie);
 ```
 
 These expectations are more restrictive than the ones we had before.
-We now expect the SAP mock to have its `send` method invoked precisely two times (for any given `Invoice`). We then expect the `send` method to called once for the `mauricio` invoice, once for the `steve` invoice, and not at all for the `arie` invoice. We point the reader to Mockito's manual for more details on how to configure expectations.
+We now expect the SAP mock to have its `send` method invoked precisely two times (for any given `Invoice`). We then expect the `send` method to called once for the `mauricio` invoice and once for the `steve` invoice. We point the reader to Mockito's manual for more details on how to configure expectations.
 
 > You might be asking yourself now: _Why did you not put this new SAP sending functionality inside of the existing `InvoiceFilter` class_?
 > 
