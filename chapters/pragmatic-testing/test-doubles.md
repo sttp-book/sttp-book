@@ -1,4 +1,4 @@
-# Test doubles
+﻿# Test doubles
 
 While testing single units is simpler than testing entire systems, we still face challenges when unit testing classes that depend on other classes or on external infrastructure.
 
@@ -228,7 +228,7 @@ Let us now test the `SAPInvoiceSender` class.
 Note that, for this test, we now mock the `InvoiceFilter` class. After all, for the `SAPInvoiceSender`, `InvoiceFilter` class is "just a class that returns a list of invoices". As it is not the goal of the current test to test the filter itself, we should mock this class, in order to facilitate the testing of the method under test.
 
 After the execution of the method under test (`sendLowValuedInvoices()`), we 
-should expect that the `SAP` mock received `mauricio`'s, `steve`'s, and `arie`s invoices. For that, we use Mockito's `verify()` method:
+should expect that the `SAP` mock received `mauricio`'s and `steve`'s invoices. For that, we use Mockito's `verify()` method:
 
 ```java
 public class SAPInvoiceSenderTest {
@@ -243,13 +243,12 @@ public class SAPInvoiceSenderTest {
     final var steve = new Invoice("Steve", 99);
     final var arie = new Invoice("Arie", 300);
 
-    when(filter.lowValueInvoices()).thenReturn(asList(mauricio, steve, arie));
+    when(filter.lowValueInvoices()).thenReturn(asList(mauricio, steve));
 
     sender.sendLowValuedInvoices();
 
     verify(sap).send(mauricio);
     verify(sap).send(steve);
-    verify(sap).send(arie);
   }
 }
 ```
@@ -261,14 +260,14 @@ This example illustrates the main difference between stubbing and mocking. Stubb
 Mockito actually enables us to define even more specific expectations. For example, see the expectations below:
 
 ```java
-verify(sap, times(3)).send(any(Invoice.class));
+verify(sap, times(2)).send(any(Invoice.class));
 verify(sap, times(1)).send(mauricio);
 verify(sap, times(1)).send(steve);
-verify(sap, times(1)).send(arie);
+verify(sap, never()).send(arie);
 ```
 
 These expectations are more restrictive than the ones we had before.
-We now expect the SAP mock to have its `send` method invoked precisely three times (for any given `Invoice`). We then expect the `send` method to called once for the `mauricio` invoice, once for the `steve` invoice, and once for the `arie` invoice. We point the reader to Mockito's manual for more details on how to configure expectations.
+We now expect the SAP mock to have its `send` method invoked precisely two times (for any given `Invoice`). We then expect the `send` method to called once for the `mauricio` invoice, once for the `steve` invoice, and not at all for the `arie` invoice. We point the reader to Mockito's manual for more details on how to configure expectations.
 
 > You might be asking yourself now: _Why did you not put this new SAP sending functionality inside of the existing `InvoiceFilter` class_?
 > 
