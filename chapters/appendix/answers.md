@@ -464,7 +464,7 @@ Now the decision coverage. We have 6 decisions:
 3. Line 5: `n % 5 == 0`, true and false
 
 Now T1 makes decision 1 true and does not cover the other decisions.
-T2 makes all the decision false.
+T2 makes all the decisions false.
 Therefore, the coverage is $$\frac{4}{6} \cdot 100\% = 66\%$$.
 
 
