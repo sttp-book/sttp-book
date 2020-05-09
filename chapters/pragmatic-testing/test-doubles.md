@@ -61,8 +61,9 @@ Let us learn how to use Mockito and setup stubs with a practical example.
 >
 > The program must return all the issued invoices with values smaller than 100. The collection of invoices can be found in our database.
 
-The following is a possible implementation of this requirement. Note that the
-`IssuedInvoices` is a class responsible for retrieving all the invoices from the database.
+The following is a possible implementation of this requirement. Note that
+`IssuedInvoices` is a class responsible for retrieving all the invoices from the database. 
+It connects to the database using some global properties.
 
 ```java
 import java.util.List;
@@ -83,9 +84,7 @@ public class InvoiceFilter {
 
 }
 ```
-
-
-Without stubbing the `IssueInvoices` class, the `InvoiceFilter` test would need to also handle the database (making the unit testing more expensive). Note how the tests need to open and close the connection (see the `open()` and `closeDao()` methods) and save invoices to the database (see the many calls to `invoices.save()` in the `filterInvoices` test).
+Without stubbing the `IssueInvoices` class, the `InvoiceFilter` test would need to also handle the database (making the unit testing more expensive). Note how the tests need to open and close the connection (see the `open()` and `close()` methods) and save invoices to the database (see the many calls to `invoices.save()` in the `filterInvoices` test).
 
 ```java
 public class InvoiceFilterTest {
@@ -95,7 +94,7 @@ public class InvoiceFilterTest {
     invoices = new IssuedInvoices();
   }
 
-  @AfterEach public void closeDao() {
+  @AfterEach public void close()) {
     if (invoices != null) invoices.close();
   }
 
@@ -130,8 +129,6 @@ Let us now re-write the test. This time we will stub the `IssuedInvoices` class.
 For that to happen, we first need to make sure the stub can be "injected" into the `InvoiceFilter` class. If you look at the previous implementation of the `InvoiceFilter` class, you will notice that the class instantiates the `IssuedInvoices` class on its own. If we are to use a stub, the class should allow the stub to be injected.
 
 It suffices to pass the dependency to the constructor, instead of instantiating it directly:
-
-
 ```java
 import java.util.List;
 import static java.util.stream.Collectors.toList;
@@ -559,10 +556,6 @@ The system has been designed cleanly and consists of a set of co-operating class
 2. You create mock objects to represent each variant you need to test.
 3. You use mocks to control the external conditions and to observe the event being triggered.
 4. You use mocks to control the triggered events.
-
-
-
-
 
 
 **Exercise 3.**
