@@ -512,25 +512,15 @@ See the following class:
 public class OrderDeliveryBatch {
 
   public void runBatch() {
-
-    OrderDao dao = new OrderDao();
+    OrderBook orderBook = new OrderBook();
     DeliveryStartProcess delivery = new DeliveryStartProcess();
 
-    List<Order> orders = dao.paidButNotDelivered();
-
-    for (Order order : orders) {
-      delivery.start(order);
-
-      if (order.isInternational()) {
-        order.setDeliveryDate("5 days from now");
-      } else {
-       order.setDeliveryDate("2 days from now");
-      }
-    }
+    orderBook.paidButNotDelivered()
+      .forEach(delivery::start);
   }
 }
 
-class OrderDao {
+class OrderBook {
   // accesses a database
 }
 
@@ -541,16 +531,15 @@ class DeliveryStartProcess {
 
 Which of the following Mockito lines would never appear in a test for the `OrderDeliveryBatch` class?
 
-1. `OrderDao dao = Mockito.mock(OrderDao.class);`
+1. `OrderBook orderBook = Mockito.mock(OrderBook.class);`
 2. `Mockito.verify(delivery).start(order);` (assume `order` is an instance of `Order`)
-3. `Mockito.when(dao.paidButNotDelivered()).thenReturn(list);` (assume `dao` is an instance of `OrderDao` and `list` is an instance of `List<Order>`)
+3. `Mockito.when(orderBook.paidButNotDelivered()).thenReturn(orders);` (assume `orderBook` is an instance of `OrderBook` and `orders` is an instance of `List<Order>`)
 4. `OrderDeliveryBatch batch = Mockito.mock(OrderDeliveryBatch.class);`
 
 
 **Exercise 2.**
 You are testing a system that triggers advanced events based on complex combinations of Boolean external conditions relating to the weather (outside temperature, amount of rain, wind, ...). 
 The system has been designed cleanly and consists of a set of co-operating classes that each have a single responsibility. You create a decision table for this logic, and decide to test it using mocks. Which is a valid test strategy?
-
 
 1. You use mocks to support observing the external conditions.
 2. You create mock objects to represent each variant you need to test.
@@ -559,38 +548,31 @@ The system has been designed cleanly and consists of a set of co-operating class
 
 
 **Exercise 3.**
-Below, we show the `InvoiceFilter` class. This class is responsible for returning the invoices for an amount that is smaller than 100.0. It makes use of the InvoiceDAO class, which is responsible for communication with the database.
+Below, we show the `InvoiceFilter` class. This class is responsible for returning the invoices for an amount that is smaller than 100.0. It makes use of the `Invoices` type, which is responsible for communication with the database.
 
 ```java
 public class InvoiceFilter {
 
-    private InvoiceDao invoiceDao;
+    private Invoices invoices;
 
-    public InvoiceFilter(InvoiceDao invoiceDao) {
-        this.invoiceDao = invoiceDao;
+    public InvoiceFilter(Invoices invoices) {
+        this.invoices = invoices;
     }
 
     public List<Invoice> filter() {
-        List<Invoice> filtered = new ArrayList<>();
-        List<Invoice> allInvoices = invoiceDao.all();
-
-        for(Invoice inv : allInvoices) {
-            if(inv.getValue() < 100.0)
-                filtered.add(inv);
-        }
-
-        return filtered;
+      return invoices.all().stream()
+              .filter(invoice -> invoice.getValue() < 100.0)
+              .collect(toList());
     }
 }
 ```
 
-Which of the following statements is **false** about this class?
-
+Which of the following statements are **true** about this class?
 
 1. Integration tests would help us achieve a 100% branch coverage, which is not possible solely via unit tests.
 2. Its implementation allows for dependency injection, which enables mocking.
 3. It is possible to write completely isolated unit tests for it by, e.g., using mocks.
-4. The InvoiceDao class (a direct dependency of the InvoiceFilter) itself should be tested by means of integration tests.
+4. The `Invoices` type (a direct dependency of the `InvoiceFilter`) itself should be tested by means of integration tests.
 
 
 **Exercise 4.**

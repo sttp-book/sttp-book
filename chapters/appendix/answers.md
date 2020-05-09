@@ -920,7 +920,7 @@ See https://martinfowler.com/bliki/TestPyramid.html!
 
 The correct answer is 4.
 
-1. This line is required to create a mock for the `OrderDao` class.
+1. This line is required to create a mock for the `OrderBook` class.
 2. With this line we check that the methods calls start with `order` on a `delivery` mock we defined. The method is supposed to start each order that is paid but not delivered.
 3. With this line we define the behaviour of the `paidButNotDelivered` method by telling the mock that it should return an earlier defined `list`.
 4. We would never see this happen in a test that is testing the `OrderDeliveryBatch` class. By mocking the class we do not use any of its implementation. But the implementation is the exact thing we want to test. In general we never mock the class under test.
@@ -958,61 +958,44 @@ A single test with these four invoices is a good test for the boundaries of the 
 
 **Exercise 1**
 
-To test just the `runBatch` method of `OrderDeliveryBatch` (for example in a unit test) we need to be able to use mocks for at least the `dao` and `delivery` objects.
-In the current implementation this is not possible, as we cannot change `dao` or `delivery` from outside the class.
+To test just the `runBatch` method of `OrderDeliveryBatch` (for example in a unit test) we need to be able to use mocks for at least the `orderBook` and `delivery` objects.
+In the current implementation this is not possible, as we cannot change `orderBook` or `delivery` from outside the class.
 In other words: We want to improve the controllability to improve the testability.
 
 The technique that we use to do so is called dependency injection.
-We can give the `dao` and `delivery` in a parameter of the method:
+We can give the `orderBook` and `delivery` in a parameter of the method:
 
 ```java
 public class OrderDeliveryBatch {
 
-  public void runBatch(OrderDao dao, DeliveryStartProcess delivery) {
-    List<Order> orders = dao.paidButNotDelivered();
-
-    for (Order order : orders) {
-      delivery.start(order);
-
-      if (order.isInternational()) {
-        order.setDeliveryDate("5 days from now");
-      } else {
-        order.setDeliveryDate("2 days from now");
-      }
-    }
+  public void runBatch(OrderBook orderBook, DeliveryStartProcess delivery) {
+    orderBook.paidButNotDelivered()
+      .forEach(delivery::start);
   }
 }
 ```
 
-Alternatively we can create fields for the `dao` and `delivery` and a constructor that sets the fields:
+Alternatively we can create fields for the `orderBook` and `delivery` and a constructor that sets the fields:
 
 ```java
 public class OrderDeliveryBatch {
 
-  private OrderDao dao;
+  private OrderBook orderBook;
   private DeliveryStartProcess delivery;
 
-  public OrderDeliveryBatch(OrderDao dao, DeliveryStartProcess delivery) {
-    this.dao = dao;
+  public OrderDeliveryBatch(OrderBook orderBook, DeliveryStartProcess delivery) {
+    this.orderBook = orderBook;
     this.delivery = delivery;
   }
 
   public void runBatch() {
-    List<Order> orders = dao.paidButNotDelivered();
-
-    for (Order order : orders) {
-      delivery.start(order);
-
-      if (order.isInternational()) {
-        order.setDeliveryDate("5 days from now");
-      } else {
-        order.setDeliveryDate("2 days from now");
-      }
-    }
+    orderBook.paidButNotDelivered()
+      .forEach(delivery::start);
   }
 }
 ```
-
+Which option we chose depends on the lifecycles of the various objects. If the `OrderDeliveryBatch` always applies to the same `OrderBook` and `DeliveryStartProcess`, then we would probably use the constructor, otherwise, we might use the method parameters. 
+Our choice expresses this runtime behaviour. 
 
 **Exercise 2**
 
@@ -1027,20 +1010,22 @@ We can use dependency injection to make sure we can control the `today` object b
 **Exercise 3**
 
 
-The correct answer is 1 and 3.
+The correct answer is 2, 3, and 4
 
 As we discussed it is very important to keep the domain and infrastructure separated for the testability.
 This can be done, for example, by using Ports and Adapters.
 
-Static methods cannot be mocked and are therefore very bad for the controllability of the code.
-Code that has low controllability also has a low testability, so replacing the static methods by non-static ones will be very beneficial to the testability.
+Static methods that manipulate state are effectively Singletons and so can introduce implicit runtime dependencies that are 
+difficult to control and so difficult to test. They are best used for helper methods where they either return a new result, packaging up
+constructors, or return a value based on their inputs. Otherwise, look for a non-static technique, such as calling an instance methods
+on some kind of context object.
 
-The large tables and lack of indices do not really influence the testability, especially not when talking about unit tests.
-When writing unit tests we end up mocking the classes interacting with the database anyway.
+For a unit test, we're not concerned about the scale of the real data table, we need to know whether this functionality works in isolation.
+That said, if these lists are likely to be very large, we should prepare for that in our design and run some integration stress tests for scale.
 
-Too many attributes/fields can hurt testability as we might need to create a lot of mocks for just one class under test.
-However, the static methods and mixed domain and infrastructure are worse for the testability than a large number of attributes/fields.
-
+If you find yourself creating a lot of mocks to test a class, because it has a lot of dependencies, that usually a sign that 
+there are missing concepts in the code that would encapsulate some of those dependencies. It's time to step back and take another
+look at the design. 
 
 **Exercise 4**
 
