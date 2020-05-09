@@ -548,14 +548,14 @@ The system has been designed cleanly and consists of a set of co-operating class
 
 
 **Exercise 3.**
-Below, we show the `InvoiceFilter` class. This class is responsible for returning the invoices for an amount that is smaller than 100.0. It makes use of the `Invoices` type, which is responsible for communication with the database.
+Below, we show the `InvoiceFilter` class. This class is responsible for returning the invoices for an amount that is smaller than 100.0. It makes use of the `IssuedInvoices` type, which is responsible for communication with the database.
 
 ```java
 public class InvoiceFilter {
 
-    private Invoices invoices;
+    private IssuedInvoices invoices;
 
-    public InvoiceFilter(Invoices invoices) {
+    public InvoiceFilter(IssuedInvoices invoices) {
         this.invoices = invoices;
     }
 
@@ -572,7 +572,7 @@ Which of the following statements are **true** about this class?
 1. Integration tests would help us achieve a 100% branch coverage, which is not possible solely via unit tests.
 2. Its implementation allows for dependency injection, which enables mocking.
 3. It is possible to write completely isolated unit tests for it by, e.g., using mocks.
-4. The `Invoices` type (a direct dependency of the `InvoiceFilter`) itself should be tested by means of integration tests.
+4. The `IssuedInvoices` type (a direct dependency of the `InvoiceFilter`) itself should be tested by means of integration tests.
 
 
 **Exercise 4.**
