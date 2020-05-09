@@ -2,12 +2,16 @@
 
 While testing single units is simpler than testing entire systems, we still face challenges when unit testing classes that depend on other classes or on external infrastructure.
 
-As an example, consider an application in which all SQL-related code has been encapsulated in an `IssuedInvoices` class. Other parts of the system that depend on this `IssuedInvoices` class, then also depend (directly or indirectly) on a database. We therefore also have a dependency on the database when we write tests for those other parts, even though our focus might not even be the database part of the system. As we saw before, this can incur higher testing costs.
+As an example, consider an application in which all SQL-related code has been encapsulated in an `IssuedInvoices` class. Other parts of the system that depend on this `IssuedInvoices` class, then also depend (directly or indirectly) on a database. This implicitly creates a dependency on the database when we write tests for those other parts, even though we're not immediately concerned with its behaviour. As we saw before, this can make testing more difficult. We'd really like to test this other code, *assuming that the `IssuedInvoices` works*.
 
-In other words: **we want to unit test a component A, that depends on another component B. The dependency on component B increases the costs of unit testing A.**
+In other words, we want to unit test a component A that depends on another component B, but setting up B for testing A is expensive.
 
-This is where **test doubles** come in handy. The idea is that we will create an object that will mimic the behaviour of component B ("it looks like B, but it is not B"). Given that we have full control over what this "fake component B" does, we can design it in such a way that unit testing A becomes less costly. In our example above, suppose that A is a plain Java class and B is a _Data Access Object_ (and thus, it communicates with the database). If we simulate B for example by returning a hard-coded list of two elements whenever the `findAllInvoices()` method is called, instead of going to the database, we remove the need for a database when testing A. 
-If this seems too abstract, the source code we show later in this chapter offers more clarification.
+This is where **test doubles** come in handy. We will create an object to mimic the behaviour of component B ("it looks like B, but it is not B"). 
+Within the test, we have full control over what this "fake component B" does so we can make it behave as B would *in the context of this test* 
+and cut the dependency on the real object. In our example above, suppose that A is a plain Java class that depends on an `IssuedInvoices` to retrieve 
+values from a database, we can implement a fake `IssuedInvoices` that just returns a hard-coded list of values in its `findAllInvoices()` method
+rather than hitting an external database. This means that, in our test, we can control the environment around A so we can check how it behaves.
+We'll be showing some examples of how this works later in the chapter. 
 
 The use of objects that simulate the behaviour of other objects has advantages:
 
