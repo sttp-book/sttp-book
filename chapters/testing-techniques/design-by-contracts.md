@@ -38,7 +38,7 @@ In Java, to make an assertion we use the `assert` keyword:
 assert <condition> : "<message>";
 ```
 
-The `assert` keywords checks if the `<condition>` is true.
+The `assert` keyword checks if the `<condition>` is true.
 If it is, nothing happens.
 The program just continues its execution as everything is according to plan.
 However, if the `<condition>` yields false, the `assert` throws an `AssertionError`.
@@ -77,7 +77,7 @@ If the asserts are disabled, they will never throw an `AssertionError` even if t
 Java's default configuration is to disable the assertions.
 
 
-To enable the asserts we have to run Java with a special argument in one of these two ways: `java -enableassertions` or `java -ea`.
+To enable the asserts, we have to run Java with a special argument in one of these two ways: `java -enableassertions` or `java -ea`.
 When using Maven or IntelliJ, the assertions are enabled automatically when running tests.
 With Eclipse or Gradle, we have to enable it ourselves.
 
@@ -179,7 +179,7 @@ The number of assumptions made before a method can be executed (and, with that, 
 
 One might want to *weaken the pre-conditions*, so that the method accepts/is able to handle more situations.
 To that aim, we can remove a pre-condition as the method itself can handle the situation where the pre-condition would be false.
-This makes the method more generally applicable, but is also increases its complexity.
+This makes the method more generally applicable, but also increases its complexity.
 The method always has to check some extra things to handle the cases that could had been pre-conditions.
 Finding the balance between the number of pre-conditions and complexity of the method is part of designing the system.
 
@@ -386,7 +386,7 @@ However, the public method that invoked the private method should then fix this 
 This is all formalised by Bertrand Meyer as: _"The class variant indicates that a proposition P can be a class invariant if it holds after construction, and before and after any call to a public method assuming that the public methods are called with their pre-conditions being true."_
 
 
-To implement simple class invariant in Java, we can use the Boolean method that checks if the representation is okay.
+To implement a simple class invariant in Java, we can use the Boolean method that checks if the representation is okay.
 We usually call this method `invariant`.
 We then assert the return value of this method after the constructor, and before and after each public method.
 In these public methods, the only pre-conditions and post-conditions that have to hold additionally are the ones that are not in the invariant.
@@ -528,7 +528,7 @@ The ArrayList and LinkedList will behave the same for the methods defined in Lis
 Therefore, there will be duplicate tests for these methods.
 
 
-To avoid this code duplication we can create a test suite just for the super class.
+To avoid this code duplication, we can create a test suite just for the super class.
 This test suite tests just the public methods of the super class.
 The tests in this test suite should then be executed for each 
 of the sub-classes of the super class.
@@ -695,7 +695,7 @@ class Square extends Rectangle {
 }
 ```
 
-Inspired by Bertrand Meyer's design by contracts, he also use asserts to make sure contracts are followed. He explicitly defines pre-conditions and post-conditions in various methods of the base Rectangle class and the derived Square class.
+Inspired by Bertrand Meyer's design by contracts, he also uses asserts to make sure contracts are followed. He explicitly defines pre-conditions and post-conditions in various methods of the base Rectangle class and the derived Square class.
 
 A second colleague comes in and expresses concerns about the design.
 How can you use the assertions provided to discuss the correctness of this design?
