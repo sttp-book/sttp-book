@@ -186,6 +186,13 @@ Note that a cohesive test has less chances of failing because of something else.
 
 Our new approach for testing `InvoiceFilter` is faster, easier to write, and more cohesive.
 
+
+{% hint style='tip' %}
+In a real software system, the business rule implemented by the `InvoiceFilter` would probably be best done directly in the database. After all, a simple SQL query would do the job in a much more performatic manner. 
+
+Nevertheless, abstract away the example. Imagine that for a class to do its job, it needs some data from (or to interact with) another dependency.
+{% endhint %}
+
 ## Mocks and expectations
 
 Suppose our system has a new requirement:
