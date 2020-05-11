@@ -53,7 +53,7 @@ We can use property-based testing and jqwik's implementation to make tests for t
 public class PropertyTest {
 
   @Property
-  void stringConcatenation(@ForAll String s1, @ForAll String s2) {
+  void concatenationLength(@ForAll String s1, @ForAll String s2) {
     String s3 = s1 + s2;
 
     Assertions.assertEquals(s1.length() + s2.length(), s3.length());
@@ -91,8 +91,8 @@ We can identify two valid classes and one invalid class in the requirement: pass
 
 When doing property-based testing, we declare these properties in form of jqwik's properties:
 
-* The `pass` property: for all floats, ranging from 1 (inclusive) to 5.0 (exclusive), the program should return false.
-* The `fail` property: for all floats, ranging from 5 (inclusive) to 10 (inclusive), the program should return true.
+* The `fail` property: for all floats, ranging from 1 (inclusive) to 5.0 (exclusive), the program should return false.
+* The `pass` property: for all floats, ranging from 5 (inclusive) to 10 (inclusive), the program should return true.
 * The `invalid` property: for all invalid grades (which we define as any number below 0.9 or greater than 10.1), the program must throw an exception.
 
 ```java

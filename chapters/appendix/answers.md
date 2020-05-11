@@ -120,6 +120,28 @@ Possible actions:
 3. We should constrain the options in the 'occurrences in a single line' category to happen only if 'occurrences in the file' are either exactly one or more than one. It does not make sense to have none occurrences in a file and one pattern in a line.
 4. We should treat 'pattern is improperly quoted' as exceptional, and thus, test it just once.
 
+**Exercise 8**
+
+This focus of this exercise is for you to see that the internal state of the object should also be taken into account in the partitions (and not only the direct input variables).
+
+Input parameter e: 
+* P1: Element not present in the set
+* P2: Element already present in the set
+* P3: NULL element.
+
+Set is full?  (`isFull` comes from the state of the class)
+* isFull == true
+* isFull == false
+
+With the categories and partitions in hands, we can constrain the `isFull == true` and test it only once (i.e., without combining with other classes). 
+
+We then combine them all and end up with four tests:
+
+* T1: isFull returns false, e: Element not present in the set
+* T2: isFull returns false, e: Element present in the set
+* T3: isFull returns false, e: Null element
+* T4: isFull returns true, e: Element not present in the set
+
 
 
 ## Boundary testing
@@ -190,6 +212,58 @@ Now the off-points are 4 and 6.
 We should always test the behaviour of our program when any expected data actually does not exist (EXISTENCE).
 
 
+**Exercise 8**
+We have a lot of boundaries to test for:
+
+![Boundary Analysis Legs](img/boundary-testing/ex8/legs.png)
+![Boundary Analysis Tail](img/boundary-testing/ex8/tail.png)
+![Boundary Analysis Lives](img/boundary-testing/ex8/lives.png)
+![Boundary Analysis SharpNails](img/boundary-testing/ex8/nails.png)
+![Boundary Analysis Sound](img/boundary-testing/ex8/sound.png)
+
+To establish the needed tests in the category/partition method, we need to identify the parameters, derive the characteristics, add constraints and final make the tests.
+As we last step we can identify duplicate tests and remove those.
+
+1. Identify parameters:
+  - Legs
+  - Tail
+  - Lives
+  - Sharp nails
+  - Sound
+1. Derive characteristics of parameters:
+  - int legs: [0,2,4,6,8,10,integer.MAX_VALUE], [1,3,5,7,9,integer.MAX_VALUE], [negative value]
+  - bool tail: [true], [false]
+  - int lives: [1-9], no lives, more than 10 lives
+  - bool sharp nails: [true], [false]
+  - string sound: ['miauw'], ['woof'], [empty]
+1. Add constraints:
+  - If `lives <= 0`, we can test this with just one combination.
+  - If legs is an negative integer or 0, this is an exceptional case. Therefore it doesn't matter if the animal has sharp nails or not.
+  - If legs is not an even integer, we can test this with just one combination.
+  - If `lives >= 10`, we can test this with just one combination. 
+1. Test cases: Tests can be divided in 3 categories: is a cat, not a cat, exceptional cases.
+  - **Cat**
+    1. 2, true, 6, true, "miauws" --> cat
+  - **Not a cat**
+    1. 3, true, 6, true, "miauws" --> not a cat
+    2. 4, false, 6, true, "miauws" --> not a cat
+    3. 6, true, 11, true, "miauws" --> not a cat
+    4. 8, true, 4, false, "miauws" --> not a cat
+    5. 2, true, 3, true, "woof" --> not a cat
+  - **Exceptional**
+    1. 0, true, 2, false, "miauws" --> cat or invalid depending on the context of the program.
+    2. 2, true, 11, true, "miauws" --> not a cat
+    3. 3, true, 8, true, "miauws" --> not a cat
+    4. 4, true, 0, true, "miauws" --> not a cat or invalid depending on the context of the program.
+
+
+Note that some tests can be combined! For example: 
+  - TEST-1 from not a cat is the same as TEST-3 from exceptional
+  - TEST-3 from not a cat is the same as TEST-2 from exceptional
+
+So the total number of tests = 8.
+
+
 
 
 ## Structural testing
@@ -240,7 +314,7 @@ Finally a third test is needed to cover line 11 (`removeElementNotPresentInListT
 **Exercise 2**
 
 ![LinkedList exercise CFG](img/structural-testing/exercises/CFG-LinkedList.svg)
-L\<number\> in the diagram represents the line number of the code that is in the block or decision.
+Ln in the diagram represents the line number of the code that is in the block or decision.
 
 **Exercise 3**
 
@@ -304,7 +378,7 @@ Then for the decision in line 2 the node that `remove` is looking at should not 
 The node is `null` when the end of the list had been reached.
 That only happens when the element that should be removed is not in the list.
 Note that the decision in line 2 only gets executed when the element to remove is `null`.
-In the tests, this means that the element should be found and not found at least once. 
+In the tests, this means that the element should be found and not found at least once.
 
 The decision in line 3 checks if the node that the method is at now has the element that should be deleted.
 The tests should cover a case where the element is not the item that has to be removed and a case where the element is the item that should be removed.
@@ -348,7 +422,7 @@ For `"aa"` the expected output is `"a"`.
 **Exercise 8**
 
 
-Answer 4. is correct.
+Option 4 is the incorrect one.
 The loop in the method makes it impossible to achieve 100% path coverage.
 This would require us to test all possible number of iterations.
 For the other answers we can come up with a test case: `"aXYa"`
@@ -357,27 +431,41 @@ For the other answers we can come up with a test case: `"aXYa"`
 
 
 First the condition coverage.
-We have 8 conditions:
+When talking about condition coverage, we first have to split the condition on line 1 (n % 3 == 0 && n % 5 == 0) 
+into two decision blocks for the CFG. In total, we will have 8 conditions:
 
 1. Line 1: `n % 3 == 0`, true and false
 2. Line 1: `n % 5 == 0`, true and false
 3. Line 3: `n % 3 == 0`, true and false
 4. Line 5: `n % 5 == 0`, true and false
 
-T1 makes conditions 1 and 2 true and then does not cover the other conditions.
-T2 makes all the conditions false.
-In total these test cases then cover $$2 + 4 = 6$$ conditions so the condition coverage is $$\frac{6}{8} \cdot 100\% = 75\%$$
+T1 makes conditions 1 and 2 true and then does not cover the other conditions. Thus:
 
-Now the decision coverage.
-We have 6 decision:
+* condition 1 = [true: exercised, false: not exercised]
+* condition 2 = [true: exercised, false: not exercised]
+* condition 3 = [true: not exercised, false: not exercised]
+* condition 4 = [true: not exercised, false: not exercised]. 
+
+At this moment, condition coverage = 2/8.
+
+For T2, the input number 8 is neither divisible by 3, nor divisible by 5. Therefore covers the cases of all 4 conditions to be false. We now have:
+
+* condition 1 = [true: exercised, false: exercised]
+* condition 2 = [true: exercised, false: exercised]
+* condition 3 = [true: not exercised, false: exercised]
+* condition 4 = [true: not exercised, false: exercised].
+
+In total, these test cases then cover $$2 + 4 = 6$$ conditions so the condition coverage is $$\frac{6}{8} \cdot 100\% = 75\%$$
+
+Now the decision coverage. We have 6 decisions:
 
 1. Line 1: `n % 3 == 0 && n % 5 == 0`, true and false
 2. Line 3: `n % 3 == 0`, true and false
 3. Line 5: `n % 5 == 0`, true and false
 
 Now T1 makes decision 1 true and does not cover the other decisions.
-T2 makes all the decision false.
-Therefore the coverage is $$\frac{4}{6} \cdot 100\% = 66\%$$.
+T2 makes all the decisions false.
+Therefore, the coverage is $$\frac{4}{6} \cdot 100\% = 66\%$$.
 
 
 **Exercise 10**
@@ -423,11 +511,46 @@ Option 1 is correct.
 **Exercise 15**
 
 
+Consider the following table:
 
-Option 1 is the correct one.
+<table>
+    <tr><th>Decision</th><th>A</th><th>B</th><th>C</th><th>(A & B) | C</th></tr>
+    <tr><td>1</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+    <tr><td>2</td><td>T</td><td>T</td><td>F</td><td>T</td></tr>
+    <tr><td>3</td><td>T</td><td>F</td><td>T</td><td>T</td></tr>
+    <tr><td>4</td><td>T</td><td>F</td><td>F</td><td>F</td></tr>
+    <tr><td>5</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+    <tr><td>6</td><td>F</td><td>T</td><td>F</td><td>F</td></tr>
+    <tr><td>7</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+    <tr><td>8</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+</table>
 
-Tests for A = (2,6), B = (2,4), C = (3, 4), (5, 6), (7,8). Thus, from the options, tests 2, 3, 4 and 6 are the only ones that achieve 100% MC/DC. Note that 2, 4, 5, 6 could also be a solution.
+Test pairs for `A = {(2,6)}`, `B = {(2,4)}` and `C = {(3, 4), (5, 6), (7,8)}`.
+Thus, from the options, tests 2, 3, 4 and 6 are the only ones that achieve 100% MC/DC.
+Note that 2, 4, 5, 6 could also be a solution.
 
+**Exercise 16**
+
+The table for the given expression is:
+
+| Tests | A   | B   | Result |
+|-------|:---:|:---:|--------|
+| 1     | F   | F   | F      |
+| 2     | F   | T   | F      |
+| 3     | T   | F   | T      |
+| 4     | T   | T   | T      |
+
+From this table we can deduce sets of independence pairs for each of the parameters:
+- `A`: {(1, 3), (2, 4)}
+- `B`: { (empty) }
+
+We can see that there is no independence pair for `B`. 
+Thus, **it is not possible to achieve MC/DC coverage for this expression**.
+
+Since there is no independence pair for `B`, this parameter has no effect on the result.
+We should recommend the developer to restructure the expression without using `B`, which will make the code easier to maintain.
+
+This example shows that software testers can contribute to the code quality not only by spotting bugs, but also by suggesting changes that result in better maintainability.
 
 
 
@@ -500,7 +623,6 @@ There are 14 empty cells in the table, so there are 14 sneaky paths that we can 
 **Exercise 4**
 
 ![](img/model-based-testing/exercises/order_transition_tree.svg)
-
 
 **Exercise 5**
 
@@ -628,9 +750,7 @@ In this case we need to test each explicit decision in the decision table.
 **Exercise 13**
 
 
-There will be one extra super state (ACTIVE), which will be a super-state of the existing WARMING and DEFROSTING states. The edges from ON to WARMING and DEFROSTING will remain.
-The two (cancel and time out) outgoing edges from WARMING and DEFROSTING (four edges in total) will be replaced by two edges going out of the super ACTIVE state.
-So there will be two fewer transitions.
+![](img/model-based-testing/exercises/superstate-microwave.svg)
 
 
 **Exercise 14**
@@ -655,12 +775,6 @@ So there will be two fewer transitions.
 | User has over 1000 followers       | T  | F  | F  |
 | Ad is highly relevant to user      | T  | T  | F  |
 | Serve ad?                          | T  | T  | T  |
-
-
-
-
-
-
 
 
 
@@ -704,7 +818,7 @@ We cannot substitute a `Square` for a `Rectangle`, because we would not be able 
 
 
 Making correct use of a class should never trigger a class invariant violation.
-We are making correct use of the class, as otherwise it would have been a precondition violation.
+We are making correct use of the class, as otherwise it would have been a pre-condition violation.
 This means that there is a bug in the implementation of the library, which would have to be fixed.
 As this is outside your project, you typically cannot fix this problem.
 
@@ -713,22 +827,24 @@ As this is outside your project, you typically cannot fix this problem.
 
 Just like the contracts we have a client and a server.
 
-A 4xx code means that the client invoked the server in a wrong way, which corresponds to failing to adhere to a precondition.
+A 4xx code means that the client invoked the server in a wrong way, which corresponds to failing to adhere to a pre-condition.
 
 A 5xx code means that the server was not able to handle the request of the client, which was correct.
-This corresponds to failing to meet a postcondition.
+This corresponds to failing to meet a post-condition.
 
 
 
 **Exercise 6**
 
-P' should be equal or weaker than P, and Q' should be equal or stronger than Q.
+Statement 1 is correct:\
+_P' should be equal or weaker than P, and Q' should be equal or stronger than Q._
 
 
 
 **Exercise 7**
 
-To make debugging easier.
+Statement 4 is correct:\
+_To make debugging easier._
 
 
 
@@ -806,7 +922,7 @@ See https://martinfowler.com/bliki/TestPyramid.html!
 
 The correct answer is 4.
 
-1. This line is required to create a mock for the `OrderDao` class.
+1. This line is required to create a mock for the `OrderBook` class.
 2. With this line we check that the methods calls start with `order` on a `delivery` mock we defined. The method is supposed to start each order that is paid but not delivered.
 3. With this line we define the behaviour of the `paidButNotDelivered` method by telling the mock that it should return an earlier defined `list`.
 4. We would never see this happen in a test that is testing the `OrderDeliveryBatch` class. By mocking the class we do not use any of its implementation. But the implementation is the exact thing we want to test. In general we never mock the class under test.
@@ -833,9 +949,9 @@ Only approach 2.
 Given that the condition we have in `InvoiceFilter` is `x < 100`, we have:
 
 * On-point: 100. 100 should be out of the returned list of invoices.
-* Off-point: 101. 101 should be in the returned list of invoices.
-* (Random) In-point: 500.
-* (Random off-point): 50.
+* Off-point: 99. 99 should be in the returned list of invoices.
+* (Random) In-point: 50.
+* (Random off-point): 500.
 
 A single test with these four invoices is a good test for the boundaries of the problem.
 
@@ -844,61 +960,44 @@ A single test with these four invoices is a good test for the boundaries of the 
 
 **Exercise 1**
 
-To test just the `runBatch` method of `OrderDeliveryBatch` (for example in a unit test) we need to be able to use mocks for at least the `dao` and `delivery` objects.
-In the current implementation this is not possible, as we cannot change `dao` or `delivery` from outside the class.
+To test just the `runBatch` method of `OrderDeliveryBatch` (for example in a unit test) we need to be able to use mocks for at least the `orderBook` and `delivery` objects.
+In the current implementation this is not possible, as we cannot change `orderBook` or `delivery` from outside the class.
 In other words: We want to improve the controllability to improve the testability.
 
 The technique that we use to do so is called dependency injection.
-We can give the `dao` and `delivery` in a parameter of the method:
+We can give the `orderBook` and `delivery` in a parameter of the method:
 
 ```java
 public class OrderDeliveryBatch {
 
-  public void runBatch(OrderDao dao, DeliveryStartProcess delivery) {
-    List<Order> orders = dao.paidButNotDelivered();
-
-    for (Order order : orders) {
-      delivery.start(order);
-
-      if (order.isInternational()) {
-        order.setDeliveryDate("5 days from now");
-      } else {
-        order.setDeliveryDate("2 days from now");
-      }
-    }
+  public void runBatch(OrderBook orderBook, DeliveryStartProcess delivery) {
+    orderBook.paidButNotDelivered()
+      .forEach(delivery::start);
   }
 }
 ```
 
-Alternatively we can create fields for the `dao` and `delivery` and a constructor that sets the fields:
+Alternatively we can create fields for the `orderBook` and `delivery` and a constructor that sets the fields:
 
 ```java
 public class OrderDeliveryBatch {
 
-  private OrderDao dao;
+  private OrderBook orderBook;
   private DeliveryStartProcess delivery;
 
-  public OrderDeliveryBatch(OrderDao dao, DeliveryStartProcess delivery) {
-    this.dao = dao;
+  public OrderDeliveryBatch(OrderBook orderBook, DeliveryStartProcess delivery) {
+    this.orderBook = orderBook;
     this.delivery = delivery;
   }
 
   public void runBatch() {
-    List<Order> orders = dao.paidButNotDelivered();
-
-    for (Order order : orders) {
-      delivery.start(order);
-
-      if (order.isInternational()) {
-        order.setDeliveryDate("5 days from now");
-      } else {
-        order.setDeliveryDate("2 days from now");
-      }
-    }
+    orderBook.paidButNotDelivered()
+      .forEach(delivery::start);
   }
 }
 ```
-
+Which option we chose depends on the lifecycles of the various objects. If the `OrderDeliveryBatch` always applies to the same `OrderBook` and `DeliveryStartProcess`, then we would probably use the constructor, otherwise, we might use the method parameters. 
+Our choice expresses this runtime behaviour. 
 
 **Exercise 2**
 
@@ -913,20 +1012,22 @@ We can use dependency injection to make sure we can control the `today` object b
 **Exercise 3**
 
 
-The correct answer is 1 and 3.
+The correct answer is 2, 3, and 4
 
 As we discussed it is very important to keep the domain and infrastructure separated for the testability.
 This can be done, for example, by using Ports and Adapters.
 
-Static methods cannot be mocked and are therefore very bad for the controllability of the code.
-Code that has low controllability also has a low testability, so replacing the static methods by non-static ones will be very beneficial to the testability.
+Static methods that manipulate state are effectively Singletons and so can introduce implicit runtime dependencies that are 
+difficult to control and so difficult to test. They are best used for helper methods where they either return a new result, packaging up
+constructors, or return a value based on their inputs. Otherwise, look for a non-static technique, such as calling an instance methods
+on some kind of context object.
 
-The large tables and lack of indices do not really influence the testability, especially not when talking about unit tests.
-When writing unit tests we end up mocking the classes interacting with the database anyway.
+For a unit test, we're not concerned about the scale of the real data table, we need to know whether this functionality works in isolation.
+That said, if these lists are likely to be very large, we should prepare for that in our design and run some integration stress tests for scale.
 
-Too many attributes/fields can hurt testability as we might need to create a lot of mocks for just one class under test.
-However, the static methods and mixed domain and infrastructure are worse for the testability than a large number of attributes/fields.
-
+If you find yourself creating a lot of mocks to test a class, because it has a lot of dependencies, that usually a sign that 
+there are missing concepts in the code that would encapsulate some of those dependencies. It's time to step back and take another
+look at the design. 
 
 **Exercise 4**
 
@@ -1011,3 +1112,50 @@ To avoid the flakiness, a developer could have mocked the random function. It do
 
 Mutation testing.
 
+## Static testing
+
+**Exercise 1.**
+
+Regular expressions cannot count instances.
+
+**Exercise 2.**
+
+Static analysis produces over-generalized results with some false positives, so the analysis is Sound but Imprecise.
+
+## Security testing
+
+**Exercise 1.**
+
+There exist a lot of strange inputs, and only few trigger a vulnerability.
+
+**Exercise 2.**
+
+An infinite loop can be triggered by attackers to do a Denial of Service attack. (Must explain _how_ an attacker may misuse it. )
+
+**Exercise 3.**
+
+4: _Format string injection_ can be done with syntax analysis. Update attack cannot be detected by static analysis. XSS and XSRF are also tricky because input sanitization methods can be bypassed at run-time.
+
+**Exercise 4.**
+
+All of the above. Anything that can potentially corrupt the memory can influence where the instruction pointer points to.  
+
+**Exercise 5.**
+
+| Objective | Testing Technique | (Answer option) Testing Technique |
+|----------------------------------------|------------------------|-----------------------------------|
+| 3. Detect pre-defined patterns in code | A. Fuzzing | **B** |
+| 2. Branch reachability analysis | B. Regular expressions | **C** |
+| 1. Testing like an attacker  | C. Symbolic execution | **D** |
+| 4. Generate complex test cases | D. Penetration testing | **A** |
+
+**Exercise 6.**
+
+Spyware usually accesses information that benign software does not and sends information to parties that benign software does not. Tracking which data the program under test (spyware) accesses, and where that data flows is one way to detect spyware. For example, we know that `/etc/passwd` is sensitive, so we taint it. If a program requests it, we can follow the taint and see if it is being sent over the network.
+
+**Exercise 7.**
+``` java
+x = {0,12,21}
+y = {1,2,3,...}
+```
+ Since reaching  definitions  analysis  produces all the  possible  values  a  variable  might take, resulting in over-generalization and false positives.
