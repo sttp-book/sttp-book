@@ -818,7 +818,7 @@ We cannot substitute a `Square` for a `Rectangle`, because we would not be able 
 
 
 Making correct use of a class should never trigger a class invariant violation.
-We are making correct use of the class, as otherwise it would have been a precondition violation.
+We are making correct use of the class, as otherwise it would have been a pre-condition violation.
 This means that there is a bug in the implementation of the library, which would have to be fixed.
 As this is outside your project, you typically cannot fix this problem.
 
@@ -827,22 +827,24 @@ As this is outside your project, you typically cannot fix this problem.
 
 Just like the contracts we have a client and a server.
 
-A 4xx code means that the client invoked the server in a wrong way, which corresponds to failing to adhere to a precondition.
+A 4xx code means that the client invoked the server in a wrong way, which corresponds to failing to adhere to a pre-condition.
 
 A 5xx code means that the server was not able to handle the request of the client, which was correct.
-This corresponds to failing to meet a postcondition.
+This corresponds to failing to meet a post-condition.
 
 
 
 **Exercise 6**
 
-P' should be equal or weaker than P, and Q' should be equal or stronger than Q.
+Statement 1 is correct:\
+_P' should be equal or weaker than P, and Q' should be equal or stronger than Q._
 
 
 
 **Exercise 7**
 
-To make debugging easier.
+Statement 4 is correct:\
+_To make debugging easier._
 
 
 
