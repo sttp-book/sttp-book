@@ -161,7 +161,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 public class InvoiceFilterTest {
-    private final IssuedInvoices invoices = Mockito.mock(IssuedInvoices.class);
+    private final IssuedInvoices issuedInvoices = Mockito.mock(IssuedInvoices.class);
     private final InvoiceFilter filter = new InvoiceFilter(issuedInvoices);
 
     @Test
