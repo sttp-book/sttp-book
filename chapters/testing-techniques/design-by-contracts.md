@@ -49,12 +49,11 @@ Suppose an implementation of a Stack, which we just show the `pop` method:
 ```java
 public class MyStack {
   public Element pop() {
-    assert count() > 0 : " The stack does not have any elements to pop."
+    assert count() > 0 : "The stack does not have any elements to pop";
 
     // ... actual method body ...
 
-    assert count() == oldCount - 1 : 
-        "Size of stack did not decrease by one";
+    assert count() == oldCount - 1 : "Size of stack did not decrease by one";
   }
 }
 ```
@@ -695,7 +694,7 @@ class Square extends Rectangle {
 }
 ```
 
-Inspired by Bertrand Meyer's design by contracts, he also use asserts to make sure contracts are followed. He explicitly defines pre-conditions and post-conditions in various methods of the base Rectangle class and the derived Square class.
+Inspired by Bertrand Meyer's design by contracts, he also uses asserts to make sure contracts are followed. He explicitly defines pre-conditions and post-conditions in various methods of the base Rectangle class and the derived Square class.
 
 A second colleague comes in and expresses concerns about the design.
 How can you use the assertions provided to discuss the correctness of this design?
