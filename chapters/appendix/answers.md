@@ -836,14 +836,14 @@ This corresponds to failing to meet a post-condition.
 
 **Exercise 6**
 
-Statement 1 is correct:\
+Statement 1 is correct:
 _P' should be equal or weaker than P, and Q' should be equal or stronger than Q._
 
 
 
 **Exercise 7**
 
-Statement 4 is correct:\
+Statement 4 is correct:
 _To make debugging easier._
 
 
