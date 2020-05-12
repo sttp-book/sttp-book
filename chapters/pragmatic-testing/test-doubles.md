@@ -495,7 +495,7 @@ The authors also discuss some common misconception when using mocks:
 
 * *Gather state during the test and assert against it afterwards*. Making assertions only at the end of the test makes failing tests less easy to be understood. Favour immediate failures.
 
-* *Testing using Mock Objects duplicates the code.* This might mnean that the code under test isn't doing very much. Perhaps it should be treated as a policy object and tested in a larger cluster of objects.
+* *Testing using Mock Objects duplicates the code.* This might mean that the code under test isn't doing very much. Perhaps it should be treated as a policy object and tested in a larger cluster of objects.
 
 
 ## Test doubles at Google
