@@ -613,7 +613,7 @@ See the code below:
 ```java
 public Square squareAt(int x, int y) {
   assert x >= 0;
-  assert x < board.getWidth();
+  assert x < board.length;
   assert y >= 0;
   assert y < board[x].length;
   assert board != null;
