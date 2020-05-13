@@ -49,12 +49,11 @@ Suppose an implementation of a Stack, which we just show the `pop` method:
 ```java
 public class MyStack {
   public Element pop() {
-    assert count() > 0 : " The stack does not have any elements to pop."
+    assert count() > 0 : "The stack does not have any elements to pop";
 
     // ... actual method body ...
 
-    assert count() == oldCount - 1 : 
-        "Size of stack did not decrease by one";
+    assert count() == oldCount - 1 : "Size of stack did not decrease by one";
   }
 }
 ```
