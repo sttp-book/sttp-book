@@ -1,7 +1,7 @@
 # Principles of software testing
 
-In this chapter, we first define some terminology; using the right
-terms help us understand each other better. We then discuss the differences
+In this chapter, we first define some terminology. Using the right
+terms helps us understand each other better. We then discuss the differences
 between *verification* and *validation*. Finally, we discuss some testing principles
 that will guide us (or, more specifically, force us to perform trade-offs whenever
 we choose a testing technique) throughout the book.
@@ -30,7 +30,7 @@ A broken connection is an example of a hardware fault.
 
 > Note that the existence of a fault in the source code does not necessarily lead to a failure.
 > If the code containing the fault is never executed, it will never cause a failure.
-> Failures only occur when the system is being used, when someone notices it not behaving as expected.
+> Failures only occur when the system is being used, and someone notices it not behaving as expected.
 
 Finally, we have an **error**, also called *mistake*.
 An error is the human action that caused the system to run not as expected.
@@ -40,8 +40,8 @@ the requirement. Plugging a cable into the wrong socket is an example of a hardw
 In other words: a *mistake* by a developer can lead to a *fault* in the source code that will
 eventually result in a *failure*.
 
-In the _Min-Max_ code example of the previous chapter: the Failure was the program returning
-a large number, the fault was a bad `if/else if` condition, and the Mistake was me not dealing 
+In the _Min-Max_ code example of the previous chapter: the *failure* was the program returning
+a large number, the *fault* was a bad `if/else if` condition, and the *mistake* was me not dealing 
 properly with that case.
 
 {% set video_id = "zAty8Rpg92I" %}
@@ -88,9 +88,9 @@ Indeed, a very important part of any software testing process is
 to know _when to stop testing_.
 After all, resources (e.g., money, developers, infrastructure) are limited. Therefore,
 the goal should always be to maximise the number of bugs found while minimising the 
-amount of resources we had to spend in finding those bugs.
+amount of resources we had to spend on finding those bugs.
 Creating too few tests might leave us with a software system that does not behave as intended (i.e., _full of bugs_).
-On the other hand, creating tests after tests, without proper consideration might lead to ineffective tests (besides costing too much time and money).
+On the other hand, creating tests after tests, without proper consideration, might lead to ineffective tests (besides costing too much time and money).
 
 
 Given resource constraints, we highlight an important principle in 
@@ -116,7 +116,7 @@ however large they might be,
 will never ensure that the software system is 100% bug-free. They will only ensure
 that the cases we test for behave as expected.
 
-To test our software we need a lot of variation in our tests.
+To test our software, we need a lot of variation in our tests.
 For example, we want variety in the inputs when testing a method, 
 like we saw in the examples above.
 To test the software well, however, we also need variation in 
@@ -143,7 +143,7 @@ In other words: **testing is context-dependent**.
 
 Again, while this book mostly focuses on verification techniques, 
 let us not forget that having a low number of bugs is not enough for good software.
-As we have said before, a program that works flawlessly but is of no use for its users, 
+As we have said before, a program that works flawlessly, but is of no use for its users, 
 is still not a good program.
 That is a common fallacy (also known as the **absence-of-errors fallacy**) that software testers face when they decide to focus solely
 on verification and not so much on validation.
@@ -168,13 +168,13 @@ Fill in the blanks with one of the following terms: failure, fault, or error.
 
 **Exercise 2.**
 Kelly, a very experienced software tester, visits *Books!*, a social network focused on matching people based on books they read.
-Users do not report bugs so often; *Books!* developers have strong testing practices in place.
+Users do not report bugs so often, as *Books!* developers have strong testing practices in place.
 However, users do say that the software is not really delivering what it promises.
 
 What testing principle applies to this problem?
 
 **Exercise 3.**
-Suzanne, a junior software testing, just joined a very large online payment company in the Netherlands. As a first task, Suzanne analysed their past two years of bug reports.
+Suzanne, a junior software tester, has just joined a very large online payment company in the Netherlands. As a first task, Suzanne analysed their past two years of bug reports.
 Suzanne observes that more than 50% of bugs have been happening in the *International payments* module. 
 
 Suzanne then promises her manager that she will design test cases that will completely cover the *International payments* module, and thus, find 
@@ -189,7 +189,7 @@ Which of the following testing principles might explain why this is **not** poss
 
 **Exercise 4.**
 John strongly believes in unit testing. In fact, this is the only type of testing he actually
-does at any project he's in. All the testing principles below, but one, might help in convincing John that he should also focus on different types of testing. 
+does at any project he's in. All the testing principles below but one might help convince John that he should also focus on different types of testing. 
 
 Which of the following **is the least related** when we want to convince John to move away from his 'only unit testing' approach?
 

@@ -35,7 +35,7 @@
 
 * [Pragmatic software testing](chapters/pragmatic-testing/README.md)
 	* [The testing pyramid](chapters/pragmatic-testing/testing-pyramid.md)
-	* [Mock objects](chapters/pragmatic-testing/mock-objects.md)
+	* [Test doubles](chapters/pragmatic-testing/test-doubles.md)
 	* [Design for testability](chapters/pragmatic-testing/design-for-testability.md)
 	* [Test-driven development](chapters/pragmatic-testing/tdd.md)
 	* [Test code quality and engineering](chapters/pragmatic-testing/test-code-quality.md)
@@ -43,10 +43,10 @@
 ----
 
 * [Intelligent testing](chapters/intelligent-testing/README.md)
-	* Random testing (soon)
+	* [Static testing](chapters/intelligent-testing/static-testing.md)
 	* [Mutation testing](chapters/intelligent-testing/mutation-testing.md)
-	* [Fuzzing testing](chapters/intelligent-testing/fuzzing.md)
-	* Search-based software testing (soon)
+	* [Fuzz testing](chapters/intelligent-testing/fuzzing.md)
+	* [Search-based software testing](chapters/intelligent-testing/sbst.md) (soon)
 
 ----
 
@@ -60,19 +60,19 @@
 ----
 
 * [Non-functional testing](chapters/non-functional-testing/README.md)
-	* [Security testing (soon)](chapters/non-functional-testing/security-testing.md)
+	* [Security testing](chapters/non-functional-testing/security-testing.md)
 	* Performance testing (soon)
 
---- 
+---
 
 * Software Quality
 	* Code reviews (soon)
 	* Code metrics (soon)
 	* Ethics and testing (soon)
 
---- 
+---
 
 * Appendix
 	* [Answers to the exercises](chapters/appendix/answers.md)
+	* [Domain testing examples](chapters/testing-techniques/domain-testing.md)
 	* [Change log](chapters/appendix/changelog.md)
-

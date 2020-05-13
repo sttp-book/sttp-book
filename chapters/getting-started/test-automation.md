@@ -4,7 +4,11 @@ Before we dive into the different testing techniques, let us first get used
 to software testing automation frameworks. In this book, we will use JUnit, as
 all our code examples are written in Java. If you are using a different programming language in your daily work, note that testing frameworks in other languages offer similar functionalities.
 
-We will now introduce an example program and then use it to demonstrate how to write JUnit tests.
+We will now introduce an example program and then use it to demonstrate how to write JUnit tests. 
+
+{% hint style='tip' %}
+All the production and test code used in this book can be found in the [code examples](https://github.com/sttp-book/code-examples/) repository.
+{% endhint %}
 
 > **Requirement: Roman numerals**
 >
@@ -22,11 +26,17 @@ We will now introduce an example program and then use it to demonstrate how to w
 > * M = 1000
 >
 > Letters can be combined to form numbers.
-> The letters should be ordered from the highest to the lowest value.
-> For example `CCXVI` would be 216.
-> 
+> For example we make 6 by using $$5 + 1 = 6$$ and have the roman number `VI`
+> Example: 7 is `VII`, 11 is `XI` and 101 is `CI`.
 > Some numbers need to make use of a subtractive notation to be represented.
-> Example: 9 is `IX`, 40 is `XL`, 14 is `XIV`.
+> For example we make 40 not by `XXXX`, but instead we use $50 - 10 = 40$ and have the roman number `XL`.
+> Other examples: 9 is `XI`, 40 is `XL`, 14 is `XIV`.
+> 
+> The letters should be ordered from the highest to the lowest value.
+> The values of each individual letter is added together.
+> Unless the subtractive notation is used in which a letter with a lower value is placed in front of a letter with a higher value.
+>
+> Combining both these principles we could give our method `MDCCCXLII` and it should return 1842.
 
 
 {% set video_id = "srJ91NRpT_w" %}
@@ -36,11 +46,6 @@ We will now introduce an example program and then use it to demonstrate how to w
 A possible implementation for the _Roman Numerals_ requirement is as follows:
 
 ```java
-package tudelft.roman;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public class RomanNumeral {
   private static Map<Character, Integer> map;
 
@@ -97,7 +102,7 @@ Testing frameworks enable us to write test cases in a way that they can be easil
 
 The steps to create a JUnit class/test is often the following:
 
-* Create a Java class under `/src/test/java` directory (or whatever test directory your project structure uses). As a convention, the name of the test class is similar to the name of the class under test. For example, a class that tests the `RomanNumeral` class is often called `RomanNumeralTest`. In terms of package structure, the test class also inherits the same package as the class under test. In our case, `tudelft.roman`.
+* Create a Java class under the directory `/src/test/java/roman/` (or whatever test directory your project structure uses). As a convention, the name of the test class is similar to the name of the class under test. For example, a class that tests the `RomanNumeral` class is often called `RomanNumeralTest`. In terms of package structure, the test class also inherits the same package as the class under test.
 
 * For each test case we devise for the program/class, we write a test method. A JUnit test method returns `void` and is annotated with `@Test` (an annotation that comes from JUnit 5's `org.junit.jupiter.api.Test`). The name of the test method does not matter to JUnit, but it does matter to us. A best practice is to name the test after the case it tests. 
 
@@ -115,10 +120,7 @@ The steps to create a JUnit class/test is often the following:
 The three test cases we have devised can be automated as follows:
 
 ```java
-package tudelft.roman;
-
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
 public class RomanNumeralTest {
@@ -197,31 +199,30 @@ class RomanNumeralTest {
 
   @Test
   void convertSingleDigit() {
-    roman = new RomanNumeral();
     int result = roman.convert("C");
-
     assertEquals(100, result);
   }
 
   @Test
   void convertNumberWithDifferentDigits() {
-    roman = new RomanNumeral();
     int result = roman.convert("CCXVI");
-
     assertEquals(216, result);
   }
 
   @Test
   void convertNumberWithSubtractiveNotation() {
-    roman = new RomanNumeral();
     int result = roman.convert("XL");
-
     assertEquals(40, result);
   }
 }
 ```
 
 Feel free to read more about [JUnit's annotations](https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations) in its documentation.
+
+You can also see a video of us refactoring the `MinMax` test cases. Although the test suite was still small, it had many opportunities for better test code.
+
+{% set video_id = "q5mq_Bkc8-s" %}
+{% include "/includes/youtube.md" %}
 
 We discuss test code quality in a more systematic way in a future 
 chapter.
@@ -242,36 +243,37 @@ of seconds or minutes, get a clear feedback from the tests.
 See this new version of the `RomanNumeral` class, where we deeply refactored the code:
 
 * We gave a better name to the method: we call it `asArabic()` now.
+* We made a method for single char conversion using method overloading with `asArabic()`
 * We inlined the declaration of the Map, and used the `Map.of` utility method.
-* We make use of an auxiliary array (`digits`) to get the current number inside the loop.
-* We extracted a private method that decides whether it is a subtractive operation.
+* We create an array of characters from the string
+* We make a stream of indices of the character array
+* We map each character to its subtractive value
+* We extracted a private method that decides whether it is a subtractive operation `isSubtractive()`.
+* We extracted `getSubtractiveValue()` to return a negative number if it's subtractive
 * We made use of the `var` keyword, as introduced in Java 10.
 
 ```java
 public class RomanNumeral {
   private final static Map<Character, Integer> CHAR_TO_DIGIT = 
-    Map.of('I', 1, 'V', 5, 'X', 10, 'L', 50, 'C', 100, 'D', 500, 'M', 1000);
+          Map.of('I', 1, 'V', 5, 'X', 10, 'L', 50, 'C', 100, 'D', 500, 'M', 1000);
 
-  public int asArabic(String roman) {
-    final var digits = roman
-      .chars()
-      .map(c -> CHAR_TO_DIGIT.get((char)c)).toArray();
-
-    var result = 0;
-    for(int i = 0; i < digits.length; i++) {
-      final var currentNumber = digits[i];
-
-      result += isSubtractive(digits, i, currentNumber) ? 
-                  -currentNumber : 
-                  currentNumber;
-    }
-
-    return result;
+  public static int asArabic(String roman) {
+    var chars = roman.toCharArray();
+    return IntStream.range(0, chars.length)
+            .map(i -> getSubtractiveValue(chars, i, asArabic(chars[i])))
+            .sum();
   }
 
-  private static boolean isSubtractive(int[] digits, int i, int currentNumber) {
-    return i + 1 < digits.length
-        && currentNumber < digits[i + 1];
+  public static int asArabic(char c) {
+    return CHAR_TO_DIGIT.get(c);
+  }
+
+  private static int getSubtractiveValue(char[] chars, int i, int currentNumber) {
+    return isSubtractive(chars, i, currentNumber) ? -currentNumber : currentNumber;
+  }
+
+  private static boolean isSubtractive(char[] chars, int i, int currentNumber) {
+    return i + 1 < chars.length && currentNumber < asArabic(chars[i + 1]);
   }
 }
 ```
@@ -357,9 +359,6 @@ from small and big companies to big open source projects, they all rely on exten
 test suites to ensure quality. **Testing (and test automation) pays off.**
 
 ## Exercises
-
-The code implemented in this chapter can be found at the `roman` package in
-the [code examples](https://github.com/sttp-book/code-examples/) repository.
 
 **Exercise 1.**
 Implement the `RomanNumeral` class. Then, write as many tests as you

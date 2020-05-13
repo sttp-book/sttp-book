@@ -4,7 +4,7 @@
 You probably noticed that, once _test infected_, 
 the amount of JUnit code that a software development team writes and maintain
 is quite significant. In practice,
-test code bases tend to grow up very fast. Empirically, we have been observing
+test code bases tend to grow very fast. Empirically, we have been observing
 that Lehman's laws of evolution also apply to test code: code tends to rot, unless
 one actively works against it. Thus,
 as with production code, **developers have to put extra effort 
@@ -24,7 +24,7 @@ as well as the recent Test Desiderata (proposed by Kent Beck)
 
 ## The FIRST principles
 
-In the Pragmatic Unit Testing book, authors discuss "FIRST Properties of Good Tests".
+In the Pragmatic Unit Testing book, the authors discuss the "FIRST Properties of Good Tests".
 FIRST is an acronym for fast, isolated, repeatable, self-validating, and timely:
 
 - **Fast**: 
@@ -33,18 +33,18 @@ or evolution in the source code, they use the feedback of the test suite to unde
 whether the system is still working as expected. 
 The faster the feedback a developer gets from their test code, the better.
 On the other hand, slower test suites force developers to simply run the tests less often,
-making them less productive. Therefore, good tests are fast.
+making them less effective. Therefore, good tests are fast.
+There is no hard line that separates slow from fast tests. Good sense is fundamental.
+Once you are facing a slow test, you might consider:
+    - Making use of mocks/stubs to replace slower components that are part of the test
+    - Re-designing the production code so that slower pieces of code can be tested separately from fast pieces of code
+    - Moving slower tests to a different test suite, one that developers might run less often. 
+    It is not uncommon to see developers having sets of unit tests that run fast, and these they run all day long, and sets of slower integration and system tests that run once or twice a day in the Continuous Integration server. 
 
-	There is no hard line that separates slow from fast tests. Good sense is fundamental.
-	Once you are facing a slow test, you might consider:
-		- Make use of mocks/stubs to replace slower components that are part of the test
-		- Re-design the production code so that slower pieces of code can be tested separately from fast pieces of code
-		- Move slower tests to a different test suite, one that developers might run less often. 
-		It is not uncommon to see developers having sets of unit tests that run fast, and these they run all day long, and sets of slower integration and system tests that run once or twice a day in the Continuous Integration server. 
 
 - **Isolated**: Tests should be as cohesive, as independent, and as isolated as possible. 
 Ideally, a single test method should test just a single functionality or behaviour of the system.
-Having fat tests (or, as the test smells community calls it, an eager test) that tests
+Having fat tests (or, as the test smells community calls it, eager tests) that test
 multiple functionalities are often complex in terms of implementation. Complex test code reduces
 the ability of developers to understand what it tests in a glance, and makes future maintenance
 harder. If you are facing such a test, break it into multiple smaller tests. Simpler and shorter
@@ -52,10 +52,10 @@ code is always better.
 
 	Moreover, tests should not depend on other tests to run. The result of a test should be the
 	same, whether the test is executed in isolation or together with the rest of the test suite.
-	It is not uncommon to see cases where some test B only works if test A is executed before.
+	It is not uncommon to see cases where some test B only works if test A is executed before it.
 	This is often the case when test B relies on the work of test A to set up the environment
 	for it. Such tests become highly unreliable, as they might fail just because the
-	developer forgot about such a detail. In such cases, refactor the test code so that tests
+	developer forgot about such a detail. In such cases, refactor the test code so that the tests
 	are responsible for setting up all the environment they need. If tests A and B depend on
 	similar resources, make sure they can share the same code, so that you avoid duplicating
 	code. JUnit's `@BeforeEach` or `@BeforeAll` methods can become handy. Moreover, make sure
@@ -66,15 +66,15 @@ code is always better.
 - **Repeatable**: A repeatable test is a test that gives the same result, no matter how many times it is executed.
 Developers tend to lose their trust in tests that present a flaky behaviour (i.e., it sometimes passes, and sometimes fails without any changes in the system and/or in the test code).
 Flaky tests might happen for different reasons, and some of the causes can be tricky
-to be identified (companies have reported extreme examples where a test presented a flaky behaviour
-only once in a month). Common causes are dependencies on external resources, not waiting
+to identify (companies have reported extreme examples where a test presented a flaky behaviour
+only once in a month). Common causes are dependencies on external resources, not waiting long
 enough for an external resource to finish its task, and concurrency.
 
 
 - **Self-validating**: 
 The tests should validate/assert the result themselves. This might seem an unnecessary
-principle to mention. However, it is not uncommon for developers to make mistakes and not writing
-assertions in the test, making the test to always pass. In other more complex cases,
+principle to mention. However, it is not uncommon for developers to make mistakes and to not write
+assertions in the test, causing the test to always pass. In other more complex cases,
 writing the assertions or, in other words, verifying the expected behaviour, might not be possible.
 In cases where observing the outcome of a behaviour is not easily achievable, we suggest
 the developer to refactor the class or method under test to increase its observability (revisit
@@ -98,7 +98,7 @@ the behaviour of development teams towards writing automated test code can still
 
 ## Test Desiderata
 
-Kent Beck, the "creator" of Test-Driven Development (and author of 
+Kent Beck, the "creator" of Test-Driven Development (and author of the 
 ["Test-Driven Development: By Example"](https://www.amazon.com/Test-Driven-Development-Kent-Beck/dp/0321146530) book), recently wrote a list of eleven
 properties that good tests have (the [test desiderata](https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3)). 
 
@@ -110,7 +110,7 @@ are also part of the FIRST principles.
 * [Fast](https://www.youtube.com/watch?v=L0dZ7MmW6xc): tests should run quickly.
 * [Inspiring](https://www.youtube.com/watch?v=2Q1O8XBVbZQ): passing the tests should inspire confidence
 * [Writable](https://www.youtube.com/watch?v=CAttTEUE9HM): tests should be cheap to write relative to the cost of the code being tested.
-* [Readable](https://www.youtube.com/watch?v=bDaFPACTjj8): tests should be comprehensible for reader, invoking the motivation for writing this particular test.
+* [Readable](https://www.youtube.com/watch?v=bDaFPACTjj8): tests should be comprehensible for their readers, invoking the motivation for writing this particular test.
 * [Behavioural](https://www.youtube.com/watch?v=5LOdKDqdWYU): tests should be sensitive to changes in the behaviour of the code under test. If the behaviour changes, the test result should change.
 * [Structure-insensitive](https://www.youtube.com/watch?v=bvRRbWbQwDU): tests should not change their result if the structure of the code changes.
 * [Automated](https://www.youtube.com/watch?v=YQlmP08dj6g): tests should run without human intervention.
@@ -151,28 +151,27 @@ some effort in implementing a better solution.
 
 Duplicated code might reduce the productivity of software testers.
 After all, if there is a need for a change in a duplicated piece of code, a developer
-will have to apply the same change over and over again, at all places where there is
-a duplication. 
+will have to apply the same change over and over again, at all places where the code was duplicated. 
 In practice, it is easy to skip one of these places, ending up with 
 problematic test code.
 Note that the effects are similar to the effects of code duplication in production code.
 
-We suggest developers to ruthlessly refactor their test code. The extraction of a duplicated
+We suggest developers to ruthlessly refactor their test code. The extraction of a duplicated piece of
 code to private methods or external classes is often a good solution for the problem.
 
 **Assertion Roulette**:
 Assertions are the first thing a developer looks at when a test is failing.
 Assertions, thus, have to clearly communicate what is going wrong with the component
 under test. 
-The test smell emerges when developers have a hard time in figuring out the 
+The test smell emerges when it is hard to understand the 
 assertions themselves, or why they are failing.
 
-There are several reasons for the smell to happen. Some features or business rules
+There are several reasons for this smell to happen. Some features or business rules
 are simply too complex and require a complex set of assertions to ensure their behaviour.
 Suddenly, developers end up writing complex assert instructions that are not easy to
 understand. In such cases, we recommend developers to 1) write their own customised
 assert instructions that abstract away part of the complexity of the assertion code itself,
-2) when expressing it in code it not enough, write code comments that quickly explain, in natural language, what those assertions are about.
+2) when expressing it in code is not enough, write code comments that quickly explain, in natural language, what those assertions are about.
 
 Interestingly, a common best practice that is often found in the test best practice literature is the "one assertion per method" strategy. While forcing developers to have just a single assertion per test method is too extremist, the idea of minimising the number of assertions in a test method is valid.
 
@@ -192,7 +191,7 @@ to understand it.
 Resource optimism happens when a test assumes that a necessary resource (e.g., a database) is readily available at the start of its execution. This is related to the _isolated_ principle
 of the FIRST principles and of Beck's test desiderata.
 
-To avoid resource optimism, a test should not assume that the resource is already in the correct state. The test should be the one responsible for setting up the state itself. This might mean
+To avoid resource optimism, a test should not assume that the resource is already in the correct state. The test should be the one responsible for setting up the state itself. This might mean that
 the test is the one responsible for populating a database, for writing the required files in the disk, or for starting up a Tomcat server. (This set up might require complex code, and developers
 should also do their best effort in abstracting way such complexity by, e.g., moving such 
 code to other classes, e.g., `DatabaseInitialization` or `TomcatLoader`, allowing the
@@ -206,12 +205,12 @@ The webservice might be down for reasons we do not control.
 To avoid this test smell, developers have two options:
 First, to avoid using external resources, by using stubs and mocks.
 However, if the test cannot avoid using the external dependency, make it robust enough.
-In that case, make your test suite to skip that test when the resource is unavailable, and provide a message explaining why that was the case. This seems counterintuitive, but again, remember
-that developers trust on their test suites. Having a single test failing for the wrong reasons
-makes developers to lose their confidence in the entire test suite.
+In that case, make your test suite skip that test when the resource is unavailable, and provide a message explaining why that was the case. This seems counterintuitive, but again, remember
+that developers trust their test suites. Having a single test failing for the wrong reasons
+makes developers lose their confidence in the entire test suite.
 
 In addition to changing your tests, developers must make sure 
-that the environments where the tests are executed have the required resources available.
+that the environments, where the tests are executed, have the required resources available.
 Continuous integration tools like Jenkins, CircleCI, and Travis can help developers in 
 making sure that tests are being run in the correct environment.
 
@@ -220,21 +219,21 @@ making sure that tests are being run in the correct environment.
 **Test Run War**:
 The war is an analogy for when two tests are "fighting" for the same resources.
 One can observe a test run war when tests start to fail as soon as more than one developer
-runs their test suites.
-Imagine a test suite that uses to a centralised database. When developer A runs the test, the test changes the state of the database. At the same time, 
-developer 2 runs the same test, which also goes to the same database. 
+run their test suites.
+Imagine a test suite that uses a centralised database. When developer A runs the test, the test changes the state of the database. At the same time, 
+developer B runs the same test, which also goes to the same database. 
 Thus, both tests are touching the same database at the same time. 
-This unexpected situation might make the test to fail.
+This unexpected situation might cause the test to fail.
 
 _Isolation_ is key to avoid this test smell. In the example of a centralised database,
-one solution would be make sure each developer has its own instance of a database. That would
+one solution would be to make sure each developer has its own instance of a database. That would
 avoid the fight for the same resource. (Related to this example, we discuss more about 
 database testing in a specific chapter).
 
 
 **General Fixture**:
 A fixture is the set of input values that will be used to exercise the component under test.
-We have called _fixture_ as the _arrange_ part of the test before.
+We have called _fixture_ the _arrange_ part of the test before.
 As you might have noticed, fixtures are the "stars" of the test method, as they derive
 naturally from the test cases we devised using any of the techniques we have discussed. 
 
@@ -244,14 +243,14 @@ then become complex. And worst: while tests are different from each other, their
 might have some intersection. 
 
 Given this possible intersection among the different fixtures, as well as the difficulty
-that it is to keep build these complex entities and fixtures, a less attentive developer
+that it is to keep building these complex entities and fixtures, a less attentive developer
 might decide to declare a "large" fixture that works for many different tests. Each test
 would then use a small part of this large fixture. 
 
 While this approach might work and tests might correctly implement the test cases,
-they have be hard to be maintained. Once a test fails, developers with the mission
+they will be hard to maintain. Once a test fails, developers with the mission
 of understanding the cause of the failure, will face a large fixture that is not totally
-relevant/of interest for them. In practice, the developer would have to manually
+relevant for/of interest to them. In practice, the developer would have to manually
 "filter out" part of the fixture that are not really exercised by the failing test.
 That is an unnecessary cost.
 Making sure that the fixture of a test is as specific and cohesive as possible helps
@@ -261,21 +260,21 @@ the test starts fail).
 Build patterns, with the focus of building test data, 
 might help developers in avoiding such a smell. More specifically, 
 the **[Test Data Builder](http://www.natpryce.com/articles/000714.html)** is
-a often used design pattern in test code of enterprise applications (we give an example
+an often used design pattern in test code of enterprise applications (we give an example
 of a Test Data Builder later in this chapter). Such applications
 often have to deal with the creation of complex sets of interrelated 
 business entities, which can easily
 lead developers to write general fixtures.
 
 **Indirect tests** and **eager tests**:
-Tests should be as cohesive and as focused as possible. A test that aims at testing
-some class `A` should solely focus on testing class `ATest`. Even if it depends on a class
-`B`, requiring `ATest` to instantiate `B`, `ATest` should focus on exercise `A` and `A` only.
+Tests should be as cohesive and as focused as possible. A testing class `ATest` that aims at testing
+some class `A` should solely focus on testing this class `A`. Even if it depends on a class
+`B`, requiring `ATest` to instantiate `B`, `ATest` should focus on exercising `A` and `A` only.
 The smell, however, emerges when a test class focuses its efforts on testing many classes
 at once. 
 
-Less cohesive tests harm productivity. How do developers where tests for a given `B` class
-are? If test classes focus on more than a single class, tests for `B` might be every anywhere.
+Less cohesive tests harm productivity. How do developers know where tests for a given `B` class
+are? If test classes focus on more than a single class, tests for `B` might be anywhere.
 Developers would have to look for them. 
 It is also expected that, without proper care, tests for a single class would live in
 many other test classes, e.g., tests for `B` might exist in `ATest`, `BTest`, `CTest`, etc.
@@ -295,7 +294,7 @@ to comprehend them in a quick glance.
 
 **Sensitive Equality**:
 Good assertions are fundamental in test cases. A bad assertion might lead a test
-to not fail in it should fail. However, a bad assertion might also lead a test _to fail
+to not fail when it should. However, a bad assertion might also lead a test _to fail
 when it should not_.
 Engineering a good assertion statement is challenging. Even more so when components
 produce fragile outputs, i.e., outputs that tend to change often. 
@@ -356,8 +355,8 @@ public class ItemTest {
 ```
 
 The test above indeed exercises the calculation of the final amount. However,
-one can see that the developer took a shortcut. S/he decided to assert the overall
-behaviour by making use of the `toString()` method of the class. Maybe because
+one can see that the developer took a shortcut. (S)he decided to assert the overall
+behaviour by making use of the `toString` method of the class. Maybe because
 the developer felt that this assertion was more strict, as it asserts not only
 the final price, but also the name of the product and its quantity. 
 
@@ -365,8 +364,8 @@ While this seems to work at first,
 this assertion is sensitive to changes in the implementation of the `toString`. 
 
 Clearly,
-the tester does not want its test to break if the `toString` changes, but if the
-`finalAmount()` method changes. That is not what happens. Suppose that another developer
+the tester does not want its test to break if the `toString` changes, but only if the
+`finalAmount` method changes. That is not what happens. Suppose that another developer
 decided to shorten the length of the outcome of the `toString`:
 
 ```java
@@ -410,7 +409,7 @@ for the wrong reason in the future.
 previous smell, having the proper assertions makes a huge
 difference between a good and a bad test case. While we have discussed how to derive
 good test cases (and thus, good assertions), choosing the right implementation strategy
-for writing the assertion can impact the maintenance of the test on the long run.
+for writing the assertion can impact the maintenance of the test in the long run.
 The wrong choice of an assertion instruction might give developers less information
 about the failure, making the debugging process more difficult.
 
@@ -431,7 +430,7 @@ public class Cart {
 }
 ```
 
-Now, a developer decided to test the `numberOfItems` behaviour. S/he then wrote the following
+Now, a developer decided to test the `numberOfItems` behaviour. (S)he then wrote the following
 test cases:
 
 ```java
@@ -457,7 +456,7 @@ public class CartTest {
 }
 ```
 
-Note that the less attentive developer opt for an `assertTrue`. While the test
+Note that the less attentive developer opted for an `assertTrue`. While the test
 works as expected, if it ever fails (which we can easily force by replacing the Set for a List
 in the `Cart` implementation), the assertion error message will be like
 as follows:
@@ -537,7 +536,7 @@ and less sensitive as possible.
 
 **Mystery Guest**: (Integration) tests often rely on external 
 dependencies. They might be databases, files in the disk, or webservices (the "guest"). 
-While such dependency is unavoidable in these types of tests, making them clearly explicit
+While such dependencies are unavoidable in these types of tests, making them clearly explicit
 in the test code might help developers in cases where these tests suddenly start to fail.
 A test that makes use of a guest, but hides it from the developer (making it 
 a "mystery guest") is simply harder to comprehend.
@@ -577,7 +576,7 @@ Where are the assertions?
 A second tip concerns the **comprehensibility of the information** in a test code.
 Test code is full of information, i.e., the input values that will be provided
 to the class under test, how the information flows up to the method under test, 
-how the output comes back from the exercise behaviour, and what are the expected outcomes.
+how the output comes back from the exercise behaviour, and what the expected outcomes are.
 
 However, we often have to deal with complex data structures and information, making 
 the test code naturally complex.
@@ -620,7 +619,7 @@ A not-so-clear test code for the `calculate()` method could be:
 void test1() {
 	var invoice = new Invoice(new BigDecimal("2500"), "NL", CustomerType.COMPANY);
 	var v = invoice.calculate();
-	assertEquals(2500, v.doubleValue(), 0.0001);
+	assertEquals(250, v.doubleValue(), 0.0001);
 }
 ```
 
@@ -649,11 +648,11 @@ void taxesForCompanies() {
 } 
 ```
 
-Note how our `InvoiceBuilder` (which we show the code soon) clearly expresses what
+Note how our `InvoiceBuilder` (which we show the implementation soon) clearly expresses what
 this invoice is about: it is an invoice for a company (as clearly stated by the `asCompany()` 
 method), "NL" is the country of that invoice, and the invoice has a value of 2500. The
 result of the behaviour now goes to a variable whose name says it all (`calculatedValue`). 
-The assertion now explicitly mentions that, given this is a float number, the best we can do
+The assertion then explicitly mentions that, given this is a float number, the best we can do
 is to compare whether they are close enough.
 
 The `InvoiceBuilder` is an example of an implementation of a **Test Data Builder**, the design
@@ -723,7 +722,7 @@ Note how test data builders might help developers in avoiding general fixtures.
 Given that the builder makes it easier to build complex objects, developers might not
 feel the need to rely so much on a general fixture.
 
-Introducing test data builders, make good use of variable names to explain the meaning
+Introducing test data builders, making good use of variable names to explain the meaning
 of the information, having clear assertions, and (although not exemplified here) having
 comments in cases where code is not expressive enough will help developers in better
 comprehending test code.
@@ -734,15 +733,15 @@ comprehending test code.
 
 ## Flaky tests
 
-Flaky tests (or _erratic tests_, as Mezsaros calls in his book)
+Flaky tests (or _erratic tests_, as Mezsaros calls them in his book)
 are tests that present a "flaky" behaviour: 
-they sometimes passes and sometimes fails, even though
+they sometimes pass and sometimes fail, even though
 developers have not performed any changes in their software systems.
 
 Such tests negatively impact the productivity of software development teams.
 First, it is hard to know whether a flaky test is failing because the behaviour
 is buggy, or because it is simply flaky. From the social side, the excessive
-presence of flaky tests make developers to lose their confidence in their test
+presence of flaky tests make developers lose their confidence in their test
 suites, little by little. The lack of confidence might lead them to deploy their
 systems even though the tests are red (after all, they might be broken just because
 of flakiness, and not because the system is misbehaving).
@@ -783,21 +782,10 @@ If you want to find the exact cause of a flaky test,
 the author of the XUnit Test Patterns book has made a whole decision table.
 You can find it in the book or on Gerard Meszaros' website [here](http://xunitpatterns.com/Erratic%20Test.html).
 With the decision table you can find a probable cause for the flakiness of your test.
+
+We list several interesting research papers on flaky tests, their impact on software testing, and current state-of-the-art detection tools in our references section.
 {% endhint %}
 
-If you want to read more about flaky tests, we suggest the following papers and blog posts (including Google discussing how problematic flaky tests are for their development teams):
-
-- Luo, Q., Hariri, F., Eloussi, L., & Marinov, D. (2014, November). An empirical analysis of flaky tests. In Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering (pp. 643-653). ACM. 
-Authors' version: [http://mir.cs.illinois.edu/~eloussi2/publications/fse14.pdf](http://mir.cs.illinois.edu/~eloussi2/publications/fse14.pdf)
-- Bell, J., Legunsen, O., Hilton, M., Eloussi, L., Yung, T., & Marinov, D. (2018, May). DeFlaker: automatically detecting flaky tests. In Proceedings of the 40th International Conference on Software Engineering (pp. 433-444). ACM. 
-Authors' version: [http://mir.cs.illinois.edu/legunsen/pubs/BellETAL18DeFlaker.pdf](http://mir.cs.illinois.edu/legunsen/pubs/BellETAL18DeFlaker.pdf)
-- Lam, W., Oei, R., Shi, A., Marinov, D., & Xie, T. (2019, April). iDFlakies: A Framework for Detecting and Partially Classifying Flaky Tests. In 2019 12th IEEE Conference on Software Testing, Validation and Verification (ICST) (pp. 312-322). IEEE. 
-Authors' version: [http://taoxie.cs.illinois.edu/publications/icst19-idflakies.pdf](http://taoxie.cs.illinois.edu/publications/icst19-idflakies.pdf)
-- Listfield, J. Where do our flaky tests come from?  
-Link: [https://testing.googleblog.com/2017/04/where-do-our-flaky-tests-come-from.html](https://testing.googleblog.com/2017/04/where-do-our-flaky-tests-come-from.html), 2017.
-- Micco, J. Flaky tests at Google and How We Mitigate Them.  
-Link: [https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html](https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html), 2017.
-- Fowler, M. Eradicating Non-Determinism in Tests. Link: [https://martinfowler.com/articles/nonDeterminism.html](https://martinfowler.com/articles/nonDeterminism.html), 2011.
 
 {% set video_id = "-OQgBMSBL5c" %}
 {% include "/includes/youtube.md" %}
@@ -847,7 +835,7 @@ public void test01() {
 ```
 
 
-Which test smell does this piece of code suffers from?
+Which test smell does this piece of code suffer from?
 
 1. Mystery guest
 1. Condition logic in test
@@ -857,14 +845,7 @@ Which test smell does this piece of code suffers from?
 
 **Exercise 3.**
 In the code below, we present the source code of an automated test.
-However, Joe, our new test specialist, believes this test is smelly and it can be better written.
-Which of the following could be Joe's main concern?
 
-  
-1. The test contains code that may or may not be executed, making the test less readable.
-2. It is hard to tell which of several assertions within the same test method will cause a test failure.
-3. The test depends on external resources and has nondeterministic results depending on when/where it is run.
-4. The test reader is not able to see the cause and effect between fixture and verification logic because part of it is done outside the test method.
 
 ```java
 @Test
@@ -890,7 +871,14 @@ public void flightMileage() {
 }
 ```
 
+However, Joe, our new test specialist, believes this test is smelly and that it can be better written.
+Which of the following could be Joe's main concern?
 
+  
+1. The test contains code that may or may not be executed, making the test less readable.
+2. It is hard to tell which of several assertions within the same test method will cause a test failure.
+3. The test depends on external resources and has nondeterministic results depending on when/where it is run.
+4. The test reader is not able to see the cause and effect between fixture and verification logic because part of it is done outside the test method.
 
 
 
@@ -979,19 +967,26 @@ Which one of the following **is incorrect** about the test?
 
 ## References
 
+Test code best practices:
+
 - Chapter 5 of Pragmatic Unit Testing in Java 8 with Junit. Langr, Hunt, and Thomas. Pragmatic Programmers, 2015.
 - Meszaros, G. (2007). xUnit test patterns: Refactoring test code. Pearson Education.
+
+Empirical studies:
+
 - Pryce, N. Test Data Builders: an alternative to the Object Mother pattern. http://natpryce.com/articles/000714.html. Last accessed in March, 2020.
-- Listfield, J. Where do our flaky tests come from?  
-Link: https://testing.googleblog.com/2017/04/where-do-our-flaky-tests-come-from.html, 2017.
-- Micco, J. Flaky tests at Google and How We Mitigate Them.  
-Link: https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html, 2017.
-- Fowler, M. Eradicating Non-Determinism in Tests. Link: https://martinfowler.com/articles/nonDeterminism.html, 2011.
 - Bavota, G., Qusef, A., Oliveto, R., De Lucia, A., & Binkley, D. (2012, September). An empirical analysis of the distribution of unit test smells and their impact on software maintenance. In 2012 28th IEEE International Conference on Software Maintenance (ICSM) (pp. 56-65). IEEE.
+
+Flaky tests:
+
 - Luo, Q., Hariri, F., Eloussi, L., & Marinov, D. (2014, November). An empirical analysis of flaky tests. In Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering (pp. 643-653). ACM. 
+Authors' version: [http://mir.cs.illinois.edu/~eloussi2/publications/fse14.pdf](http://mir.cs.illinois.edu/~eloussi2/publications/fse14.pdf)
 - Bell, J., Legunsen, O., Hilton, M., Eloussi, L., Yung, T., & Marinov, D. (2018, May). DeFlaker: automatically detecting flaky tests. In Proceedings of the 40th International Conference on Software Engineering (pp. 433-444). ACM. 
+Authors' version: [http://mir.cs.illinois.edu/legunsen/pubs/BellETAL18DeFlaker.pdf](http://mir.cs.illinois.edu/legunsen/pubs/BellETAL18DeFlaker.pdf)
 - Lam, W., Oei, R., Shi, A., Marinov, D., & Xie, T. (2019, April). iDFlakies: A Framework for Detecting and Partially Classifying Flaky Tests. In 2019 12th IEEE Conference on Software Testing, Validation and Verification (ICST) (pp. 312-322). IEEE. 
-
-
-
-
+Authors' version: [http://taoxie.cs.illinois.edu/publications/icst19-idflakies.pdf](http://taoxie.cs.illinois.edu/publications/icst19-idflakies.pdf)
+- Listfield, J. Where do our flaky tests come from?  
+Link: [https://testing.googleblog.com/2017/04/where-do-our-flaky-tests-come-from.html](https://testing.googleblog.com/2017/04/where-do-our-flaky-tests-come-from.html), 2017.
+- Micco, J. Flaky tests at Google and How We Mitigate Them.  
+Link: [https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html](https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html), 2017.
+- Fowler, M. Eradicating Non-Determinism in Tests. Link: [https://martinfowler.com/articles/nonDeterminism.html](https://martinfowler.com/articles/nonDeterminism.html), 2011.

@@ -8,7 +8,7 @@ Given that the model preserves some of the original attributes of the system und
 Why should we use models at all? A model gives us a structured way to understand how the program operates (or should operate).
 Model-based testing makes use of models of the system to derive tests.
  
-In this chapter, we show what a model is (or can be), and go over some of the models used in software testing.
+In this chapter, we show what a model is (or can be) and go over some of the models used in software testing.
 The two models covered in this chapter are decision tables and state machines.
  
  
@@ -31,7 +31,7 @@ In general, a decision table looks like the following:
 <table>
   <tr><th></th><th></th><th colspan="4">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
   <tr><td>&lt;Condition2&gt;</td><td>T<br></td><td>F</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value2</td><td>value3</td><td>value4</td></tr>
 </table>
@@ -64,16 +64,16 @@ The decision table is as follows:
 <table>
   <tr><th></th><th></th><th colspan="4">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>International</td><td>F</td><td>F</td><td>T<br></td><td>T</td></tr>
+  <td>International</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
   <tr><td>Auto-renewal</td><td>T<br></td><td>F</td><td>T</td><td>F</td></tr>
-  <tr><td><i>Action</i></td><td>price/month</td><td>10<br></td><td>15</td><td>30</td><td>32</td></tr>
+  <tr><td><i>Action</i></td><td>price/month</td><td>30<br></td><td>32</td><td>10</td><td>15</td></tr>
 </table>
  
 You can see the different prices for the combinations of international services and automatic renewal.
  
  
  
-**Don't care values:** In some cases the value of a condition might not influence the action.
+**Don't care values:** In some cases, the value of a condition might not influence the action.
 This is represented as a "don't care" value, or "dc".
  
 Essentially, "dc" is a combination of two columns.
@@ -84,7 +84,7 @@ If the decision table is as follows:
 <table>
   <tr><th></th><th></th><th colspan="3">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>&lt;Condition1&gt;</td><td>T</td><td>dc</td><td>F<br></td></tr>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>dc</td><td>F<br></td></tr>
   <tr><td>&lt;Condition2&gt;</td><td>dc</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value1</td><td>value2</td></tr>
 </table>
@@ -94,7 +94,7 @@ It can be expanded to:
 <table>
   <tr><th></th><th></th><th colspan="5">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>T<br></td><td>F</td><td>F</td></tr>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>T<br></td><td>F</td><td>F</td></tr>
   <tr><td>&lt;Condition2&gt;</td><td>T<br></td><td>F</td><td>T</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value1</td><td>value1</td><td>value1</td><td>value2</td></tr>
 </table>
@@ -105,7 +105,7 @@ We end up with the decision table below:
 <table>
   <tr><th></th><th></th><th colspan="4">Variants</th></tr>
   <tr><td rowspan="2"><br><i>Conditions</i></td>
-      <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
+  <td>&lt;Condition1&gt;</td><td>T</td><td>T</td><td>F<br></td><td>F</td></tr>
   <tr><td>&lt;Condition2&gt;</td><td>T<br></td><td>F</td><td>T</td><td>F</td></tr>
   <tr><td><i>Action</i></td><td>&lt;Action&gt;</td><td>value1<br></td><td>value1</td><td>value1</td><td>value2</td></tr>
 </table>
@@ -121,10 +121,10 @@ The new decision table is below:
 <table>
   <tr><th></th><th></th><th colspan="6">Variants</th></tr>
   <tr><td rowspan="3"><br><i>Conditions</i></td>
-      <td>International</td><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+  <td>International</td><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
   <tr><td>Auto-renewal</td><td>T</td><td>dc</td><td>F</td><td>T</td><td>dc</td><td>F</td></tr>
   <tr><td>Loyal</td><td>dc</td><td>T</td><td>F</td><td>dc</td><td>T</td><td>F</td></tr>
-  <tr><td><i>Action</i></td><td>price/month</td><td>10</td><td>10</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>10</td><td>10</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
 </table>
  
 Note that when automatic renewal is true, the loyalty condition does not change the outcome and vice versa.
@@ -140,10 +140,10 @@ If we set the default charge rate to 10 per month the new decision table can be 
 <table>
   <tr><th></th><th></th><th colspan="4">Variants</th></tr>
   <tr><td rowspan="3"><br><i>Conditions</i></td>
-      <td>International</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+  <td>International</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
   <tr><td>Auto-renewal</td><td>F</td><td>T</td><td>dc</td><td>F</td></tr>
   <tr><td>Loyal</td><td>F</td><td>dc</td><td>T</td><td>F</td></tr>
-  <tr><td><i>Action</i></td><td>price/month</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>15</td><td>30</td><td>30</td><td>32</td></tr>
 </table>
  
  
@@ -175,7 +175,7 @@ The third point is achieved by making two test cases for each condition.
 In these two test cases, the condition being tested should have a different value, the outcome should be different, and the other conditions should have the same value in both test cases.
 With this the condition that is being tested individually influences the outcome, as the other conditions stay the same and therefore do not influence the outcome.
  
-By choosing the test cases efficiently, MC/DC needs less tests than all variants, while still exercising the important parts of the system.
+By choosing the test cases efficiently, MC/DC needs fewer tests than all variants, while still exercising the important parts of the system.
 With fewer tests it will take less time to write the tests and the test suite will be executed quicker.
  
  
@@ -184,10 +184,10 @@ In order to derive the tests, we expand and rearrange the decision table of the 
 <table>
   <tr><th></th><th></th><th>v1</th><th>v2</th><th>v3</th><th>v4</th><th>v5</th><th>v6</th><th>v7</th><th>v8</th></tr>
   <tr><td rowspan="3"><br><i>Conditions</i></td>
-      <td>International</td><td>T</td><td>T</td><td>T</td><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+  <td>International</td><td>T</td><td>T</td><td>T</td><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
   <tr><td>Auto-renewal</td><td>T</td><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
   <tr><td>Loyal</td><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td></tr>
-  <tr><td><i>Action</i></td><td>price/month</td><td>30</td><td>30</td><td>30</td><td>32</td><td>10</td><td>10</td><td>10</td><td>15</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>30</td><td>30</td><td>30</td><td>32</td><td>10</td><td>10</td><td>10</td><td>15</td></tr>
 </table>
  
 First, we look at the first condition (v1) and we try to find pairs of combinations that would cover this condition according to MC/DC.
@@ -207,7 +207,7 @@ We want to cover all the actions in the test suite.
 Therefore, we need at least v4 and v8.
 With these decisions we also have covered the International Services condition.
 We need one of v1, v2, v3 and one of v5, v6, v7.
-To cover Loyal we add v7 and to cover Automatic Renewal we add v2.
+To cover Loyal, we add v7 and to cover Automatic Renewal we add v2.
 All the possible actions have now been covered.
  
 For full MC/DC, we test the decisions: v2, v4, v7, v8.
@@ -287,13 +287,47 @@ public void pricePerMonthTest(boolean international, boolean autoRenewal,
 {% include "/includes/youtube.md" %}
  
 ### Non-binary choices and final guidelines
- 
-{% hint style='working' %}
-Write the video's accompanying text
-{% endhint %}
- 
- 
- 
+
+So far, all the decision tables we have discussed have boolean conditions (i.e., values in the cells were either `true` or `false`).
+The decision tables can be generalized to contain non-boolean values (non-binary choices). In other words, instead of only `true` and `false`, the values can now also be, e.g., a number.
+
+Take the decision table for the phone subscriptions, discussed earlier.
+Initially, this only contained the international and auto-renewal conditions.
+A non-boolean can be introduced to represent a data limit.
+The amount of data can be unlimited (&infin;), 8 GB, or none (0 GB).
+
+<table>
+  <tr><th></th><th></th><th colspan="6">Variants</th></tr>
+  <tr><td rowspan="3"><br><i>Conditions</i></td>
+  <td>International</td><td>T</td><td>T</td><td>F<br></td><td>F</td><td>F</td><td>F</td></tr>
+  <tr><td>Auto-renewal</td><td>T<br></td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
+  <tr><td>Data limit</td><td>&infin;</td><td>&infin;</td><td>8</td><td>0</td><td>8</td><td>0</td></tr>
+  <tr><td><i>Action</i></td><td>price / month</td><td>32<br></td><td>30</td><td>12</td><td>10</td><td>17</td><td>15</td></tr>
+</table>
+
+With two boolean conditions and one condition with three possible values, the possible number of variants is $$2 \cdot 2 \cdot 3 = 12$$.
+The decision table only shows $$6$$.
+The unspecified columns implicitly represent invalid combinations.
+For example, an international subscription without data would not be possible.
+
+In small decision tables, non-boolean conditions can be useful.
+However, with many non-boolean conditions, the amount of possible combinations in the decision table can be large.
+Due to this combinatorial explosion of possible variants, the decision table becomes very hard to work with.
+For example, a decision table with three conditions, each having $$4$$ possible values, results in $$4 \cdot 4 \cdot 4 = 64$$ possible combinations.
+In such cases, other strategies like _pair-wise combinatorial testing_ offer better scalability. 
+
+The testing techniques for decision tables with only boolean conditions can also be generalized to tables with non-boolean conditions.
+For the MC/DC criteria (discussed in the structural testing chapter), this requires modifying one of its three properties: instead of making each condition `true` and `false` at least once in the test suite, each of its possible values should appear at least once in the test suite.
+
+Finally, these are some general guidelines to keep in mind when designing decision tables:
+
+1. **Keep conditions independent.** The order of the conditions should not matter, otherwise a state machine might be more fitting.
+2. **Use DC values when possible.** This decreases the amount of variants, making the decision table easier to read and easier to understand.
+3. **Variants with DC values should not overlap.** If they do, they should at least have the same action.
+4. **Add a default column.** This provides an action for the variants that are not in the decision table, allowing the decision table to not include all possible variants.
+5. **Consider non-boolean conditions if conditions are mutually exclusive.** Mutually exclusive means that the conditions can never be true at the same time. These conditions then probably encode a single non-boolean condition.
+6. **If most conditions are non-boolean, consider using a different combinatorial testing technique instead**. One example would be pair-wise testing.
+
 {% set video_id = "RHB_HaGfNjM" %}
 {% include "/includes/youtube.md" %}
  
@@ -307,11 +341,9 @@ A system often has multiple states and various transitions between these states.
 The state machine model uses these states and transitions to illustrate the system's behaviour.
  
 The main focus of a state machine is, as the name suggests, the states of a system.
-So it is useful to think about what a state actually is.
-The states in a state machine model describe where a program is in its execution.
-If we need X to happen before we can do Y, we can use a state.
-X would then cause the transition to this state.
-From the state we can do Y, as we know that in this state X has already happened.
+So, it is useful to think about what a state actually is.
+The states in a state machine model describe where a program is in its execution. 
+Transitions are actions that take the system from one state to another.
 We can use as many states as we need to describe the system's behaviour well.
  
 Besides states and transitions, a state machine has an initial state and events.
@@ -340,17 +372,14 @@ We can use these events in the state machine.
  
 ![](img/model-based-testing/examples/locked_unlocked_machine.svg)
  
-In the diagram the initial state is `LOCKED`.
-Usually when someone starts using their phone, it is locked.
-Therefore the initial state of the state machine should also be `LOCKED`.
- 
- 
+In the diagram the initial state is `LOCKED`, because usually when someone starts using their phone, it is locked.
+This should be represented in the initial state of the state machine.
  
 Sometimes an event can lead to multiple states, depending on a certain condition.
 To model this in the state machines, we use *conditional transitions*.
 These transitions are only performed if the event happens and if the condition is true.
 The conditions often depend on a certain value being used in the state machine.
-To modify these values when a transition is taken in the state machine we use actions.
+To modify these values when a transition is taken in the state machine, we use actions.
 Actions are associated with a transition and are performed when the system uses that transition to go into another state.
 The notation for conditions and actions is as follows:
  
@@ -358,7 +387,7 @@ The notation for conditions and actions is as follows:
 - Action: ![](img/model-based-testing/uml/action_symbol.svg)
  
  
-When a user types the wrong password for four times in a row, the phone becomes blocked.
+When a user types the wrong password four times in a row, the phone becomes blocked.
 We use `n` in the model to represent the number of failed attempts.
 Let us look at the conditional transitions that we need to model this behaviour.
  
@@ -366,7 +395,7 @@ Let us look at the conditional transitions that we need to model this behaviour.
  
 When `n` (the number of failed unlock attempts) is smaller than 3, the phone stays in `LOCKED` state.
 However, when `n` is equal to 3, the phone goes to `BLOCKED`.
-Here we have an event, wrong password, than can lead to different states based on the condition.
+Here we have an event, wrong password, that can lead to different states based on the condition.
  
 In the previous state machine, `n` never changes.
 This means that the phone will never go to its `BLOCKED` state, as that requires `n` to be equal to 3.
@@ -414,7 +443,7 @@ To test a single transition (for transition coverage), more steps are needed:
 5. Assert that the system is in the new state that the transition points to.
  
  
-To achieve full state coverage we need to arrive in each state once.
+To achieve full state coverage, we need to arrive in each state once.
 For the phone example we have three states so we can make three tests.
  
 - Check that the system is `LOCKED` when it is started;
@@ -437,9 +466,9 @@ These combinations of transitions are called paths.
 A logical thought might be: let's test all the paths in the state machine.
 While this looks like a good objective, the number of paths will probably be too high.
 Take a state machine that has a loop, i.e., a transition from state X to Y and a transition from state Y to X.
-When creating paths we can keep going back and forth between these two states.
+When creating paths, we can keep going back and forth between these two states.
 This leads to an infinite number of paths.
-Obviously, we cannot test all the paths so we need to take a different approach.
+Obviously, we cannot test all the paths, so we need to take a different approach.
  
 The idea is that when using paths to derive test cases, we want each loop to be executed once.
 This way we have a finite number of paths to be tested.
@@ -456,7 +485,7 @@ Such a transition tree is created as follows:
  
 This is demonstrated in the example below.
  
-To make the transition table more interesting, we modify the phone's state machine to have an `OFF` state instead of a `BLOCKED` state.
+To make the transition tree more interesting, we modify the phone's state machine to have an `OFF` state instead of a `BLOCKED` state.
 See the state machine below:
  
 ![Phone state machine with off](img/model-based-testing/examples/phone_off_machine.svg)
@@ -475,7 +504,7 @@ One node was added, so we continue by adding children to that node.
 ![Three level transition tree](img/model-based-testing/examples/transition_tree/transition_tree_2.svg)
  
 The only state we have not seen yet is `UNLOCKED` in the `UNLOCKED_0` node.
-Therefore this is the only node we should add children to.
+Therefore, this is the only node we should add children to.
  
 ![Final phone transition tree](img/model-based-testing/examples/transition_tree/transition_tree_3.svg)
  
@@ -622,13 +651,13 @@ We can see that there is, for example, a transition from `UNLOCKED` to `LOCKED` 
  
 When we have the transition table, we have to decide the intended behaviour for the cells that are empty.
 The default is to ignore the event and stay in the same state.
-In some cases one might want the system to throw an exception.
+In some cases, one might want the system to throw an exception.
 These decisions depend on the project and the customer's needs.
  
 As discussed earlier, we can use the transition table to derive tests for sneak paths.
 Usually, we want the system to remain in its current state when we trigger an event that has an empty cell in the transition table.
 To test for all possible sneak paths, we create a test case for each empty cell in the transition table.
-First of all, the test will bring the system to the state corresponding to the empty cell's row (you can use the transition table to find a suitable path). Then the test triggers the event that corresponds to the empty cell's column. Finally the test asserts that the system is in the same state as before triggering the event.
+First of all, the test will bring the system to the state corresponding to the empty cell's row (you can use the transition tree to find a suitable path). Then the test triggers the event that corresponds to the empty cell's column. Finally, the test asserts that the system is in the same state as before triggering the event.
 The number of 'sneak path tests' is equal to the number of empty cells in the transition table.
  
 With these tests we can verify both existing and non-existing paths.
@@ -679,13 +708,13 @@ Now we can also simplify the state machine by collapsing the super state:
  
  
 **Regions**:
-So far we have had super states that contain one state machine.
+So far, we have had super states that contain one state machine.
 Here, the system is in only one state of the super state at once.
-In some cases it may be useful to allow the system to be in multiple states at once.
+In some cases, it may be useful to allow the system to be in multiple states at once.
 This is achieved with regions.
  
 A super state can be split into multiple regions.
-These are orthogonal regions, meaning that the state machines in the regions are independent from each other; they do not influence the state machines in other regions.
+These are orthogonal regions, meaning that the state machines in the regions are independent of each other; they do not influence the state machines in other regions.
 Each region contains one state machine.
 When the system enters the super state, it enters all the initial states of the regions.
 This means that the system is in multiple states at once.
@@ -696,9 +725,9 @@ Expanding regions is possible, but is highly impractical and usually not wanted,
 This causes the number of states and transitions to explode quickly.
 For this reason, we will not cover how to expand regions.
  
-In general it is best to use small state machines and to link these together using super states and regions.
+In general, it is best to use small state machines and to link these together using super states and regions.
  
-So far when the phone was `ON` we modelled the `LOCKED` and `UNLOCKED` state.
+So far when the phone was `ON`, we modelled the `LOCKED` and `UNLOCKED` state.
 When the phone is on, it drains the battery.
 The system keeps track of the level of the battery.
 Let's assume that our phone has two battery levels: low and normal.
@@ -767,7 +796,7 @@ Slack shared their internal flow chart that decides whether to send a notificati
 **Exercise 1.**
 The *ColdHot* air conditioning system has the following requirements:
  
-- When the user turns it on, the machine is in an *idle* state.
+- When the user turns it on, the machine is in an *idle* state. This is the initial state.
 - If it is *too hot*, then, the *cooling* process starts. It goes back to *idle* when the defined *temperature is reached*.
 - If it is *too cold*, then, the *heating* process starts. It goes back to *idle* when the defined *temperature is reached*.
 - If the user *turns it off*, the machine is *off*. If the user *turns it on* again, the machine is back to *idle*.
@@ -783,28 +812,25 @@ Derive the transition tree from the state machine of the assignment above.
 Derive the transition table of the *ColdHot* state machine.
  
 How many sneaky paths can be tested based on this transition table?
- 
- 
+  
 **Exercise 4.**
 Draw the transition tree of the following state machine:
- 
-![](img/model-based-testing/exercises/order_state_machine.svg)
- 
-Use sensible naming for the states in your transition tree.
- 
- 
+
+![](img/model-based-testing/exercises/statemachine-order.png)
+
+
 **Exercise 5.**
-With the transition tree you devised in the previous exercise and the state machine in that exercise, what is the transition coverage of a test that the following events: [order placed, order received, order fulfilled, order delivered]?
+With the transition tree you devised in the previous exercise and the state machine in that exercise, what is the transition coverage of a test that includes the following events: [order placed, order received, order fulfilled, order delivered]?
  
  
 **Exercise 6.**
-Devise the decision table of the state machine that was given in the exercise above.
-Ignore the initial transition `Order placed`.
+Devise the transition table of the state machine that was given in the exercise above.
+(Note that the initial transition `Order placed` should not be represented in the transition table; this transition is there as a way to indicate the developer what "external action" has to happen for this state machine to start).
  
  
 **Exercise 7.**
 How many sneak paths are there in the state machine we used in the previous exercises?
-Again ignore the initial `Order placed` transition.
+(Again, ignore the initial `Order placed` transition.)
  
  
 **Exercise 8.**
@@ -817,11 +843,9 @@ Consider the following decision table:
   <tr><td></td><td>10%</td><td>0%</td><td>5%</td><td>2%</td><td>6%</td><td>3%</td></tr>
 </table>
  
-Which decision do we have to test for full MC/DC?
+Which decisions do we have to test for full MC/DC?
  
 Use as few decisions as possible.
- 
- 
  
  
 **Exercise 9.**
@@ -830,11 +854,6 @@ See the following generic state machine.
 ![](img/model-based-testing/exercises/generic_state_machine.svg)
  
 Draw the transition tree of this state machine.
- 
- 
- 
- 
- 
  
  
 **Exercise 10.**
@@ -846,7 +865,7 @@ Our product team defined the following rules:
 * An administrator checks the content of the ad. If it follows all the rules, the ad then waits for payment. If the ad contains anything illegal, it then goes back to the beginning of the process.
 * As soon as the company makes the payment, the ad becomes available to users.
 * When the target number of visualisations is reached, the ad is considered done. At this time, the company might consider running the campaign again, which moves the ad to wait for payment again. The company might also decide to end the campaign at that moment, which puts the ad in a final state.  
-* While appearing for the users, if more than 10\% of the users complain about the ad, the ad is then marked as blocked. Cute Babies then gets in contact with the company. After understanding the case, the ad either starts to appear again, or is labelled as inappropriate. An inappropriate ad will never be shown again.
+* While appearing for the users, if more than 10% of the users complain about the ad, the ad is then marked as blocked. The company then gets contacted. After understanding the case, the ad either starts to appear again, or is labelled as inappropriate. An inappropriate ad will never be shown again.
  
 Devise a state diagram that describes the life cycle of an ad.
  
@@ -868,15 +887,10 @@ Also, remember that, if a transition is not specified in the requirements, it si
 Devise a state transition tree for the microwave state machine.
  
 **Exercise 13.**
-Again consider the state machine requirements for the microwave.
+Again, consider the state machine requirements for the microwave.
 There appears to be some redundancy in the defrosting and warming up functionality, which potentially can be described using super states (also called OR-states).
-Which effect does this have on the total number of states and transitions for the resulting diagram with a super state?
- 
-1. There will be one extra state, and two less transitions.
-2. There will be one state less, and the same number of transitions.
-3. The total number of states will remain the same, and there will be two less transitions.
-4. This has no effect on the total number of states and transitions.
- 
+
+Make use of super states and re-design the state machine.
  
  
 **Exercise 14.**
@@ -907,12 +921,12 @@ Create a decision table that takes the three conditions and their respective out
  
 **Exercise 15**
 Twitter is a software system that enables users to share short messages with their friends.
-Twitter's revenue model is ultimately based on advertisements ("ads").
+Twitter's revenue model is ultimately based on advertisements (ads).
 Twitter's system needs to decide when to show ads to its users, and which ones. For a given user a given ad can be *highly-relevant*, and the system seeks to serve the most relevant ads as often as possible without scaring users away.
  
 To that end, assume that the system employs the following rules to decide whether a user *U* gets served an ad *A* at the moment user *U* opens their Twitter app:
  
-* If the user *U* has not been active during the past two weeks, she will not get to see add *A*;
+* If the user *U* has not been active during the past two weeks, she will not get to see ad *A*;
 * If the user *U* has already been served an ad during her last hour of activity, she will not get to see ad *A*;
 * Furthermore, if the user *U* has over 1000 followers (an influencer), she will only get to see ad *A* if *A* is labelled as *highly-relevant* for *U*. Otherwise, user *U* will see *A* even if it is not *highly-relevant*.
  

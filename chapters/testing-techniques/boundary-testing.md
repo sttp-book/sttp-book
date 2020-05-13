@@ -1,7 +1,7 @@
 # Boundary testing
 
 Off-by-one mistakes are a common cause for bugs in software systems.
-As developers, we have all made mistakes such as using a "greater than" operator (`>`) where it had to be a "greater than or equal" operator (`>=`). 
+As developers, we have all made mistakes such as using a "greater than" operator (`>`) where it had to be a "greater than or equal to" operator (`>=`). 
 Interestingly, programs with such a bug tend to work well for most of the provided inputs. They fail, however, when the input is "near the boundary of condition".
 
 In this chapter, we explore **boundary testing** techniques.
@@ -14,7 +14,7 @@ When we devise classes, these have "close boundaries"
 with the other classes. 
 In other words, if we keep performing small changes 
 to an input that belongs to some partition (e.g., by adding +1 to it), 
-at some point this input will now belong to another class. 
+at some point this input will belong to another class. 
 The precise point where the input changes from one class to another is what we call a *boundary*.
 And this is precisely what boundary testing is about: to make the program behave correctly
 when inputs are near a boundary.
@@ -25,12 +25,12 @@ input values $$[p_1,p_2]$$, where $$p_1$$ belongs to partition A, and $$p_2$$ be
 
 Let us apply boundary testing in a concrete example:
 
-> **Requirement: Calculating the number of points of the player**
+> **Requirement: Calculating the number of points of a player**
 > 
-> Given the score of the player and the number of remaining lives of the player, the program does the following:
+> Given the score of a player and the number of remaining lives of the player, the program does the following:
 > - If the player's score is below 50, then it always adds 50 points on top of the current points.
 > - If the player's score is greater than or equals to 50, then:
->   - if the number of remaining lives is greater than or equal to 3: it triples the score of the player.
+>   - if the number of remaining lives is greater than or equal to 3, it triples the score of the player.
 >   - otherwise, it adds 30 points on top of the current points.
 
 A possible implementation for this method can be:
@@ -95,15 +95,14 @@ each boundary will require *at least* two test cases:
 
 For B1:
 * B1.1 = input={score=49, remaining lives=5}, output={99}
-* B1.2 = input={score=50, remaining lives=5}, output={100}
+* B1.2 = input={score=50, remaining lives=5}, output={150}
 
 For B2:
-* B2.1 = input={score 500, remaining lives=3}, output={200}
-* B2.2 = input={score 500, remaining lives=2}, output={130}
+* B2.1 = input={score 500, remaining lives=3}, output={1500}
+* B2.2 = input={score 500, remaining lives=2}, output={530}
 
-In JUnit code (and note how we wrote the two test cases for a boundary in a single test (and not splitting it into two
-test methods). That makes the test more cohesive; if
-if find a boundary bug, a single test will let us know):
+An implementation using JUnit is shown below. Note that we have written just a single test for each pair of test cases. This makes the test more cohesive.
+If there is a boundary bug, a single test will let us know.
 
 ```java
 @Test
@@ -125,7 +124,7 @@ You might have noticed that, for B1, in case of score < 50, `remaining lives` ma
 However, for score >= 50, `remaining lives` does make a difference, as the output can vary according to its value. 
 And for the B1.2 test case, we chose `remaining lives` = 5, which makes the
 condition true. 
-You might wondering whether you also need to devise another test case, B1.3, where the remaining lives condition would be exercised as false. 
+You might be wondering whether you also need to devise another test case, B1.3, where the remaining lives condition would be exercised as false. 
 
 If you are looking to test all possible combinations, then the answer is yes. However, in longer
 conditions, full of boundaries, the number of combinations might be too high, making it unfeasible for the developer
@@ -157,7 +156,7 @@ We show all these points in the diagram below.
 
 ![On- and off-points, in- and out-points](img/boundary-testing/examples/on_off_points.svg)
 
-Let us now study a similar but slightly different condition: $$x \leq 100$$ (note how similar they are; the only difference is that, in this one, we use smaller than or equals to):
+Let us now study a similar but slightly different condition: $$x \leq 100$$ (the only difference is that, in this one, we use "less than or equal to"):
 
 - The on-point is still $$100$$: this is the value that is precisely in the condition.
 - The condition is evaluated as true for the on-point. So, the off-point should be the closest number to the on-point, but making the condition false. The off-point is thus $$101$$.
@@ -171,139 +170,16 @@ on-point, a test case for the off-point, a test case for a single in-point (as a
 belong to the same equivalence partition), and a test case for a single out-point (as all
 out-points also belong to the same equivalence partition).
 
-## Deriving tests for multiple conditions
+{% hint style='tip' %}
+Note that _on_ and _off_ points are also _in_ or _out points_. Therefore, tests that focus only on the _on_ and _off_ points would also be testing _in_ and _out_ points. In fact, some authors argue that testing boundaries is enough. Moreover, a test that exercises an in-point that is far away from the boundary might not have a strong fault detection capability. Why would we need them?
 
-In the previous example, we looked at one condition and its boundary.
-However, in most programs you will find statements that consist of multiple conditions,
-e.g., `a > 10 && b < 20 && c == 10 && d >= 50`. (Note that these conditions might be
-expressed in a single `if` statement, but also spread all over a method or a class; it
-is up to the tester to identify how these different conditions interact with each other).
+There is _no perfect answer_ here. We suggest:
 
-In such cases, the number of boundary tests might explode. Imagine a program composed
-of 5 different conditions. If we decide to write 4 test cases (on, off, in, out points) for 
-each of the conditions, and make sure we test all the possible combinations among them,
-we end up with $$4^5=1024$$ tests. This is simply too much.
+* If the number of test cases is indeed too high, and it is just too expensive to do them all, prioritization is important, and we suggest testers to indeed **focus on the boundaries**.
+* Far away in/out points are sometimes easier to be seen or comprehended by a tester who is still learning about the system under test, and exploring its boundaries (_exploratory testing_). Deciding whether to perform such a test is thus a decision that a tester should take, taking the costs into account.
+{% endhint %}
 
-To effectively test the boundaries in these more complicated decisions, while
-minimising the number of required tests,
-we can use the **simplified domain testing strategy**, proposed by Jeng and Weyuker.
-The idea of this strategy is to test each boundary separately, i.e. independent of the other conditions.
-
-To do so, **for each boundary**:
-
-* We pick the on- and off-point and we create one test case for each of these two points.
-* As we want to test each boundary independently, we choose in-points for the other variables/conditions. Note that we always choose in-points, regardless of the Boolean expression being connected by means of ANDs or ORs. In practice, we want all the other conditions to return true, so that we can evaluate the outcome of the condition under test independently.
-* It is important to vary the chosen in-points in the different tests, and to not choose the on- or off-point. This gives us the ability to partially check that the program gives the correct results for some in-points. If we would set the in-point to the on- or off-point, we would be testing two boundaries at once.
-
-To find these values and display the test cases in a structured manner, we use a **domain matrix**.
-In general, the table looks like the following:
-
-![Template for domain matrix](img/boundary-testing/boundary_template.png)
-
-In this template, we have two conditions with two parameters (see the $$x > a \land y > b$$ condition).
-We list the variables, with all their conditions.
-Each condition has two rows: one for the on-point and one for the off-point.
-Each variable has an additional row for the typical (in-) values.
-These are used when testing the other boundary.
-
-Each column that corresponds to a test case has two coloured cells.
-In the coloured cells you have to fill in the correct values.
-Each of these pairs of values will then give a test case.
-If we implement all the test cases that the domain matrix gives us, 
-we exercise each boundary both for the on- and off-point independent of the other parameters.
-
-Let us walk through another example:
-
-> **Requirement: Pizza or pasta**
->
-> The program decides whether a person should eat pizza or pasta.
-> Given two random numbers, x and y, if x is in between $$[5,20]$$
-> and y is smaller than or equal to 89, the program returns "pizza".
-> Otherwise it returns "pasta". 
-
-A simple implementation of this program would be:
-
-```java
-public String pizzaOrPasta(int x, int y) {
-  return (x >= 5 && x < 20 && y <= 89) ?
-    "pizza" :
-    "pasta";
-}
-```
-
-If we derive test cases based on the specification, we end up with at least two partitions:
-
-* **Pizza**: the program returns pizza. T1={x=15, y=50}.
-* **Pasta**: the program returns pasta. T2={x=15, y=100}.
-
-(Now that you are more experienced in testing, you can probably see that these
-two partitions are not enough.)
-
-```java
-public class PizzaPastaTest {
-
-  private final PizzaPasta pp = new PizzaPasta();
-
-  @Test
-  void pizza() {
-    assertEquals("pizza", pp.pizzaOrPasta(15, 50));
-  }
-
-  @Test
-  void pasta() {
-    assertEquals("pasta", pp.pizzaOrPasta(15, 100));
-  }
-}
-```
-
-Let us now apply boundary testing. Note how easy it is for a developer to
-make a mistake, e.g., confusing $$x >= 5$$ with $$x > 5$$.
-
-We start by making the domain matrix, having space for each of the conditions and both parameters.
-
-![Empty boundary table example](img/boundary-testing/examples/boundary_table_empty.png)
-
-Given that the statement has three conditions, we therefore will devise
-$$2 \times 3 = 6$$ tests.
-If we fill the table with the on-, off-, and typical random in points, we end up
-with the following tests:
-
-![Boundary tables example filled in](img/boundary-testing/examples/boundary_table.png)
-
-Now we have derived the six test cases that we can use to test the boundaries:
-
-* T1={x=5, y=24}, output=pizza
-* T2={x=4, y=13}, output=pasta
-* T3={x=20, y=-75}, output=pasta
-* T4={x=19, y=48}, output=pizza
-* T5={x=15, y=89}, output=pizza
-* T6={x=8, y=90}, output=pasta
-
-```java
-@Test
-void boundary_x1() {
-  assertEquals("pizza", pp.pizzaOrPasta(5, 24));
-  assertEquals("pasta", pp.pizzaOrPasta(4, 13));
-}
-
-@Test
-void boundary_x2() {
-  assertEquals("pasta", pp.pizzaOrPasta(20, -75));
-  assertEquals("pizza", pp.pizzaOrPasta(19, 48));
-}
-
-@Test
-void boundary_y() {
-  assertEquals("pizza", pp.pizzaOrPasta(15, 89));
-  assertEquals("pasta", pp.pizzaOrPasta(8, 90));
-}
-```
-
-{% set video_id = "rPcMJg62wM4" %}
-{% include "/includes/youtube.md" %}
-
-
-## Boundaries that are not so explicit
+## Revisiting the "chocolate bars" problem
 
 Let's revisit the example from the a previous chapter. There, we had a program
 where the goal was to return the number of bars needed in order to build some boxes of chocolates:
@@ -387,10 +263,13 @@ Let us focus on the bug caused by the `(2,3,17)` input:
 * `(1,3,17)` should return *not possible* (1 small bar is not enough). This test case belongs to the **not enough bars** partition.
 * `(2,3,17)` should return 2. This test case belongs to **need for small + big bars** partition.
 
-There is a boundary between `(1,3,17)` and `(2,3,17)`. We should make sure the software still behaves correctly in these cases.
+The `(1,3,17)` and `(2,3,17)` inputs exercise precisely the boundary between the **not enough bars** and the **need for small + big bars** partitions. 
 
-Looking at the **only big bars** partition, we should find inputs that transition from this
-partition to another one:
+Let us know explore the boundaries between other partitions. The figure below shows which boundaries can happen (and that we should test):
+
+![Boundaries in the chocolate bars problem](img/boundary-testing/chocolate-boundaries.png)
+
+Looking at the **only big bars** partition, we should find inputs that transition from this partition to another one:
 
 * `(10, 1, 10)` returns 5. This input belongs to the **need small + big bars** partition.
 * `(10, 2, 10)` returns 0. This input belongs to the **need only big bars** partition.
@@ -400,7 +279,7 @@ Finally, with the **only small bars** partition:
 * `(3, 2, 3)` returns 3. We need only small bars here, and therefore, this input belongs to the **only small bars** partition.
 * `(2, 2, 3)` returns -1. We can't make the boxes. This input belongs to the **Not enough bars** partition.
 
-A partition might make boundaries with more than just one single another partitions. 
+A partition might have boundaries with more than just a single other partition. 
 The **only small bars** partition has boundaries not only with the **not enough bars** partition (as we saw above), but also with the **only big bars** partition:
 
 * `(4, 2, 4)` returns 4. We need only small bars here, and therefore, this input belongs to the **only small bars** partition.
@@ -439,7 +318,7 @@ no parameters). For example, a test method `t1(int a, int b)` receives two param
 `int a` and `int b`. The developer uses these two variables in the body of the test
 method, often in places where the developer would have a hard-coded value.
 
-The next step is to feed JUnit with a list of inputs which it will pass
+The next step is to feed JUnit with a list of inputs which will be passed
 to the test method.
 In general, these values are provided by a `Source`.
 Here, we will make use of a `CsvSource`.
@@ -448,42 +327,73 @@ To execute multiple tests with the same test method,
 the `CsvSource` expects list of strings, where each string represents 
 the input and output values for one test case.
 The `CsvSource` is an annotation itself, so in an implementation 
-it would like like the following: `@CsvSource({"value11, value12", "value21, value22", "value31, value32", ...})`
+it would look like the following: `@CsvSource({"value11, value12", "value21, value22", "value31, value32", ...})`
 
-
-Let us implement the boundary test cases that we derived in the _Pizza or Pasta_ example, using a parameterised test.
-
-
-To automate the tests we create a test method with three parameters: `x`, `y`, `expectedResult`.
-`x` and `y` are integers.
-The `expectedResult` is a String, containing the expected output, _pasta_ or _pizza_.
 
 ```java
-@ParameterizedTest
-@CsvSource({
-    "5, 24, pizza",
-    "4, 13, pasta",
-    "20, -75, pasta",
-    "19, 48, pizza",
-    "15, 89, pizza",
-    "8, 90, pasta"
-})
-void boundary(int x, int y, String expectedResult) {
-  assertEquals(expectedResult, pp.pizzaOrPasta(x, y));
+@ParameterizedTest(name = "small={0}, big={1}, total={2}, result={3}")
+    @CsvSource({
+      // The total is higher than the amount of small and big bars.
+      "1,1,5,0", "1,1,6,1", "1,1,7,-1", "1,1,8,-1",
+      // No need for small bars.
+      "4,0,10,-1", "4,1,10,-1", "5,2,10,0", "5,3,10,0",
+      // Need for big and small bars.
+      "0,3,17,-1", "1,3,17,-1", "2,3,17,2", "3,3,17,2",
+      "0,3,12,-1", "1,3,12,-1", "2,3,12,2", "3,3,12,2",
+      // Only small bars.
+      "4,2,3,3", "3,2,3,3", "2,2,3,-1", "1,2,3,-1"
+    })
+    void boundaries(int small, int big, int total, int expectedResult) {
+        int result = new ChocolateBars().calculate(small, big, total);
+        Assertions.assertEquals(expectedResult, result);
+    }
+```
+
+Some developers prefer not to pass a list of CSV/strings. For those, JUnit provides a `@MethodSource` option, which allows developers to provide the input for the parameterized test through a method. The developer simply needs to define a method that returns a `Stream<Arguments>` (and set the name of this method in the `@MethodSource` annotation). See the implementation below:
+
+```java
+public class ChocolateBarsTest {
+
+    @ParameterizedTest(name = "small={0}, big={1}, total={2}, result={3}")
+    @MethodSource("generator")
+    void boundaries(int small, int big, int total, int expectedResult) {
+        int result = new ChocolateBars().calculate(small, big, total);
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    private static Stream<Arguments> generator() {
+      return Stream.of(
+        // The total is higher than the amount of small and big bars.
+        Arguments.of(1,1,5,0),
+        Arguments.of(1,1,6,1),
+        Arguments.of(1,1,7,-1),
+        Arguments.of(1,1,8,-1),
+        // No need for small bars.
+        Arguments.of(4,0,10,-1),
+        Arguments.of(4,1,10,-1),
+        Arguments.of(5,2,10,0),
+        Arguments.of(5,3,10,0),
+        // Need for big and small bars.
+        Arguments.of(0,3,17,-1),
+        Arguments.of(1,3,17,-1),
+        Arguments.of(2,3,17,2),
+        Arguments.of(3,3,17,2),
+        Arguments.of(0,3,12,-1),
+        Arguments.of(1,3,12,-1),
+        Arguments.of(2,3,12,2),
+        Arguments.of(3,3,12,2),
+        // Only small bars.
+        Arguments.of(4,2,3,3),
+        Arguments.of(3,2,3,3),
+        Arguments.of(2,2,3,-1),
+        Arguments.of(1,2,3,-1)
+      );
+
+    }
 }
 ```
 
-The behaviour
-of this single test method is the same as the six test methods we declared before. However, this time we achieve the same result with a much smaller amount of code.
-
-JUnit will run the `boundary` test six times: one for each line in the `@CsvSource`. 
-In your IDE, you might even see JUnit showing each of the test cases being executed:
-
-![Parameterised tests in JUnit](img/boundary-testing/junit.png)
-
-
-JUnit's Parameterised tests have more functionalities and ways of providing input data.
-We point the reader to JUnit's manual.
+You can see all these implementation in our GitHub repository: https://github.com/sttp-book/code-examples/tree/master/src/test/java/tudelft/chocolate. 
 
 
 {% set video_id = "fFksNXJJfiE" %}
@@ -537,9 +447,21 @@ Authors call it the **CORRECT** way, as each letter represents one boundary cond
 {% include "/includes/youtube.md" %}
 
 
-{% set video_id = "PRVqsJ5fT2I" %}
-{% include "/includes/youtube.md" %}
+## Equivalent classes and boundary analysis altogether
 
+We discussed _equivalent class analysis_ and _boundary testing_. In practice, testers combine both, in what they call _domain testing_.
+
+We suggest the following strategy when applying domain testing, highly influenced by how Kaner et al. do:
+
+1. We read the requirement
+2. We identify the input and output variables in play, together with their types, and their ranges.
+3. We identify the dependencies (or independence) among input variables, and how input variables influence the output variable.
+4. We perform equivalent class analysis (valid and invalid classes).
+5. We explore the boundaries of these classes.
+6. We think of a strategy to derive test cases, focusing on minimizing the costs while maximizing fault detection capability.
+7. We generate a set of test cases that should be executed against the system under test.
+
+See a series of [domain testing examples](/chapters/testing-techniques/domain-testing.html) in our appendix.
 
 
 ## Exercises
@@ -576,7 +498,7 @@ You can give the points in terms of the variables used in the method.
 
 
 **Exercise 2.**
-Perform boundary analysis on the following decision: `n % 3 == 0 && n % 5 == 0`.
+Perform boundary analysis on the following equality: `x == 10`.
 What are the on- and off-points?
 
 
@@ -589,16 +511,6 @@ Also give an example for both an in-point and an out-point.
 
 
 **Exercise 4.**
-We extend the game with a more complicated condition: `(numberOfPoints <= 570 && numberOfLives > 10) || energyLevel == 5`.
-
-Perform boundary analysis on this condition.
-What is the resulting domain matrix?
-
-
-
-
-
-**Exercise 5.**
 Regarding **boundary analysis of inequalities** (e.g., `a < 10`), which of the following statements **is true**?
 
 1. There can only be a single on-point which always makes the condition true.
@@ -607,16 +519,13 @@ Regarding **boundary analysis of inequalities** (e.g., `a < 10`), which of the f
 4. There can be multiple off-points for a given condition which always make the condition false.
 
 
-
-
-
-
-
-**Exercise 6.**
+**Exercise 5.**
 A game has the following condition: `numberOfPoints > 1024`. Perform a boundary analysis.
 
 
-
+**Exercise 6.**
+Perform boundary analysis on the following decision: `n % 3 == 0 && n % 5 == 0`.
+What are the on- and off-points?
 
 
 **Exercise 7.**
@@ -628,6 +537,19 @@ Which one of the following statements about the **CORRECT** principles is **true
 1. We always test the behaviour of our program when any expected data does not exist (EXISTENCE).
 
 
+**Exercise 8.**
+We have a program called <ins>IsCat</ins>.
+It works as follows:
+> Given an list of prerequisites, it returns either the string "Cat" or the string "Doge".
+> If the number of legs is an even number, it has a tail, the number of lives left is between [0, 9], it has sharp nails and the sounds it produces is "miauw", it is a cat.
+> In any other case, it is a doge.
+
+First, do boundary analysis on the inputs.
+Think of on and off points for each of the conditions (while picking in points for the others).
+Next, appply the category/partition method.
+What are the minimal and most suitable partitions?
+
+
 
 ## References
 
@@ -635,7 +557,6 @@ Which one of the following statements about the **CORRECT** principles is **true
 
 * Chapter 7 of Pragmatic Unit Testing in Java 8 with Junit. Langr, Hunt, and Thomas. Pragmatic Programmers, 2015.
 
+* * Kaner, Cem, Sowmya Padmanabhan, and Douglas Hoffman. The Domain Testing Workbook. Context Driven Press, 2013.
 
-
-
-
+* * Kaner, Cem. What Is a Good Test Case?, 2003. URL: http://testingeducation.org/BBST/testdesign/Kaner_GoodTestCase.pdf
