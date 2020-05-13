@@ -589,13 +589,13 @@ Which of the following statements are **true** about this class?
 **Exercise 4.**
 Class A depends on a static method in another class B. If you want to test class A, which of the following two action(s) should you apply to do this properly?
 
-1. Mock class B to control the u of the methods in class B.
-2. Refactor class A, so the outcome of the method of class B is now used as an parameter.
+* Mock class B to control the behavior of the methods in class B.
+* Refactor class A, so the outcome of the method of class B is now used as an parameter.
 
 1. Only approach 1.
 2. Neither.
 3. Only approach 2.
-1. Both.
+4. Both.
 
 **Exercise 5.**
 Referring to the previous chapter, apply boundary testing techniques to the `InvoiceFilter` example discussed in this chapter.
