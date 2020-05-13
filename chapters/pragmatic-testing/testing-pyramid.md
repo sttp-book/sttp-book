@@ -230,7 +230,7 @@ and then decide which test levels to use, how much, and when. There is no silver
 
 ## The testing pyramid at Google
 
-In "Software Engineeging at Google", authors mention that Google often opts for unit tests, as they tend to be cheaper to be developed, and execute faster. Similarly to the testing pyramid, integration and system tests also happen, although in less scale. According to the authors, around 80% of their tests are unit tests.
+In "Software Engineering at Google", authors mention that Google often opts for unit tests, as they tend to be cheaper to be developed, and execute faster. Similarly to the testing pyramid, integration and system tests also happen, although in less scale. According to the authors, around 80% of their tests are unit tests.
 
 Google has also an interesting definition of "test sizes", that engineers also take into consideration when designing test cases:
 
