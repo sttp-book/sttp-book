@@ -674,13 +674,13 @@ Which of the following statements is **false** about this class?
 Class A depends on a static method in another class B.
 Suppose you want to test class A, which approach(es) can you take to be able to test properly?
 
-1. Mock class B to control the u of the methods in class B.
-2. Refactor class A, so the outcome of the method of class B is now used as an parameter.
+* Mock class B to control the behavior of the methods in class B.
+* Refactor class A, so the outcome of the method of class B is now used as an parameter.
 
 1. Only approach 1.
 2. Neither.
 3. Only approach 2.
-1. Both.
+4. Both.
 
 **Exercise 5.**
 We should not forget what we saw in the previous chapter. Apply boundary testing techniques for the
