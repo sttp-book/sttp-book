@@ -477,7 +477,7 @@ The authors summarized their best practices for _interaction testing_ as:
 
 * *Be explicit about things that should not happen*. Writing tests for interactions that should not happen makes intentions clearer.
 
-* *Specify as little as possible in the test*. Over specified tests tend to be more brittle. Focus on the interactions that really matter.
+* *Specify as little as possible in the test*. Overspecified tests tend to be more brittle. Focus on the interactions that really matter.
 
 * *Don't use mocks to test boundary objects*. Objects that have no relationships to other objects do not need to be mocked. In practice, these objects tend to "only" store data or represent atomic values.
 
@@ -510,7 +510,7 @@ The "Software Engineering at Google" book has an entire chapter dedicated to tes
 * Excessive mocking can be dangerous, as tests become unclear (i.e., hard to comprehend), brittle (i.e., might break too often), and less effective (i.e., reduced fault capability detection).
 * When mocking, prefer _state testing_ rather than _interaction testing_. In other words, make sure you are asserting a change of state and/or the consequence of the action under test, rather than the precise interaction that the action has with the mocked object. After all, interaction testing tends to be too coupled with the implementation of the system under test.
 * Use _interaction testing_ when state testing is not possible, or when a bad interaction might have an impact in the system (e.g., calling the same method twice would make the system twice as slow).
-* Avoid over specified interaction tests. Focus on the relevant arguments and functions.
+* Avoid overspecified interaction tests. Focus on the relevant arguments and functions.
 * Good _interaction testing_ requires strict guidelines when designing the system under test. Google engineers tend not to do it.
 
 ## Exercises
