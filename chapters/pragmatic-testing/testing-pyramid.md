@@ -71,7 +71,7 @@ In other words, system tests are a better simulation of how the final user inter
 System testing does, however, have its downsides.
 
 * **System tests are often slow when compared to unit tests**.
-Although we have not written any system test up until now, try to imagine what all a system test has to do, including starting and running the whole system with all its components. The test also has to interact with the real application and actions might take a few seconds to happen.
+Although we have not written any system tests up until now, try to imagine what all a system test has to do, including starting and running the whole system with all its components. The test also has to interact with the real application and actions might take a few seconds to happen.
 Imagine a test that starts a container with a web application and another container with a database. It then submits an HTTP request to a webservice that is exposed by this web app. This webservice
 then retrieves data from the database and writes a JSON response to the test.
 This obviously takes more time than running a simple unit test, which has virtually no dependencies.
@@ -81,7 +81,7 @@ Some of the components (e.g., databases) might require complex setup before they
 test case. This takes additional code that is needed just for automating the tests.
 
 * Lastly, **system tests tend to become flaky**.
-A flaky test is a test that presents an erratic behaviour: if you run it, it might pass or it might fail for the same configuration. Flaky tests are an important problem for software development teams. After all, having a test that might pass when there is a bug or one that might fail when there is none harms the productivity of the development team.
+A flaky test is a test that presents an erratic behaviour: if you run it, it might pass or it might fail for the same configuration. Flaky tests are an important problem for software development teams. After all, having a test that might pass when there is a bug or one that might fail when there are none harms the productivity of the development team.
 It is easy to imagine how a system test can become flaky. Think of a system test that exercises a web app. After clicking a button, the HTTP POST request to the web app took half a second more than usual (due to small variations we often do not control in real-life scenarios; Tomcat decided to do a full garbage collection at that very second, for example). The test was not expecting it to happen and thus, it failed. If the test is executed again, the web app might now take its usual time to respond and the test will pass on this try. There are just too many uncertainties in a system test that
 can lead to unexpected behaviour.
 
@@ -166,17 +166,17 @@ As we climb up the levels on the diagram, we see that the next level is integrat
 Given the extra effort that integration tests require,
 testers should make sure to write tests only for the integrations they really need.
 
-The diagram continues, showing that testers should then favour system tests less than integration tests and even less manual tests.
+The diagram continues, showing that testers should then favour system tests less than integration tests and have even fewer manual tests.
 
 It is clear that this diagram focuses on **costs**. Unit tests are cheaper than system tests (and manual tests), and therefore they should be preferred.
 
-The next question is: **how do I decide whether a component should be tested at the unit- or system-level?**. Practitioners have devised guidelines, which we present below, but it should be noted that this is not a universal rule as every software system is different from other systems, and might require specific guidelines.
+The next question is: **how do I decide whether a component should be tested at the unit- or system-level?** Practitioners have devised guidelines, which we present below, but it should be noted that this is not a universal rule as every software system is different from other systems, and might require specific guidelines.
 
 #### When to write unit tests?
 
 > When the component is about an algorithm or a single piece of business logic of the software system.
 
-If we think of enterprise/business systems, most of them are about "transforming data". Such business logics is often expressed by means of entity classes (e.g., an _Invoice_ class and a _Order_ class) exchanging messages.
+If we think of enterprise/business systems, most of them are about "transforming data". Such business logics is often expressed by means of entity classes (e.g., an _Invoice_ class and an _Order_ class) exchanging messages.
 Business logic often does not depend on external services and so it can easily be tested and fully exercised by means of unit tests. Unit tests give testers full control in terms of the input data, as well as full observability in terms of asserting that the behaviour was as expected.
 
 If you have a piece of code that deals with specific business logic but you are not able to test it via unit tests (e.g., it is only possible to exercise that business logic with the full system running), it is probably because of previous design or architectural decisions that prevent you from writing unit tests.
@@ -188,7 +188,7 @@ The way you design your classes has a high impact on how easy it is to write uni
 
 Following our example in the integration testing section, a Data Access Object class is better tested at the integration level.
 
-Again, note that integration tests are more expensive and harder to set up than a unit test. Therefore making sure that the component that performs the integration is _solely_ responsible for that integration and nothing else (i.e., no business rules together with integration code), will reduce the cost of the testing.
+Again, note that integration tests are more expensive and harder to set up than a unit test. Therefore, making sure that the component that performs the integration is _solely_ responsible for that integration and nothing else (i.e., no business rules together with integration code), will reduce the cost of the testing.
 
 #### When to write system tests?
 
@@ -230,11 +230,11 @@ and then decide which test levels to use, how much, and when. There is no silver
 
 ## The testing pyramid at Google
 
-In "Software Engineering at Google", authors mention that Google often opts for unit tests, as they tend to be cheaper to be developed, and execute faster. Similarly to the testing pyramid, integration and system tests also happen, although to a lesser extent. According to the authors, around 80% of their tests are unit tests.
+In "Software Engineering at Google", authors mention that Google often opts for unit tests, as they tend to be cheaper to be developed, and execute faster. Similarly, to the testing pyramid, integration and system tests also happen, although to a lesser extent. According to the authors, around 80% of their tests are unit tests.
 
 Google has also an interesting definition of "test sizes", which engineers also take into consideration when designing test cases:
 
-* A "small test" is a test that can be executed in a single process. In other words, imagine that a tester wants to test a method in a class. This method makes no use of external components and/or threads and parallelism. This is a "small test". Their advantages is that such tests do not have access to main sources of test slowness or determinism; in other words, they are fast and not flaky.
+* A "small test" is a test that can be executed in a single process. In other words, imagine that a tester wants to test a method in a class. This method makes no use of external components and/or threads and parallelism. This is a "small test". Their advantages are that such tests do not have access to main sources of test slowness or determinism; in other words, they are fast and not flaky.
 
 * A "medium test" can span multiple processes, use threads, and can make external calls (like network calls) to localhost. Integration tests to databases, as we discussed before, could be classified as a medium test, if the database also runs in the same machine as the tests. Clearly, medium tests tend to be somewhat slower and more flaky than small tests.
 
