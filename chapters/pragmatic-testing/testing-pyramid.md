@@ -170,7 +170,7 @@ The diagram continues, showing that testers should then favour system tests less
 
 It is clear that this diagram focuses on **costs**. Unit tests are cheaper than system tests (and manual tests), and therefore they should be preferred.
 
-The next question is: **how do I decide whether a component should be tested at the unit- or system-level?**. Practitioners have devised guidelines, which we present below but it should be noted that this is not a universal rule as every software system is different to other systems, and might require specific guidelines.
+The next question is: **how do I decide whether a component should be tested at the unit- or system-level?**. Practitioners have devised guidelines, which we present below, but it should be noted that this is not a universal rule as every software system is different from other systems, and might require specific guidelines.
 
 #### When to write unit tests?
 
@@ -230,9 +230,9 @@ and then decide which test levels to use, how much, and when. There is no silver
 
 ## The testing pyramid at Google
 
-In "Software Engineering at Google", authors mention that Google often opts for unit tests, as they tend to be cheaper to be developed, and execute faster. Similarly to the testing pyramid, integration and system tests also happen, although in less scale. According to the authors, around 80% of their tests are unit tests.
+In "Software Engineering at Google", authors mention that Google often opts for unit tests, as they tend to be cheaper to be developed, and execute faster. Similarly to the testing pyramid, integration and system tests also happen, although to a lesser extent. According to the authors, around 80% of their tests are unit tests.
 
-Google has also an interesting definition of "test sizes", that engineers also take into consideration when designing test cases:
+Google has also an interesting definition of "test sizes", which engineers also take into consideration when designing test cases:
 
 * A "small test" is a test that can be executed in a single process. In other words, imagine that a tester wants to test a method in a class. This method makes no use of external components and/or threads and parallelism. This is a "small test". Their advantages is that such tests do not have access to main sources of test slowness or determinism; in other words, they are fast and not flaky.
 
@@ -328,7 +328,7 @@ As testers, we know that a bug can be anywhere, including in the SQL queries the
 
 
 **Exercise 6.**
-Choosing the level of a test is a matter of a trade-off. After all, each 
+Choosing the level of a test involves a trade-off. After all, each 
 test level has advantages and disadvantages.
 Which one of the following is the **main advantage** of a test at system level?
 

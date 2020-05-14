@@ -409,7 +409,7 @@ One might ask: _Won't that increase the overall complexity of my system? After a
 
 ## When to mock/stub?
 
-Mocks and stubs are a useful tool when it comes to ease the process of writing unit tests. However, as expected *mocking too much* might also be problem. We do not want to mock a dependency that should not be mocked. Imagine you are testing class A, which depends on a class B. Should we mock/stub B?
+Mocks and stubs are a useful tool when it comes to simplifying the process of writing unit tests. However, as expected *mocking too much* might also be problem. We do not want to mock a dependency that should not be mocked. Imagine you are testing class A, which depends on a class B. Should we mock/stub B?
 
 Pragmatically, developers often mock/stub the following types of dependencies:
 
@@ -469,7 +469,7 @@ In their seminal work _Mock Roles, Not Objects_, Freeman et al. show how Mock Ob
 
 This thinking of objects in terms of input and outputs was inspired by the "Roles, Responsibilities, and Collaborators" technique, best described by Wirfs-Brock and McKean. It has a history going back to the programming language Smalltalk, which used a biological metaphor of communicating cells (Ingalls).
 
-Interaction testing is most effective when combined with TDD. While writing a test, the programmer has to define what the object needs from its environment. For a new feature, this might require a new collaborating object, which introduces a new dependency. The type of this new dependency is defined in terms of what the target object needs, its caller not its implementation; in Java, this is usually an interface. Following this process, with regular refactorings, a programmer can grow a codebase written in the terminology of the domain. The result is a set of pluggable objects, with clear dependencies, that combined to build a system.
+Interaction testing is most effective when combined with TDD. While writing a test, the programmer has to define what the object needs from its environment. For a new feature, this might require a new collaborating object, which introduces a new dependency. The type of this new dependency is defined in terms of what the target object needs - its caller, not its implementation; in Java, this is usually an interface. Following this process, with regular refactorings, a programmer can grow a codebase written in the terminology of the domain. The result is a set of pluggable objects, with clear dependencies, that are combined to build a system.
 
 The authors summarized their best practices for _interaction testing_ as:
 
@@ -491,7 +491,7 @@ The authors also discuss some common misconception when using mocks:
 
 * *Mocks are just stubs*. Mock objects indeed act as stubs. However, their main goal (or, what makes it different from "just" stubs) is to assert the interaction of the target object with its neighbours.
 
-* *Mocks should not be used only to the boundaries of the system*. Some developers might argue that only classes that are at the boundaries of the system should be mocked (e.g., classes that talk to external systems). Mocks might be even more helpful when used _within_ the system, as the it can also drive developers to better class design.
+* *Mocks should not be used only to the boundaries of the system*. Some developers might argue that only classes that are at the boundaries of the system should be mocked (e.g., classes that talk to external systems). Mocks might be even more helpful when used _within_ the system, as this can also drive developers to better class design.
 
 * *Gather state during the test and assert against it afterwards*. Making assertions only at the end of the test makes failing tests less easy to be understood. Favour immediate failures.
 

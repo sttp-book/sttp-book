@@ -1012,7 +1012,7 @@ We can use dependency injection to make sure we can control the `today` object b
 **Exercise 3**
 
 
-The correct answer is 2, 3, and 4
+Most important are 1 and 3.
 
 As we discussed it is very important to keep the domain and infrastructure separated for the testability.
 This can be done, for example, by using Ports and Adapters.
