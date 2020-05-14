@@ -21,7 +21,7 @@ With self-testing, we "move" part of the test suite into the system itself.
 These assertions we insert into production code allows the system to check if it is running correctly by itself.
 We do not have to run the test suite, but instead the system can check (part of) its behaviour during its normal execution.
 Like with the test suite, if anything is not acting as expected, an error will be thrown.
-In software testing, the self-tests are used as an additional check in the system additional to the test suite.
+In software testing, the self-tests are used as an additional check in the system complementary to the test suite.
 
 ### Assertions
 
@@ -38,13 +38,13 @@ In Java, to make an assertion we use the `assert` keyword:
 assert <condition> : "<message>";
 ```
 
-The `assert` keywords checks if the `<condition>` is true.
+The `assert` keyword checks if the `<condition>` is true.
 If it is, nothing happens.
 The program just continues its execution as everything is according to plan.
 However, if the `<condition>` yields false, the `assert` throws an `AssertionError`.
 
 Let us walk through an example.
-Suppose an implementation of a Stack, which we just show the `pop` method:
+Take the implementation of a Stack, of which we just show the `pop` method:
 
 ```java
 public class MyStack {
@@ -76,7 +76,7 @@ If the asserts are disabled, they will never throw an `AssertionError` even if t
 Java's default configuration is to disable the assertions.
 
 
-To enable the asserts we have to run Java with a special argument in one of these two ways: `java -enableassertions` or `java -ea`.
+To enable the asserts, we have to run Java with a special argument in one of these two ways: `java -enableassertions` or `java -ea`.
 When using Maven or IntelliJ, the assertions are enabled automatically when running tests.
 With Eclipse or Gradle, we have to enable it ourselves.
 
@@ -93,7 +93,7 @@ So far, we only used "value comparison" as oracle. Given an input that
 we devised, we knew what output to expect. For example, in a program that
 returns the square root of a number, given `n=4`, the value we expect as output
 is `2`.
-Instead of focusing on a specific instances, like we did so far, property checks, like the ones we are going to see in the remaining of this chapter, are more general rules (properties) that we assert on our code. For example, a program that, given $$n$$, returns $$n^2$$, has a property that it should never return a negative number.
+Instead of focusing on a specific instance, like we did so far, property checks, like the ones we are going to see in the remainder of this chapter, are more general rules (properties) that we assert on our code. For example, a program that, given $$n$$, returns $$n^2$$, has a property that it should never return a negative number.
 
 Assertions also serve as an extra safety measure.
 If it is crucial that a system runs correctly, we can use the asserts to add some additional testing during the system's execution.
@@ -178,8 +178,8 @@ The number of assumptions made before a method can be executed (and, with that, 
 
 One might want to *weaken the pre-conditions*, so that the method accepts/is able to handle more situations.
 To that aim, we can remove a pre-condition as the method itself can handle the situation where the pre-condition would be false.
-This makes the method more generally applicable, but is also increases its complexity.
-The method always has to check some extra things to handle the cases that could had been pre-conditions.
+This makes the method more generally applicable, but also increases its complexity.
+The method always has to check some extra things to handle the cases that could have been pre-conditions.
 Finding the balance between the number of pre-conditions and complexity of the method is part of designing the system.
 
 
@@ -226,7 +226,7 @@ public class FavoriteBooks {
 }
 ```
 
-Note that, although we increased the complexity of method by removing some of its pre-conditions and dealing with these cases in the implementation, the method is now also easier to be called by clients. After all, the method has less pre-conditions to be considered.
+Note that, although we increased the complexity of the method by removing some of its pre-conditions and dealing with these cases in the implementation, the method is now also easier to be called by clients. After all, the method has less pre-conditions to be considered.
 
 
 
@@ -261,14 +261,14 @@ public class FavoriteBooks {
 ```
 
 The other effect of the method is the notification that is sent.
-Unfortunately, we cannot easily formalise it as a post-condition.
+Unfortunately, we cannot easily formalise this as a post-condition.
 In a test suite, we would probably mock the `pushNotification` and then use `Mockito.verify` to verify that `booksAdded` was called.
 
 
 It is important to realise that these post-conditions only have to hold if the pre-conditions held when the method was called. **In other words, if the method's pre-conditions were not fully satisfied, the method might not guarantee its post-conditions.**
 
 You also saw in the example that we could not really write assertions for
-some of post-conditions of the method. 
+some of the post-conditions of the method. 
 Post-conditions (and pre-conditions for that matter) might not cover all the possible effects; however,
 hopefully they do cover a relevant subset of the possible behaviour.
 
@@ -382,17 +382,17 @@ Moreover, methods can assume that, when they start, the class invariant holds.
 A private method invoked by a public method can leave the object with the class invariant being false.
 However, the public method that invoked the private method should then fix this and end with the class invariant again being true.
 
-This is all formalised by Bertrand Meyer as: _"The class variant indicates that a proposition P can be a class invariant if it holds after construction, and before and after any call to a public method assuming that the public methods are called with their pre-conditions being true."_
+This is all formalised by Bertrand Meyer as: _"The class invariant indicates that a proposition P can be a class invariant if it holds after construction, and before and after any call to a public method assuming that the public methods are called with their pre-conditions being true."_
 
 
-To implement simple class invariant in Java, we can use the Boolean method that checks if the representation is okay.
+To implement a simple class invariant in Java, we can use the Boolean method that checks if the representation is okay.
 We usually call this method `invariant`.
 We then assert the return value of this method after the constructor, and before and after each public method.
 In these public methods, the only pre-conditions and post-conditions that have to hold additionally are the ones that are not in the invariant.
 
 Let us return to the `FavoriteBooks` with the `merge` method.
 We had a pre-condition saying that `favorites != null`.
-Given that this should always be true, we can turn it into a class variant.
+Given that this should always be true, we can turn it into a class invariant.
 Additionally, we can add the condition that `pushNotification != null`.
 
 ```java
@@ -527,7 +527,7 @@ The ArrayList and LinkedList will behave the same for the methods defined in Lis
 Therefore, there will be duplicate tests for these methods.
 
 
-To avoid this code duplication we can create a test suite just for the super class.
+To avoid this code duplication, we can create a test suite just for the super class.
 This test suite tests just the public methods of the super class.
 The tests in this test suite should then be executed for each 
 of the sub-classes of the super class.
@@ -612,7 +612,7 @@ See the code below:
 ```java
 public Square squareAt(int x, int y) {
   assert x >= 0;
-  assert x < board.getWidth();
+  assert x < board.length;
   assert y >= 0;
   assert y < board[x].length;
   assert board != null;
@@ -699,7 +699,7 @@ Inspired by Bertrand Meyer's design by contracts, he also uses asserts to make s
 A second colleague comes in and expresses concerns about the design.
 How can you use the assertions provided to discuss the correctness of this design?
 
-Is the second colleagues concern justified?
+Is the second colleague's concern justified?
 What principle is violated, if any?
 Explain with the assertions shown in the code.
 

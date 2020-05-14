@@ -523,7 +523,6 @@ public boolean add(E e) {
 ```
 
 
-
 ## References
 
 * Graham, D., Van Veenendaal, E., & Evans, I. (2008). Foundations of software testing: ISTQB certification. Cengage Learning EMEA. Chapter 4.
