@@ -57,7 +57,7 @@ Web designers use something called **responsive web design** to make sure the ap
 This is of course also something you should test.
 
 Another factor to consider is the fact that HTML is used as the markup language for web pages.
-Even your HTML should be **designed for testability**, so that you can select elements easily (for instance by adding IDs or classes to elements), and so that you can test different parts of the user interface (UI) independently. 
+Even your HTML should be **designed for testability**, so that you can select elements, and so that you can test different parts of the user interface (UI) independently. 
 Speaking of user interfaces: **UI component testing** can be considered  a special case of unit testing: here your "unit" is one part of the Document Object Model (DOM), which you feed with certain inputs, possibly triggering some events (like "click"), after which you check whether the new DOM state is equal to what you expected. 
 Even more specifically, **snapshot testing** can help you to make sure your UI does not change unexpectedly.
 
@@ -135,7 +135,7 @@ We should also consider the `console.log()` call, which is a side effect that sh
 
 Another problem is that the initial date value is hard-coded: the code always uses the current date (by calling `new Date()`), so you cannot test what happens with cases like "February 29th, 2020".
 
-No ID or class has been defined for the `<p>` element. 
+No ID has been defined for the `<p>` element. 
 Therefore we had to jump through hoops to find the element, and thereby unnecessarily imposed restrictions on the HTML structure (the `<p>` element must now be on the same level as the button, and it must be the first element). 
 In addition, this makes us need workarounds for finding the element in our UI tests too. 
 To avoid that, we simply need to add an `id` to the element.
@@ -207,6 +207,7 @@ The third one is the refactored HTML file (`dateIncrementer2.html`) that uses ou
 
 The date handling logic can now be tested separately, as well as the UI code. The initial date can now be supplied as an argument. 
 The `<p>` element can now be found by its ID.
+We should now be ready to write some tests!
 
 {% hint style='tip' %}
 Some side notes about the code:
@@ -217,22 +218,163 @@ Some side notes about the code:
 
 {% endhint %}
 
-We should now be ready to write some tests!
 
 ### Writing the tests
-You could write some tests without using any framework still, by creating a new page and logging stuff to the console.
-Example.
-The second test fails, because the implementation of dateToString returns the date in UTC, whereas the date was created in the local time zone of the user with time 0:00:00. Fixing the dateToString method is left as an exercise for the reader.
+At this point, you should apply the testing principles you have learned so far in this book to come up with a good set of tests for the implementation above. 
+In this section, we will just show a small number of tests to get you started.
+
+Before we discuss JavaScript unit testing frameworks, let us see how far we can get with a manual implementation. This should give us some insight into how those frameworks work and allows us to think about JavaScript testing without being biased by a particular framework.
+
+We first write some tests for the functions in `dateUtils.js` by creating an HTML file, calling the functions and doing some light-weight assertions:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Date utils - Test</title>
+</head>
+
+<body>
+    <p>View the console output for test results.</p>
+
+    <script src="dateUtils.js"></script>
+    <script>
+        function assertEqual(expected, actual) {
+            if (expected != actual) {
+                console.log("Expected " + expected + " but was " + actual);
+            }
+        }
+
+        // Test 1: incrementDate should add 1 day a given date object
+        var date1 = new Date(2020, 1, 29);  // February 29th, 2020
+        incrementDate(date1);
+        // This succeeds:
+        assertEqual(new Date(2020, 2, 1).getTime(), date1.getTime());
+
+        // Test 2: dateToString should return the date in the form "yyyy-MM-dd"
+        var date2 = new Date(2020, 4, 1);   // May 1st, 2020
+        // This fails because of time zone issues 
+        // (the actual value is "2020-04-30"):
+        assertEqual("2020-05-01", dateToString(date2));
+    </script>
+</body>
+
+</html>
+```
+
+Even without using any frameworks, we could write some tests and actually found a bug in the code.
+On the console, the following message is logged: "Expected 2020-05-01 but was 2020-04-30". 
+This is because the implementation of `dateToString` returns the date in UTC, whereas the date was created in the local time zone of the user with time 0:00:00. 
+So a user who is in time zone UTC+2 and opens the application just after midnight on May 1st, will see April 30th instead.
+Now the requirements were not explicit on what was meant by the "current date", but this is probably not what was intended so it can be considered a bug.
+Fixing the `dateToString` method is left as an exercise for the reader.
+
+Next, we take a look at writing UI tests for the `DateIncrementer` class in `dateIncrementer.js`. We create another HTML file (`dateIncrementerTest.html`), manually mock the external functions and check whether `increment()` works as expected:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Date incrementer - Test</title>
+</head>
+
+<body>
+    <p>View the console output for test results.</p>
+    <p id="pDate" style="display: none">Dummy element for UI test.</p>
+
+    <script src="dateIncrementer.js"></script>
+    <script>
+        function assertEqual(expected, actual) {
+            if (expected != actual) {
+                console.log("Expected " + expected + " but was " + actual);
+            }
+        }
+
+        // Mocks
+        var incrementDateCalls = 0;
+        var dateToStringCalls = 0;
+
+        function incrementDate(date) {
+            incrementDateCalls++;
+            date.setDate(1);
+        }
+
+        function dateToString(date) {
+            dateToStringCalls++;
+            return "mock";
+        }
+
+        // Test 3: DateIncrementer
+        var date3 = new Date(2020, 2, 14);  // March 14th, 2020
+        var p = document.getElementById("pDate");
+
+        var dateIncrementer = new DateIncrementer(date3, p);
+
+        // As we are not using a mocking library,
+        // we mock console.log() by "monkey patching" it.
+        var consoleLogCalls = 0;
+        var originalConsoleLog = console.log;
+        console.log = function(msg) { consoleLogCalls++; };
+
+        // Call the 'function under test'.
+        dateIncrementer.increment();
+
+        // Restore console.log to the original function.
+        console.log = originalConsoleLog;
+
+        // 3.1: increment() should call incrementDate()
+        assertEqual(1, incrementDateCalls);
+
+        // 3.2: increment() should not mutate the original date
+        assertEqual(14, date3.getDate());
+        assertEqual(2, date3.getMonth());
+        assertEqual(2020, date3.getFullYear());
+
+        // 3.3: increment() should use dateToString and update the view
+        assertEqual(1, dateToStringCalls);
+        assertEqual("mock", p.innerText);
+
+        // 3.4: increment() should log to the console
+        assertEqual(1, consoleLogCalls);
+    </script>
+</body>
+
+</html>
+```
+
+We successfully mocked the external dependencies and were able to check whether the UI was updated properly. 
+This time, nothing is logged to the console because all tests succeed.
+
+Of course, the manual approach we followed here has obvious limitations.  We had to write the `assertEqual` function ourselves, and we would need to write similar methods for other kinds of assertions. 
+Our `assertEqual` implementation only logs to the console and does not provide any context when an assertion has failed (like the line number of the call to `assertEqual`). 
+The state of the UI is not reset after the UI tests; this becomes a problem when we create more than tests than the single one we created.
+
+You could solve all these issues by hand, but to avoid reinventing the wheel, it is wise to use an existing unit testing framework.
 
 ### Choosing a unit testing framework
-Now pick a testing framework. Abundance of choice.
-Mention testing frameworks: Jasmine, Jest, Mocha, QUnit?
+In the JavaScript world, there is an abundance of tools and frameworks to choose from. The same holds for unit testing frameworks: there are many options, and contrary to Java there is certainly no de facto standard framework. Moreover, new frameworks are developed and adopted every year.
 
-You can also use a testing framework that runs in a browser.
-You can also use a testing framework that runs outside of a browser (in Node.js). The test code can then use all modern JavaScript features.
+When working on an existing application that already has a testing framework in place, it probably makes sense to stick to that. For new projects, it is useful to make yourself up-to-date with the currently popular JavaScript testing frameworks. Articles like [An Overview of JavaScript Testing in 2020](https://medium.com/welldone-software/an-overview-of-javascript-testing-7ce7298b9870) give you a nice summary of the current state of affairs.
+
+Choosing a framework that is used by many people means that you are more likely to get support in their online community. 
+You should also consider using the testing framework that is recommended by the JavaScript library/framework you use. 
+For instance, for React applications the [recommended](https://reactjs.org/docs/testing.html#tools) testing framework is Jest. 
+Another factor to consider is continuity. 
+Is it just a one man project, or is it maintained by a large organisation? When was the latest version published?
+
+There is no single right answer, and we are not trying to give you one here. Choose a framework that seems most suited to your project, with the above considerations in mind.
+
+Just to give you an example of what the tests may look like when using such a framework, the next section demonstrates an example implementation in React with tests in Jest.
 
 
 ### Example implementation with React and Jest
+* Ran `npx create-react-app date-incrementer-react`
+
+TODO
 
 
 ### UI component testing
@@ -245,5 +387,11 @@ TODO
 TODO. Discuss in less detail.
 
 ## TODO
-* Overlap between the different testing types (unit, component/UI, integration, system). How to choose what to test?
+* Overlap between the different testing types (unit, component/UI, integration, system). How to choose what to test? (May be covered by the 'testing pyramid' already. But in practice I have seen much overlap here.)
 * The role of manual testing.
+* Unit testing when there is also a back end?
+* Something about BDD? (And the "X should do Y when Z" style.)
+* `data-testid` instead of `id` or `class`?
+* Encourage active reading of the code.
+* Something about asynchronicity.
+* Some more about transpiling etc.?
