@@ -73,26 +73,26 @@ We end up with three partitions:
 
 **Exercise 4**
 
-There are no right or wrong answers to this exercise. 
+There are no right or wrong answers to this exercise.
 It services to show that a lot of decisions that we make are based on what we know about the system (or, in this case, what we assume about the system).
 But, when context kicks in, there might be more possible invalid test cases then just the cases in the boundaries.
 
 Whatever decisions you as a tester make regarding specific invalid test cases, it is important to justify those decisions.
 For example:
-* Do we feel the need of testing negative numbers separately from positive numbers? From the specification, there's no reason to do so. 
+* Do we feel the need of testing negative numbers separately from positive numbers? From the specification, there's no reason to do so.
 If you look at the source code (supposing you have access to the source code, does it make you feel like this test is needed?
 * Do we feel the need of testing trailing zeroes? Maybe the user inputs a string which is converted later... Then, testing might be important.
-* Do we feel the need to test extreme numbers, like Integer.MAX_VALUE or even passing a long int or float there? 
-* Do we feel the need to test with a string consisting of only 1 letter, or maybe more than 2 letters? 
-If there's no input validation, unintended behaviour might be right around the corner 
+* Do we feel the need to test extreme numbers, like Integer.MAX_VALUE or even passing a long int or float there?
+* Do we feel the need to test with a string consisting of only 1 letter, or maybe more than 2 letters?
+If there's no input validation, unintended behaviour might be right around the corner
 * Do we feel the need to test lowercase letters? Maybe the program can't distinguish between lower- and uppercase letters.
 
 Examples of possible invalid partitions:
 1. [Integer.MIN_VALUE, 999]
-2. [4001, Integer.MAX_VALUE] 
+2. [4001, Integer.MAX_VALUE]
 3. [AA, B]
 4. [N, Z]
-5. [0000, 0999] 
+5. [0000, 0999]
 6. [AAA, ZZZ]
 
 
@@ -124,7 +124,7 @@ Possible actions:
 
 This focus of this exercise is for you to see that the internal state of the object should also be taken into account in the partitions (and not only the direct input variables).
 
-Input parameter e: 
+Input parameter e:
 * P1: Element not present in the set
 * P2: Element already present in the set
 * P3: NULL element.
@@ -133,7 +133,7 @@ Set is full?  (`isFull` comes from the state of the class)
 * isFull == true
 * isFull == false
 
-With the categories and partitions in hands, we can constrain the `isFull == true` and test it only once (i.e., without combining with other classes). 
+With the categories and partitions in hands, we can constrain the `isFull == true` and test it only once (i.e., without combining with other classes).
 
 We then combine them all and end up with four tests:
 
@@ -240,7 +240,7 @@ As we last step we can identify duplicate tests and remove those.
   - If `lives <= 0`, we can test this with just one combination.
   - If legs is an negative integer or 0, this is an exceptional case. Therefore it doesn't matter if the animal has sharp nails or not.
   - If legs is not an even integer, we can test this with just one combination.
-  - If `lives >= 10`, we can test this with just one combination. 
+  - If `lives >= 10`, we can test this with just one combination.
 1. Test cases: Tests can be divided in 3 categories: is a cat, not a cat, exceptional cases.
   - **Cat**
     1. 2, true, 6, true, "miauws" --> cat
@@ -257,7 +257,7 @@ As we last step we can identify duplicate tests and remove those.
     4. 4, true, 0, true, "miauws" --> not a cat or invalid depending on the context of the program.
 
 
-Note that some tests can be combined! For example: 
+Note that some tests can be combined! For example:
   - TEST-1 from not a cat is the same as TEST-3 from exceptional
   - TEST-3 from not a cat is the same as TEST-2 from exceptional
 
@@ -431,7 +431,7 @@ For the other answers we can come up with a test case: `"aXYa"`
 
 
 First the condition coverage.
-When talking about condition coverage, we first have to split the condition on line 1 (n % 3 == 0 && n % 5 == 0) 
+When talking about condition coverage, we first have to split the condition on line 1 (n % 3 == 0 && n % 5 == 0)
 into two decision blocks for the CFG. In total, we will have 8 conditions:
 
 1. Line 1: `n % 3 == 0`, true and false
@@ -444,7 +444,7 @@ T1 makes conditions 1 and 2 true and then does not cover the other conditions. T
 * condition 1 = [true: exercised, false: not exercised]
 * condition 2 = [true: exercised, false: not exercised]
 * condition 3 = [true: not exercised, false: not exercised]
-* condition 4 = [true: not exercised, false: not exercised]. 
+* condition 4 = [true: not exercised, false: not exercised].
 
 At this moment, condition coverage = 2/8.
 
@@ -544,7 +544,7 @@ From this table we can deduce sets of independence pairs for each of the paramet
 - `A`: {(1, 3), (2, 4)}
 - `B`: { (empty) }
 
-We can see that there is no independence pair for `B`. 
+We can see that there is no independence pair for `B`.
 Thus, **it is not possible to achieve MC/DC coverage for this expression**.
 
 Since there is no independence pair for `B`, this parameter has no effect on the result.
@@ -786,7 +786,7 @@ In this case we need to test each explicit decision in the decision table.
 
 `board != null`
 
-For a class invariant the assertions has to assert a class variable.
+For a class invariant the assertions have to assert a class variable.
 `board` is such a class variable, unlike the other variables that are checked by the assertions.
 The other assertions are about the parameters (preconditions) or the result (postcondition).
 
@@ -996,8 +996,8 @@ public class OrderDeliveryBatch {
   }
 }
 ```
-Which option we chose depends on the lifecycles of the various objects. If the `OrderDeliveryBatch` always applies to the same `OrderBook` and `DeliveryStartProcess`, then we would probably use the constructor, otherwise, we might use the method parameters. 
-Our choice expresses this runtime behaviour. 
+Which option we chose depends on the lifecycles of the various objects. If the `OrderDeliveryBatch` always applies to the same `OrderBook` and `DeliveryStartProcess`, then we would probably use the constructor, otherwise, we might use the method parameters.
+Our choice expresses this runtime behaviour.
 
 **Exercise 2**
 
@@ -1017,7 +1017,7 @@ The correct answer is 2, 3, and 4
 As we discussed it is very important to keep the domain and infrastructure separated for the testability.
 This can be done, for example, by using Ports and Adapters.
 
-Static methods that manipulate state are effectively Singletons and so can introduce implicit runtime dependencies that are 
+Static methods that manipulate state are effectively Singletons and so can introduce implicit runtime dependencies that are
 difficult to control and so difficult to test. They are best used for helper methods where they either return a new result, packaging up
 constructors, or return a value based on their inputs. Otherwise, look for a non-static technique, such as calling an instance methods
 on some kind of context object.
@@ -1025,9 +1025,9 @@ on some kind of context object.
 For a unit test, we're not concerned about the scale of the real data table, we need to know whether this functionality works in isolation.
 That said, if these lists are likely to be very large, we should prepare for that in our design and run some integration stress tests for scale.
 
-If you find yourself creating a lot of mocks to test a class, because it has a lot of dependencies, that usually a sign that 
+If you find yourself creating a lot of mocks to test a class, because it has a lot of dependencies, that usually a sign that
 there are missing concepts in the code that would encapsulate some of those dependencies. It's time to step back and take another
-look at the design. 
+look at the design.
 
 **Exercise 4**
 
