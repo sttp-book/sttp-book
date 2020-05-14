@@ -851,9 +851,7 @@ _To make debugging easier._
 
 ## Property-based testing
 
-See the domain testing problems implemented as property-based tests in the [code-examples repo](https://github.com/sttp-book/code-examples/tree/master/src/test/java/tudelft/pbt)
-
-1. We still need more answers here. Maybe you want to help us and open a PR?
+1. See the domain testing problems implemented as property-based tests in the [code-examples repo](https://github.com/sttp-book/code-examples/tree/master/src/test/java/tudelft/pbt)
 
 
 
