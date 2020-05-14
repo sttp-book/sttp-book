@@ -29,7 +29,7 @@ The simplest form of this self-testing is the *assertion*.
 An assertion is a Boolean expression at a specific point in a program
 which will be true unless there is a bug in the program.
 In other words,
-an assertion states that a certain condition has to be true 
+an assertion states that a certain condition has to be true
 at the time the assertion is executed.
 
 In Java, to make an assertion we use the `assert` keyword:
@@ -65,7 +65,7 @@ These conditions are also known as *pre- and post-conditions*.
 We cover these in the following section.
 
 {% hint style='tip' %}
-The assertion's message is optional, but can be very helpful 
+The assertion's message is optional, but can be very helpful
 for debugging.
 Always include a message that describes what is going wrong if the assertion is failing.
 {% endhint %}
@@ -268,7 +268,7 @@ In a test suite, we would probably mock the `pushNotification` and then use `Moc
 It is important to realise that these post-conditions only have to hold if the pre-conditions held when the method was called. **In other words, if the method's pre-conditions were not fully satisfied, the method might not guarantee its post-conditions.**
 
 You also saw in the example that we could not really write assertions for
-some of post-conditions of the method. 
+some of post-conditions of the method.
 Post-conditions (and pre-conditions for that matter) might not cover all the possible effects; however,
 hopefully they do cover a relevant subset of the possible behaviour.
 
@@ -450,7 +450,7 @@ Then we use these methods in the `invariant` method.
 
 ## Design by Contracts
 
-Suppose a client system and a server system. The client makes use of the server's API. 
+Suppose a client system and a server system. The client makes use of the server's API.
 The client and server are bound by a *contract*.
 The server does its job as long as its methods are used properly by the client.
 This relates strongly to the pre- and post-conditions that we discussed earlier.
@@ -529,7 +529,7 @@ Therefore, there will be duplicate tests for these methods.
 
 To avoid this code duplication, we can create a test suite just for the super class.
 This test suite tests just the public methods of the super class.
-The tests in this test suite should then be executed for each 
+The tests in this test suite should then be executed for each
 of the sub-classes of the super class.
 This can be done by making the test classes extend the "super test class".
 The "sub test class" will have all the common tests defined in the "super test class" and its own specific tests.
@@ -699,19 +699,19 @@ Inspired by Bertrand Meyer's design by contracts, he also uses asserts to make s
 A second colleague comes in and expresses concerns about the design.
 How can you use the assertions provided to discuss the correctness of this design?
 
-Is the second colleagues concern justified?
+Is the second colleague's concern justified?
 What principle is violated, if any?
 Explain with the assertions shown in the code.
 
 
 **Exercise 4.**
-You run your application with assertion checking enabled. 
+You run your application with assertion checking enabled.
 Unfortunately, it reports an assertion failure signalling a class invariant violation in one of the libraries your application makes use of.
 
 Assume that the contract of the library in question is correct, and that all relevant pre-conditions are encoded in assertions as well.
 
-Can you fix this problem? 
-If so, how? 
+Can you fix this problem?
+If so, how?
 If not, why?
 
 
@@ -720,7 +720,7 @@ If not, why?
 **Exercise 5.**
 HTTP requests return a status code which can have several values. As explained on [Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes):
 
-- A 4xx status code "is intended for situations in which the error seems to have been caused by the client". 
+- A 4xx status code "is intended for situations in which the error seems to have been caused by the client".
 A well known example is the 404 (Page not found) status code.
 - A 5xx status code "indicates cases in which the server is aware that it has encountered an error or is otherwise incapable of performing the request."
 A well known example is the 500 (Internal Server Error) status code.
@@ -731,9 +731,9 @@ What is the best correspondence between these status codes and pre- and post-con
 
 
 **Exercise 6.**
-A method M belongs to a class C and has a pre-condition P and a post-condition Q. 
-Now, suppose that a developer creates a class C' that extends C, and 
-creates a method M' that overrides M. 
+A method M belongs to a class C and has a pre-condition P and a post-condition Q.
+Now, suppose that a developer creates a class C' that extends C, and
+creates a method M' that overrides M.
 Which one of the following statements correctly explains the relative
 strength of the pre (P') and post-conditions (Q') of the overridden method M'?
 
