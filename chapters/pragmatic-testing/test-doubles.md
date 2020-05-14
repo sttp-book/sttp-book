@@ -491,7 +491,7 @@ The authors also discuss some common misconception when using mocks:
 
 * *Mocks are just stubs*. Mock objects indeed act as stubs. However, their main goal (or, what makes it different from "just" stubs) is to assert the interaction of the target object with its neighbours.
 
-* *Mocks should not be used only to the boundaries of the system*. Some developers might argue that only classes that are at the boundaries of the system should be mocked (e.g., classes that talk to external systems). Mocks might be even more helpful when used _within_ the system, as the it can also drive developers to better class design.
+* *Mocks should not be used only to the boundaries of the system*. Some developers might argue that only classes that are at the boundaries of the system should be mocked (e.g., classes that talk to external systems). Mocks might be even more helpful when used _within_ the system, as they can also drive developers to better class design.
 
 * *Gather state during the test and assert against it afterwards*. Making assertions only at the end of the test makes failing tests less easy to be understood. Favour immediate failures.
 
