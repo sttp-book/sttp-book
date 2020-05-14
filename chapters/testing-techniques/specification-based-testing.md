@@ -166,9 +166,9 @@ After the method returns a value, we assert that this is the expected value.
 
 So far we have derived partitions by just looking at the specification of the program.
 We basically used our experience and knowledge to derive the test cases.
-We now go over a more systematic way of deriving these partitions: the **Category-Partition** method.
+In this chapter, we will discuss a more systematic way of deriving these partitions: the **Category-Partition** method.
 
-The method gives us a systematic way of deriving test cases, based on the characteristics of the input parameters. It also brings down the number of tests to a feasible number.
+The method provides us with a systematic way of deriving test cases, based on the characteristics of the input parameters. It also reduces the number of tests to a feasible number.
 
 We now set out the steps of this method and then we illustrate the process with an example.
 
@@ -216,17 +216,17 @@ Each of the test cases corresponds to one of the partitions that we want to test
 {% set video_id = "frzRmafsPBk" %}
 {% include "/includes/youtube.md" %}
 
-Let's explore another example:
+## Walking example
 
 > **Requirement: Chocolate bars**
-> 
-> A package should store a total number of kilos of chocolate. 
-> There are small bars (1 kilo each) and big bars (5 kilos each). 
-> We should calculate the number of small bars to use, 
-> assuming we always use big bars before small bars. Return -1 if it is impossible.
 >
-> The input of the program is thus the number of small bars, the number of big bars,
-> and the total number of kilos to store.
+> A package stores a certain number of chocolate bars in kilos.
+> A package is composed of small bars (1 kilo each) and big bars (5 kilos each).
+>
+> Assume that the package is always filled with the maximum number of big bars possible, return the number of small bars required to complete the package. 
+> Return -1 if it is not possible to fill the package completely.
+>
+> The input of the program is: the number of available small bars, the number of available big bars, and the total number of kilos of the package.
 
 A possible implementation for this program is as follows:
 
@@ -251,15 +251,23 @@ public class ChocolateBars {
 In this requirement, the partitions are less clear and it is essential to understand the problem fully
 in order to derive the partitions.
 
-The classes/partitions are:
+One way to perform the analysis is to consider how the input variables affect the output variables. We observe that:
 
-* **Need only small bars**. A solution that only uses the provided small bars.
-* **Need only big bars**. A solution that only uses the provided big bars.
+* There are three input variables: _number of small bars_, _number of big bars_, _number of kilos in a package_. They are all integers and values can range from 0 to infinite.
+* Given a valid _number of kilos in a package_, the outcome is then based on the _number of big bars_ and _number of small bars_. This means we can not analyse each variable separately, but only together.
+
+We derive the following classes / partitions:
+
+* **Need only small bars**. A solution that only uses small bars (and does not use big bars).
+* **Need only big bars**. A solution that only uses the big bars (and does not use small bars).
 * **Need small + big bars**. A solution that has to use both small and big bars.
 * **Not enough bars**. A case in which it is impossible, because there are not enough bars.
-* **Not from the specs**: An exceptional case.
 
-For each of these classes, we can devise concrete test cases:
+We also derive an invalid class:
+
+* **Not from the specs**: An exceptional case (e.g., negative numbers in any of the inputs).
+
+For each of these classes, we can devise five concrete test cases:
 
 * **Need only small bars**. small = 4, big = 2, total = 3
 * **Need only big bars**. small = 5, big = 3, total = 10
@@ -303,6 +311,10 @@ public class ChocolateBarsTest {
 This example shows a case where deriving good test cases becomes more challenging due to the
 specifications being complex.
 
+{% hint style='tip' %}
+If you know some advanced features of JUnit, you might be wondering why we did not use, e.g., Parameterized Tests. We will refactor this test code in a future chapter.
+{% endhint %}
+
 {% set video_id = "T8caAUwgquQ" %}
 {% include "/includes/youtube.md" %}
 
@@ -340,13 +352,15 @@ What is an Equivalence Partition?
 We have a program called FizzBuzz.
 It does the following:
 > Given an integer `n`, return the string form of the number followed by `"!"`.
-> If the number is divisable by 3 use `"Fizz"` instead of the number,
-> and if the number is divisable by 5 use `"Buzz"` instead of the number,
-> and if the number is divisable by both 3 and 5, use `"FizzBuzz"`
+> If the number is divisible by 3 use `"Fizz"` instead of the number,
+> and if the number is divisible by 5 use `"Buzz"` instead of the number,
+> and if the number is divisible by both 3 and 5, use `"FizzBuzz"`
 
 Examples:
+* The integer 3 yields `"Fizz!"`
 * The integer 4 yields `"4!"`
-* The integer 5 yields `"Fizz!"`
+* The integer 5 yields `"Buzz!"`
+* The integer 15 yields `"FizzBuzz"`
 
 A novice tester is trying hard to devise as many tests as she can for
 the FizzBuzz method.
@@ -394,22 +408,16 @@ Letters are in the range `[C, M]`.
 
 Consider a program that receives two inputs: an integer (for the 4 numbers) and a string (for the 2 letters), and returns `true` (valid zip code) or `false` (invalid zip code).
 
-A tester comes up with the following partitions:
+The boundaries for this program appear to be straightforward:
+- Anything below 1000 -> invalid
+- [1000, 4000] -> valid
+- Anything above 4000 -> invalid
+- [A, B] -> invalid
+- [C, M] -> valid
+- [N, Z] -> invalid
 
-1. [0, 999]
-2. [1000, 4000]
-3. [2001, 3500]
-4. [3500, 3999]
-5. [4001, 9999]
-6. [A-C]
-7. [C-M]
-8. [N-Z]
-
-Note that with [a, b] all numbers between and including a and b are in the domain.
-The same goes with letters like [A-Z].
-
-Which of these partitions are valid (and good) partitions, i.e. which can actually be used as partitions?
-Name each of the valid partitions, and describe how they exercise the program.
+Based on what you as a tester *assume* about the program, which invalid cases can you come up with?
+Describe these invalid cases and how they might exercise the program based on your assumptions.
 
 **Exercise 5.**
 See a slightly modified version of the HashSet's `add()` Javadoc below.
@@ -470,7 +478,7 @@ public V put(K key, V value) {
 
 
 **Exercise 7.**
-With a `find` program that finds occurrences of a pattern in a file, the program has the following syntax:
+Consider a `find` program that finds occurrences of a pattern in a file, the program has the following syntax:
 
 ```
 find <pattern> <file>
@@ -487,6 +495,32 @@ A tester, after reading the specs and following the Category-Partition method, d
 
 However, the number of combinations is too high now. What actions could we take to reduce the number of combinations?
 
+**Exercise 8.**
+What test cases should be created when taking both the partition of the input parameters *and* the internal state of the object into account?
+
+```java
+/**
+ * Adds the specified element to this set if it 
+ * is not already present.
+ * If this set already contains the element, 
+ * the call leaves the set unchanged
+ * and returns false.
+ *
+ * If the specified element is NULL, the call leaves the
+ * set unchanged and returns false.
+ *
+ * If the set is full, 
+ * the call leaves the set unchanged and return false.
+ * Use private method `isFull` to know whether the set is already full.
+ *
+ * @param e element to be added to this set
+ * @return true if this set did not already contain 
+ *   the specified element
+ */
+public boolean add(E e) {
+    // implementation here
+}
+```
 
 
 ## References

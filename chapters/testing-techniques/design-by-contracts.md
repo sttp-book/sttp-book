@@ -8,7 +8,7 @@ property-based testing are.
 ## Self Testing
 
 A self testing system is, in principle, a system that tests itself.
-This may sound a bit weird. Let's take a step back first.
+This may sound a bit weird, so let us take a step back first.
 
 The way we tested systems so far was by creating separate classes for the tests.
 The production code and test code were completely separated.
@@ -21,7 +21,7 @@ With self-testing, we "move" part of the test suite into the system itself.
 These assertions we insert into production code allows the system to check if it is running correctly by itself.
 We do not have to run the test suite, but instead the system can check (part of) its behaviour during its normal execution.
 Like with the test suite, if anything is not acting as expected, an error will be thrown.
-In software testing, the self-tests are used as an additional check in the system additional to the test suite.
+In software testing, the self-tests are used as an additional check in the system complementary to the test suite.
 
 ### Assertions
 
@@ -38,22 +38,22 @@ In Java, to make an assertion we use the `assert` keyword:
 assert <condition> : "<message>";
 ```
 
-The `assert` keywords checks if the `<condition>` is true.
+The `assert` keyword checks if the `<condition>` is true.
 If it is, nothing happens.
 The program just continues its execution as everything is according to plan.
 However, if the `<condition>` yields false, the `assert` throws an `AssertionError`.
 
 Let us walk through an example.
-Suppose an implementation of a Stack, which we just show the `pop` method:
+Take the implementation of a Stack, of which we just show the `pop` method:
 
 ```java
 public class MyStack {
   public Element pop() {
-    assert count() > 0 : " The stack does not have any elements to pop."
+    assert count() > 0 : "The stack does not have any elements to pop";
 
     // ... actual method body ...
 
-    assert count() == oldCount - 1;
+    assert count() == oldCount - 1 : "Size of stack did not decrease by one";
   }
 }
 ```
@@ -61,7 +61,7 @@ public class MyStack {
 In this method, we check if a condition holds at the start: the stack should have at least one element.
 Then, after the actual method, we check whether the count is now one lower than before popping.
 
-These conditions are also known as *pre- and postconditions*.
+These conditions are also known as *pre- and post-conditions*.
 We cover these in the following section.
 
 {% hint style='tip' %}
@@ -76,7 +76,7 @@ If the asserts are disabled, they will never throw an `AssertionError` even if t
 Java's default configuration is to disable the assertions.
 
 
-To enable the asserts we have to run Java with a special argument in one of these two ways: `java -enableassertions` or `java -ea`.
+To enable the asserts, we have to run Java with a special argument in one of these two ways: `java -enableassertions` or `java -ea`.
 When using Maven or IntelliJ, the assertions are enabled automatically when running tests.
 With Eclipse or Gradle, we have to enable it ourselves.
 
@@ -93,12 +93,12 @@ So far, we only used "value comparison" as oracle. Given an input that
 we devised, we knew what output to expect. For example, in a program that
 returns the square root of a number, given `n=4`, the value we expect as output
 is `2`.
-Instead of focusing on a specific instances, like we did so far, property checks, like the ones we are going to see in the remaining of this chapter, are more general rules (properties) that we assert on our code. For example, a program that, given $$n$$, returns $$n^2$$, has a property that it should never return a negative number.
+Instead of focusing on a specific instance, like we did so far, property checks, like the ones we are going to see in the remainder of this chapter, are more general rules (properties) that we assert on our code. For example, a program that, given $$n$$, returns $$n^2$$, has a property that it should never return a negative number.
 
 Assertions also serve as an extra safety measure.
 If it is crucial that a system runs correctly, we can use the asserts to add some additional testing during the system's execution.
 
-We note that assertions do not replace unit tests.
+Note that assertions do not replace unit tests.
 Assertions are often of a more general nature.
 We still need the specific cases in the unit tests. A combination of
 both is what we desire.
@@ -108,21 +108,21 @@ both is what we desire.
 {% include "/includes/youtube.md" %}
 
 
-## Pre- and Postconditions
+## Pre- and Post-conditions
 
-We briefly mentioned pre- and postcondition in an example.
-Let us formalise the idea and see how to create good pre- and postconditions and their influence on the code that we are writing.
+We briefly mentioned pre- and post-condition in an example.
+Let us formalise the idea and see how to create good pre- and post-conditions and their influence on the code that we are writing.
 
 Tony Hoare pioneered reasoning about programs with assertions, proposing what is now called **Hoare Triples**.
-A Hoare Triple consists of a set of preconditions $$\{ P \}$$, a program $$A$$ and a set of postconditions $$\{ Q \}$$
+A Hoare Triple consists of a set of pre-conditions $$\{ P \}$$, a program $$A$$ and a set of post-conditions $$\{ Q \}$$
 We can express the Hoare Triple as follows: $$\{ P \}\ A\ \{ Q \}$$.
 This can be read as: if we know that $$P$$ holds, and we execute $$A$$, then, we end up in a state where $$Q$$ holds.
-If there are no preconditions, i.e., no assumptions needed for the execution of $$A$$, we can simply set $$P$$ to true.
+If there are no pre-conditions, i.e., no assumptions needed for the execution of $$A$$, we can simply set $$P$$ to true.
 
 In a Hoare Triple, the $$A$$ can be a single statement or a whole program.
-We look at $$A$$ as a method.
-Then $$P$$ and $$Q$$ are the pre- and postcondition of the method $$A$$ respectively.
-Now we can write the Hoare Triple as: $$\{ \mathit{preconditions} \}\ \mathit{method}\ \{ \mathit{postconditions} \}$$.
+We will take $$A$$ to be a method.
+As such, $$P$$ and $$Q$$ are the pre- and post-condition of the method $$A$$ respectively.
+Now we can write the Hoare Triple as: $$\{ \mathit{pre-conditions} \}\ \mathit{method}\ \{ \mathit{post-conditions} \}$$.
 
 ### Pre-conditions
 
@@ -163,10 +163,10 @@ public class FavoriteBooks {
   // ...
 
   public void merge(List<Book> books) {
-    assert books != null;
-    assert favorites != null;
-    assert !books.isEmpty();
-    assert !favorites.containsAll(books);
+    assert books != null : "The list of books is null";
+    assert favorites != null : "The favorites list is null";
+    assert !books.isEmpty() : "There are no books in the given list";
+    assert !favorites.containsAll(books) : "All books in the given list are already in favorites";
 
     favorites.addAll(books);
     pushNotification.booksAdded(books);
@@ -178,9 +178,9 @@ The number of assumptions made before a method can be executed (and, with that, 
 
 One might want to *weaken the pre-conditions*, so that the method accepts/is able to handle more situations.
 To that aim, we can remove a pre-condition as the method itself can handle the situation where the pre-condition would be false.
-This makes the method more generally applicable, but is also increases its complexity.
-The method always has to check some extra things to handle the cases that could had been pre-conditions.
-Finding the balance between the number of preconditions and complexity of the method is part of designing the system.
+This makes the method more generally applicable, but also increases its complexity.
+The method always has to check some extra things to handle the cases that could have been pre-conditions.
+Finding the balance between the number of pre-conditions and complexity of the method is part of designing the system.
 
 
 We can remove some of the pre-conditions of the `merge` method by adding some if-statements to the method.
@@ -192,9 +192,9 @@ public class FavoriteBooks {
   // ...
 
   public void merge(List<Book> books) {
-    assert books != null;
-    assert favorites != null;
-    assert !favorites.containsAll(books);
+    assert books != null : "The list of books is null";
+    assert favorites != null : "The favorites list is null";
+    assert !favorites.containsAll(books) : "All books in the given list are already in favorites";
 
     if (!books.isEmpty()) {
       favorites.addAll(books);
@@ -213,8 +213,8 @@ public class FavoriteBooks {
   // ...
 
   public void merge(List<Book> books) {
-    assert books != null;
-    assert favorites != null;
+    assert books != null : "The list of books is null";
+    assert favorites != null : "The favorites list is null";
 
     List<Book> newBooks = books.removeAll(favorites);
 
@@ -226,7 +226,7 @@ public class FavoriteBooks {
 }
 ```
 
-Note that, although we increased the complexity of method by removing some of its pre-conditions and dealing with these cases in the implementation, the method is now also easier to be called by clients. After all, the method has less pre-conditions to be called.
+Note that, although we increased the complexity of the method by removing some of its pre-conditions and dealing with these cases in the implementation, the method is now also easier to be called by clients. After all, the method has less pre-conditions to be considered.
 
 
 
@@ -237,16 +237,16 @@ In other words, the post-conditions formalise the effects that a method guarante
 
 
 The `merge` method of the previous examples does two things.
-It adds the new books to the `favorites` list.
-Let's turn this into a Boolean expression, so we can formulate this as a post-condition.
+First, it adds the new books to the `favorites` list.
+Let us turn this into a Boolean expression, so we can formulate this as a post-condition.
 
 ```java
 public class FavoriteBooks {
   // ...
 
   public void merge(List<Book> books) {
-    assert books != null;
-    assert favorites != null;
+    assert books != null : "The list of books is null";
+    assert favorites != null : "The favorites list is null";
 
     List<Book> newBooks = books.removeAll(favorites);
 
@@ -255,20 +255,20 @@ public class FavoriteBooks {
       pushNotification.booksAdded(newBooks);
     }
 
-    assert favorites.containsAll(books);
+    assert favorites.containsAll(books) : "Not all books were added to favorites";
   }
 }
 ```
 
 The other effect of the method is the notification that is sent.
-Unfortunately, we cannot easily formalise it as a post-condition.
+Unfortunately, we cannot easily formalise this as a post-condition.
 In a test suite, we would probably mock the `pushNotification` and then use `Mockito.verify` to verify that `booksAdded` was called.
 
 
-It is important to realise that these post-conditions only have to hold if the preconditions held when the method was called. **In other words, if the method's pre-conditions were not fully satisfied, the method might not guarantee its post-conditions.**
+It is important to realise that these post-conditions only have to hold if the pre-conditions held when the method was called. **In other words, if the method's pre-conditions were not fully satisfied, the method might not guarantee its post-conditions.**
 
 You also saw in the example that we could not really write assertions for
-some of post-conditions of the method. 
+some of the post-conditions of the method. 
 Post-conditions (and pre-conditions for that matter) might not cover all the possible effects; however,
 hopefully they do cover a relevant subset of the possible behaviour.
 
@@ -298,28 +298,28 @@ return ...;
 The method above has three conditions and three different return statements.
 This also gives us three post-conditions.
 In the example, if `A` and `B` are true, post-condition 1 should hold.
-If `A` is true and `B` is false, postcondition 2 should hold.
-Finally, if `A` is false, postcondition 3 should hold.
+If `A` is true but `B` is false, post-condition 2 should hold.
+Finally, if `A` is false, post-condition 3 should hold.
 
-The placing of these post-conditions now becomes quite important, so the whole method is becoming rather complex with the postconditions.
+The placing of these post-conditions now becomes quite important, so the whole method is becoming rather complex with the post-conditions.
 Refactoring the method so that it has just a single return statement
 with a general post-condition is advisable.
 Otherwise, the post-condition essentially becomes a disjunction of propositions.
 Each return statement forms a possible post-condition (proposition) and the method guarantees that one of these post-conditions is met.
 
 
-### How weak pre-conditions affect the post-conditions?
+### How do weak pre-conditions affect the post-conditions?
 
 Based on what we saw about pre- and post-conditions, we can come up with a few
 rules:
 
-* The weaker the pre-condition, the more situations a method
+* The weaker the pre-conditions, the more situations a method
 is able to handle, and the less thinking the client needs to do.
 However, with weak pre-conditions, the method will always have to do
 the checking.
 
 * The post-conditions are only guaranteed if the pre-conditions held; if not,
-the outcome can any anything. With weak pre-conditions, the method might have
+the outcome can be anything. With weak pre-conditions the method might have
 to handle different situations, leading to multiple post-conditions guarded
 by conditions over the inputs or the program state.
 
@@ -331,7 +331,7 @@ by conditions over the inputs or the program state.
 
 ## Invariants
 
-We have seen that preconditions should hold before a method's execution and postconditions should hold after a method's execution.
+We have seen that pre-conditions should hold before a method's execution and post-conditions should hold after a method's execution.
 Now we move to conditions that always have to hold, before and after a method's execution.
 These conditions are called **invariants**.
 An invariant is thus a condition that holds throughout the entire lifetime of a system, an object, or a data structure.
@@ -353,7 +353,8 @@ public void checkRep(BinaryTree tree) {
   BinaryTree right = tree.getRight();
 
   assert (left == null || left.getParent() == tree) &&
-      (right == null || right.getParent() == tree)
+      (right == null || right.getParent() == tree) :
+      "A child does not point to the correct parent";
 
   if (left != null) {
     checkRep(left);
@@ -381,17 +382,17 @@ Moreover, methods can assume that, when they start, the class invariant holds.
 A private method invoked by a public method can leave the object with the class invariant being false.
 However, the public method that invoked the private method should then fix this and end with the class invariant again being true.
 
-This is all formalised by Bertrand Meyer as: _"The class variant indicates that a proposition P can be a class invariant if it holds after construction, and before and after any call to a public method assuming that the public methods are called with their preconditions being true."_
+This is all formalised by Bertrand Meyer as: _"The class invariant indicates that a proposition P can be a class invariant if it holds after construction, and before and after any call to a public method assuming that the public methods are called with their pre-conditions being true."_
 
 
-To implement simple class invariant in Java, we can use the Boolean method that checks if the representation is okay.
+To implement a simple class invariant in Java, we can use the Boolean method that checks if the representation is okay.
 We usually call this method `invariant`.
 We then assert the return value of this method after the constructor, and before and after each public method.
 In these public methods, the only pre-conditions and post-conditions that have to hold additionally are the ones that are not in the invariant.
 
 Let us return to the `FavoriteBooks` with the `merge` method.
 We had a pre-condition saying that `favorites != null`.
-Given that this should always be true, we can turn it into a class variant.
+Given that this should always be true, we can turn it into a class invariant.
 Additionally, we can add the condition that `pushNotification != null`.
 
 ```java
@@ -405,7 +406,7 @@ public class FavoriteBooks {
 
     // ...
 
-    assert invariant();
+    assert invariant() : "Invariant does not hold";
   }
 
   protected boolean invariant() {
@@ -413,10 +414,10 @@ public class FavoriteBooks {
   }
 
   public void merge(List<Book> books) {
-    assert invariant();
+    assert invariant() : "Invariant does not hold";
 
-    // Remaining preconditions
-    assert books != null;
+    // Remaining pre-conditions
+    assert books != null : "The list of books is null";
 
     List<Book> newBooks = books.removeAll(favorites);
 
@@ -425,10 +426,10 @@ public class FavoriteBooks {
       pushNotification.booksAdded(newBooks);
     }
 
-    // Remaining postconditions
-    assert favorites.containsAll(books);
+    // Remaining post-conditions
+    assert favorites.containsAll(books) : "Not all books were added to favorites";
 
-    assert invariant();
+    assert invariant() : "Invariant does not hold";
   }
 
 }
@@ -453,7 +454,7 @@ Suppose a client system and a server system. The client makes use of the server'
 The client and server are bound by a *contract*.
 The server does its job as long as its methods are used properly by the client.
 This relates strongly to the pre- and post-conditions that we discussed earlier.
-The client has to use the server's methods in a way that their preconditions hold.
+The client has to use the server's methods in a way that their pre-conditions hold.
 The server then guarantees that the post-conditions will hold after the method call, i.e., makes sure the method delivers what it promises.
 
 Note how the pre- and post-conditions of the server forms a contract
@@ -475,10 +476,10 @@ In the UML diagram above, we see that the implementation can have different pre-
 
 In terms of pre-conditions, the new implementation must be able to work with the pre-conditions that were specified in the interface.
 After all, the interface is the only thing the client sees of the system.
-The implementation cannot add any pre-conditions to the server's preconditions.
+The implementation cannot add any pre-conditions to the server's pre-conditions.
 In terms of strength, we now know that $$P'$$ has to be **weaker** than (or as weak as) $$P$$.
 
-The postcondition works the other way around.
+The post-condition works the other way around.
 The implementation must do at least the same work as the interface, but is allowed to do a bit more.
 Therefore, $$Q'$$ should be **stronger** than (or as strong as) $$Q$$.
 
@@ -514,11 +515,10 @@ Keep the LSP in mind when designing and implementing a software system.
 How can we test that our classes follow the LSP?
 To test the LSP, we have to make some test cases for the public methods of the super class and execute these tests with all its subclasses.
 We could just create the same tests to each of the subclasses' test suites.
-This, however, leads to a lot of code duplication in the test code, which we would like to avoid.
+However, this leads to a lot of code duplication in the test code, which we would like to avoid.
 
 
-In Java, the List interface is implemented by various sub-classes.
-Two examples are the `ArrayList` and `LinkedList`.
+In Java, the List interface is implemented by various sub-classes, such as `ArrayList` and `LinkedList`.
 Creating the tests for each of the sub-classes separately will result in the following structure.
 
 ![Test classes architecture](img/design-by-contracts/examples/subclass_test.svg)
@@ -527,7 +527,7 @@ The ArrayList and LinkedList will behave the same for the methods defined in Lis
 Therefore, there will be duplicate tests for these methods.
 
 
-To avoid this code duplication we can create a test suite just for the super class.
+To avoid this code duplication, we can create a test suite just for the super class.
 This test suite tests just the public methods of the super class.
 The tests in this test suite should then be executed for each 
 of the sub-classes of the super class.
@@ -612,7 +612,7 @@ See the code below:
 ```java
 public Square squareAt(int x, int y) {
   assert x >= 0;
-  assert x < board.getWidth();
+  assert x < board.length;
   assert y >= 0;
   assert y < board[x].length;
   assert board != null;
@@ -632,8 +632,8 @@ What assertion(s), if any, can be turned into a class invariant?
 Consider the piece of code in the previous example.
 Suppose we remove the last assertion (line 10), which states that the result can never be null.
 
-Are the existing preconditions of the `squareAt` method enough to ensure the property in the original line 10?
-What can we add to the class (other than the just removed postcondition) to guarantee this property?
+Are the existing pre-conditions of the `squareAt` method enough to ensure the property in the original line 10?
+What can we add to the class (other than the just removed post-condition) to guarantee this property?
 
 
 
@@ -694,12 +694,12 @@ class Square extends Rectangle {
 }
 ```
 
-Inspired by Bertrand Meyer's design by contracts, he also use asserts to make sure contracts are followed. He explicitly defines preconditions and postconditions in various methods of the base Rectangle class and the derived Square class.
+Inspired by Bertrand Meyer's design by contracts, he also uses asserts to make sure contracts are followed. He explicitly defines pre-conditions and post-conditions in various methods of the base Rectangle class and the derived Square class.
 
 A second colleague comes in and expresses concerns about the design.
 How can you use the assertions provided to discuss the correctness of this design?
 
-Is the second colleagues concern justified?
+Is the second colleague's concern justified?
 What principle is violated, if any?
 Explain with the assertions shown in the code.
 
@@ -708,7 +708,7 @@ Explain with the assertions shown in the code.
 You run your application with assertion checking enabled. 
 Unfortunately, it reports an assertion failure signalling a class invariant violation in one of the libraries your application makes use of.
 
-Assume that the contract of the library in question is correct, and that all relevant preconditions are encoded in assertions as well.
+Assume that the contract of the library in question is correct, and that all relevant pre-conditions are encoded in assertions as well.
 
 Can you fix this problem? 
 If so, how? 
@@ -725,17 +725,17 @@ A well known example is the 404 (Page not found) status code.
 - A 5xx status code "indicates cases in which the server is aware that it has encountered an error or is otherwise incapable of performing the request."
 A well known example is the 500 (Internal Server Error) status code.
 
-What is the best correspondence between these status codes and pre- and postconditions?
+What is the best correspondence between these status codes and pre- and post-conditions?
 
 
 
 
 **Exercise 6.**
-A method M belongs to a class C and has a precondition P and a postcondition Q. 
+A method M belongs to a class C and has a pre-condition P and a post-condition Q. 
 Now, suppose that a developer creates a class C' that extends C, and 
 creates a method M' that overrides M. 
 Which one of the following statements correctly explains the relative
-strength of the pre (P') and postconditions (Q') of the overridden method M'?
+strength of the pre (P') and post-conditions (Q') of the overridden method M'?
 
 
 1. P' should be equal or weaker than P, and Q' should be equal or stronger than Q.
