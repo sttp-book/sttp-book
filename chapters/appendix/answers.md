@@ -200,7 +200,7 @@ First note that the modulo function `%` is not a linear function, therefore ther
 
 
 For `n % 3 == 0` any multiple of 3 would work as an on-point.
-Because we can't exhaustively test all multiples of 3, only one of them should be tested. Lets use 3 for this exercise.
+Because we can't exhaustively test all multiples of 3, only one of them should be tested. Let's use 3 for this exercise.
 There are also infinitely many off points we can pick. Choosing the respective off-points of our on-point should suffice. Off-points: 2 and 4.
 
 Similarly to the first condition for `n % 5 == 0` we have an on-point of 5.
