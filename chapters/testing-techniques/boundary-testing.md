@@ -537,6 +537,19 @@ Which one of the following statements about the **CORRECT** principles is **true
 1. We always test the behaviour of our program when any expected data does not exist (EXISTENCE).
 
 
+**Exercise 8.**
+We have a program called <ins>IsCat</ins>.
+It works as follows:
+> Given an list of prerequisites, it returns either the string "Cat" or the string "Doge".
+> If the number of legs is an even number, it has a tail, the number of lives left is between [0, 9], it has sharp nails and the sounds it produces is "miauw", it is a cat.
+> In any other case, it is a doge.
+
+First, do boundary analysis on the inputs.
+Think of on and off points for each of the conditions (while picking in points for the others).
+Next, appply the category/partition method.
+What are the minimal and most suitable partitions?
+
+
 
 ## References
 
