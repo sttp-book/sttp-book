@@ -121,7 +121,7 @@ public class PassingGradesPBTest {
     @Provide
     private Arbitrary<Float> invalidGrades() {
         return Arbitraries.oneOf(
-                Arbitraries.floats().lessOrEqual(-0.9f),
+                Arbitraries.floats().lessOrEqual(0.9f),
                 Arbitraries.floats().greaterOrEqual(10.1f));
     }
 }
