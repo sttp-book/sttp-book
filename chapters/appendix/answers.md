@@ -1012,22 +1012,17 @@ We can use dependency injection to make sure we can control the `today` object b
 **Exercise 3**
 
 
-Most important are 1 and 3.
+The ones to be prioritized are 1 and 3.
 
-As we discussed it is very important to keep the domain and infrastructure separated for the testability.
-This can be done, for example, by using Ports and Adapters.
+Option 1: As we discussed in the chapter, it is very important to keep the domain and infrastructure separated for the testability. How would you write an unit test to a piece of code that contains business rules and talks to a database?
 
-Static methods that manipulate state are effectively Singletons and so can introduce implicit runtime dependencies that are
-difficult to control and so difficult to test. They are best used for helper methods where they either return a new result, packaging up
-constructors, or return a value based on their inputs. Otherwise, look for a non-static technique, such as calling an instance methods
-on some kind of context object.
+Option 3: Static methods are not easy to be stubbed/mocked. Mockito, for example, does not mock static methods. 
 
-For a unit test, we're not concerned about the scale of the real data table, we need to know whether this functionality works in isolation.
-That said, if these lists are likely to be very large, we should prepare for that in our design and run some integration stress tests for scale.
+Regarding the other alternatives:
 
-If you find yourself creating a lot of mocks to test a class, because it has a lot of dependencies, that usually a sign that
-there are missing concepts in the code that would encapsulate some of those dependencies. It's time to step back and take another
-look at the design.
+Option 2: Given that the focus is to write unit tests, dependencies such as databased will be mocked. The size of the database, thus, does not matter.
+
+Option 4: Classes with many attributes and fields do require extra effort to be tested. After all, the tester has to instantiate and set values for all these fields. However, this does not really prevent you from writing tests.
 
 **Exercise 4**
 
