@@ -206,7 +206,7 @@ In this new version, manual testing has the largest area, which means more effor
 
 ![Ice cream cone](img/testing-pyramid/ice_cream_cone.svg)
 
-At this point, we do not have to explain why relying fully on manual testing is a bad thing. Unfortunately, it is common to see development teams relying mostly on manual tests in their quality assurance processes. Often, these teams also have a small number of system tests. This is not because they believe system tests are more efficient, but because the system was badly designed, so that it is impossible to carry out unit and integration tests.
+At this point, we do not have to explain why relying fully on manual testing is a bad thing. Unfortunately, it is common to see development teams relying mostly on manual tests in their quality assurance processes. Often, these teams also have a large number of system tests. This is not because they believe system tests are more efficient, but because the system was badly designed, so that it is impossible to carry out unit and integration tests.
 We will discuss design for testability in future chapters.
 
 {% set video_id = "YpKxAicxasU" %}
@@ -362,4 +362,5 @@ What is the main reason for the number of recommended system tests in the testin
 
 * Wikipedia. Exploratory testing. https://en.wikipedia.org/wiki/Exploratory_testing. Last access on March, 2020.
 
-* * Winters, T., Manshreck, T., Wright, H. Software Engineering at Google: Lessons Learned from Programming Over Time. O'Reilly, 2020. Chapters 11 and 12.
+* Winters, T., Manshreck, T., Wright, H. Software Engineering at Google: Lessons Learned from Programming Over Time. O'Reilly, 2020. Chapters 11 and 12.
+

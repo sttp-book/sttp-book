@@ -1,4 +1,6 @@
-﻿# Test doubles
+﻿
+# Test doubles
+
 
 While testing single units is simpler than testing entire systems, we still face challenges when unit testing classes that depend on other classes or on external infrastructure.
 
@@ -15,7 +17,7 @@ We'll be showing some examples of how this works later in the chapter.
 
 The use of objects that simulate the behaviour of other objects has advantages:
 
-* Firstly we have **more control**. We can easily tell these objects what to do, without the need for complicated setups. If we want a method to throw an exception, we just tell the mock method to throw it; there is no need for complicated setups to "force" the dependency to throw the exception. Similarly, if we want a method that returns a Calendar object representing a date in 2009, we just tell the mock method to do it; there is no need to complicate your OS in order to make it go back in time. Note how hard it usually is to "force" a class to throw an exception, or to "force" a class to return a fake date. This effort is close to zero when we simulate the dependencies with mock objects. 
+* Firstly, we have **more control**. We can easily tell these objects what to do, without the need for complicated setups. If we want a method to throw an exception, we just tell the mock method to throw it; there is no need for complicated setups to "force" the dependency to throw the exception. Similarly, if we want a method that returns a Calendar object representing a date in 2009, we just tell the mock method to do it; there is no need to complicate your OS in order to make it go back in time. Note how hard it usually is to "force" a class to throw an exception, or to "force" a class to return a fake date. This effort is close to zero when we simulate the dependencies with mock objects. 
 
 * Simulations are also **faster**. Imagine a dependency that communicates with a webservice or a database. A method in one of these classes might take a few seconds to process. On the other hand, if we simulate the dependency, it will no longer need to communicate with a database or with a webservice anymore and wait for a response; the simulation will simply return what it was configured to return, and it will cost nothing in terms of time.  
 
@@ -88,7 +90,7 @@ public class InvoiceFilter {
 
 }
 ```
-Without stubbing the `IssueInvoices` class, the `InvoiceFilter` test would need to also handle the database (making the unit testing more expensive). Note how the tests need to open and close the connection (see the `open()` and `close()` methods) and save invoices to the database (see the many calls to `invoices.save()` in the `filterInvoices` test).
+Without stubbing the `IssuedInvoices` class, the `InvoiceFilter` test would need to also handle the database (making the unit testing more expensive). Note how the tests need to open and close the connection (see the `open()` and `close()` methods) and save invoices to the database (see the many calls to `invoices.save()` in the `filterInvoices` test).
 
 ```java
 public class InvoiceFilterTest {
@@ -180,7 +182,7 @@ public class InvoiceFilterTest {
 
 Note how we setup the stub, using Mockito's `when` method. In this example, we tell the stub to return a list containing `mauricio`, `arie`, and `steve` (the three invoices we instantiate as part of the test case). The test then invokes the method under test, `filter.lowValueInvoices()`. As a consequence, the method under test invokes `issuedInvoices.all()`. However, at this point, `issuedInvoices` is actually a stub that returns the list with the three invoices. The method under test continues its execution, returns a new list with only the two invoices that are below 100, causing the assertion to pass.
 
-Note that, besides making the test easier to write, the use of stubs also made the test class more cohesive. The `InvoiceFilterTest` only tests the `InvoiceFilter` class. It does not test the usage of the `IssueInvoices` class. Clearly, `IssueInvoices` deserves to be tested, but in another place, and by means of an integration test.
+Note that, besides making the test easier to write, the use of stubs also made the test class more cohesive. The `InvoiceFilterTest` only tests the `InvoiceFilter` class. It does not test the usage of the `IssuedInvoices` class. Clearly, `IssuedInvoices` deserves to be tested, but in another place, and by means of an integration test.
 
 Note that a cohesive test has less chances of failing because of something else. In the old version, the `filterInvoices` test could fail because of a bug in the `InvoiceFilter` class or because of a bug in the `IssuedInvoices` class. The new tests can now only fail because of a bug in the `InvoiceFilter` class, and never because of `IssuedInvoices`. This is handy, as a developer will spend less time debugging in case this test starts to fail.
 
@@ -202,7 +204,7 @@ Suppose our system has a new requirement:
 > All low valued invoices should be sent to our SAP system.
 > SAP offers a /sendInvoice webservice that receives invoices.
 
-Let us follow the idea of using test doubles to facilitate the development of our production and test code. To that aim, let us create a `SAP` interface that represents the communication with SAP:
+Let us follow the idea of using test doubles to facilitate the development of our production and test code. To that aim, let us create an `SAP` interface that represents the communication with SAP:
 
 ```java
 public interface SAP {
@@ -404,7 +406,7 @@ public class DefaultClock implements Clock {
 
 Creating abstractions on top of dependencies that you do not own, as a way to gain more control, is a common technique among developers.
 
-One might ask: _Won't that increase the overall complexity of my system? After all, it requires maintaining another abstraction?_ Yes. There is more complexity when we add new abstractions in our software, and that is what we are doing here. However, the point is: does the ease in testing the system that we get from adding this abstraction compensate for the cost of the increased complexity? Often, the answer is _yes, it does pay off_.
+One might ask: _Won't that increase the overall complexity of my system? After all, it requires maintaining another abstraction._ Yes. There is more complexity when we add new abstractions in our software, and that is what we are doing here. However, the point is: does the ease in testing the system that we get from adding this abstraction compensate for the cost of the increased complexity? Often, the answer is _yes, it does pay off_.
 
 
 ## When to mock/stub?
@@ -465,11 +467,11 @@ Hence, once you get used to this way of developing, you will notice how your cod
 
 ## Mock Roles, Not Objects!
 
-In their seminal work _Mock Roles, Not Objects_, Freeman et al. show how Mock Objects can be used for thinking about _design_ as much as for testing. By treating an object (or a cluster of objects) as a closed box, the programmer can focus on how it interacts with its environment: if the object receives a triggering event (one or more method calls), what does it need to find out (stubs) and how does it change the world around it (mocks)? This, in turn, means that the programmer needs to make explicit what else the target object depends on. Because these tests focus on how an object interacts with its environment, this style of testing is sometimes calls "Interaction Testing."
+In their seminal work _Mock Roles, Not Objects_, Freeman et al. show how Mock Objects can be used for thinking about _design_ as much as for testing. By treating an object (or a cluster of objects) as a closed box, the programmer can focus on how it interacts with its environment: if the object receives a triggering event (one or more method calls), what does it need to find out (stubs) and how does it change the world around it (mocks)? This, in turn, means that the programmer needs to make explicit what else the target object depends on. Because these tests focus on how an object interacts with its environment, this style of testing is sometimes called "Interaction Testing."
 
 This thinking of objects in terms of input and outputs was inspired by the "Roles, Responsibilities, and Collaborators" technique, best described by Wirfs-Brock and McKean. It has a history going back to the programming language Smalltalk, which used a biological metaphor of communicating cells (Ingalls).
 
-Interaction testing is most effective when combined with TDD. While writing a test, the programmer has to define what the object needs from its environment. For a new feature, this might require a new collaborating object, which introduces a new dependency. The type of this new dependency is defined in terms of what the target object needs - its caller, not its implementation; in Java, this is usually an interface. Following this process, with regular refactorings, a programmer can grow a codebase written in the terminology of the domain. The result is a set of pluggable objects, with clear dependencies, that are combined to build a system.
+Interaction testing is most effective when combined with TDD. While writing a test, the programmer has to define what the object needs from its environment. For a new feature, this might require a new collaborating object, which introduces a new dependency. The type of this new dependency is defined in terms of what the target object needs - its caller, not its implementation; in Java, this is usually an interface. Following this process, with regular refactoring, a programmer can grow a codebase written in the terminology of the domain. The result is a set of pluggable objects, with clear dependencies, that are combined to build a system.
 
 The authors summarized their best practices for _interaction testing_ as:
 
