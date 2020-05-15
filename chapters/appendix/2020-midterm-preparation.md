@@ -28,9 +28,9 @@ We will now randomly select a program for you to test. This will be the program 
 An overall overview of what you will do with it:
 
 1. Devise test cases using domain testing (i.e., specification testing, equivalence partitioning, and boundary analysis). 
-4. Write JUnit test cases based on the tests you devised.
-5. Ask you to draw a Control-Flow Graph and use structural testing to complement your previously designed test suite.
-6. Reflect about pre-, post-, and class invariants of the method under test.
+2. Write JUnit test cases based on the tests you devised.
+3. Draw a Control-Flow Graph and use structural testing to complement your previously designed test suite.
+4. Reflect on pre-, post-, and class invariants of the method under test.
 
 You are free to:
 
@@ -186,7 +186,7 @@ You should:
 
 * Write your test code in the _Test_ tab.
 * Link your test code with the test cases you created in the previous exercise. Adding comments (e.g., `// test case 1`) is a good solution.
-* Write beautiful test code. We will judge your answer on readability. Make sure you have to duplicated code in your tests. 
+* Write beautiful test code. We will judge your answer on readability. Make sure you have no duplicated code in your tests. 
 
 You are free to:
 
@@ -210,7 +210,7 @@ Based on what you learned from the requirements, implementation, and testing the
 
 Your answer should also offer an example of the `assert` instruction you would write it in the implementation.
 
-If you do not see a pre-condition, post-condition, or class invariant, explicitly say so.
+If you do not see a pre-condition, post-condition, or class invariant, explicitly say so (and explain why not).
 
 ## Picking a state machine
 
