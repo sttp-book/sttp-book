@@ -98,7 +98,7 @@ public class InvoiceFilterTest {
     invoices = new IssuedInvoices();
   }
 
-  @AfterEach public void close()) {
+  @AfterEach public void close() {
     if (invoices != null) invoices.close();
   }
 
@@ -451,7 +451,7 @@ public class InvoiceFilter {
   public InvoiceFilter(IssuedInvoices issuedInvoices) {
     this.issuedInvoices = issuedInvoices;
   }
-  public List<Invoice> InvoicelowValueInvoices() {
+  public List<Invoice> lowValueInvoices() {
       return issuedInvoices.all().stream()
               .filter(invoice -> invoice.value < 100)
               .collect(toList());
@@ -590,7 +590,7 @@ Which of the following statements are **true** about this class?
 Class A depends on a static method in another class B. If you want to test class A, which of the following two action(s) should you apply to do this properly?
 
 * Mock class B to control the behavior of the methods in class B.
-* Refactor class A, so the outcome of the method of class B is now used as an parameter.
+* Refactor class A, so the outcome of the method of class B is now used as a parameter.
 
 1. Only approach 1.
 2. Neither.
