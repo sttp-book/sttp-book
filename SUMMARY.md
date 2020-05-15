@@ -75,4 +75,6 @@
 * Appendix
 	* [Answers to the exercises](chapters/appendix/answers.md)
 	* [Domain testing examples](chapters/testing-techniques/domain-testing.md)
+	* [2020 midterm mock exam](chapters/appendix/2020-midterm-preparation.md)
+	* [2020 midterm mock exam (answers)](chapters/appendix/2020-midterm-preparation-answers.md)
 	* [Change log](chapters/appendix/changelog.md)
