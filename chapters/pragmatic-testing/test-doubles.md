@@ -589,8 +589,8 @@ Which of the following statements are **true** about this class?
 **Exercise 4.**
 Class A depends on a static method in another class B. If you want to test class A, which of the following two action(s) should you apply to do this properly?
 
-* Mock class B to control the behavior of the methods in class B.
-* Refactor class A, so the outcome of the method of class B is now used as a parameter.
+  * Approach 1: Mock class B to control the behavior of the methods in class B.
+  * Approach 2: Refactor class A, so the outcome of the method of class B is now used as a parameter.
 
 1. Only approach 1.
 2. Neither.
