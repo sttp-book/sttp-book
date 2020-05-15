@@ -916,7 +916,7 @@ See https://martinfowler.com/bliki/TestPyramid.html !
 
 
 
-## Mock Objects
+## Test doubles
 
 **Exercise 1**
 
