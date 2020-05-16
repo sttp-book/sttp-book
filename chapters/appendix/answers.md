@@ -1020,7 +1020,7 @@ Option 3: Static methods are not easy to be stubbed/mocked. Mockito, for example
 
 Regarding the other alternatives:
 
-Option 2: Given that the focus is to write unit tests, dependencies such as databased will be mocked. The size of the database, thus, does not matter.
+Option 2: Given that the focus is to write unit tests, dependencies such as databases will be mocked. The size of the database, thus, does not matter.
 
 Option 4: Classes with many attributes and fields do require extra effort to be tested. After all, the tester has to instantiate and set values for all these fields. However, this does not really prevent you from writing tests.
 
