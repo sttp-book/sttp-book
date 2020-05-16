@@ -515,6 +515,17 @@ The "Software Engineering at Google" book has an entire chapter dedicated to tes
 * Avoid overspecified interaction tests. Focus on the relevant arguments and functions.
 * Good _interaction testing_ requires strict guidelines when designing the system under test. Google engineers tend not to do it.
 
+## To Mock or Not To Mock?
+
+A very common (and heated) discussion among practitioners is about whether to use mocks or not. Up to this point, we have discussed many advantages of test doubles. Let us now discuss a possible disadvantage.
+
+Some developers strongly affirm that the use of mocks might lead to test suites that _"test the mock, not the code"_. 
+
+That, in fact, can happen. Suppose some class A that depends on class B. Suppose class B offers a method `sum()` that always returns positive numbers (i.e., the post-condition of `sum()`). When testing class A, the developer decides to mock B. Everything seems to work. Months later, a developer decides to change the post-conditions of B's `sum()`: now, it also returns negative numbers. In a common development workflow, a developer would apply these changes in B and update B's tests to reflect such change. It is easy for the developer to forget to check whether A handles this new post-condition well. Even worse: A's test suite will still pass! After all, A mocks B. And the mock does not really know that B changed. Now, imagine this in a large-scale software. It can be really easy to lose control of your mocks in the sense that mocks might not really represent the real contract of the class.
+
+For mock objects to work well, developers have to design careful (and hopefully stable) contracts. They should be aware that any change in a contract should be propagate to all its mocks. In other words, the use of mocks and/or test double gives developers several advantages, but also requires extra attention. 
+
+
 ## Exercises
 
 
