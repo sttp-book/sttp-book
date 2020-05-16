@@ -68,7 +68,7 @@ Let us learn how to use Mockito and setup stubs with a practical example.
 > The program must return all the issued invoices with values smaller than 100. The collection of invoices can be found in our database.
 
 The following is a possible implementation of this requirement. Note that
-`IssuedInvoices` is a class responsible for retrieving all the invoices from the database. 
+`IssuedInvoices` is a type responsible for retrieving all the invoices from the database. 
 It connects to the database using some global properties.
 
 ```java
@@ -122,7 +122,7 @@ public class InvoiceFilterTest {
 }
 ```
 
-This test is not even complete. We also need to reset the database after every test. Otherwise, the test will fail in its second run, as there will now be four invoices with an amount smaller than 100 stored in the database! Remember that the database stores data permanently. So far, we never had to "clean our mess" in test code, as all the objects we created were always stored in-memory only.
+This test is not even complete. We also need to reset the database after every test. Otherwise, the test will fail in its second run, as there will now be four invoices with an amount smaller than 100 stored in the database because the database persists data across the sessions&mdash;that's what databases are for. So far, we have never had to "clean up our mess" in test code, as all the objects we created were in-memory only and recreated between each test.
 
 {% hint style='tip'%}
 Did you notice the `assertThat...containsExactlyInAnyOrder` assertion we used? This ensures that the list contains exactly the objects we pass, and in any order.
@@ -130,11 +130,14 @@ Did you notice the `assertThat...containsExactlyInAnyOrder` assertion we used? T
 Such assertions do not come with JUnit 5. These assertions are part of the [AssertJ](https://joel-costigliola.github.io/assertj/) project. AssertJ is a fluent assertions API for Java, giving us several interesting assertions that are especially useful when dealing with lists or complex objects. We recommend you get familiar with it!
 {% endhint %}
 
-Let us now re-write the test. This time we will stub the `IssuedInvoices` class.
+Let us now re-write the test. This time we will stub the `IssuedInvoices` class which means that we need to find a way for the test to make the substitution. The current implementation of `InvoiceFilters` creates its instance of `IssuedInvoices` internally which means the test has no way of doing so. The most direct way to do this is to have the `IssuedInvoices` passed in as an explicit dependency, in this case through the constructor.
 
-For that to happen, we first need to make sure the stub can be "injected" into the `InvoiceFilter` class. If you look at the previous implementation of the `InvoiceFilter` class, you will notice that the class instantiates the `IssuedInvoices` class on its own. If we are to use a stub, the class should allow the stub to be injected.
+{% hint style='tip'%}
+There are JVM frameworks that use runtime reflection to allow different implementations to be substituted when a class is instantiated, but that's missing the point here. 
+That would continue to hide the dependency that already exists (on the underlying database) leaving the code diverging from the structure it represents. We can use the writing of the test to show us where we need to correct that.     
+{% endhint %}
 
-It suffices to pass the dependency to the constructor, instead of instantiating it directly:
+
 ```java
 import java.util.List;
 import static java.util.stream.Collectors.toList;
