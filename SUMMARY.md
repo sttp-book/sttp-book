@@ -20,6 +20,7 @@
 	* [Why software testing?](chapters/getting-started/why-software-testing.md)
 	* [Principles of software testing](chapters/getting-started/testing-principles.md)
 	* [Software testing automation](chapters/getting-started/test-automation.md)
+	* [Testing vs writing tests](chapters/getting-started/testing-vs-writing-tests.md)
 
 ----
 
