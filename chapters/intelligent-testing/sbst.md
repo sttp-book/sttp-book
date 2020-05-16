@@ -102,3 +102,5 @@ You can imagine such tools being plugged in continuous integration or nightly bu
 * Pacheco, Carlos, and Michael D. Ernst. "Randoop: feedback-directed random testing for Java." In Companion to the 22nd ACM SIGPLAN conference on Object-oriented programming systems and applications companion, pp. 815-816. 2007.
 
 * Fraser, Gordon, and Andrea Arcuri. "Evosuite: automatic test suite generation for object-oriented software." In Proceedings of the 19th ACM SIGSOFT symposium and the 13th European conference on Foundations of software engineering, pp. 416-419. 2011.
+
+* Mao, Ke. Sapienz: Intelligent automated software testing at scale. https://engineering.fb.com/developer-tools/sapienz-intelligent-automated-software-testing-at-scale/
