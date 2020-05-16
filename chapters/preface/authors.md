@@ -11,6 +11,7 @@ This book would also not be possible without the help of many colleagues. A spec
 * Azqa Nadeem, part of our CS teaching team, for writing the security testing, static testing, and fuzz testing chapters.
 * Frank Mulder, part of our CS teaching team, for giving the book a full technical review, and for producing the web testing chapter.
 * Wouter Polet, one of our many incredible TAs, for working on the initial transcripts of our lectures, and for working on this book's very first version.
+* Steve Freeman, for the feedback he has provided to many parts of this book, especially related to interaction testing and mock objects. Steve's "Growing Object-Oriented Systems Guided by Tests" book has always been a great influence to me.
 * Marsha Ginsberg, part of TU Delft staff, for giving the book a complete grammar check.
 * The TU Delft's New Media Centre for patiently supporting me through recording, and for carefully editing the videos.
 * For the many CSE1110 TAs that have helped us in improving the book. 
