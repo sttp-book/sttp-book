@@ -514,6 +514,8 @@ That, in fact, can happen. Suppose some class A that depends on class B. Suppose
 
 For mock objects to work well, developers have to design careful (and hopefully stable) contracts. Note that, from a design perspective, there is always a lesson to be learned from the situation. Mocks should have some locality. If a contract change affects an unknown range of uses, there is probably a better way to design the system such that this would not happen. Remember that mocks are also a design technique and are there to also give you feedback. 
 
+Moreover, note that, although we use the example of a contract break as a disadvantage of mocks, remember that whatever change in contract there is, it has to be part of the job of the coder to find its dependencies, and check that the new contract is covered, irrespective of mocks or not.
+
 
 ## Test doubles at Google
 
