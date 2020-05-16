@@ -1070,7 +1070,6 @@ TDD literature says nothing about team integration.
 
 
 
-
 ## Test code quality
 
 **Exercise 1**
@@ -1101,12 +1100,6 @@ To avoid the flakiness, a developer could have mocked the random function. It do
 
 
 
-## Mutation testing
-
-**Exercise 1**
-
-Mutation testing.
-
 ## Static testing
 
 **Exercise 1.**
@@ -1116,6 +1109,18 @@ Regular expressions cannot count instances.
 **Exercise 2.**
 
 Static analysis produces over-generalized results with some false positives, so the analysis is Sound but Imprecise.
+
+
+
+
+## Mutation testing
+
+**Exercise 1**
+
+Mutation testing.
+
+
+
 
 ## Security testing
 
