@@ -59,7 +59,7 @@
 	* [Static testing](chapters/intelligent-testing/static-testing.md)
 	* [Mutation testing](chapters/intelligent-testing/mutation-testing.md)
 	* [Fuzz testing](chapters/intelligent-testing/fuzzing.md)
-	* [Search-based software testing](chapters/intelligent-testing/sbst.md) (soon)
+	* [Search-based software testing](chapters/intelligent-testing/sbst.md)
 
 ----
 
