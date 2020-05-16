@@ -2,8 +2,6 @@
 
 * [Authors](chapters/preface/authors.md)
 
-* [Acknowledgements](chapters/preface/acknowledgements.md)
-
 * [Using this book](chapters/preface/use.md)
 
 * [Contribute to this book](chapters/preface/contribute.md)
