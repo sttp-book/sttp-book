@@ -21,6 +21,7 @@
 	* [Principles of software testing](chapters/getting-started/testing-principles.md)
 	* [Software testing automation](chapters/getting-started/test-automation.md)
 	* [Testing vs writing tests](chapters/getting-started/testing-vs-writing-tests.md)
+	* [The developer testing workflow](chapters/getting-started/developer-testing-workflow.md)
 
 ----
 
