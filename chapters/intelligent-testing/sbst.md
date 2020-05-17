@@ -79,6 +79,10 @@ Clearly, there are several challenges to make all of it to happen (theoretical a
 
 The most popular tool for search-based automated test case generation is [EvoSuite](http://www.evosuite.org).  
 
+{% hint style='tip' %}
+Currently, EvoSuite only works with Java 8 programs. Given that our code-examples uses Java 11, we can not easily run it there. EvoSuite developers are working hard to support newer versions of Java.
+{% endhint %}
+
 ## The oracle problem
 
 Determining whether the program produces the correct output for a given input is a hard problem. The problem has even a specific name: _the oracle problem_. 
