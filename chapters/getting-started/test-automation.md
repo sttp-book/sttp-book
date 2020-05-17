@@ -172,9 +172,9 @@ However, having duplicated code is not desirable. The problem with duplicated te
 is the same as in production code: if there is a change to be made, the change has to be made
 in all the points where the duplicated code exists.
 
-In this example, we should try to isolate the line of code responsible for creating
+In this example, we could try to isolate the line of code responsible for creating
 the class under test.
-In order to do so, we can use the `@BeforeEach` feature that JUnit provides.
+To that aim, we can use the `@BeforeEach` feature that JUnit provides.
 JUnit runs methods that are annotated with `@BeforeEach` before every test method.
 We therefore can instantiate the `roman` object inside a method annotated with `BeforeEach`.
 
