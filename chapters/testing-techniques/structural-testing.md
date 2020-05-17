@@ -597,7 +597,7 @@ If we take the decision block from path coverage example, `A && (B || C)`, MC/DC
   * In both test cases T3 and T4, variables A and B should be the same.
     
 Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is, on average, $$N+1$$, where $$N$$ is the number of conditions in the decision. 
-Note that $$N+1$$ is definitely smaller than $$2^N$$!
+Note that $$N+1$$ is definitely smaller than all the possible combinations ($$2^N$$)!
 
 Again, to devise a test suite that achieves 100% MC/DC coverage, we should devise $$N+1$$ test cases that, when combined, 
 exercise all the combinations independently from the others.
