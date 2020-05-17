@@ -350,9 +350,9 @@ This phase is usually done by means of one or many method calls.
 * The result is then used in the **Assert** phase, where the test asserts that 
 the system behaved as expected. In terms of code, it is where the `assert` instructions are.
 
-Using one of the test methods above 
-to illustrate the different
-different parts of an automated test code (the comments identifying each of the parts in the source code are just to help you visualize the three parts; in real test code, we do not add these comments):
+Using one of the test methods above to illustrate the different parts of an automated test code 
+(note that the Arrange/Act/Assert comments here are just to help you visualize the three parts, 
+ we would not usually add them in real test code):
 
 ```java
 @Test
@@ -368,13 +368,16 @@ void convertSingleDigit() {
 }
 ```
 
+
 Understanding the structure of a test method enables us to explore best practices
 (and possible test code smells) in each one of them. From now on, we will use the
 terms _arrange_, _act_, and _assert_ to talk about the different parts of an
 automated test case.
 
 {% hint style='tip' %}
-While the AAA is a good structure to get started, you might find it rigid for other types of tests, such as property-based testing, which we will discuss in future chapter. 
+AAA is a good structure for most tests, and a good way to think about what you're trying to show about the code.
+As you learn more techniques, you will find that there other valuable ways to think about the structure of a test.
+We'll discuss these in a later chapter.
 {% endhint %}
 
 
