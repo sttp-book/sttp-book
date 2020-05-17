@@ -909,13 +909,11 @@ See https://martinfowler.com/bliki/TestPyramid.html !
 
 **Exercise 8**
 
-A few options could be:
+We would suggest you to test your DAOs together with a real database. In other words, an integration test. As the sole purpose of this class is to communicate with the database, it would not that useful to simulate the database itself. Integration tests like that commonly insert elements to the database and later check whether the SQL query returns back the expect ones. Developers should pay extra attention to avoid test flakyness, since it is easy to have the database in an unexpected state.
 
-* Test your DAO sending queries to a real database. It is not that useful to simulate the database, so you should insert the desired parameter values directly in the database.
-* Aim for Code coverage for the SQL queries. They consist of predicates that could be split in the CFG, and in this case you could aim for branch/condition coverage.
+The tester might also think of coverage criteria for SQL queries and aim for branch/condition covearge. After all, SQL queries consist of predicates that can be exercised, similar to branches in normal code.
 
-Side note: Avoid flakyness, since it is easy to have the database in an unexpected state, and do not forget to clean up the database before the test case.
-
+We discuss more about testing SQL queries in the _database testing_ chapter.
 
 
 ## Test doubles
