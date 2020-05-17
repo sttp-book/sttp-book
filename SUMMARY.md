@@ -44,7 +44,7 @@
 
 * [Testing in the context](chapters/testing-into-context/README.md)
 	* [Web testing (soon)](chapters/testing-into-context/web-testing.md)
-	* Database testing (soon)
+	* [SQL testing](chapters/testing-into-context/sql-testing.md)
 	* Mobile testing (soon)
 
 ----
