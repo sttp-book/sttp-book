@@ -347,13 +347,12 @@ What is the main reason for the number of recommended system tests in the testin
 1. Unit tests are as good as system tests.
 2. System tests do not provide developers with enough quality feedback.
 3. There are no good tools for system tests.
-4. System tests tend to be slow and often are non-deterministic.
+4. System tests tend to be slow and are difficult to make deterministic.
 
 
 
 **Exercise 8.**
-How would you test classes that make use of databases and SQL queries?
-
+How would you test code that make use of databases and SQL queries?
 
 
 ## References

@@ -902,16 +902,31 @@ Correct answer: The interaction with the system is much closer to reality (1)
 
 **Exercise 7**
 
-Correct answer: System tests tend to be slow and often are non-deterministic (4)
+Correct answer: System tests tend to be slow and are difficult to make deterministic (4)
 
 See https://martinfowler.com/bliki/TestPyramid.html !
 
 
 **Exercise 8**
 
-We would suggest you to test your DAOs together with a real database. In other words, an integration test. As the sole purpose of this class is to communicate with the database, it would not that useful to simulate the database itself. Integration tests like that commonly insert elements to the database and later check whether the SQL query returns back the expect ones. Developers should pay extra attention to avoid test flakyness, since it is easy to have the database in an unexpected state.
+At some point, it's important to test code with external dependencies, such as a database, against those dependencies. 
+Apart from testing the SQL, which in principle is just more code, we need to check, for example
+that the schema is aligned and that we're using the right connection. 
+We will also need to test our upgrade scripts as the database changes over time.
 
-The tester might also think of coverage criteria for SQL queries and aim for branch/condition covearge. After all, SQL queries consist of predicates that can be exercised, similar to branches in normal code.
+This suggests that we should write integration tests that check our database access code against a real database. 
+This is commonly done by including scripts that can set up a test instance of the database which we fill with appropriate 
+values for each test. The test harness then runs that access code against the test instance. Ideally, this test database
+should only be used for these integration tests and rebuilt each time. There should be no test flakiness at this stage.
+
+Some teams have found benefit from using an in-memory  database for this stage, in terms of speed and flexibilty. 
+This also encourages the use of standard features and keeping the database focussed just on managing data, which is what it's there for.  
+
+One advantage of such tests is that data access can be tested in isolation, after the unit tests but before incurring the cost
+of a full system deployment and test.
+
+The tester should also look at the SQL code and consider any implicit branch and condition coverage, for example 
+when there are no values that meet the search criteria, or the various data combinations that make up a complicated join.
 
 We discuss more about testing SQL queries in the _database testing_ chapter.
 
