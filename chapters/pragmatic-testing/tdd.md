@@ -89,6 +89,13 @@ are not doing TDD, you should write tests in a timely manner. Do not leave it fo
 Write them together with the production code, so that the growing automated test suite will give you more and more confidence 
 about the code.
 
+## TDD in practice
+
+James Shore created a series of impressive 200 videos where he uses TDD to build an entire "real-world" project from scratch. You can see it in his Youtube playlist, _Let's Play: Test-Driven Development_: https://www.youtube.com/playlist?list=PL0CCC6BD6AFF097B1. And while he created these videos in 2012, they are still relevant and highly recommended.
+
+{% hint style='tip' %}
+We recommend readers to watch at least the first 3-5 episodes to get a sense of what TDD is about. 
+{% endhint %}
 
 ## Exercises
 
