@@ -326,6 +326,50 @@ Lessons to be learned:
 * Never stop refactoring your production code.
 * Never stop refactoring your test code.
 
+
+## The structure of an automated test case
+
+Automated tests are very similar in structure.
+They almost always follow the **AAA** ("triple A") structure.
+The acronym stands for **Arrange**, **Act**, and **Assert**.
+
+* In the **Arrange** phase, the test defines all the input values that will
+then be passed to the class/method under test.
+In terms of code, it can vary from a single value to
+complex business entities.
+
+* The **Act** phase is where the test "acts" or, calls the behavior under test, passing
+the input values that were set up in the Arrange phase.
+This phase is usually done by means of one or many method calls.
+
+* The result is then used in the **Assert** phase, where the test asserts that 
+the system behaved as expected. In terms of code, it is where the `assert` instructions are.
+
+Using one of the test methods above 
+to illustrate the different
+different parts of an automated test code:
+
+```java
+@Test
+void convertSingleDigit() {
+  // Arrange: we define the input values
+  String romanToBeConverted = "C";
+
+  // Act: we invoke the method under test
+  int result = roman.convert(romanToBeConverted);
+
+  // Assert: we check whether the output matches the expected result
+  assertEquals(100, result);
+}
+```
+
+Understanding the structure of a test method enables us to explore best practices
+(and possible test code smells) in each one of them. From now on, we will use the
+terms _arrange_, _act_, and _assert_ to talk about the different parts of an
+automated test case.
+
+
+
 ## Advantages of test automation
 
 Having an automated test suite brings several advantages to software
