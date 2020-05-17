@@ -167,12 +167,12 @@ code engineering.
 In the test code above, we create the `roman` object four times.
 Having a fresh clean instance of an object for each test method is a good idea, as 
 we do not want "objects that might be already dirty" (and thus, being the cause for the test to fail, and not because there was a bug in the code) in our test. 
-
 However, having duplicated code is not desirable. The problem with duplicated test code
 is the same as in production code: if there is a change to be made, the change has to be made
 in all the points where the duplicated code exists.
 
-In this example, we could try to isolate the line of code responsible for creating
+In this example, in order to reduce some duplication, 
+we could try to isolate the line of code responsible for creating
 the class under test.
 To that aim, we can use the `@BeforeEach` feature that JUnit provides.
 JUnit runs methods that are annotated with `@BeforeEach` before every test method.
