@@ -326,6 +326,11 @@ Lessons to be learned:
 * Never stop refactoring your production code.
 * Never stop refactoring your test code.
 
+{% hint style='tip' %}
+While building this book, we have noticed that different people had different suggestions on how to implement this roman numeral converter! See our [code-examples](https://github.com/sttp-book/code-examples/tree/master/src/main/java/tudelft/dbc/roman) for the different implementations we have received as suggestions. 
+
+Interestingly, we can test them all together, as they should have the same behaviour. See our [RomanConverterTest](https://github.com/sttp-book/code-examples/blob/master/src/test/java/tudelft/dbc/roman/RomanConverterTest.java) as an example of how to reuse the same test suite to all the different implementations! Note that, for that to happen, we defined a common interface among all the implementations: the _RomanConverterTest_. This testing strategy is quite common in object-oriented systems, and we will discuss more about it in the design by contracts chapter.
+{% endhint %}
 
 ## The structure of an automated test case
 
