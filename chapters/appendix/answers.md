@@ -935,8 +935,7 @@ You need mocks to both control and observe the behaviour of the (external) condi
 
 **Exercise 3**
 
-
-Option 1 is the false one. We can definitely get to 100% branch coverage there with the help of mocks.
+Option 1 is false. We can cover all the code branches using mocks.
 
 
 **Exercise 4**
