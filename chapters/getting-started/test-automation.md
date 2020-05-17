@@ -217,15 +217,14 @@ class RomanNumeralTest {
 }
 ```
 
-Feel free to read more about [JUnit's annotations](https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations) in its documentation.
+{% hint style='tip' %}
+Note that moving the instantiation of the class to a `@BeforeEach` method would work if all tests make use of the same constructor. Classes that offer more than a single constructor might need a different approach to avoid duplication. Can you think of any? We discuss test code quality in a more systematic way in a future chapter.
+{% endhint %}
 
 You can also see a video of us refactoring the `MinMax` test cases. Although the test suite was still small, it had many opportunities for better test code.
 
 {% set video_id = "q5mq_Bkc8-s" %}
 {% include "/includes/youtube.md" %}
-
-We discuss test code quality in a more systematic way in a future 
-chapter.
 
 ## Tests and refactoring
 
