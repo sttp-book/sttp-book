@@ -919,7 +919,7 @@ This is commonly done by including scripts that can set up a test instance of th
 values for each test. The test harness then runs that access code against the test instance. Ideally, this test database
 should only be used for these integration tests and rebuilt each time. There should be no test flakiness at this stage.
 
-Some teams have found benefit from using an in-memory  database for this stage, in terms of speed and flexibilty. 
+Some teams have found benefit from using an in-memory  database for this stage, in terms of speed and flexibility. 
 This also encourages the use of standard features and keeping the database focussed just on managing data, which is what it's there for.  
 
 One advantage of such tests is that data access can be tested in isolation, after the unit tests but before incurring the cost
