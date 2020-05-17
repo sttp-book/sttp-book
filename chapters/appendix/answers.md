@@ -907,12 +907,14 @@ Correct answer: System tests tend to be slow and often are non-deterministic (4)
 See https://martinfowler.com/bliki/TestPyramid.html !
 
 
+**Exercise 8**
 
+A few options could be:
 
+* Test your DAO sending queries to a real database. It is not that useful to simulate the database, so you should insert the desired parameter values directly in the database.
+* Aim for Code coverage for the SQL queries. They consist of predicates that could be split in the CFG, and in this case you could aim for branch/condition coverage.
 
-
-
-
+Side note: Avoid flakyness, since it is easy to have the database in an unexpected state, and do not forget to clean up the database after the test case.
 
 
 
