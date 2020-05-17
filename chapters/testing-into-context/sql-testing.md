@@ -166,6 +166,7 @@ The example above was quite simple. Challenges might emerge once your SQL querie
 * **Make use of good assertions APIs.** Asserting was easy in the example above as AssertJ makes our life easier. 
 * **Minimize the required data**. Make sure the input data is minimized. You do not want to have to load hundreds of thousands of elements to exercise your SQL query (maybe you will want to do this to exercise other features of your database, like speed, but that is not the case here).
 * **Build good test infrastructure**. In our example, it was simple to open a connection, to reset the database state, and etc, but that might become more complicated (or lenghty) once your database schema gets complicated. Invest on a test infrastructure to facilitate your SQL testing.
+* **Take into consideration the schema evolution**. In real life, database schemas evolve quite fast. Make sure your test suite is resilient towards these changes (i.e., if an evolution should not break the test suite, it does not; if an evolution should break the test suite, it does break the test suite).
 
 ## References
 
