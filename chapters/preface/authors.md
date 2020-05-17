@@ -1,4 +1,4 @@
-# Authors and Acknowledgments
+# Authors and Acknowledgements
 
 This book is maintained by [Maurício Aniche](https://www.mauricioaniche.com), Assistant Professor in Software Engineering at Delft University of Technology.
 
