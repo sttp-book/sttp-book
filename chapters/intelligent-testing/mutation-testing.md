@@ -602,7 +602,9 @@ Finally, you can also see more detailed results in the source code and check whi
 {% set video_id = "BEBhTtSZAlw" %}
 {% include "/includes/youtube.md" %}
 
+## Empirical studies
 
+* [Parsai and Demeyer](https://link.springer.com/article/10.1007/s10009-020-00567-y) (2020): _We demonstrate that mutation coverage reveals additional weaknesses in the test suite compared to branch coverage and that it is able to do so with an acceptable performance overhead during project build._
 
 ## Exercises
 
