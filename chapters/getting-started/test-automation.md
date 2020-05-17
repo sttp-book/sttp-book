@@ -352,7 +352,7 @@ the system behaved as expected. In terms of code, it is where the `assert` instr
 
 Using one of the test methods above 
 to illustrate the different
-different parts of an automated test code:
+different parts of an automated test code (the comments identifying each of the parts in the source code are just to help you visualize the three parts; in real test code, we do not add these comments):
 
 ```java
 @Test
@@ -374,9 +374,8 @@ terms _arrange_, _act_, and _assert_ to talk about the different parts of an
 automated test case.
 
 {% hint style='tip' %}
-The comments identifying each of the parts in the source code are just to help you visualize the three parts. In real test code, we do not add these comments.
+While the AAA is a good structure to get started, you might find it rigid for other types of tests, such as property-based testing, which we will discuss in future chapter. 
 {% endhint %}
-
 
 
 ## Advantages of test automation
