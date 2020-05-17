@@ -1,6 +1,6 @@
 # Summary
 
-* [Authors](chapters/preface/authors.md)
+* [Authors and Acknowledgments](chapters/preface/authors.md)
 
 * [Using this book](chapters/preface/use.md)
 
@@ -42,20 +42,10 @@
 
 ----
 
-* [Intelligent testing](chapters/intelligent-testing/README.md)
-	* [Static testing](chapters/intelligent-testing/static-testing.md)
-	* [Mutation testing](chapters/intelligent-testing/mutation-testing.md)
-	* [Fuzz testing](chapters/intelligent-testing/fuzzing.md)
-	* [Search-based software testing](chapters/intelligent-testing/sbst.md) (soon)
-
-----
-
 * [Testing in the context](chapters/testing-into-context/README.md)
 	* [Web testing (soon)](chapters/testing-into-context/web-testing.md)
 	* Database testing (soon)
 	* Mobile testing (soon)
-	* Continuous experimentation (soon)
-	* Embedded software testing (soon)
 
 ----
 
@@ -63,14 +53,15 @@
 	* [Security testing](chapters/non-functional-testing/security-testing.md)
 	* Performance testing (soon)
 
----
+----
 
-* Software Quality
-	* Code reviews (soon)
-	* Code metrics (soon)
-	* Ethics and testing (soon)
+* [Intelligent testing](chapters/intelligent-testing/README.md)
+	* [Static testing](chapters/intelligent-testing/static-testing.md)
+	* [Mutation testing](chapters/intelligent-testing/mutation-testing.md)
+	* [Fuzz testing](chapters/intelligent-testing/fuzzing.md)
+	* [Search-based testing](chapters/intelligent-testing/sbst.md)
 
----
+----
 
 * Appendix
 	* [Answers to the exercises](chapters/appendix/answers.md)

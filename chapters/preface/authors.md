@@ -1,4 +1,4 @@
-# Authors
+# Authors and Acknowledgments
 
 This book is maintained by [Maurício Aniche](https://www.mauricioaniche.com), Assistant Professor in Software Engineering at Delft University of Technology.
 
@@ -17,3 +17,13 @@ This book would also not be possible without the help of many colleagues. A spec
 * For the many CSE1110 TAs that have helped us in improving the book. 
 	* 2020 edition: Evaldas Latoškinas, Sára Juhošová, Dixit Sabharwal, Abel Mălan, Denise Toledo, Rembrandt Klazinga, Yoshi van den Akker.
 * Finally, for our CSE1110 students that have fixed several typos, rephrased unclear paragraphs, proposed new exercises, and improve answers. The complete list of contributors can be found at https://github.com/sttp-book/sttp-book/graphs/contributors 
+
+This book was also highly inspired by many books on software testing and software design. And while we cite references per chapter, in the following, we acknowledge the ones that inspired us the most:
+
+* Pezzè, Mauro, and Michal Young. Software testing and analysis: process, principles, and techniques. John Wiley & Sons, 2008.
+* Graham, Dorothy, Erik Van Veenendaal, and Isabel Evans. Foundations of software testing: ISTQB certification. Cengage Learning EMEA, 2008.
+* Freeman, Steve, and Nat Pryce. Growing object-oriented software, guided by tests. Pearson Education, 2009.
+* Langr, Jeff, Andy Hunt, and Dave Thomas. Pragmatic unit testing in Java 8 with JUnit. Pragmatic Bookshelf, 2015.
+* Meszaros, Gerard. xUnit test patterns: Refactoring test code. Pearson Education, 2007.
+* Kaner, Cem, Sowmya Padmanabhan, and Douglas Hoffman. The Domain Testing Workbook. Context Driven Press, 2013.
+* Fowler, Martin. Testing bliki: https://martinfowler.com/tags/testing.html, Last access in 2020.

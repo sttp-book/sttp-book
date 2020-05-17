@@ -167,14 +167,14 @@ code engineering.
 In the test code above, we create the `roman` object four times.
 Having a fresh clean instance of an object for each test method is a good idea, as 
 we do not want "objects that might be already dirty" (and thus, being the cause for the test to fail, and not because there was a bug in the code) in our test. 
-
 However, having duplicated code is not desirable. The problem with duplicated test code
 is the same as in production code: if there is a change to be made, the change has to be made
 in all the points where the duplicated code exists.
 
-In this example, we should try to isolate the line of code responsible for creating
+In this example, in order to reduce some duplication, 
+we could try to isolate the line of code responsible for creating
 the class under test.
-In order to do so, we can use the `@BeforeEach` feature that JUnit provides.
+To that aim, we can use the `@BeforeEach` feature that JUnit provides.
 JUnit runs methods that are annotated with `@BeforeEach` before every test method.
 We therefore can instantiate the `roman` object inside a method annotated with `BeforeEach`.
 
@@ -217,15 +217,14 @@ class RomanNumeralTest {
 }
 ```
 
-Feel free to read more about [JUnit's annotations](https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations) in its documentation.
+{% hint style='tip' %}
+Note that moving the instantiation of the class to a `@BeforeEach` method would work if all tests make use of the same constructor. Classes that offer more than a single constructor might need a different approach to avoid duplication. Can you think of any? We discuss test code quality in a more systematic way in a future chapter.
+{% endhint %}
 
 You can also see a video of us refactoring the `MinMax` test cases. Although the test suite was still small, it had many opportunities for better test code.
 
 {% set video_id = "q5mq_Bkc8-s" %}
 {% include "/includes/youtube.md" %}
-
-We discuss test code quality in a more systematic way in a future 
-chapter.
 
 ## Tests and refactoring
 
