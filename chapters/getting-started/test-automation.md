@@ -373,6 +373,10 @@ Understanding the structure of a test method enables us to explore best practice
 terms _arrange_, _act_, and _assert_ to talk about the different parts of an
 automated test case.
 
+{% hint style='tip' }
+The comments identifying each of the parts in the source code are just to help you visualize the three parts. In real test code, we do not add these comments.
+{% endhint %}
+
 
 
 ## Advantages of test automation
