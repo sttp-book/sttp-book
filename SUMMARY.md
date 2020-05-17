@@ -1,6 +1,6 @@
 # Summary
 
-* [Authors](chapters/preface/authors.md)
+* [Authors and Acknowledgments](chapters/preface/authors.md)
 
 * [Using this book](chapters/preface/use.md)
 
