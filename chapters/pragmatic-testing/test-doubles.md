@@ -94,11 +94,7 @@ Without stubbing the `IssuedInvoices` class, the `InvoiceFilter` test would need
 
 ```java
 public class InvoiceFilterTest {
-  private IssuedInvoices invoices;
-
-  @BeforeEach public void open() {
-    invoices = new IssuedInvoices();
-  }
+  private final IssuedInvoices invoices = new IssuedInvoices();
 
   @AfterEach public void close() {
     if (invoices != null) invoices.close();
