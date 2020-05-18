@@ -1,4 +1,4 @@
-# Fuzz testing
+﻿# Fuzz testing
 
 Fuzzing is a popular dynamic testing technique used for automatically generating complex test cases. Fuzzers bombards the System Under Test (SUT) with randomly generated inputs in the hope to cause crashes. A crash can either originate from *failing assertions*, *memory leaks*, or *improper error handling*. Fuzzing has been successful in discovering [unknown bugs](https://lcamtuf.coredump.cx/afl/) in software.
 
@@ -34,7 +34,7 @@ There are various ways in which we achieve maximal code coverage in less time:
 A simple yet effective way to maximize code coverage is to use multiple fuzzing tools. Each fuzzer performs mutations in a different way, so they can be run together to cover different parts of the search-space in parallel. For example, using a combination of a mutative and generative fuzzer can help both, generate diverse test cases, while also ensuring valid inputs.
 
 ### **Telemetry as Heuristics**
-If the code structure is known (i.e. in a white-box setting), telemetry about code coverage can help constraint the applied mutations. For example, for the `if()` statement in the following code snippet, a heuristic based on ***branch-coverage*** requires 3 test cases to fully cover it, while that based on ***statement-coverage*** requires only 1 test case. Hence, using branch-coverage ensures that all three branches are tested at least once. Such heuristics can be used to select only those mutations that continually increase code coverage.
+If the code structure is known (i.e. in a white-box setting), telemetry about code coverage can help constrain the applied mutations. For example, for the `if()` statement in the following code snippet, a heuristic based on ***branch-coverage*** requires 3 test cases to fully cover it, while that based on ***statement-coverage*** requires only 1 test case. Hence, using branch-coverage ensures that all three branches are tested at least once. Such heuristics can be used to select only those mutations that continually increase code coverage.
 
 ``` Java
 func(int a, int b){
