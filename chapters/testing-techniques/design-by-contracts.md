@@ -567,7 +567,7 @@ Here, we define the abstract method that gives us a List.
 ```java
 public abstract class ListTest {
 
-  private final List list = createList();
+  protected final List list = createList();
 
   protected abstract List createList();
 
