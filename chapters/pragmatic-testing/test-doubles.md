@@ -437,7 +437,7 @@ In other words, the developer only cares about the existence of a method that re
 
 ```java
 public interface IssuedInvoices {
- List<Invoice> Invoiceall();
+ List<Invoice> all();
  void save(Invoice inv);
 }
 ```
