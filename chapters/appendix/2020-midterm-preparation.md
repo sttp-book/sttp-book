@@ -10,11 +10,11 @@ You are free to:
 * Use WebLab's code editor or IntelliJ or any other IDE to write your code. We even provide you [an IntelliJ project to get started](resources/2020-midterm-skeleton.zip). However, your final answer must be delivered in WebLab. Make sure your tests are passing and everything compiles in WebLab.
 * Use any tool to draw CFGs, state machines, and transition trees. You are also allowed to draw it manually and upload a picture. Just make sure it’s legible enough.
 
-You should not:
+You must not:
 
 * Ask questions to any other person. All the knowledge should come from you.
 * Ask any other person to do the exam for you.
-* Use Google (or any search engine) to look for the answers of the exercises. More specifically, you should not look for or copy existing test suites of the program you will test.
+* Use Google (or any search engine) to look for the answers of the exercises. More specifically, you must not look for or copy existing test suites of the program you will test.
 
 You have 3 hours to finish the exam.
 
