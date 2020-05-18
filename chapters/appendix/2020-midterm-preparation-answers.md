@@ -128,6 +128,8 @@ public class UTest {
 }
 ```
 
+_Note that we will not judge you by your personal code style. If you opt for `@CsvSource` instead of `@MethodSource`, for example, is no problem. That being said, you should definitely avoid duplicated code, variables with unclear names, or useless code._
+
 ## Exercise: Contracts
 
 * Pre-conditions: The requirements allow the method to receive a _null_ String. Otherwise, we could formalize _string not null_ as a pre-condition to this method.
