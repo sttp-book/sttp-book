@@ -116,12 +116,7 @@ Implementing this using JUnit gives the following code for the tests:
 ```java
 public class LeapYearTests {
 
-  private LeapYear leapYear;
-
-  @BeforeEach
-  public void setup() {
-    leapYear = new LeapYear();
-  }
+  private final LeapYear leapYear = new LeapYear();
 
   @Test
   public void leapYearsNotCenturialTest() {

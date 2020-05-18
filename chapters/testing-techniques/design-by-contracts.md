@@ -567,14 +567,9 @@ Here, we define the abstract method that gives us a List.
 ```java
 public abstract class ListTest {
 
-  private List list;
+  private final List list = createList();
 
   protected abstract List createList();
-
-  @BeforeEach
-  public void setUp() {
-    list = createList();
-  }
 
   // Common List tests using list
 }
