@@ -86,7 +86,7 @@ The tests we devised in the domain testing already achieve 100% full condition c
 
 From structural testing, we note that the `if (count == sz)` is not really needed. It seems to be there to avoid the allocation of a new string in the memory (i.e., if the string has no whitespaces, it just returns the same string). While not an explicit requirement, it was already covered by the "no whitespace" partition. To make the tests to capture such implicit requirement, we added an assertion that checks whether the String instance returned by the `deleteWhitespace()` is the same as the one provided in the input (i.e., `assertSame`).
 
-
+_(Some of you might also consider exercising the for loop 0, 1, and multiple times, for a stronger coverage. Although the exercise did not really ask for loop boundary adequacy, it is an acceptable answer too.)_
 
 ## Exercise: JUnit code
 
