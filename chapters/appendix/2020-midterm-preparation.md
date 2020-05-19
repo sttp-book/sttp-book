@@ -216,7 +216,7 @@ If you do not see a pre-condition, post-condition, or class invariant, explicitl
 
 We will now randomly give you a description of a state machine. In the following exercises, you will:
 
-* Draw the state machine, using the UML notation
+* Draw the state machine
 * Derive a transition tree
 * Explore sneaky paths
 
