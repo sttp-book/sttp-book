@@ -60,7 +60,7 @@ Equivalence and boundary analysis:
     * with many whitespaces
     * without whitespace
 
-* Boundaries: Boundaries between partitions happen when the string goes from no whitespaces, to a single whitespace, to many whitespaces. These boundaries are already covered by the partitions above.
+* Boundaries: Boundaries between partitions happen when the string goes from no whitespaces, to a single whitespace, to many whitespaces. 
 
 (Note that others can see cases, such as whitespaces at the beginning or whitespaces at end. We do not see a need for this, given the implementation. Nevertheless, as a black-box tester, these tests are totally valid!)
 
@@ -72,7 +72,7 @@ Test cases:
 * T2 empty string = "" -> ""
 * T3 no whitespace = "abc" -> "abc"
 * T4 single whitespace = "abc " -> "abc"
-* T5 multiple whitespaces = " a b c " -> "abc"
+* T5 multiple whitespaces = " a b c" -> "abc"
 
 ## Exercise: Control-flow graph
 
@@ -115,7 +115,7 @@ public class UTest {
         Arguments tc2 = Arguments.of("empty", "", "");
         Arguments tc3 = Arguments.of("no withspace", "abc", "abc");
         Arguments tc4 = Arguments.of("single withspace", "abc ", "abc");
-        Arguments tc5 = Arguments.of("with multiple withspaces", " a b c ", "abc");
+        Arguments tc5 = Arguments.of("with multiple withspaces", " a b c", "abc");
 
         return Stream.of(tc1, tc2, tc3, tc4, tc5);
     }
