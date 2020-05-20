@@ -260,7 +260,7 @@ Upload your answer here. You have to stick to common image formats (.jpg, .png, 
 
 ## Exercise: Sneaky paths
 
-As a tester, you might feel the need of testing sneaky tests (or at least, to think about them).
+As a tester, you might feel the need of testing sneaky paths (or at least, to think about them).
 
 What sneaky paths do you see in the state machine? List them all.
 
