@@ -448,14 +448,14 @@ T1 makes conditions 1 and 2 true and then does not cover the other conditions. T
 
 At this moment, condition coverage = 2/8.
 
-For T2, the input number 8 is neither divisible by 3, nor divisible by 5. Therefore covers the cases of all 4 conditions to be false. We now have:
+For T2, the input number 8 is neither divisible by 3, nor divisible by 5. However, since the && operator only evaluates the second condition when the first one is true, condition 2 is not reached. Therefore this test only covers condition 1, 2 and 3 to be false. We now have:
 
 * condition 1 = [true: exercised, false: exercised]
-* condition 2 = [true: exercised, false: exercised]
+* condition 2 = [true: exercised, false: not exercised]
 * condition 3 = [true: not exercised, false: exercised]
 * condition 4 = [true: not exercised, false: exercised].
 
-In total, these test cases then cover $$2 + 4 = 6$$ conditions so the condition coverage is $$\frac{6}{8} \cdot 100\% = 75\%$$
+In total, these test cases then cover $$2 + 3 = 5$$ conditions so the condition coverage is $$\frac{5}{8} \cdot 100\% = 62.5\%$$
 
 Now the decision coverage. We have 6 decisions:
 
