@@ -85,7 +85,7 @@ Let us look at an example of a very simple web application (without a back end) 
 
 The application does the following:
 * When the page is loaded, the current date is shown.
-* Every time you click the button, the date is incremented and the new date is logged to the console.
+* Every time you click the button, the date is incremented.
 
 We start with the following (low-quality) implementation (`dateIncrementer1.html`):
 
@@ -108,7 +108,6 @@ We start with the following (low-quality) implementation (`dateIncrementer1.html
             var date = new Date(p.innerText);
             date.setDate(date.getDate() + 1);
             p.innerText = date.toISOString().slice(0, 10);
-            console.log('The new date is ' + date);
         }
 
         window.onload = function () {
@@ -131,23 +130,27 @@ This is exacerbated by the fact that keeping track of the currently shown date i
 We have even become dependent on the implementation of the date conversion functions (which leads to problems if we decide to use a different date format, for instance). 
 The conversion from string that is done should not even be necessary. 
 We should solve these problems by splitting up the `incrementDate()` function into different functions and storing the currently shown date in a variable. 
-We should also consider the `console.log()` call, which is a side effect that should not interfere with unit testing the date logic.
 
 Another problem is that the initial date value is hard-coded: the code always uses the current date (by calling `new Date()`), so you cannot test what happens with cases like "February 29th, 2020".
 
-No ID has been defined for the `<p>` element. 
-Therefore we had to jump through hoops to find the element, and thereby unnecessarily imposed restrictions on the HTML structure (the `<p>` element must now be on the same level as the button, and it must be the first element). 
-In addition, this makes us need workarounds for finding the element in our UI tests too. 
-To avoid that, we simply need to add an `id` to the element.
+The `<p>` element was difficult to locate using the standard JavaScript query selectors, and we resorted to abusing the DOM structure to find it. 
+We thereby unnecessarily imposed restrictions on the DOM structure (the `<p>` element must now be on the same level as the button, and it must be the first element). 
+For your UI tests, you should make sure that you can reliably select the elements you use.
+In our simple JavaScript example, we can achieve this by adding an `id` to the element and then selecting it by using `getElementById()`.
+In general, it is better to find elements in the same way that users find them (for example, by using labels in a form).
+
 
 The aforementioned issues are solved by refactoring the code and splitting it up into three files.
 The first one (`dateUtils.js`) contains the utility functions for working with dates, which can now nicely be tested as separate units:
 
 ```js
+// Advances the given date by one day.
 function incrementDate(date) {
     date.setDate(date.getDate() + 1);
 }
 
+// Returns a string representation of the given date
+// in the format yyyy-MM-dd.
 function dateToString(date) {
     return date.toISOString().slice(0, 10);
 }
@@ -164,7 +167,6 @@ function DateIncrementer(initialDate, dateElement) {
 DateIncrementer.prototype.increment = function () {
     incrementDate(this.date);
     this.updateView();
-    console.log('The new date is ' + this.date);
 };
 
 DateIncrementer.prototype.updateView = function () {
@@ -269,7 +271,16 @@ On the console, the following message is logged: "Expected 2020-05-01 but was 20
 This is because the implementation of `dateToString` returns the date in UTC, whereas the date was created in the local time zone of the user with time 0:00:00. 
 So a user who is in time zone UTC+2 and opens the application just after midnight on May 1st, will see April 30th instead.
 Now the requirements were not explicit on what was meant by the "current date", but this is probably not what was intended so it can be considered a bug.
-Fixing the `dateToString` method is left as an exercise for the reader.
+For reference, here is an alternative implementation that does not have the time zone issues (as long as the given date has been created in the local time zone of the user); you should of course write tests to verify this:
+
+```js
+function dateToString(date) {
+    year = date.getFullYear();
+    month = ('0' + (date.getMonth() + 1)).slice(-2);
+    day = ('0' + date.getDate()).slice(-2);
+    return year + "-" + month + "-" + day;
+}
+```
 
 Next, we take a look at writing UI tests for the `DateIncrementer` class in `dateIncrementer.js`. We create another HTML file (`dateIncrementerTest.html`), manually mock the external functions and check whether `increment()` works as expected:
 
@@ -313,18 +324,7 @@ Next, we take a look at writing UI tests for the `DateIncrementer` class in `dat
         var p = document.getElementById("pDate");
 
         var dateIncrementer = new DateIncrementer(date3, p);
-
-        // As we are not using a mocking library,
-        // we mock console.log() by "monkey patching" it.
-        var consoleLogCalls = 0;
-        var originalConsoleLog = console.log;
-        console.log = function(msg) { consoleLogCalls++; };
-
-        // Call the 'function under test'.
         dateIncrementer.increment();
-
-        // Restore console.log to the original function.
-        console.log = originalConsoleLog;
 
         // 3.1: increment() should call incrementDate()
         assertEqual(1, incrementDateCalls);
@@ -337,9 +337,6 @@ Next, we take a look at writing UI tests for the `DateIncrementer` class in `dat
         // 3.3: increment() should use dateToString and update the view
         assertEqual(1, dateToStringCalls);
         assertEqual("mock", p.innerText);
-
-        // 3.4: increment() should log to the console
-        assertEqual(1, consoleLogCalls);
     </script>
 </body>
 
@@ -348,6 +345,10 @@ Next, we take a look at writing UI tests for the `DateIncrementer` class in `dat
 
 We successfully mocked the external dependencies and were able to check whether the UI was updated properly. 
 This time, nothing is logged to the console because all tests succeed.
+
+{% hint style='tip' %}
+Even though we showed that it is possible to mock the date utility functions, you can also decide to use their actual implementations. (This trade-off was explained in the *Test doubles* chapter.) In the example above, you would have to add the line `<script src="dateUtils.js"></script>` (and remove the mock implementations) in order to use the actual implementations.
+{% endhint %}
 
 Of course, the manual approach we followed here has obvious limitations.  We had to write the `assertEqual` function ourselves, and we would need to write similar methods for other kinds of assertions. 
 Our `assertEqual` implementation only logs to the console and does not provide any context when an assertion has failed (like the line number of the call to `assertEqual`). 
@@ -376,6 +377,7 @@ Just to give you an example of what the tests may look like when using such a fr
 
 TODO
 
+In react-testing-library, finding elements by text is one of the preferred ways (as it resembles how a user would manually test the application).
 
 ### UI component testing
 TODO
@@ -395,3 +397,4 @@ TODO. Discuss in less detail.
 * Encourage active reading of the code.
 * Something about asynchronicity.
 * Some more about transpiling etc.?
+* Maurício's suggestion: "My only suggestion is to give a list of things you are going to discuss. After you list the unique characteristics of web testing, you dive into javascript testing right away. Maybe some paragraph explaining that we'll focus on client testing, then server side testing, etc etc, just so the reader knows what's about to happen."
