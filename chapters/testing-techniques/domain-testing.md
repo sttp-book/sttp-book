@@ -327,10 +327,6 @@ A student can only join the MSc if :
 |			| 						| (30, in)		| 			|
 |			| 						| (in, 4.0)		| in-point ACT = 31		|
 |			| 						| (in, 3.9)		| 			|
-|			| (= 36, >= 3.5)		| (35, in)		| in-point GPA = 3.5 	|
-|			| 						| (37, in)		| 			|
-|			| 						| (in, 3.5)		| in-point ACT = 36		|
-|			| 						| (in, 3.4)		| 			|
 |			| (< 0, < 0.0)			| (-1, in)		| in-point GPA = 0.1 	|
 |			| 						| (in, -0.1)	| in-point ACT = 1		|
 |			| (> 36, > 4.0)			| (37, in)		| in-point GPA = 4 		|
