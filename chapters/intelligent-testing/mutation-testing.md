@@ -1,4 +1,5 @@
-﻿# Mutation testing
+﻿
+# Mutation testing
 
 *How do we know if we tested enough?*
 In the structural testing chapter, we discussed line coverage, branch coverage, and MC/DC.
