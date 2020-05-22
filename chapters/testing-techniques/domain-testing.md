@@ -182,8 +182,8 @@ Boundaries seem to be enough.
 | T1        | 1             | false         |                |
 | T2        | 4.9           | false         |                |
 | T3        | 5             | true          |                |
-| T4        | 7.5           | true          |                |
-| T5        | 10            | true          | extra in-point |
+| T4        | 7.5           | true          | extra in-point |
+| T5        | 10            | true          |                |
 
 {% set video_id = "S_90_sYP7GA" %}
 {% include "/includes/youtube.md" %}
