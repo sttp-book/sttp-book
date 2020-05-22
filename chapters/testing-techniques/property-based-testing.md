@@ -17,7 +17,7 @@ Nowadays, most languages have an implementation of quick check, including Java.
 The Java implementation we are going to use is [jqwik](https://jqwik.net).
 
 {% hint style='tip' %}
-Jqwik has several features to better support property based tests. In this chapter, we only skim through some of them. We recommend to readers to dive into jqwik's manual.
+Jqwik has several features to better support property-based tests. In this chapter, we only skim through some of them. We recommend readers to dive into jqwik's manual.
 {% endhint %}
 
 ## Getting started with property-based tests
@@ -40,7 +40,7 @@ the generator might create too much data to efficiently handle while testing.
 * Finally, as soon as jqwik finds a value that breaks the property, it
 starts the shrinking process.
 Using random input values can result in very large inputs.
-For example lists that are very long or strings with a lot of characters.
+For example, lists that are very long or strings with a lot of characters.
 These inputs can be very hard to debug. Smaller inputs are preferable when it comes to testing.
 When an input makes a property fail, jqwik tries to find a shrunken version of this input that still makes the property fail.
 That way it gets the smallest part of a larger input that actually causes the problem.
@@ -81,12 +81,13 @@ Note that, in the video, we still use the `@RunWith` annotation that was require
 Suppose the following requirement:
 
 > Requirement: Passing grade
+>
 > A student passes an exam if s/he gets a grade >= 5.0. 
 > Grades below that are a fail.
 >
 > Grades range from [1.0, 10.0].
 
-We can identify two valid classes and one invalid class in the requirement: passing grades and non passing grades, and grades outside the range.
+We can identify two valid classes and one invalid class in the requirement: passing grades and non-passing grades, and grades outside the range.
 
 When doing property-based testing, we declare these properties in form of jqwik's properties:
 
@@ -100,12 +101,12 @@ public class PassingGradesPBTest {
     private final PassingGrade pg = new PassingGrade();
 
     @Property
-    void pass(@ForAll @FloatRange(min = 1f, max = 5.0f, maxIncluded = false) float grade) {
+    void fail(@ForAll @FloatRange(min = 1f, max = 5.0f, maxIncluded = false) float grade) {
         assertThat(pg.passed(grade)).isFalse();
     }
 
     @Property
-    void fail(@ForAll @FloatRange(min = 5.0f, max = 10.0f, maxIncluded = false) float grade) {
+    void pass(@ForAll @FloatRange(min = 5.0f, max = 10.0f, maxIncluded = true) float grade) {
         assertThat(pg.passed(grade)).isTrue();
     }
 
@@ -120,7 +121,7 @@ public class PassingGradesPBTest {
     @Provide
     private Arbitrary<Float> invalidGrades() {
         return Arbitraries.oneOf(
-                Arbitraries.floats().lessOrEqual(-0.9f),
+                Arbitraries.floats().lessOrEqual(0.9f),
                 Arbitraries.floats().greaterOrEqual(10.1f));
     }
 }
@@ -138,9 +139,9 @@ See another requirement, also used as an example in jqwik's website:
 
 We can derive four clear properties:
 
-* Property `fizz`: for all numbers divisible by 3, and not divisible by 5, the program returns fizz (see the `divisibleBy3` provider method to understand how we feed values with such properties).
-* Property `buzz`: for all numbers divisible by 5 (and not divisible by 3), the program returns fizz.
-* Property `fizzbuzz`: for all numbers divisible by 3 and 5, the program returns fizzbuzz.
+* Property `fizz`: for all numbers divisible by 3, and not divisible by 5, the program returns "Fizz" (see the `divisibleBy3` provider method to understand how we feed values with such properties).
+* Property `buzz`: for all numbers divisible by 5 (and not divisible by 3), the program returns "Buzz".
+* Property `fizzbuzz`: for all numbers divisible by 3 and 5, the program returns "FizzBuzz".
 * Property `noZeroesAndNegatives`: the program throws an exception for all numbers that are zero or smaller.
 
 ```java
@@ -201,20 +202,6 @@ public class FizzBuzzTest {
 
 You may see other examples in our [code repository](https://www.github.com/sttp-book/code-examples).
 
-## Property-based testing and AI
-
-A lot of today's research goes into creating AI for software testing that generates good input values for tests.
-We try to apply artificial intelligence to find inputs that exercise important parts of the system.
-
-While the research's results are very promising, there still exist difficulties with this testing approach.
-The main problem is that if the AI generates random inputs, how do we know for sure that the outcome is correct, i.e., how do we know that the problem behaved correctly for that random value?
-With the unit test we made so far we manually took certain inputs, thought about the correct outcome, and made the assertion to expect that outcome.
-When generating random inputs, we cannot think about the outcome every time.
-The pre- and postconditions, contracts, and properties we discussed in this chapter can help us solve the problem.
-By well-defining the system in these terms, we can use them as oracles in the test cases.
-The properties always have to be true, so we can use them in all the randomly generated test cases.
-
-We will discuss AI techniques more in a future chapter.
 
 ## Exercises
 

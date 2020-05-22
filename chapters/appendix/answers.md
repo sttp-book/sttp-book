@@ -73,26 +73,26 @@ We end up with three partitions:
 
 **Exercise 4**
 
-There are no right or wrong answers to this exercise. 
+There are no right or wrong answers to this exercise.
 It services to show that a lot of decisions that we make are based on what we know about the system (or, in this case, what we assume about the system).
 But, when context kicks in, there might be more possible invalid test cases then just the cases in the boundaries.
 
 Whatever decisions you as a tester make regarding specific invalid test cases, it is important to justify those decisions.
 For example:
-* Do we feel the need of testing negative numbers separately from positive numbers? From the specification, there's no reason to do so. 
+* Do we feel the need of testing negative numbers separately from positive numbers? From the specification, there's no reason to do so.
 If you look at the source code (supposing you have access to the source code, does it make you feel like this test is needed?
 * Do we feel the need of testing trailing zeroes? Maybe the user inputs a string which is converted later... Then, testing might be important.
-* Do we feel the need to test extreme numbers, like Integer.MAX_VALUE or even passing a long int or float there? 
-* Do we feel the need to test with a string consisting of only 1 letter, or maybe more than 2 letters? 
-If there's no input validation, unintended behaviour might be right around the corner 
+* Do we feel the need to test extreme numbers, like Integer.MAX_VALUE or even passing a long int or float there?
+* Do we feel the need to test with a string consisting of only 1 letter, or maybe more than 2 letters?
+If there's no input validation, unintended behaviour might be right around the corner
 * Do we feel the need to test lowercase letters? Maybe the program can't distinguish between lower- and uppercase letters.
 
 Examples of possible invalid partitions:
 1. [Integer.MIN_VALUE, 999]
-2. [4001, Integer.MAX_VALUE] 
+2. [4001, Integer.MAX_VALUE]
 3. [AA, B]
 4. [N, Z]
-5. [0000, 0999] 
+5. [0000, 0999]
 6. [AAA, ZZZ]
 
 
@@ -124,7 +124,7 @@ Possible actions:
 
 This focus of this exercise is for you to see that the internal state of the object should also be taken into account in the partitions (and not only the direct input variables).
 
-Input parameter e: 
+Input parameter e:
 * P1: Element not present in the set
 * P2: Element already present in the set
 * P3: NULL element.
@@ -133,7 +133,7 @@ Set is full?  (`isFull` comes from the state of the class)
 * isFull == true
 * isFull == false
 
-With the categories and partitions in hands, we can constrain the `isFull == true` and test it only once (i.e., without combining with other classes). 
+With the categories and partitions in hands, we can constrain the `isFull == true` and test it only once (i.e., without combining with other classes).
 
 We then combine them all and end up with four tests:
 
@@ -200,7 +200,7 @@ First note that the modulo function `%` is not a linear function, therefore ther
 
 
 For `n % 3 == 0` any multiple of 3 would work as an on-point.
-Because we can't exhaustively test all multiples of 3, only one of them should be tested. Lets use 3 for this exercise.
+Because we can't exhaustively test all multiples of 3, only one of them should be tested. Let's use 3 for this exercise.
 There are also infinitely many off points we can pick. Choosing the respective off-points of our on-point should suffice. Off-points: 2 and 4.
 
 Similarly to the first condition for `n % 5 == 0` we have an on-point of 5.
@@ -240,7 +240,7 @@ As we last step we can identify duplicate tests and remove those.
   - If `lives <= 0`, we can test this with just one combination.
   - If legs is an negative integer or 0, this is an exceptional case. Therefore it doesn't matter if the animal has sharp nails or not.
   - If legs is not an even integer, we can test this with just one combination.
-  - If `lives >= 10`, we can test this with just one combination. 
+  - If `lives >= 10`, we can test this with just one combination.
 1. Test cases: Tests can be divided in 3 categories: is a cat, not a cat, exceptional cases.
   - **Cat**
     1. 2, true, 6, true, "miauws" --> cat
@@ -257,7 +257,7 @@ As we last step we can identify duplicate tests and remove those.
     4. 4, true, 0, true, "miauws" --> not a cat or invalid depending on the context of the program.
 
 
-Note that some tests can be combined! For example: 
+Note that some tests can be combined! For example:
   - TEST-1 from not a cat is the same as TEST-3 from exceptional
   - TEST-3 from not a cat is the same as TEST-2 from exceptional
 
@@ -431,7 +431,7 @@ For the other answers we can come up with a test case: `"aXYa"`
 
 
 First the condition coverage.
-When talking about condition coverage, we first have to split the condition on line 1 (n % 3 == 0 && n % 5 == 0) 
+When talking about condition coverage, we first have to split the condition on line 1 (n % 3 == 0 && n % 5 == 0)
 into two decision blocks for the CFG. In total, we will have 8 conditions:
 
 1. Line 1: `n % 3 == 0`, true and false
@@ -439,22 +439,32 @@ into two decision blocks for the CFG. In total, we will have 8 conditions:
 3. Line 3: `n % 3 == 0`, true and false
 4. Line 5: `n % 5 == 0`, true and false
 
-T1 makes conditions 1 and 2 true and then does not cover the other conditions.
-For T2 we need to pay special attention. The input number 8 is neither divisible by 3, nor divisible by 5. 
-Having the CFG in mind, notice that when the first part of the condition on line 1 (namely n % 3 == 0) is evaluated to false,
-the second part will not even be evaluated since the && is a lazy operator. Therefore, we will end up following the false paths 
-of the first, third and the forth decision block.
+T1 makes conditions 1 and 2 true and then does not cover the other conditions. Thus:
+
+* condition 1 = [true: exercised, false: not exercised]
+* condition 2 = [true: exercised, false: not exercised]
+* condition 3 = [true: not exercised, false: not exercised]
+* condition 4 = [true: not exercised, false: not exercised].
+
+At this moment, condition coverage = 2/8.
+
+For T2, the input number 8 is neither divisible by 3, nor divisible by 5. However, since the && operator only evaluates the second condition when the first one is true, condition 2 is not reached. Therefore this test only covers condition 1, 2 and 3 to be false. We now have:
+
+* condition 1 = [true: exercised, false: exercised]
+* condition 2 = [true: exercised, false: not exercised]
+* condition 3 = [true: not exercised, false: exercised]
+* condition 4 = [true: not exercised, false: exercised].
+
 In total, these test cases then cover $$2 + 3 = 5$$ conditions so the condition coverage is $$\frac{5}{8} \cdot 100\% = 62.5\%$$
 
-Now the decision coverage.
-We have 6 decisions:
+Now the decision coverage. We have 6 decisions:
 
 1. Line 1: `n % 3 == 0 && n % 5 == 0`, true and false
 2. Line 3: `n % 3 == 0`, true and false
 3. Line 5: `n % 5 == 0`, true and false
 
 Now T1 makes decision 1 true and does not cover the other decisions.
-T2 makes all the decision false.
+T2 makes all the decisions false.
 Therefore, the coverage is $$\frac{4}{6} \cdot 100\% = 66\%$$.
 
 
@@ -521,7 +531,27 @@ Note that 2, 4, 5, 6 could also be a solution.
 
 **Exercise 16**
 
-(removed)
+The table for the given expression is:
+
+| Tests | A   | B   | Result |
+|-------|:---:|:---:|--------|
+| 1     | F   | F   | F      |
+| 2     | F   | T   | F      |
+| 3     | T   | F   | T      |
+| 4     | T   | T   | T      |
+
+From this table we can deduce sets of independence pairs for each of the parameters:
+- `A`: {(1, 3), (2, 4)}
+- `B`: { (empty) }
+
+We can see that there is no independence pair for `B`.
+Thus, **it is not possible to achieve MC/DC coverage for this expression**.
+
+Since there is no independence pair for `B`, this parameter has no effect on the result.
+We should recommend the developer to restructure the expression without using `B`, which will make the code easier to maintain.
+
+This example shows that software testers can contribute to the code quality not only by spotting bugs, but also by suggesting changes that result in better maintainability.
+
 
 
 
@@ -746,29 +776,6 @@ In this case we need to test each explicit decision in the decision table.
 | Ad is highly relevant to user      | T  | T  | F  |
 | Serve ad?                          | T  | T  | T  |
 
-**Exercise 16**
-
-The table for the given expression is:
-
-| Tests | A   | B   | Result |
-|-------|:---:|:---:|--------|
-| 1     | F   | F   | F      |
-| 2     | F   | T   | F      |
-| 3     | T   | F   | T      |
-| 4     | T   | T   | T      |
-
-From this table we can deduce sets of independence pairs for each of the parameters:
-- `A`: {(1, 3), (2, 4)}
-- `B`: { (empty) }
-
-We can see that there is no independence pair for `B`. 
-Thus, **it is not possible to achieve MC/DC coverage for this expression**.
-
-Since there is no independence pair for `B`, this parameter has no effect on the result.
-We should recommend the developer to restructure the expression without using `B`, which will make the code easier to maintain.
-
-This example shows that software testers can contribute to the code quality not only by spotting bugs, but also by suggesting changes that result in better maintainability.
-
 
 
 
@@ -779,7 +786,7 @@ This example shows that software testers can contribute to the code quality not 
 
 `board != null`
 
-For a class invariant the assertions has to assert a class variable.
+For a class invariant the assertions have to assert a class variable.
 `board` is such a class variable, unlike the other variables that are checked by the assertions.
 The other assertions are about the parameters (preconditions) or the result (postcondition).
 
@@ -811,7 +818,7 @@ We cannot substitute a `Square` for a `Rectangle`, because we would not be able 
 
 
 Making correct use of a class should never trigger a class invariant violation.
-We are making correct use of the class, as otherwise it would have been a precondition violation.
+We are making correct use of the class, as otherwise it would have been a pre-condition violation.
 This means that there is a bug in the implementation of the library, which would have to be fixed.
 As this is outside your project, you typically cannot fix this problem.
 
@@ -820,29 +827,31 @@ As this is outside your project, you typically cannot fix this problem.
 
 Just like the contracts we have a client and a server.
 
-A 4xx code means that the client invoked the server in a wrong way, which corresponds to failing to adhere to a precondition.
+A 4xx code means that the client invoked the server in a wrong way, which corresponds to failing to adhere to a pre-condition.
 
 A 5xx code means that the server was not able to handle the request of the client, which was correct.
-This corresponds to failing to meet a postcondition.
+This corresponds to failing to meet a post-condition.
 
 
 
 **Exercise 6**
 
-P' should be equal or weaker than P, and Q' should be equal or stronger than Q.
+Statement 1 is correct:
+_P' should be equal or weaker than P, and Q' should be equal or stronger than Q._
 
 
 
 **Exercise 7**
 
-To make debugging easier.
+Statement 4 is correct:
+_To make debugging easier._
 
 
 
 
 ## Property-based testing
 
-1. We still need answers here. Maybe you want to help us and open a PR?
+1. See the domain testing problems implemented as property-based tests in the [code-examples repo](https://github.com/sttp-book/code-examples/tree/master/src/test/java/tudelft/pbt)
 
 
 
@@ -893,27 +902,42 @@ Correct answer: The interaction with the system is much closer to reality (1)
 
 **Exercise 7**
 
-Correct answer: System tests tend to be slow and often are non-deterministic (4)
+Correct answer: System tests tend to be slow and are difficult to make deterministic (4)
 
-See https://martinfowler.com/bliki/TestPyramid.html!
-
-
+See https://martinfowler.com/bliki/TestPyramid.html !
 
 
+**Exercise 8**
+
+At some point, it's important to test code with external dependencies, such as a database, against those dependencies. 
+Apart from testing the SQL, which in principle is just more code, we need to check, for example
+that the schema is aligned and that we're using the right connection. 
+We will also need to test our upgrade scripts as the database changes over time.
+
+This suggests that we should write integration tests that check our database access code against a real database. 
+This is commonly done by including scripts that can set up a test instance of the database which we fill with appropriate 
+values for each test. The test harness then runs that access code against the test instance. Ideally, this test database
+should only be used for these integration tests and rebuilt each time. There should be no test flakiness at this stage.
+
+Some teams have found benefit from using an in-memory  database for this stage, in terms of speed and flexibility. 
+This also encourages the use of standard features and keeping the database focussed just on managing data, which is what it's there for.  
+
+One advantage of such tests is that data access can be tested in isolation, after the unit tests but before incurring the cost
+of a full system deployment and test.
+
+The tester should also look at the SQL code and consider any implicit branch and condition coverage, for example 
+when there are no values that meet the search criteria, or the various data combinations that make up a complicated join.
+
+We discuss more about testing SQL queries in the _database testing_ chapter.
 
 
-
-
-
-
-
-## Mock Objects
+## Test doubles
 
 **Exercise 1**
 
 The correct answer is 4.
 
-1. This line is required to create a mock for the `OrderDao` class.
+1. This line is required to create a mock for the `OrderBook` class.
 2. With this line we check that the methods calls start with `order` on a `delivery` mock we defined. The method is supposed to start each order that is paid but not delivered.
 3. With this line we define the behaviour of the `paidButNotDelivered` method by telling the mock that it should return an earlier defined `list`.
 4. We would never see this happen in a test that is testing the `OrderDeliveryBatch` class. By mocking the class we do not use any of its implementation. But the implementation is the exact thing we want to test. In general we never mock the class under test.
@@ -926,8 +950,7 @@ You need mocks to both control and observe the behaviour of the (external) condi
 
 **Exercise 3**
 
-
-Option 1 is the false one. We can definitely get to 100% branch coverage there with the help of mocks.
+Option 1 is false. We can cover all the code branches using mocks.
 
 
 **Exercise 4**
@@ -940,9 +963,9 @@ Only approach 2.
 Given that the condition we have in `InvoiceFilter` is `x < 100`, we have:
 
 * On-point: 100. 100 should be out of the returned list of invoices.
-* Off-point: 101. 101 should be in the returned list of invoices.
-* (Random) In-point: 500.
-* (Random off-point): 50.
+* Off-point: 99. 99 should be in the returned list of invoices.
+* (Random) In-point: 50.
+* (Random) Out-point: 500.
 
 A single test with these four invoices is a good test for the boundaries of the problem.
 
@@ -951,61 +974,44 @@ A single test with these four invoices is a good test for the boundaries of the 
 
 **Exercise 1**
 
-To test just the `runBatch` method of `OrderDeliveryBatch` (for example in a unit test) we need to be able to use mocks for at least the `dao` and `delivery` objects.
-In the current implementation this is not possible, as we cannot change `dao` or `delivery` from outside the class.
+To test just the `runBatch` method of `OrderDeliveryBatch` (for example in a unit test) we need to be able to use mocks for at least the `orderBook` and `delivery` objects.
+In the current implementation this is not possible, as we cannot change `orderBook` or `delivery` from outside the class.
 In other words: We want to improve the controllability to improve the testability.
 
 The technique that we use to do so is called dependency injection.
-We can give the `dao` and `delivery` in a parameter of the method:
+We can give the `orderBook` and `delivery` in a parameter of the method:
 
 ```java
 public class OrderDeliveryBatch {
 
-  public void runBatch(OrderDao dao, DeliveryStartProcess delivery) {
-    List<Order> orders = dao.paidButNotDelivered();
-
-    for (Order order : orders) {
-      delivery.start(order);
-
-      if (order.isInternational()) {
-        order.setDeliveryDate("5 days from now");
-      } else {
-        order.setDeliveryDate("2 days from now");
-      }
-    }
+  public void runBatch(OrderBook orderBook, DeliveryStartProcess delivery) {
+    orderBook.paidButNotDelivered()
+      .forEach(delivery::start);
   }
 }
 ```
 
-Alternatively we can create fields for the `dao` and `delivery` and a constructor that sets the fields:
+Alternatively we can create fields for the `orderBook` and `delivery` and a constructor that sets the fields:
 
 ```java
 public class OrderDeliveryBatch {
 
-  private OrderDao dao;
+  private OrderBook orderBook;
   private DeliveryStartProcess delivery;
 
-  public OrderDeliveryBatch(OrderDao dao, DeliveryStartProcess delivery) {
-    this.dao = dao;
+  public OrderDeliveryBatch(OrderBook orderBook, DeliveryStartProcess delivery) {
+    this.orderBook = orderBook;
     this.delivery = delivery;
   }
 
   public void runBatch() {
-    List<Order> orders = dao.paidButNotDelivered();
-
-    for (Order order : orders) {
-      delivery.start(order);
-
-      if (order.isInternational()) {
-        order.setDeliveryDate("5 days from now");
-      } else {
-        order.setDeliveryDate("2 days from now");
-      }
-    }
+    orderBook.paidButNotDelivered()
+      .forEach(delivery::start);
   }
 }
 ```
-
+Which option we chose depends on the lifecycles of the various objects. If the `OrderDeliveryBatch` always applies to the same `OrderBook` and `DeliveryStartProcess`, then we would probably use the constructor, otherwise, we might use the method parameters.
+Our choice expresses this runtime behaviour.
 
 **Exercise 2**
 
@@ -1020,20 +1026,17 @@ We can use dependency injection to make sure we can control the `today` object b
 **Exercise 3**
 
 
-The correct answer is 1 and 3.
+The ones to be prioritized are 1 and 3.
 
-As we discussed it is very important to keep the domain and infrastructure separated for the testability.
-This can be done, for example, by using Ports and Adapters.
+Option 1: As we discussed in the chapter, it is very important to keep the domain and infrastructure separated for the testability. How would you write an unit test to a piece of code that contains business rules and talks to a database?
 
-Static methods cannot be mocked and are therefore very bad for the controllability of the code.
-Code that has low controllability also has a low testability, so replacing the static methods by non-static ones will be very beneficial to the testability.
+Option 3: Static methods are not easy to be stubbed/mocked. Mockito, for example, does not mock static methods. 
 
-The large tables and lack of indices do not really influence the testability, especially not when talking about unit tests.
-When writing unit tests we end up mocking the classes interacting with the database anyway.
+Regarding the other alternatives:
 
-Too many attributes/fields can hurt testability as we might need to create a lot of mocks for just one class under test.
-However, the static methods and mixed domain and infrastructure are worse for the testability than a large number of attributes/fields.
+Option 2: Given that the focus is to write unit tests, dependencies such as databases will be mocked. The size of the database, thus, does not matter.
 
+Option 4: Classes with many attributes and fields do require extra effort to be tested. After all, the tester has to instantiate and set values for all these fields. However, this does not really prevent you from writing tests.
 
 **Exercise 4**
 
@@ -1081,7 +1084,6 @@ TDD literature says nothing about team integration.
 
 
 
-
 ## Test code quality
 
 **Exercise 1**
@@ -1112,12 +1114,6 @@ To avoid the flakiness, a developer could have mocked the random function. It do
 
 
 
-## Mutation testing
-
-**Exercise 1**
-
-Mutation testing.
-
 ## Static testing
 
 **Exercise 1.**
@@ -1127,6 +1123,18 @@ Regular expressions cannot count instances.
 **Exercise 2.**
 
 Static analysis produces over-generalized results with some false positives, so the analysis is Sound but Imprecise.
+
+
+
+
+## Mutation testing
+
+**Exercise 1**
+
+Mutation testing.
+
+
+
 
 ## Security testing
 
@@ -1165,3 +1173,8 @@ x = {0,12,21}
 y = {1,2,3,...}
 ```
  Since reaching  definitions  analysis  produces all the  possible  values  a  variable  might take, resulting in over-generalization and false positives.
+
+
+## Search-based software testing
+
+1. (No need for answer)

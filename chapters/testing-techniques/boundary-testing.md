@@ -265,7 +265,7 @@ Let us focus on the bug caused by the `(2,3,17)` input:
 
 The `(1,3,17)` and `(2,3,17)` inputs exercise precisely the boundary between the **not enough bars** and the **need for small + big bars** partitions. 
 
-Let us know explore the boundaries between other partitions. The figure below shows which boundaries can happen (and that we should test):
+Let us now explore the boundaries between other partitions. The figure below shows which boundaries can happen (and that we should test):
 
 ![Boundaries in the chocolate bars problem](img/boundary-testing/chocolate-boundaries.png)
 

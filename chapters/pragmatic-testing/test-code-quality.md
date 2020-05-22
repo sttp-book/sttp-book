@@ -118,6 +118,7 @@ are also part of the FIRST principles.
 * [Deterministic](https://www.youtube.com/watch?v=PwWyp-wpFiw): if nothing changes, the test result should not change.
 * [Predictive](https://www.youtube.com/watch?v=7o5qxxx7SmI): if the tests all pass, then the code under test should be suitable for production.
 
+For more interested readers, watch [Kent Beck talking about it in an open talk](https://www.youtube.com/watch?v=lXTwxMxNx-Y).
 
 
 ## Test code smells
