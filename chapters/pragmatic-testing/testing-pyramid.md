@@ -337,6 +337,8 @@ What is the main reason for the number of recommended system tests in the testin
 4. System tests tend to be slow and often are non-deterministic.
 
 
+**Exercise 8.**
+How would you test classes that make use of databases and SQL queries?
 
 
 ## References
