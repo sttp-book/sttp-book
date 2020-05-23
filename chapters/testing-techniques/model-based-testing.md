@@ -260,7 +260,7 @@ We discuss more about such contracts in the design-by-contracts chapter.
  
 In the example above, it should be noted that the different tests for the different combinations are similar.
 The tests are the same but they operate on different values.
-To avoid the code duplication that comes with this approach to implementing decision table tests, we can use parameterised tests (as we have done before):
+To avoid the code duplication that comes with this approach to implementing decision table tests, we can use parameterized tests (as we have done before):
  
 ```java
 @ParameterizedTest
