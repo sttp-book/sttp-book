@@ -61,22 +61,20 @@ Even your HTML should be **designed for testability**, so that you can select el
 Speaking of user interfaces: **UI component testing** can be considered  a special case of unit testing: here your "unit" is one part of the Document Object Model (DOM), which you feed with certain inputs, possibly triggering some events (like "click"), after which you check whether the new DOM state is equal to what you expected. 
 Even more specifically, **snapshot testing** can help you to make sure your UI does not change unexpectedly.
 
-Finally, when you want to perform **system tests** automatically, you will have to somehow control the browser and make it simulate user interaction. 
+Finally, when you want to perform **end-to-end tests** automatically, you will have to somehow control the browser and make it simulate user interaction. 
 Two well-known tools for this are Selenium WebDriver and Cypress.
 
 ### Many web applications are asynchronous
 Especially in a single-page application (SPA), most of the requests to the server are done in an **asynchronous** manner: while the browser is waiting for results from the server, the user can continue to use the application (i.e., they do not have to wait for the results). 
 When writing unit tests, you have to account for this by "awaiting" the results from the (mocked) server call before you can check whether the output of your unit matches what you expected. 
-When performing system tests, you may have to wait for a certain element to appear on the screen, or even to wait for a certain amount of time (like 1 second) before checking the output. 
+When performing end-to-end tests, you may have to wait for a certain element to appear on the screen, or even to wait for a certain amount of time (like 1 second) before checking the output. 
 This can easily lead to *flaky tests* (as discussed in the chapter on Test Code Quality). 
 You either have to write custom code to make your tests more robust, or use a tool like Cypress, which has retry-and-timeout logic built-in.
 
-### TODO
-* Something about state (of client and server)? Relate to model-based testing?
-* More info about testing the server side? Maybe testing the server by calling it directly with HTTP? (Which may not add much if you use some framework on the server side which translates HTTP requests into classes that are easily tested using traditional techniques.)
-* Something about performance testing?
+
 
 ## JavaScript unit testing
+We will now tackle several of the aforementioned challenges that relate to the front end of a web application. We show how to design your JavaScript and HTML for testability, how to write unit tests for JavaScript functions, and how to unit test UI components. We demonstrate this using both plain JavaScript and a more modern example that uses a JavaScript framework.
 
 ### Design for testability
 Let us look at an example of a very simple web application (without a back end) that looks like this: 
@@ -215,7 +213,7 @@ We should now be ready to write some tests!
 Some side notes about the code:
 * Even though the code has improved, part of it is still not unit-testable (namely the `onload` handler). This can be solved by factoring out that part to a separate file as well.
 * You may want to structure the code even better, for instance by writing a proper MVC (Model-View-Controller) implementation. Especially for larger-scale projects with lots of JavaScript, it makes sense to use a library or framework that provides such a structure for you.
-* We have not used any modern JavaScript features (like the `class` syntax) in order to maintain compatibility with older browsers. TODO: an example of a 'modern' implementation will probably follow. Mention transpiling again?
+* We have not used any modern JavaScript features (like the `class` syntax) in order to maintain compatibility with older browsers. We will show an example that uses newer JavaScript features later in the chapter.
 * As with the other examples in the book, the code can be found in the [code examples](https://github.com/sttp-book/code-examples/) repository.
 
 {% endhint %}
@@ -373,28 +371,185 @@ Just to give you an example of what the tests may look like when using such a fr
 
 
 ### Example implementation with React and Jest
-* Ran `npx create-react-app date-incrementer-react`
+In this example, we will rebuild the "date incrementer" application in React. We create a new React application using the `create-react-app` NPM package. This creates a project structure with the necessary dependencies and includes the unit testing framework Jest. 
 
-TODO
+We can mostly reuse the utility functions that we built earlier (`dateUtils.js`):
 
-In react-testing-library, finding elements by text is one of the preferred ways (as it resembles how a user would manually test the application).
+```js
+// Advances the given date by one day.
+function incrementDate(date) {
+  date.setDate(date.getDate() + 1);
+}
 
-### UI component testing
-TODO
+// Returns a new date that is one day later than the given date.
+export function addOneDay(date) {
+  const copy = new Date(date.getTime());
+  incrementDate(copy);
+  return copy;
+}
 
-## System/E2E testing
-TODO
+// Returns a string representation of the given date
+// in the format yyyy-MM-dd.
+export function dateToString(date) {
+  const year = date.getFullYear();
+  const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  const day = ('0' + date.getDate()).slice(-2);
+  return year + "-" + month + "-" + day;
+}
+```
+
+Compared to what you saw before, we have made the following changes: 
+
+1. We now have the JavaScript module feature at our disposal, so we wrote a `dateUtils` module and exported the functions we use elsewhere.
+2. We can now use modern JavaScript features like the `const` keyword (which creates a variable that cannot be changed through reassignment). The code gets transpiled to an older version of JavaScript (using `var` instead of `const`) which is understood by most browsers. (In our plain JavaScript example, we had to stay away from modern features in order to maintain browser compatibility.)
+3. As we will see later on in the example, React expects us to treat state as immutable. Therefore, we should not directly change the `date` with the `incrementDate()` function. We created a new function, `addOneDay()`, which circumvents the issue by creating a new `Date` instance and updating that one.
+
+We use those utility functions in the UI component, `DateIncrementer.js`:
+
+```js
+import React, { useState } from 'react';
+import { addOneDay, dateToString } from './dateUtils.js';
+
+function DateIncrementer({ initialDate }) {
+  const [date, setDate] = useState(initialDate);
+
+  return (
+    <div>
+      <p>{dateToString(date)}</p>
+      <button onClick={() => setDate(addOneDay)}>
+        +1
+      </button>
+    </div>
+  );
+}
+
+export default DateIncrementer;
+```
+
+The component is implemented as a function, with "props" (properties) as input, and a DOM representation as output. Our component has one input, `initialDate`, which is used to set the date that is shown when the component is first loaded. The component keeps one state variable, `date`, which stores the date as it is updated by the user using the button.
+
+The XML-like syntax you see there is not HTML, but rather a JavaScript extension called JSX. This syntax gets converted to `React.createElement()` calls, of which the result will eventually get rendered to the DOM. We defined the `<p>` and `<button>` elements like before, but can now include JavaScript within curly braces to provide the expressions for the date string and the `onClick` handler.
+
+Finally, we alter the file `App.js` that was generated by `create-react-app` to use our `DateIncrementer` component:
+
+```js
+import React, { useState } from 'react';
+import DateIncrementer from './DateIncrementer.js';
+
+function App() {
+  const [today] = useState(new Date());
+
+  return (
+    <main>
+      <DateIncrementer initialDate={today} />
+    </main>
+  );
+}
+
+export default App;
+```
+
+We now have an application that behaves the same as the one we built in the plain JavaScript example. We will now turn our attention to writing tests for this.
+
+For the utility functions, we can again write similar code to what we did with our ad-hoc unit tests:
+
+```js
+import { addOneDay, dateToString } from './dateUtils';
+
+describe('addOneDay', () => {
+  test('handles February 29th', () => {
+    const oldDate = new Date(2020, 1, 29);  // February 29th, 2020
+    const newDate = addOneDay(oldDate);
+    expect(newDate).toEqual(new Date(2020, 2, 1));
+  });
+});
+
+describe('dateToString', () => {
+  test('returns the date in the form "yyyy-MM-dd"', () => {
+    var date = new Date(2020, 4, 1);   // May 1st, 2020
+    expect(dateToString(date)).toEqual("2020-05-01");
+  });
+});
+```
+
+The differences are:
+1. We can now take advantage of the module system. We do not have to load the functions into global scope any more, but just import the functions we need.
+2. We use the Jest syntax, where `describe` is optionally used to group several tests together, and `test` is used to write a test case, with a string describing the expected behaviour and a function executing the actual test. The body of the test function uses the "fluent" syntax `expect(...).toEqual(...)`.
+
+For the `DateIncrementer` component, we could write tests like this:
+
+```js
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import DateIncrementer from './DateIncrementer';
+
+test('renders initial date', () => {
+  const { getByText } = render(<DateIncrementer initialDate={new Date(2020, 0, 1)} />);
+  const dateElement = getByText("2020-01-01");
+  expect(dateElement).toBeInTheDocument();
+});
+
+test('updates correctly when clicking the "+1" button', () => {
+  const date = new Date(2020, 0, 1);
+  const { getByText } = render(<DateIncrementer initialDate={date} />);
+  const button = getByText("+1");
+
+  fireEvent.click(button);
+
+  const dateElement = getByText("2020-01-02");
+  expect(dateElement).toBeInTheDocument();
+});
+```
+
+Here you see a similar Jest unit test structure, but we also use `react-testing-library` to render the UI component to a virtual DOM. In `react-testing-library`, you are encouraged to test components like a user would test them. This is why we use functions like `getByText` to look up elements. This also means that we did not have to include any `id`s or other ways of identifying the `<p>` and the `<button>` in the component.
+
+You could also decide to mock the utility functions, like we did in the plain JavaScript example. In that case, the test would look like this:
+
+```js
+jest.mock('./dateUtils');
+
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import { dateToString, addOneDay } from './dateUtils';
+import DateIncrementer from './DateIncrementer';
+
+test('renders initial date', () => {
+  dateToString.mockReturnValue("mockDateString");
+
+  const date = new Date(2020, 0, 1);
+  const { getByText } = render(<DateIncrementer initialDate={date} />);
+  const dateElement = getByText("mockDateString");
+
+  expect(dateToString).toHaveBeenCalledWith(date);
+  expect(dateElement).toBeInTheDocument();
+});
+
+test('updates correctly when clicking the "+1" button', () => {
+  const mockDate = new Date(2021, 6, 7);
+  addOneDay.mockReturnValueOnce(mockDate);
+
+  const date = new Date(2020, 0, 1);
+  const { getByText } = render(<DateIncrementer initialDate={date} />);
+  const button = getByText("+1");
+
+  fireEvent.click(button);
+
+  expect(addOneDay).toHaveBeenCalledWith(date);
+  expect(dateToString).toHaveBeenCalledWith(mockDate);
+});
+```
+
+Here, `jest.mock('./dateUtils')` replaces every function that is exported from the `dateUtils` module by a mocked version. You can then provide alternative implementations with functions like `mockReturnValue`, and check whether the functions have been called with functions like `expect(...).toHaveBeenCalledWith(...)`.
+
+The version with mocks is less 'real' than the one without. The one without mocks is arguably preferable. However, you could use the same mechanism for things like HTTP requests to a back end, and in that case mocking would certainly be helpful.
+
+
+## End-to-end testing
+{% hint style='working' %}
+This section is under construction.
+{% endhint %}
 
 ## Other types of tests
-TODO. Discuss in less detail.
-
-## TODO
-* Overlap between the different testing types (unit, component/UI, integration, system). How to choose what to test? (May be covered by the 'testing pyramid' already. But in practice I have seen much overlap here.)
-* The role of manual testing.
-* Unit testing when there is also a back end?
-* Something about BDD? (And the "X should do Y when Z" style.)
-* `data-testid` instead of `id` or `class`?
-* Encourage active reading of the code.
-* Something about asynchronicity.
-* Some more about transpiling etc.?
-* Maurício's suggestion: "My only suggestion is to give a list of things you are going to discuss. After you list the unique characteristics of web testing, you dive into javascript testing right away. Maybe some paragraph explaining that we'll focus on client testing, then server side testing, etc etc, just so the reader knows what's about to happen."
+{% hint style='working' %}
+This section is under construction.
+{% endhint %}
