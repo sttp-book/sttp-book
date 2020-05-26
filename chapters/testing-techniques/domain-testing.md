@@ -304,7 +304,7 @@ A student can only join the MSc if :
 | Variable	| Equivalence classes	| Boundaries	| Remark	|
 | ---		| ---					| ---			| ---		|
 |(ACT, GPA)	| (= 36, >= 3.5)		| (35, in)		| in-point GPA = 3.5 	|
-|			| 						| (37, in)		| 			|
+|			| 						| (36, in)		| 			|
 |			| 						| (in, 3.5)		| in-point ACT = 36		|
 |			| 						| (in, 3.4)		| 			|
 |			| (>= 35, >= 3.6)		| (35, in)		| in-point GPA = 3.6 	|
