@@ -43,12 +43,12 @@ A program receives two numbers and returns the sum of these two integers. Number
 
 ### Strategy
 
-* X has 7 partitions, Y has 7 partitions.
-* All combinations would be 7 * 7 = 49.
+* X has 3 partitions, Y has 3 partitions.
+* All combinations would be 3 * 3 = 9 + 10 boundaries = 19.
 * Variables are independent (X does not affect the range of Y, and vice-versa).
 * 14 tests
-* 7 partitions of X, in point for Y,
-* 7 partitions of Y, in points for X.
+* 7 tests for X (3 partitions + 4 boundaries), in point for Y,
+* 7 tests for Y (3 partitions + 4 boundaries), in points for X.
 
 *In-point X = 50, In-point Y = 50.*
 
@@ -108,13 +108,13 @@ Final sum should be <= 165.
 
 ### Strategy
 
-* X has 7 partitions, Y has 7 partitions, Sum has 4 partitions.
-* All combinations would be 7 * 7 * 4 = 196.
+* X has 3 partitions, Y has 3 partitions, Sum has 2 partitions.
+* All combinations would be 3 * 3 * 2 = 18 + 10 boundaries = 28.
 * Variables are independent (X does not affect the range of Y, and vice-versa).
 * 16 tests
-* 7 partitions of X, in point for Y,
-* 7 partitions of Y, in points for X.
-* 2 for the extra boundary on sum.
+* 7 tests for X (3 partitions + 4 boundaries), in point for Y,
+* 7 tests for Y (3 partitions + 4 boundaries), in points for X.
+* 2 tests for the boundary on Sum.
 
 *In-point X = 50 (taking into consideration that X <= 165 - Y),
 In-point Y = 50 (taking into consideration that Y <= 165 - X).*
@@ -412,14 +412,15 @@ FN + MN + LN <= 68
 
 ### Strategy
 
-Each variable has 6 partitions, thus: 6 * 6 * 6 = 216 tests.
+* Each variable has 2 partitions, plus a restriction.
 
-Let's not combine "invalid strings" with them all. So: 3 tests for exceptional cases + 5 * 5 * 5 = 125 + 3 = 128.
+* Let's not combine "invalid strings" with them all. So: 3 tests for exceptional cases + 5 * 5 * 5 = 125 + 3 = 128.
 
-If we focus on the on-points and off-points, and in-points for others, we'd have 4 + 4 + 4 = 12 tests plus invalid cases: 15 tests.
+* If we focus on the on-points and off-points, and in-points for others, we'd have 4 + 4 + 4 = 12 tests plus invalid cases: 15 tests.
 
-In-points always taking the FN + MN + LN <= 68 restriction into account.
-Two tests for the extra restriction: 17 tests.
+* In-points always taking the FN + MN + LN <= 68 restriction into account.
+
+* Two tests for the extra restriction: 17 tests.
 
 | Test Case | FN             | MN             | LN             | (length) | output  |                          |
 |-----------|----------------|----------------|----------------|----------|---------|--------------------------|
