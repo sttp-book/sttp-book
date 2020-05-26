@@ -766,7 +766,7 @@ In this case we need to test each explicit decision in the decision table.
 
 **Exercise 15**
 
-
+Focusing on the positive cases
 
 |                                    | T1 | T2 | T3 |
 |------------------------------------|----|----|----|
@@ -775,6 +775,17 @@ In this case we need to test each explicit decision in the decision table.
 | User has over 1000 followers       | T  | F  | F  |
 | Ad is highly relevant to user      | T  | T  | F  |
 | Serve ad?                          | T  | T  | T  |
+
+Using 'DC' values:
+
+|                                    | C1 | C2 | C3 | C4 | C5 |
+|------------------------------------|----|----|----|----|----|
+| User active in past two weeks      | T  | T  | T  | T  | F  |
+| User has seen ad in last two hours | T  | F  | F  | F  | DC |
+| User has over 1000 followers       | DC | T  | T  | F  | DC |
+| Ad is highly relevant to user      | DC | T  | F  | DC | DC |
+| Serve ad?                          | F  | T  | F  | T  | F  | 
+
 
 
 
