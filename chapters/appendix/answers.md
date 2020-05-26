@@ -766,7 +766,7 @@ In this case we need to test each explicit decision in the decision table.
 
 **Exercise 15**
 
-Focusing on the positive cases
+Focusing on the positive cases:
 
 |                                    | T1 | T2 | T3 |
 |------------------------------------|----|----|----|
