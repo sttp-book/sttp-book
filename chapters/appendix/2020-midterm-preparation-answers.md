@@ -140,7 +140,7 @@ The following two approaches can be accepted as answer when supplied with clear 
 Less granular approach: 
 The final string has `length==count`. That could be formalized as a post-condition.
 
-More granular approach (which may lead to duplication of test code and increased cost): In addition to the previous post-condition, the following is considered.
+More granular approach (at risk of test code duplication and increased cost): In addition to the previous post-condition, the following is considered.
 
 1) There is no whitespace in the returned String. *Implementation: assert !result.contains(' ')*
 
