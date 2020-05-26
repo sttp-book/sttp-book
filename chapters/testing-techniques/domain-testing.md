@@ -182,8 +182,8 @@ Boundaries seem to be enough.
 | T1        | 1             | false         |                |
 | T2        | 4.9           | false         |                |
 | T3        | 5             | true          |                |
-| T4        | 7.5           | true          |                |
-| T5        | 10            | true          | extra in-point |
+| T4        | 7.5           | true          | extra in-point |
+| T5        | 10            | true          |                |
 
 {% set video_id = "S_90_sYP7GA" %}
 {% include "/includes/youtube.md" %}
@@ -327,10 +327,6 @@ A student can only join the MSc if :
 |			| 						| (30, in)		| 			|
 |			| 						| (in, 4.0)		| in-point ACT = 31		|
 |			| 						| (in, 3.9)		| 			|
-|			| (= 36, >= 3.5)		| (35, in)		| in-point GPA = 3.5 	|
-|			| 						| (37, in)		| 			|
-|			| 						| (in, 3.5)		| in-point ACT = 36		|
-|			| 						| (in, 3.4)		| 			|
 |			| (< 0, < 0.0)			| (-1, in)		| in-point GPA = 0.1 	|
 |			| 						| (in, -0.1)	| in-point ACT = 1		|
 |			| (> 36, > 4.0)			| (37, in)		| in-point GPA = 4 		|
