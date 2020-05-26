@@ -776,7 +776,7 @@ Focusing on the positive cases
 | Ad is highly relevant to user      | T  | T  | F  |
 | Serve ad?                          | T  | T  | T  |
 
-Using 'DC' values:
+As a curiosity, if we were to use 'DC' values, the decision table would look like:
 
 |                                    | C1 | C2 | C3 | C4 | C5 |
 |------------------------------------|----|----|----|----|----|
