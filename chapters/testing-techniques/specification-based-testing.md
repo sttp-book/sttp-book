@@ -116,12 +116,7 @@ Implementing this using JUnit gives the following code for the tests:
 ```java
 public class LeapYearTests {
 
-  private LeapYear leapYear;
-
-  @BeforeEach
-  public void setup() {
-    leapYear = new LeapYear();
-  }
+  private final LeapYear leapYear = new LeapYear();
 
   @Test
   public void leapYearsNotCenturialTest() {
@@ -216,7 +211,7 @@ Each of the test cases corresponds to one of the partitions that we want to test
 {% set video_id = "frzRmafsPBk" %}
 {% include "/includes/youtube.md" %}
 
-Let's explore another example:
+## Walking example
 
 > **Requirement: Chocolate bars**
 >
@@ -251,15 +246,23 @@ public class ChocolateBars {
 In this requirement, the partitions are less clear and it is essential to understand the problem fully
 in order to derive the partitions.
 
-The classes/partitions are:
+One way to perform the analysis is to consider how the input variables affect the output variables. We observe that:
 
-* **Need only small bars**. A solution that only uses the provided small bars.
-* **Need only big bars**. A solution that only uses the provided big bars.
+* There are three input variables: _number of small bars_, _number of big bars_, _number of kilos in a package_. They are all integers and values can range from 0 to infinite.
+* Given a valid _number of kilos in a package_, the outcome is then based on the _number of big bars_ and _number of small bars_. This means we can not analyse each variable separately, but only together.
+
+We derive the following classes / partitions:
+
+* **Need only small bars**. A solution that only uses small bars (and does not use big bars).
+* **Need only big bars**. A solution that only uses the big bars (and does not use small bars).
 * **Need small + big bars**. A solution that has to use both small and big bars.
 * **Not enough bars**. A case in which it is impossible, because there are not enough bars.
-* **Not from the specs**: An exceptional case.
 
-For each of these classes, we can devise concrete test cases:
+We also derive an invalid class:
+
+* **Not from the specs**: An exceptional case (e.g., negative numbers in any of the inputs).
+
+For each of these classes, we can devise five concrete test cases:
 
 * **Need only small bars**. small = 4, big = 2, total = 3
 * **Need only big bars**. small = 5, big = 3, total = 10
@@ -303,27 +306,14 @@ public class ChocolateBarsTest {
 This example shows a case where deriving good test cases becomes more challenging due to the
 specifications being complex.
 
+{% hint style='tip' %}
+If you know some advanced features of JUnit, you might be wondering why we did not use, e.g., Parameterized Tests. We will refactor this test code in a future chapter.
+{% endhint %}
+
 {% set video_id = "T8caAUwgquQ" %}
 {% include "/includes/youtube.md" %}
 
 
-
-## Random testing vs specification-based testing
-
-One might think: but what if, instead of looking at the requirements,
-a tester just keeps giving random inputs to the program?
-**Random testing** is indeed a popular black-box technique where programs are tested by generating random inputs. 
-
-Although random testing can definitely help us in finding bugs, it is not an effective way to find bugs in a large input space. 
-Developers/testers use their experience and knowledge of the program to test trouble-prone areas more effectively.
-However, they generate a limited number of tests in a specific time period such as a day,
-while computers can generate millions of tests in the same period of time.
-A combination of random testing and partition testing is therefore the most beneficial.
-
-{% hint style='tip' %}
-In future chapters, fuzzing testing and AI-based testing will be discussed, with information
-about automated random testing.
-{% endhint %}
 
 ## Exercises
 
@@ -483,6 +473,32 @@ A tester, after reading the specs and following the Category-Partition method, d
 
 However, the number of combinations is too high now. What actions could we take to reduce the number of combinations?
 
+**Exercise 8.**
+What test cases should be created when taking both the partition of the input parameters *and* the internal state of the object into account?
+
+```java
+/**
+ * Adds the specified element to this set if it 
+ * is not already present.
+ * If this set already contains the element, 
+ * the call leaves the set unchanged
+ * and returns false.
+ *
+ * If the specified element is NULL, the call leaves the
+ * set unchanged and returns false.
+ *
+ * If the set is full, 
+ * the call leaves the set unchanged and return false.
+ * Use private method `isFull` to know whether the set is already full.
+ *
+ * @param e element to be added to this set
+ * @return true if this set did not already contain 
+ *   the specified element
+ */
+public boolean add(E e) {
+    // implementation here
+}
+```
 
 
 ## References
