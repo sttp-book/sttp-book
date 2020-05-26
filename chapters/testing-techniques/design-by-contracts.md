@@ -747,6 +747,8 @@ Which of the following is a valid reason to use assertions in your code?
 1. To conduct user input validation.
 1. To make debugging easier.
 
+**Exercise 8.**
+Is it always true that static methods do not have invariants? Explain.
 
 
 ## References

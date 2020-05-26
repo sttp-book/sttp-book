@@ -859,6 +859,12 @@ _To make debugging easier._
 
 
 
+**Exercise 8**
+
+Yes, static methods never have invariants. 
+Class invariants are related to the entire object, while static methods do not belong to any object (they are "stateless"), so the idea of (class) invariants doesn't apply to static methods.
+
+
 
 ## Property-based testing
 
