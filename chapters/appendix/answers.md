@@ -923,9 +923,8 @@ Suppose that you have designed your system in a way that domain/business code ca
 Therefore, database access is, for example, hidden in a Data Access Object class.
 This class can easily be mocked, which enables you to apply all testing techniques in your domain we have discussed so far.
 
-You can now include the Data Access Object class, as it contains lots of SQL queries.
+You can now test the Data Access Object class, as it contains lots of SQL queries. But, before diving into specific testing strategies, you should be aware that testing with real databases includes a certain risk.
 
-Before diving into specific testing strategies, you should be aware that testing with real databases includes a certain risk.
 Make sure that whenever you test against real databases, you always clean-up whatever you have created. 
 Left-over rows that shouldn't be there could lead to fails further down your testing suite.
 
@@ -937,16 +936,16 @@ The structure of your tests will also remain the same, but includes INSERT state
 Suppose you want to test a `SELECT * FROM product WHERE price < 50`. 
 Using boundary analysis techniques you would create a test-product where `price > 50`, one where `price < 50` and most likely one where `price == 50`. 
 These tests will actually create this data in the database. 
-
 As SQL queries are full of predicates, you can include branch/condition coverage in your tests. Likewise, including code coverage.
-Coming back to the aforementioned statement: avoid flakyness in your tests. Make sure your test suite cleans up the database after each test.
+
+Avoid flakyness in your integration tests. Make sure your test suite cleans up the database after each test.
 Therefore, giving each test a new fresh database instance. 
 
 One could also opt to use fake databases. For example, in Java, HSQLDB, is a full-fledged database that works in memory.
-Although HSQLDB speeds up your tests as you don't have to rely on a network connection and disk reads, it isn't a real database like MySQL or Oracle.
-We would like you to think about the differences in using real and fake databases.
-With a real database you can better simulate things like how your database reacts to transitions or failures. 
-These tests are a bit more slow, so you can't run them all the time.
+Although HSQLDB speeds up your tests as you don't have to rely on a network connection and disk reads, note that it isn't a real database like MySQL or Oracle.
+On the other hand, with a real database, you can better simulate situations like how your database reacts to transitions or failures. 
+
+(We discuss more about it in the "SQL testing" chapter.)
 
 
 **Exercise 8**
