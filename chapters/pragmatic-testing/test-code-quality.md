@@ -144,7 +144,7 @@ list can be found in the xUnit Test Patterns book, by Meszaros.
 It is not surprising that code duplication might also happen in test code, 
 as it is very common in production code.
 Tests are often similar in structure. You might have noticed it in several of the code
-examples throughout this book. We even made use of JUnit's Parameterised Tests feature
+examples throughout this book. We even made use of JUnit's Parameterized Tests feature
 to reduce some of the duplication.
 A less attentive developer might end up writing duplicated code 
 (copying and pasting often happens in real life) instead of putting

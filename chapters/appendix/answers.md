@@ -233,9 +233,9 @@ As we last step we can identify duplicate tests and remove those.
 1. Derive characteristics of parameters:
   - int legs: [0,2,4,6,8,10,integer.MAX_VALUE], [1,3,5,7,9,integer.MAX_VALUE], [negative value]
   - bool tail: [true], [false]
-  - int lives: [1-9], no lives, more than 10 lives
+  - int lives: [1-9], no lives, more than 9 lives, negative amount of lives
   - bool sharp nails: [true], [false]
-  - string sound: ['miauw'], ['woof'], [empty]
+  - string sound: ['miauw'], ['woof'], [""] (empty string), [null] (null string)
 1. Add constraints:
   - If `lives <= 0`, we can test this with just one combination.
   - If legs is an negative integer or 0, this is an exceptional case. Therefore it doesn't matter if the animal has sharp nails or not.
@@ -448,7 +448,7 @@ T1 makes conditions 1 and 2 true and then does not cover the other conditions. T
 
 At this moment, condition coverage = 2/8.
 
-For T2, the input number 8 is neither divisible by 3, nor divisible by 5. However, since the && operator only evaluates the second condition when the first one is true, condition 2 is not reached. Therefore this test only covers condition 1, 2 and 3 to be false. We now have:
+For T2, the input number 8 is neither divisible by 3, nor divisible by 5. However, since the && operator only evaluates the second condition when the first one is true, condition 2 is not reached. Therefore this test covers condition 1, 3 and 4 as false. We now have:
 
 * condition 1 = [true: exercised, false: exercised]
 * condition 2 = [true: exercised, false: not exercised]
@@ -766,7 +766,7 @@ In this case we need to test each explicit decision in the decision table.
 
 **Exercise 15**
 
-
+Focusing on the positive cases:
 
 |                                    | T1 | T2 | T3 |
 |------------------------------------|----|----|----|
@@ -775,6 +775,17 @@ In this case we need to test each explicit decision in the decision table.
 | User has over 1000 followers       | T  | F  | F  |
 | Ad is highly relevant to user      | T  | T  | F  |
 | Serve ad?                          | T  | T  | T  |
+
+As a curiosity, if we were to use 'DC' values, the decision table would look like:
+
+|                                    | C1 | C2 | C3 | C4 | C5 |
+|------------------------------------|----|----|----|----|----|
+| User active in past two weeks      | T  | T  | T  | T  | F  |
+| User has seen ad in last two hours | T  | F  | F  | F  | DC |
+| User has over 1000 followers       | DC | T  | T  | F  | DC |
+| Ad is highly relevant to user      | DC | T  | F  | DC | DC |
+| Serve ad?                          | F  | T  | F  | T  | F  | 
+
 
 
 
@@ -848,6 +859,12 @@ _To make debugging easier._
 
 
 
+**Exercise 8**
+
+Static methods do not have invariants. 
+Class invariants are related to the entire object, while static methods do not belong to any object (they are "stateless"), so the idea of (class) invariants does not apply to static methods.
+
+
 
 ## Property-based testing
 
@@ -905,6 +922,36 @@ Correct answer: The interaction with the system is much closer to reality (1)
 Correct answer: System tests tend to be slow and are difficult to make deterministic (4)
 
 See https://martinfowler.com/bliki/TestPyramid.html !
+
+**Exercise 8**
+
+Suppose that you have designed your system in a way that domain/business code can be easily tested via unit tests.
+Therefore, database access is, for example, hidden in a Data Access Object class.
+This class can easily be mocked, which enables you to apply all testing techniques in your domain we have discussed so far.
+
+You can now test the Data Access Object class, as it contains lots of SQL queries. But, before diving into specific testing strategies, you should be aware that testing with real databases includes a certain risk.
+
+Make sure that whenever you test against real databases, you always clean-up whatever you have created. 
+Left-over rows that shouldn't be there could lead to fails further down your testing suite.
+
+One could start with JUnit tests as you have done with all previous tests.
+Instead of simulating the database, you should test your DAO sending SQL queries to a real database. 
+This enhances the feedback you will receive on your tests and enables real integration testing.
+
+The structure of your tests will also remain the same, but includes INSERT statements at the beginning of your tests.
+Suppose you want to test a `SELECT * FROM product WHERE price < 50`. 
+Using boundary analysis techniques you would create a test-product where `price > 50`, one where `price < 50` and most likely one where `price == 50`. 
+These tests will actually create this data in the database. 
+As SQL queries are full of predicates, you can include branch/condition coverage in your tests. Likewise, including code coverage.
+
+Avoid flakyness in your integration tests. Make sure your test suite cleans up the database after each test.
+Therefore, giving each test a new fresh database instance. 
+
+One could also opt to use fake databases. For example, in Java, HSQLDB, is a full-fledged database that works in memory.
+Although HSQLDB speeds up your tests as you don't have to rely on a network connection and disk reads, note that it isn't a real database like MySQL or Oracle.
+On the other hand, with a real database, you can better simulate situations like how your database reacts to transitions or failures. 
+
+(We discuss more about it in the "SQL testing" chapter.)
 
 
 **Exercise 8**

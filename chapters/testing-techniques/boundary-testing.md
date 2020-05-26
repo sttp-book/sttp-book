@@ -295,7 +295,7 @@ interactions among partitions.
 
 
 
-## Automating boundary testing with JUnit (via Parameterised Tests)
+## Automating boundary testing with JUnit (via Parameterized Tests)
 
 You might have noticed that in the domain matrix we always have a certain number of input values and, implicitly, an expected output value.
 We could just implement the boundary tests by making a separate method for each test, or by
@@ -306,10 +306,10 @@ Moreover, the code in these test methods will be largely the same,
 as they all have the same structure, only with different input and output values.
 
 Luckily, JUnit offers a solution where we can generalise the implementation of a test
-method, and run it with different inputs and expected outputs: **Parameterised Tests**.
-As the name suggests, with a parameterised test, developers 
+method, and run it with different inputs and expected outputs: **Parameterized Tests**.
+As the name suggests, with a parameterized test, developers 
 can define a test method with parameters.
-To define a parameterised test, you make use of the `@ParameterizedTest` annotation, 
+To define a parameterized test, you make use of the `@ParameterizedTest` annotation, 
 instead of the usual `@Test` annotation.
 
 For each parameter you want to pass to the "template test method", you define a 
@@ -541,13 +541,47 @@ Which one of the following statements about the **CORRECT** principles is **true
 We have a program called <ins>IsCat</ins>.
 It works as follows:
 > Given an list of prerequisites, it returns either the string "Cat" or the string "Doge".
-> If the number of legs is an even number, it has a tail, the number of lives left is between [0, 9], it has sharp nails and the sounds it produces is "miauw", it is a cat.
+> If the number of legs is an even number, it has a tail, the number of lives left is between [1, 9] inclusive, it has sharp nails and the sounds it produces is "miauw", it is a cat.
 > In any other case, it is a doge.
 
 First, do boundary analysis on the inputs.
 Think of on and off points for each of the conditions (while picking in points for the others).
 Next, appply the category/partition method.
 What are the minimal and most suitable partitions?
+
+```java
+public class FelineValidator {
+    public static final String INVALID_CAT = "doge";
+
+    /**
+     *  This function checks whether a certain animal is a cat.
+     *  Given the following prerequisites:
+     *    If the number of legs is an even number,
+     *    it has a tail,
+     *    the number of lives left is between [1, 9] inclusive,
+     *    it has sharp nails, and
+     *    the sounds it produces is "miauw" ...
+     *  it is a cat.
+     *  In any other case, it is a doge.
+     *
+     * @param numberOfLegs
+     * @param hasTail
+     * @param numberOfLives
+     * @param hasSharpNails
+     * @param sound
+     * @return String
+     */
+    public String isCat(int numberOfLegs, boolean hasTail, int numberOfLives, boolean hasSharpNails, String sound) {
+        if (!(numberOfLegs % 2 == 0)) return INVALID_CAT;
+        if (!hasTail) return INVALID_CAT;
+        if (!(numberOfLives >= 1 && numberOfLives <= 9)) return  INVALID_CAT;
+        if (!hasSharpNails) return INVALID_CAT;
+        if (!(sound.matches("miauw"))) return INVALID_CAT;
+
+        return "cat";
+    }
+}
+```
 
 
 
