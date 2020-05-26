@@ -295,7 +295,7 @@ interactions among partitions.
 
 
 
-## Automating boundary testing with JUnit (via Parameterised Tests)
+## Automating boundary testing with JUnit (via Parameterized Tests)
 
 You might have noticed that in the domain matrix we always have a certain number of input values and, implicitly, an expected output value.
 We could just implement the boundary tests by making a separate method for each test, or by
@@ -306,10 +306,10 @@ Moreover, the code in these test methods will be largely the same,
 as they all have the same structure, only with different input and output values.
 
 Luckily, JUnit offers a solution where we can generalise the implementation of a test
-method, and run it with different inputs and expected outputs: **Parameterised Tests**.
-As the name suggests, with a parameterised test, developers 
+method, and run it with different inputs and expected outputs: **Parameterized Tests**.
+As the name suggests, with a parameterized test, developers 
 can define a test method with parameters.
-To define a parameterised test, you make use of the `@ParameterizedTest` annotation, 
+To define a parameterized test, you make use of the `@ParameterizedTest` annotation, 
 instead of the usual `@Test` annotation.
 
 For each parameter you want to pass to the "template test method", you define a 
