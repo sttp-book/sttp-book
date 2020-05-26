@@ -592,9 +592,9 @@ Now the tests can be expressed in the application's context, using these three t
 #### Behaviour-Driven Design
 
 The state objects are mostly used for end-to-end testing in web development.
-Another technique useful in end-to-end testing is behavior driven design.
+Another technique useful in end-to-end testing is behaviour-driven design.
 
-In **behaviour driven design** the system is designed with scenario's in mind.
+In **behaviour-driven design** the system is designed with scenario's in mind.
 These scenario's are written in natural language and describe the system's behaviour in a certain situation.
 
 For these scenarios to be used by tools, an example of a tool for scenario's is [cucumber](https://cucumber.io), we need to follow a certain format.
