@@ -305,6 +305,7 @@ A student can only join the MSc if :
 | ---		| ---					| ---			| ---		|
 |(ACT, GPA)	| (= 36, >= 3.5)		| (35, in)		| in-point GPA = 3.5 	|
 |			| 						| (36, in)		| 			|
+|			| 						| (37, in)		| 			|
 |			| 						| (in, 3.5)		| in-point ACT = 36		|
 |			| 						| (in, 3.4)		| 			|
 |			| (>= 35, >= 3.6)		| (35, in)		| in-point GPA = 3.6 	|
@@ -333,7 +334,7 @@ A student can only join the MSc if :
 |			| 						| (in, 4.1)		| in-point ACT = 36		|
 
 *Note that we are using in-points that are on-points too. This is less common, but in the case of this problem choosing anohter in-point might make the final outcome to still not change between the boundary tests we devised.*
-*For example, if we choose a GPA in-point of 3.6, the 35 and 37 ACT will have the same outcome value (as the next rule will intervene).*
+*For example, if we choose a GPA in-point of 3.6, the 35 and 36 ACT will have the same outcome value (as the next rule will intervene).*
 
 ### Strategy
 * There are 24 boundaries *(for conditions on valid inputs)*, but some are repeated. 14 boundary tests.
