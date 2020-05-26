@@ -44,7 +44,7 @@ A program receives two numbers and returns the sum of these two integers. Number
 ### Strategy
 
 * X has 3 partitions, Y has 3 partitions.
-* All combinations would be 3 * 3 = 9 + 10 boundaries = 19.
+* All combinations would be 3 * 3 = 9 + 8 boundaries = 17.
 * Variables are independent (X does not affect the range of Y, and vice-versa).
 * 14 tests
 * 7 tests for X (3 partitions + 4 boundaries), in point for Y,
