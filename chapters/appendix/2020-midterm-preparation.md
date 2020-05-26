@@ -7,7 +7,7 @@ You are free to:
 * Consult your personal notes, labwork answers, and source code you have written throughout the course
 * Visit our lecture notes in https://sttp.site
 * Use Google (or any search engine) to search for documentation of the frameworks we use or classes under test.
-* Use WebLab's code editor or IntelliJ or any other IDE to write your code. We even provide you [an IntelliJ project to get started](resources/2020-midterm-skeleton.zip). However, your final answer must be delivered in WebLab. Make sure your tests are passing and everything compiles in WebLab.
+* Use WebLab's code editor or IntelliJ or any other IDE to write your code. We even provide you [an IntelliJ project to get started](https://sttp.site/chapters/appendix/resources/2020-midterm-skeleton.zip). However, your final answer must be delivered in WebLab. Make sure your tests are passing and everything compiles in WebLab.
 * Use any tool to draw CFGs, state machines, and transition trees. You are also allowed to draw it manually and upload a picture. Just make sure it’s legible enough.
 
 You must not:
