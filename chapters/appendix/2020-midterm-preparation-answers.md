@@ -135,12 +135,19 @@ _Note that we will not judge you by your personal code style. If you opt for `@C
 * Pre-conditions: The requirements allow the method to receive a _null_ String. Otherwise, we could formalize _string not null_ as a pre-condition to this method.
 
 * Post-conditions: The final string has `length==count`. That could be formalized as a post-condition.
-Another possible post-condition is that the result should not have any whitespaces, this could be done with `assert !result.contains(" ")`. 
-You would have to alter the source code slightly by initialising a variable (`result = new String(chs, 0, count)`), this isn't a problem memory-wise since this new String has to be allocated in the memory anyways.
-Additionally, you should consider if performing a linear search over the string with `result.contains()` is a price you want to pay. This is fine for the testing environment but maybe not in the production environment, so assertions should probably be disabled in production in this case.
 
 * Class-invariants: No class invariants. This is a static method. 
 
+
+Note that you might see other (maybe stronger) post-conditions. For example:
+
+* The result should not have any whitespaces. Implementation: `assert !result.contains(" ")`. 
+* The returned String is smaller or equal to the original String. Implementation: `assert count <= sz;`
+* It contains all the characters in the original string that are not white spaces.
+
+These are definitely all valid post-conditions. 
+
+(In the examples above, as a developer, an important consideration in applying DbC is whether they are "too redundant" with the test cases.)
 
 ## Picking a state machine
 
