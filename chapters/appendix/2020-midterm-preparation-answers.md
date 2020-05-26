@@ -134,7 +134,19 @@ _Note that we will not judge you by your personal code style. If you opt for `@C
 
 * Pre-conditions: The requirements allow the method to receive a _null_ String. Otherwise, we could formalize _string not null_ as a pre-condition to this method.
 
-* Post-conditions: The final string has `length==count`. That could be formalized as a post-condition.
+* Post-conditions: 
+The following two approaches can be accepted as answer when supplied with clear arguments.
+
+Less granular approach: 
+The final string has `length==count`. That could be formalized as a post-condition.
+
+More granular approach (at risk of test code duplication and increased cost): In addition to the previous post-condition, the following is considered.
+
+1) There is no whitespace in the returned String. *Implementation: assert !result.contains(' ')*
+
+2) The returned String is smaller or equal to the original String. *Implementation: "assert count <= sz;"*
+
+3) It contains all the characters in the original string that are not white spaces
 
 * Class-invariants: No class invariants. This is a static method. 
 
