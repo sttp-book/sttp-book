@@ -448,7 +448,7 @@ T1 makes conditions 1 and 2 true and then does not cover the other conditions. T
 
 At this moment, condition coverage = 2/8.
 
-For T2, the input number 8 is neither divisible by 3, nor divisible by 5. However, since the && operator only evaluates the second condition when the first one is true, condition 2 is not reached. Therefore this test only covers condition 1, 2 and 3 to be false. We now have:
+For T2, the input number 8 is neither divisible by 3, nor divisible by 5. However, since the && operator only evaluates the second condition when the first one is true, condition 2 is not reached. Therefore this test covers condition 1, 3 and 4 as false. We now have:
 
 * condition 1 = [true: exercised, false: exercised]
 * condition 2 = [true: exercised, false: not exercised]
