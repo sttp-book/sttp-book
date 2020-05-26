@@ -233,9 +233,9 @@ As we last step we can identify duplicate tests and remove those.
 1. Derive characteristics of parameters:
   - int legs: [0,2,4,6,8,10,integer.MAX_VALUE], [1,3,5,7,9,integer.MAX_VALUE], [negative value]
   - bool tail: [true], [false]
-  - int lives: [1-9], no lives, more than 10 lives
+  - int lives: [1-9], no lives, more than 9 lives, negative amount of lives
   - bool sharp nails: [true], [false]
-  - string sound: ['miauw'], ['woof'], [empty]
+  - string sound: ['miauw'], ['woof'], [""] (empty string), [null] (null string)
 1. Add constraints:
   - If `lives <= 0`, we can test this with just one combination.
   - If legs is an negative integer or 0, this is an exceptional case. Therefore it doesn't matter if the animal has sharp nails or not.
