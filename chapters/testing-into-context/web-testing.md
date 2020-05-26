@@ -73,7 +73,7 @@ You either have to write custom code to make your tests more robust, or use a to
 
 
 
-## JavaScript unit testing
+## JavaScript unit testing (without a framework)
 We will now tackle several of the aforementioned challenges that relate to the front end of a web application. We show how to design your JavaScript and HTML for testability, how to write unit tests for JavaScript functions, and how to unit test UI components. We demonstrate this using both plain JavaScript and a more modern example that uses a JavaScript framework.
 
 ### Design for testability
@@ -370,9 +370,10 @@ There is no single right answer, and we are not trying to give you one here. Cho
 Just to give you an example of what the tests may look like when using such a framework, the next section demonstrates an example implementation in React with tests in Jest.
 
 
-### Example implementation with React and Jest
-In this example, we will rebuild the "date incrementer" application in React. We create a new React application using the `create-react-app` NPM package. This creates a project structure with the necessary dependencies and includes the unit testing framework Jest. 
+## JavaScript unit testing (with React and Jest)
+In this example, we will rebuild the "date incrementer" application from the previous section in React. We create a new React application using the `create-react-app` NPM package. This creates a project structure with the necessary dependencies and includes the unit testing framework Jest. 
 
+### Implementation
 We can mostly reuse the utility functions that we built earlier (`dateUtils.js`):
 
 ```js
@@ -451,6 +452,8 @@ export default App;
 
 We now have an application that behaves the same as the one we built in the plain JavaScript example. We will now turn our attention to writing tests for this.
 
+
+### Tests for the utility functions
 For the utility functions, we can again write similar code to what we did with our ad-hoc unit tests:
 
 ```js
@@ -476,6 +479,8 @@ The differences are:
 1. We can now take advantage of the module system. We do not have to load the functions into global scope any more, but just import the functions we need.
 2. We use the Jest syntax, where `describe` is optionally used to group several tests together, and `test` is used to write a test case, with a string describing the expected behaviour and a function executing the actual test. The body of the test function uses the "fluent" syntax `expect(...).toEqual(...)`.
 
+
+### Tests for the user interface
 For the `DateIncrementer` component, we could write tests like this:
 
 ```js
