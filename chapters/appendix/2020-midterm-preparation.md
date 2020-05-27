@@ -243,7 +243,7 @@ We will now randomly give you a description of a state machine. In the following
 Draw the state machine to the requirement you received.
 
 You are free to:
-- Use any program to draw the CFG.
+- Use any program to draw the state machine.
 - Draw it manually and take a picture.
 
 Upload your answer here. You have to stick to common image formats (.jpg, .png, .pdf). Images should not be larger than 3 MB.
@@ -253,7 +253,7 @@ Upload your answer here. You have to stick to common image formats (.jpg, .png, 
 It is time to test the state machine. Given the state machine you just devised, build a **transition tree**.
 
 You are free to:
-- Use any program to draw the CFG.
+- Use any program to draw the Transition tree.
 - Draw it manually and take a picture.
 
 Upload your answer here. You have to stick to common image formats (.jpg, .png, .pdf). Images should not be larger than 3 MB.
