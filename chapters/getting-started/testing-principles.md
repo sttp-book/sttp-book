@@ -95,10 +95,10 @@ On the other hand, creating tests after tests, without proper consideration, mig
 
 Given resource constraints, we highlight an important principle in 
 software testing: **exhaustive testing is impossible**. It might be impossible
-even if we had unlimited resources. Imagine a software system that has "just" 128 different
+even if we had unlimited resources. Imagine a software system that has "just" 300 different
 flags (or configuration settings). Those flags can be set to either true or false (Booleans) and
 they can be set independently from the others. The software system behaves differently
-according to the configured combination of flags. This implies that we need to test all the possible combinations. A simple calculation shows us that 2 possible values for each of the 128 different flags gives $$2^{128}$$ combinations that need to be tested. As a matter
+according to the configured combination of flags. This implies that we need to test all the possible combinations. A simple calculation shows us that 2 possible values for each of the 300 different flags gives $$2^{300}$$ combinations that need to be tested. As a matter
 of comparison, this number is higher than the estimated number of atoms in the universe.
 In other words, this software system has more possible combinations to be tested than the universe has atoms.
 
