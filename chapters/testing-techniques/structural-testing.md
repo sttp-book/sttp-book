@@ -435,8 +435,6 @@ The formula to calculate branch+condition coverage is as follows. Note how this 
 
 $$\text{C/DC coverage} = \frac{\text{conditions outcome covered + decisions outcome covered}}{\text{conditions outcome total + decisions outcome total}} \cdot 100\%$$
 
-From now on, whenever we mention **condition coverage**, we mean **condition + branch coverage** (as basic condition coverage is not really used).
-
 
 {% hint style='tip' %}
 Another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in $$2^N$$ tests, given $$N$$ conditions.
