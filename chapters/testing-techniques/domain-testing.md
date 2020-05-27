@@ -301,10 +301,17 @@ A student can only join the MSc if :
 
 ### Equivalence partitioning / Boundary Analysis
 
+The conditions from the requirements are really close with each other. Because of that, finding values that cross the boundary between partitions is challenging. We also note that the boundary that matters here is from (student being approved) -> (student not being approved). So, for each partition, we should find its boundary that would force the student not being approved.
+
+These boundary points can found through the following process. We first find the on-point of the boundary, for instance (35, 3.6), then discover the closest inputs that would make the student to fail. In this example, (34, 3.6) and (35, 3.5). Note that there exists one special case (= 36, >= 3.5). Since it contains an equality condition, we have two off-points to explore.
+
+Also note that we are using in-points that are on-points too. This is less common, but in the case of this problem choosing anohter in-point might make the final outcome to still not change between the boundary tests we devised.
+For example, if we choose a GPA in-point of 3.6, the 35 and 36 ACT will have the same outcome value (as the next rule will intervene).
+
 | Variable	| Equivalence classes	| Boundaries	| Remark	|
 | ---		| ---					| ---			| ---		|
 |(ACT, GPA)	| (= 36, >= 3.5)		| (35, in)		| in-point GPA = 3.5 	|
-|			| 						| (36, in)		| 			|
+|			| 						| (36, in)		| on-point			|
 |			| 						| (37, in)		| 			|
 |			| 						| (in, 3.5)		| in-point ACT = 36		|
 |			| 						| (in, 3.4)		| 			|
@@ -333,9 +340,7 @@ A student can only join the MSc if :
 |			| (> 36, > 4.0)			| (37, in)		| in-point GPA = 4 		|
 |			| 						| (in, 4.1)		| in-point ACT = 36		|
 
-*These boundary points are found through the following process. We first find the on-point of the boundary, for instance (35, 3.6), then discover the closest inputs that would fail that partition, in this case (34, 3.6) and (35, 3.5). There exists one special case (= 36, >= 3.5) here. Since it contains an equality condition and eqaulity conditions have two off-points, there will be one more closest input that fail this partition.
-*Note that we are using in-points that are on-points too. This is less common, but in the case of this problem choosing anohter in-point might make the final outcome to still not change between the boundary tests we devised.*
-*For example, if we choose a GPA in-point of 3.6, the 35 and 36 ACT will have the same outcome value (as the next rule will intervene).*
+
 
 ### Strategy
 * There are 24 boundaries *(for conditions on valid inputs)*, but some are repeated. 14 boundary tests.
