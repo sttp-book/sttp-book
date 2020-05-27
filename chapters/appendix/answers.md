@@ -737,14 +737,14 @@ In this case we need to test each explicit decision in the decision table.
 **Exercise 11**
 
 
-![](img/model-based-testing/exercises/solution-microwave-statemachine.png)
+![](img/model-based-testing/exercises/solution-microwave-statemachine.svg)
 
 
 
 **Exercise 12**
 
 
-![](img/model-based-testing/exercises/solution-microwave-transitiontree.png)
+![](img/model-based-testing/exercises/solution-microwave-transitiontree.svg)
 
 
 **Exercise 13**
