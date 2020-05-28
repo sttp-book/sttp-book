@@ -38,7 +38,7 @@ Also, the fact that the server side can be written in any programming language y
 At the same time, it poses challenges, like possibly having **different programming languages** and corresponding ecosystems on the client and server side.
 (Of course, you could write the server side in Node.js if you wanted to use JavaScript on both sides.)
 You also have to realise that just testing the front and back end separately will probably not cut it.
-You will want to reflect how a user uses the application by performing **system tests**, which in turn means that you have to have a web server running while executing such a test.
+You will want to reflect how a user uses the application by performing **end-to-end tests**, which in turn means that you have to have a web server running while executing such a test.
 That server needs to be in the right state (especially if it uses a database), and the versions of front and back end need to be compatible.
 
 ### Everyone can access your application
@@ -345,7 +345,9 @@ We successfully mocked the external dependencies and were able to check whether 
 This time, nothing is logged to the console because all tests succeed.
 
 {% hint style='tip' %}
-Even though we showed that it is possible to mock the date utility functions, you can also decide to use their actual implementations. (This trade-off was explained in the *Test doubles* chapter.) In the example above, you would have to add the line `<script src="dateUtils.js"></script>` (and remove the mock implementations) in order to use the actual implementations.
+Even though we showed that it is possible to mock the date utility functions, you can also decide to use their actual implementations. 
+(This trade-off was explained in the *Test doubles* chapter.) 
+In the example above, you would have to add the line `<script src="dateUtils.js"></script>` (and remove the mock implementations) in order to use the actual implementations.
 {% endhint %}
 
 Of course, the manual approach we followed here has obvious limitations.  We had to write the `assertEqual` function ourselves, and we would need to write similar methods for other kinds of assertions. 
@@ -357,7 +359,9 @@ You could solve all these issues by hand, but to avoid reinventing the wheel, it
 ### Choosing a unit testing framework
 In the JavaScript world, there is an abundance of tools and frameworks to choose from. The same holds for unit testing frameworks: there are many options, and contrary to Java there is certainly no de facto standard framework. Moreover, new frameworks are developed and adopted every year.
 
-When working on an existing application that already has a testing framework in place, it probably makes sense to stick to that. For new projects, it is useful to make yourself up-to-date with the currently popular JavaScript testing frameworks. Articles like [An Overview of JavaScript Testing in 2020](https://medium.com/welldone-software/an-overview-of-javascript-testing-7ce7298b9870) give you a nice summary of the current state of affairs.
+When working on an existing application that already has a testing framework in place, it probably makes sense to stick to that. 
+For new projects, it is useful to make yourself up-to-date with the currently popular JavaScript testing frameworks. 
+Articles like [An Overview of JavaScript Testing in 2020](https://medium.com/welldone-software/an-overview-of-javascript-testing-7ce7298b9870) give you a nice summary of the current state of affairs.
 
 Choosing a framework that is used by many people means that you are more likely to get support in their online community. 
 You should also consider using the testing framework that is recommended by the JavaScript library/framework you use. 
@@ -365,13 +369,15 @@ For instance, for React applications the [recommended](https://reactjs.org/docs/
 Another factor to consider is continuity. 
 Is it just a one man project, or is it maintained by a large organisation? When was the latest version published?
 
-There is no single right answer, and we are not trying to give you one here. Choose a framework that seems most suited to your project, with the above considerations in mind.
+There is no single right answer, and we are not trying to give you one here. 
+Choose a framework that seems most suited to your project, with the above considerations in mind.
 
 Just to give you an example of what the tests may look like when using such a framework, the next section demonstrates an example implementation in React with tests in Jest.
 
 
 ## JavaScript unit testing (with React and Jest)
-In this example, we will rebuild the "date incrementer" application from the previous section in React. We create a new React application using the `create-react-app` NPM package. This creates a project structure with the necessary dependencies and includes the unit testing framework Jest. 
+In this example, we will rebuild the "date incrementer" application from the previous section in React.
+ We create a new React application using the `create-react-app` NPM package. This creates a project structure with the necessary dependencies and includes the unit testing framework Jest. 
 
 ### Implementation
 We can mostly reuse the utility functions that we built earlier (`dateUtils.js`):
@@ -427,9 +433,12 @@ function DateIncrementer({ initialDate }) {
 export default DateIncrementer;
 ```
 
-The component is implemented as a function, with "props" (properties) as input, and a DOM representation as output. Our component has one input, `initialDate`, which is used to set the date that is shown when the component is first loaded. The component keeps one state variable, `date`, which stores the date as it is updated by the user using the button.
+The component is implemented as a function, with "props" (properties) as input, and a DOM representation as output. 
+Our component has one input, `initialDate`, which is used to set the date that is shown when the component is first loaded. 
+The component keeps one state variable, `date`, which stores the date as it is updated by the user using the button.
 
-The XML-like syntax you see there is not HTML, but rather a JavaScript extension called JSX. This syntax gets converted to `React.createElement()` calls, of which the result will eventually get rendered to the DOM. We defined the `<p>` and `<button>` elements like before, but can now include JavaScript within curly braces to provide the expressions for the date string and the `onClick` handler.
+The XML-like syntax you see there is not HTML, but rather a JavaScript extension called JSX. This syntax gets converted to `React.createElement()` calls, of which the result will eventually get rendered to the DOM. 
+We defined the `<p>` and `<button>` elements like before, but can now include JavaScript within curly braces to provide the expressions for the date string and the `onClick` handler.
 
 Finally, we alter the file `App.js` that was generated by `create-react-app` to use our `DateIncrementer` component:
 
@@ -450,7 +459,8 @@ function App() {
 export default App;
 ```
 
-We now have an application that behaves the same as the one we built in the plain JavaScript example. We will now turn our attention to writing tests for this.
+We now have an application that behaves the same as the one we built in the plain JavaScript example. 
+We will now turn our attention to writing tests for this.
 
 
 ### Tests for the utility functions
@@ -506,9 +516,13 @@ test('updates correctly when clicking the "+1" button', () => {
 });
 ```
 
-Here you see a similar Jest unit test structure, but we also use `react-testing-library` to render the UI component to a virtual DOM. In `react-testing-library`, you are encouraged to test components like a user would test them. This is why we use functions like `getByText` to look up elements. This also means that we did not have to include any `id`s or other ways of identifying the `<p>` and the `<button>` in the component.
+Here you see a similar Jest unit test structure, but we also use `react-testing-library` to render the UI component to a virtual DOM. 
+In `react-testing-library`, you are encouraged to test components like a user would test them. 
+This is why we use functions like `getByText` to look up elements. 
+This also means that we did not have to include any `id`s or other ways of identifying the `<p>` and the `<button>` in the component.
 
-You could also decide to mock the utility functions, like we did in the plain JavaScript example. In that case, the test would look like this:
+You could also decide to mock the utility functions, like we did in the plain JavaScript example. 
+In that case, the test would look like this:
 
 ```js
 jest.mock('./dateUtils');
@@ -544,10 +558,70 @@ test('updates correctly when clicking the "+1" button', () => {
 });
 ```
 
-Here, `jest.mock('./dateUtils')` replaces every function that is exported from the `dateUtils` module by a mocked version. You can then provide alternative implementations with functions like `mockReturnValue`, and check whether the functions have been called with functions like `expect(...).toHaveBeenCalledWith(...)`.
+Here, `jest.mock('./dateUtils')` replaces every function that is exported from the `dateUtils` module by a mocked version. 
+You can then provide alternative implementations with functions like `mockReturnValue`, and check whether the functions have been called with functions like `expect(...).toHaveBeenCalledWith(...)`.
 
-The version with mocks is less 'real' than the one without. The one without mocks is arguably preferable. However, you could use the same mechanism for things like HTTP requests to a back end, and in that case mocking would certainly be helpful.
+The version with mocks is less 'real' than the one without. 
+The one without mocks is arguably preferable. 
+However, you could use the same mechanism for things like HTTP requests to a back end, and in that case mocking would certainly be helpful.
 
+### Snapshot testing
+To understand snapshot testing, let us first return to one of the UI tests we wrote above:
+
+```js
+test('renders initial date', () => {
+  const { getByText } = render(<DateIncrementer initialDate={new Date(2020, 0, 1)} />);
+  const dateElement = getByText("2020-01-01");
+  expect(dateElement).toBeInTheDocument();
+});
+```
+
+We gave our component some input and checked whether the rendered component contained what we expected. 
+What if the rendered output contained more elements?
+Would you just look up all the elements and assert things about them?
+This can get quite tedious and time-consuming after a while.
+
+If all you want to do is make sure that your UI does not change unexpectedly, snapshot tests are a good fit.
+The first time you run a snapshot test, it takes a snapshot of the component as it is rendered in that initial run.
+That first time, the test will always pass.
+Then in all subsequent runs, the rendered output is compared to the snapshot.
+If the output is different, the test fails, and you are presented with the differences between the two versions.
+The test runner allows you to inspect the differences and decide whether the changes are what you intended.
+You can then either change the component so that its output corresponds to the snapshot,
+or you press a button to update the snapshot and mark the newly rendered output as the correct one.
+
+In Jest, such a test can look like this:
+
+```js
+test('renders correctly via snapshot', () => {
+  const { container } = render(<DateIncrementer initialDate={new Date(2020, 0, 1)} />);
+  expect(container).toMatchSnapshot();
+});
+```
+
+On the first run, this creates a file called `DateIncrementer.test.js.snap` with the following contents:
+
+```
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly via snapshot 1`] = `
+<div>
+  <div>
+    <p>
+      2020-01-01
+    </p>
+    <button>
+      +1
+    </button>
+  </div>
+</div>
+`;
+```
+
+On subsequent runs, the output of the test is compared to the corresponding snapshot.
+
+The created snapshot file should be committed to your version control system (like Git), 
+so that your tests can also run on your Continuous Integration (CI) system.
 
 ## End-to-end testing
 The goal of end-to-end testing is to test the flow through the application as a user might follow it, while integrating the various components of the web application (such as the front end, back end and database). For instance, when testing an e-commerce application, you could test the flow of a user searching for a product, adding the product to their cart, going to checkout, logging in, paying for their products and receiving a confirmation. You should make this as realistic as possible, so you use an actual browser and perform the tests on a production-like version of the application components; although of course you will want to simulate the payments to prevent you from having to pay for your own products every time you run the test... Similarly, you should be careful with sending out actual e-mails and can decide to send the e-mails to a drop folder instead of to an actual recipient.
@@ -661,9 +735,37 @@ To get an overview of the system as a whole we will still have to draw the entir
 {% include "/includes/youtube.md" %}
 
 ## Other types of tests
-{% hint style='working' %}
-This section is under construction.
-{% endhint %}
+Although we have covered lots of topics related to web testing in this chapter,
+we mentioned even more things to consider in our discussion of the 
+characteristics of web applications.
+
+Many of them deserve their own chapter, but for now we will just give a quick summary.
+
+### Usability and accessibility testing
+Usability and accessibility testing are very closely related.
+Traditionally, usability focuses more on "user-friendliness"; making the application pleasant and easy to use.
+According to the W3C, accessibility is about "making content accessible to a wider range of people with disabilities, including blindness and low vision, deafness and hearing loss, learning disabilities, cognitive limitations, limited movement, speech disabilities, photosensitivity and combinations of these."
+
+To know what to test for, it is useful to consult resources like the Web Content Accessibility Guidelines (WCAG).
+
+You can use tools like "axe" to test your web pages for accessibility problems.
+However, at this stage, such tests often still need to be done manually.
+Install assistive technologies like a screen reader that reads aloud the pages
+you load in you browser,
+and see whether you can still use the application without using your eyes.
+Or better yet, ask a user with a disability to use your application 
+and help you with identifying issues in it.
+
+### Load and performance testing
+On the web, performance is very important. 
+If users have to wait too long for your application to load,
+they may lose interest and turn to somewhere else.
+Also, you should make sure that your application still functions properly
+when used by lots of people.
+
+Various tools exist to put a lot of load on your system 
+and help you find the parts with performance issues.
+
 
 ## References
 * van Deursen, A. (2015). Beyond Page Objects: Testing Web Applications with State Objects. ACM Queue, 13(6), 20.
