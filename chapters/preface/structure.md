@@ -10,6 +10,6 @@ Testing software is a multifaceted activity, which requires developers to unders
 
 * **Intelligent testing**: Can machines also devise test cases? Up to this section, test cases were mostly devised by humans (and only later written as test code, so that the machine could run them). In this section, we discuss state-of-the-art ideas on how machines can also help developers in exploring systems and look out for crashes. We cover techniques such as mutation testing, fuzzing testing, and search-based software testing.
 
-* **Testing in the context**: Context is king. In this chapter, we discuss some techniques and tools to test software systems in specific contexts, such as web applications, mobile applications, and embedded systems. We also cover the more recent idea of Continuous Experimentation (which can be seen as a validation strategy).
+* **Testing in context**: Context is king. In this chapter, we discuss some techniques and tools to test software systems in specific contexts, such as web applications, mobile applications, and embedded systems. We also cover the more recent idea of Continuous Experimentation (which can be seen as a validation strategy).
 
 * **Non-functional testing**: Non-functional requirements are extremely important in some software systems. In this section, we cover different testing techniques to ensure that the security and performance requirements of the systems are met. Moreover, and highly timely, we discuss the role of software testers in building ethical software systems.
