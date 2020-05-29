@@ -5,6 +5,11 @@ One disadvantage of this approach is that this creates a delay before we have te
 
 Test-Driven Development (TDD) proposes the opposite: to write the tests before the production code.
 
+In this chapter, we will:
+1. Introduce the reader to the TDD cycle.
+1. Discuss the advantages of TDD.
+1. Discuss whether developers should adhere 100% to TDD.
+
 ## The TDD cycle
 
 The TDD cycle is illustrated in the diagram below:
@@ -51,7 +56,9 @@ Instead of writing a lot of code and then a lot of tests, i.e. getting a lot of 
 It becomes easier to identify new problems as they arise, because they relate to the small amount of code that was added last.
 In addition, if we want to change something, it will be easier to do on a relatively small amount of code.
 
-* The properties of the tests we write can **indicate certain types of problems in the code**.
+* **Baby steps**: TDD encourages developers to work in small (baby) steps: first define the smallest possible functionality, then write the simplest code that makes the test green, and carry out one refactoring at a time.
+
+* **Feedback on design**. The properties of the tests we write can indicate certain types of problems in the code.
 This is why Test-Driven Development is sometimes called *Test-Driven Design*. We discussed design for testability in
 a previous chapter. You might get information about the quality of your design by looking at the tests during the writing process.
 For example, too many tests for just one class can indicate that the class has too many functionalities and that it should be split up into more classes.
@@ -59,89 +66,8 @@ If we need too many mocks inside of the tests, the class might be too coupled, i
 If it is very complex to set everything up for the test, we may have to think about the pre-conditions that the class uses.
 Maybe there are too many pre-conditions or maybe some are not necessary.
 All of this can be observed in the tests, while doing TDD.
-
 It is good to think about design early on as it is easier to change the design of a class at the beginning of the development, rather than a few months later.
 
-## TDD from the trenches
-
-In the following sections, 
-we discuss some insights into TDD, directly from developers we have talked to.
-
-### TDD does not lead to better design on its own
-
-Participants stated that the practice of TDD did not change their class design during the experiment. The main justification was that their experience and previous knowledge regarding object-orientation and design principles guided them during class design. They also stated that a developer with no knowledge in object-oriented design would not create a good class design just by practising TDD or writing unit tests.
-
-The participants gave two good examples reinforcing the point. One of them said that he made use of a design pattern he learned a few days before. Another participant mentioned that his studies on SOLID principles helped him during the exercises.
-
-The only participant who had never practised TDD before stated that he did not feel any improvement in the class design when practising the technique. Curiously, this participant said that he considered TDD a design technique. It somehow indicates that the popularity of the effects of TDD in class design is high. This opinion was slightly different from that of experienced participants, who stated that TDD was not only about design, but also about testing.
-
-Even though TDD might not *directly* lead to good class design, all participants said that TDD has positive effects on class design. Many of them mentioned the difficulty of trying to stop using TDD or thinking about tests, which can be a reason for not seeing significant differences in terms of design quality in code produced with and without TDD.
-
-"When you are about to implement something, you end up thinking about the tests that you’ll do. It is hard to stop thinking about tests while writing code!. As soon as you get used to it, you just don’t know any other way to write code..."
-
-According to the participants, TDD can help during class design process, but in order to succeed, the developer should have experience in software development. In fact, most participants stated that their class designs were based on their experiences and past learning processes. In their opinion, the best option was to combine TDD with experience.
-
-### Baby steps and simplicity
-
-TDD encourages developers to work in small (baby) steps: first define the smallest possible functionality, then write the simplest code that makes the test green, and carry out one refactoring at a time.
-
-In the interviews, participants commented about this. One of them mentioned that, when not writing tests, a developer thinks about the whole class design and creates a more complex structure than needed.
-
-One of the participants said using baby steps helps him to think better about his class design:
-
-"Because we start to think of the small and not the whole. When I do TDD, I write a simple rule (...), and then I write the method. If the test passes, it passes! As you go step by step, the architecture gets nice. (...) I used to think about the whole (...). I think our brains work better when you think small. If you think big, it is clear, at least for me, that you will end up forgetting something."
-
-### Refactoring confidence
-
-Participants stated that, during the process of class design, they change their minds constantly. This is because there is only limited knowledge about the problem, and about how the class should be built. This was the point that was most often brought up by the participants. According to them, an intrinsic advantage of TDD is the generated test suite. It allows developers to change their minds and refactor the whole class design safely. Confidence, according to them, is an important factor when changing class design or implementation.
-
-"It gives me the opportunity to learn along the way and make things differently. (…). The test gives you confidence."
-
-A participant mentioned an experience when TDD had a significant impact. According to him, he changed his mind about the class design many times and trusted the test suite to guarantee the expected behaviour.
-
-### A safe space to think
-
-One of the participants said tests are like draft paper, on which they can try different approaches and change their minds about it frequently. According to them, when starting with the tests, developers are, for the first time, using their own class. It makes developers look for a better and clearer way to invoke the class behaviour, and facilitate its use:
-
-"Tests help you on that. They are a draft for you to try to model it the best way you can. If you had to model the class only once, it is like if you have only one chance. Or if you make it wrong, fixing it would take a lot of work. The idea of you having tests and thinking about them, it is like if you have an empty draft sheet, on which you can put and remove stuff because that stuff doesn’t even exist."
-
-We asked about their reasons for not thinking on the class design even when they were not practising TDD or writing tests. They replied that when a developer does not practise TDD, they get too focused on the code they are writing, and therefore end up not thinking about the class design they were creating. They believe tests make them think about how the class being created will interact with the other classes and about how easy it is to use.
-
-One of the participants was even more precise in his statement. According to him, developers who do not practise TDD end up not using OOP well because they do not think about the design of the class they are building. TDD forces developers to slow down, allowing them to think better about what they are doing.
-
-### Rapid feedback
-
-Participants also commented that one difference they perceived when they practised TDD was the constant feedback. In traditional testing, the time between the production code writing and test code writing is too long. When practising TDD, developers are forced to write the test first, and so receive feedback from a test sooner.
-
-One participant commented that, from the tests, developers are able to review the code they are designing. As the tests are done constantly, developers think continuously about the code and its quality:
-
-*"When you write the test, you soon perceive what you don’t like in it (...). You don’t perceive that until you start using tests."*
-
-Reducing the time between the code writing and test writing also helps developers to create code that solves the given problem effectively. According to the participants, in traditional testing, developers write too much code before actually knowing if it works.
-
-### The search for testability
-
-Maybe the main reason that the practice of TDD helps developers in their class design is the constant search for testability. When we start by writing the tests, the production code is testable by necessity.
-
-When it is not easy to test a specific piece of code, developers understand it as a class design smell. When this happens, developers usually try to refactor the code to make it easier to test. One participant applies the rule that if it is hard to test, the code needs improvement.
-
-Feathers [7] raised this point: the harder it is to write the test, the higher the likelihood that there is a problem in the class design. According to him, there is a strong correlation between a highly testable class and a good class design. If developers are looking for testability, they end up creating good class design. At the same time, if they are looking for good class design, they end up writing testable code.
-
-During the interviews, many participants also mentioned patterns that made (and make) them think about possible design problems in the classes they build. As an example, they told us that when they feel the need to write many different unit tests for a single method, this may be a sign of a non-cohesive method. They also said that when a developer feels the need to write a big scenario for a single class or method, it is possible to infer that this need emerges in classes dealing with too many objects or containing too many responsibilities, and thus, it is not cohesive. They also mentioned how they detect coupling issues. According to them, the abusive use of mocking objects indicates that the class under testing has coupling issues.
-
-### What did we learn from it?
-
-The first interesting myth contested by the participants was the idea that the practice of TDD would lead developers towards a better design by itself. As they explained, the previous experience with and knowledge of good design have significant impact. At the same time, TDD helps developers by giving quick and constant feedback by means of the unit tests that they are writing. As they also mentioned, the search for testability also makes them rethink the class design many times during the day — if a class cannot be tested easily, then they refactor it.
-
-We agree with the rationale. In fact, when compared with test-last approaches, developers do not have the constant feedback or the need to write testable code. They will have the necessary feedback only at the end, when all the production code has already been written. Then it may be too late (or expensive) to do any significant refactoring in the class design.
-
-![TDD feedback](img/tdd/tdd.svg)
-
-We also agree with the comments about confidence when refactoring. As TDD forces developers to write unit tests frequently, these tests end up working as a safety net. Any broken change in the code is identified quickly. This safety net makes developers more confident to try and experiment with new design changes — after all, if the changes break anything, tests will warn developers about it. That is why they also believe the tests are a safe space to think.
-
-Therefore, we believe that it is not the practice by itself that helps developers to improve their class design. Rather it is the consequences of constantly writing unit tests, making classes testable, and refactoring the code, that drives developers towards a better design.
-
-In conclusion, developers believe that the practice of test-driven development helps them to improve their class design, as the constant need to write a unit test for each part of the software forces them to create testable classes. The feedback — is your code easy to be tested or not? — makes them think and rethink about the class and improve it. Also, as the number of tests grow, they act as a safety net, allowing developers to refactor freely, and also try and experiment different approaches to that code. Based on that, we suggest that developers experiment with the practice of test-driven development, as its effects appear positive for software developers.
 
 ## Should I do TDD 100% of the time?
 
@@ -163,6 +89,13 @@ are not doing TDD, you should write tests in a timely manner. Do not leave it fo
 Write them together with the production code, so that the growing automated test suite will give you more and more confidence 
 about the code.
 
+## TDD in practice
+
+James Shore created a series of impressive 200 videos where he uses TDD to build an entire "real-world" project from scratch. You can see it in his Youtube playlist, _Let's Play: Test-Driven Development_: https://www.youtube.com/playlist?list=PL0CCC6BD6AFF097B1. And while he created these videos in 2012, they are still relevant and highly recommended.
+
+{% hint style='tip' %}
+We recommend readers to watch at least the first 3-5 episodes to get a sense of what TDD is about. 
+{% endhint %}
 
 ## Exercises
 

@@ -167,14 +167,14 @@ code engineering.
 In the test code above, we create the `roman` object four times.
 Having a fresh clean instance of an object for each test method is a good idea, as 
 we do not want "objects that might be already dirty" (and thus, being the cause for the test to fail, and not because there was a bug in the code) in our test. 
-
 However, having duplicated code is not desirable. The problem with duplicated test code
 is the same as in production code: if there is a change to be made, the change has to be made
 in all the points where the duplicated code exists.
 
-In this example, we should try to isolate the line of code responsible for creating
+In this example, in order to reduce some duplication, 
+we could try to isolate the line of code responsible for creating
 the class under test.
-In order to do so, we can use the `@BeforeEach` feature that JUnit provides.
+To that aim, we can use the `@BeforeEach` feature that JUnit provides.
 JUnit runs methods that are annotated with `@BeforeEach` before every test method.
 We therefore can instantiate the `roman` object inside a method annotated with `BeforeEach`.
 
@@ -217,15 +217,14 @@ class RomanNumeralTest {
 }
 ```
 
-Feel free to read more about [JUnit's annotations](https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations) in its documentation.
+{% hint style='tip' %}
+Note that moving the instantiation of the class to a `@BeforeEach` method would work if all tests make use of the same constructor. Classes that offer more than a single constructor might need a different approach to avoid duplication. Can you think of any? We discuss test code quality in a more systematic way in a future chapter.
+{% endhint %}
 
 You can also see a video of us refactoring the `MinMax` test cases. Although the test suite was still small, it had many opportunities for better test code.
 
 {% set video_id = "q5mq_Bkc8-s" %}
 {% include "/includes/youtube.md" %}
-
-We discuss test code quality in a more systematic way in a future 
-chapter.
 
 ## Tests and refactoring
 
@@ -326,6 +325,61 @@ Lessons to be learned:
 * Get to know your testing framework. 
 * Never stop refactoring your production code.
 * Never stop refactoring your test code.
+
+{% hint style='tip' %}
+While building this book, we have noticed that different people had different suggestions on how to implement this roman numeral converter! See our [code-examples](https://github.com/sttp-book/code-examples/tree/master/src/main/java/tudelft/dbc/roman) for the different implementations we have received as suggestions. 
+
+Interestingly, we can test them all together, as they should have the same behaviour. See our [RomanConverterTest](https://github.com/sttp-book/code-examples/blob/master/src/test/java/tudelft/dbc/roman/RomanConverterTest.java) as an example of how to reuse the same test suite to all the different implementations! Note that, for that to happen, we defined a common interface among all the implementations: the _RomanConverterTest_. This testing strategy is quite common in object-oriented systems, and we will discuss more about it in the design by contracts chapter.
+{% endhint %}
+
+## The structure of an automated test case
+
+Automated tests are very similar in structure.
+They almost always follow the **AAA** ("triple A") structure.
+The acronym stands for **Arrange**, **Act**, and **Assert**.
+
+* In the **Arrange** phase, the test defines all the input values that will
+then be passed to the class/method under test.
+In terms of code, it can vary from a single value to
+complex business entities.
+
+* The **Act** phase is where the test "acts" or, calls the behavior under test, passing
+the input values that were set up in the Arrange phase.
+This phase is usually done by means of one or many method calls.
+
+* The result is then used in the **Assert** phase, where the test asserts that 
+the system behaved as expected. In terms of code, it is where the `assert` instructions are.
+
+Using one of the test methods above to illustrate the different parts of an automated test code 
+(note that the Arrange/Act/Assert comments here are just to help you visualize the three parts, 
+ we would not usually add them in real test code):
+
+```java
+@Test
+void convertSingleDigit() {
+  // Arrange: we define the input values
+  String romanToBeConverted = "C";
+
+  // Act: we invoke the method under test
+  int result = roman.convert(romanToBeConverted);
+
+  // Assert: we check whether the output matches the expected result
+  assertEquals(100, result);
+}
+```
+
+
+Understanding the structure of a test method enables us to explore best practices
+(and possible test code smells) in each one of them. From now on, we will use the
+terms _arrange_, _act_, and _assert_ to talk about the different parts of an
+automated test case.
+
+{% hint style='tip' %}
+AAA is a good structure for most tests, and a good way to think about what you're trying to show about the code.
+As you learn more techniques, you will find that there other valuable ways to think about the structure of a test.
+We'll discuss these in a later chapter.
+{% endhint %}
+
 
 ## Advantages of test automation
 

@@ -143,7 +143,7 @@ This urges for a better representation of source code. One that is
 independent of the developers' personal code styles.
 
 {% hint style='tip' %}
-Some coverage tools measure coverage as statement level. Statements are the unique instructions that your
+Some coverage tools measure coverage at statement level. Statements are the unique instructions that your
 JVM, for example, executes. This is a bit better, as splitting one line of code in two would not make a difference, but it is still not good enough.
 {% endhint %}
 
@@ -242,7 +242,39 @@ The corresponding CFG:
 Note that we split the `for` loop into three blocks: the variable initialisation, the decision block, and the increment.
 
 
-As you can see, this CFG representation is quite generic. Even when you use a different programming language to write the same program, you might end up with the same CFG.
+**Control-Flow Graphs in other languages.** As you can see, this CFG representation is quite generic. Even when you use a different programming language to write the same program, you might end up with the same CFG. We can devise control-flow graphs for programs in any programming language. For example, see the piece of
+Python code below:
+
+```python
+# random_ads is a list of ads.
+# an ad contains three attributes:
+# * available: true/false indicating whether the ad 
+#   is still available.
+# * reached: true/false indicating 
+#   whether the number of paid prints was reached.
+# * prints: an integer indicating the 
+#   number of times that the ad was printed.
+def validate_ads(random_ads):
+01. valid_ads = []
+02. invalid_ads = []
+
+03. for random_ad in random_ads:
+04.   if random_ad.available and not random_ad.reached:
+05.     valid_ads.append(random_ad)
+06.   else:
+07.     invalid_ads.append(random_ad)
+
+08. for valid_ad in valid_ads:
+09.   valid_ad.prints += 1
+
+10. return valid_ads, invalid_ads
+```
+
+A CFG for this piece of code would look like:
+
+![CFG in Python](img/structural-testing/examples/cfg-python.png)
+
+We applied the same idea we have seen for Java programs in a Python program. The notions of basic and decision blocks are the same. A small difference to note is in the *foreach* loop (which is simply written using the `for` keyword in Python). Given that *foreach* loops do not follow the same format as traditional `for` loops, we modelled it differently: the *foreach* loop is fully represented by a single decision block (i.e., no blocks for the increment, or condition). As with any decision blocks, it has two outcomes, `true` and `false`.
 
 
 ## Block coverage
@@ -377,7 +409,7 @@ Imagine the following program and its respective CFG:
 
 ```java
 void hello(int a, int b) {
-  if(a > 10 && b > 20) {
+  if(a > 10 & b > 20) {
     System.out.println("Hello");
   } else {
     System.out.println("Hi");
@@ -399,16 +431,9 @@ In practice, whenever we use condition coverage, we actually perform **branch + 
 that we achieve 100% condition coverage (i.e., all the outcomes of all conditions are exercised) and 100% branch coverage (all the outcomes
 of the compound decisions are exercised).
 
-The formula to calculate branch+condition coverage might vary among tools. Some consider the same as in condition coverage:
-
-$$\text{C/DC coverage} = \frac{\text{conditions outcome covered}}{\text{conditions outcome total}} \cdot 100\%$$
-
-Others prefer to count, for each decision block, the number of outcomes per condition plus the number of outcomes per decision. For example, an `if(a>10 && b < 10)` would count as 6, as 2 for the `a>10` condition, 2 for the `b<10` condition, and 2 for the `a>10 && b<10`. This formula would give us a clear differentiation between basic condition and decision+condition coverage:
+The formula to calculate branch+condition coverage is as follows. Note how this formula gives us a clear differentiation between basic condition and decision+condition coverage:
 
 $$\text{C/DC coverage} = \frac{\text{conditions outcome covered + decisions outcome covered}}{\text{conditions outcome total + decisions outcome total}} \cdot 100\%$$
-
-
-From now on, whenever we mention **condition coverage**, we mean **condition + branch coverage**.
 
 
 {% hint style='tip' %}
@@ -436,12 +461,12 @@ See the following example that focus on a small piece of the `count` method:
 
 ```java
 if (!Character.isLetter(str.charAt(i)) 
-        && (last == 's' || last == 'r')) {
+        & (last == 's' | last == 'r')) {
     words++;
 }
 ```
 
-The decision in this if-statement contains three conditions and can be generalised to `(A && (B || C))`, with:
+The decision in this if-statement contains three conditions and can be generalised to `(A & (B | C))`, with:
 * A = `!Character.isLetter(str.charAt(i))`
 * B = `last == 's'`
 * C = `last == 'r'`
@@ -479,11 +504,33 @@ while(shouldRun) {
 
 To satisfy all the criteria we studied so far, we would need to exercise the `shouldRun` as being true and false. That does not happen with path coverage. To satisfy path coverage, we would need to test all the possible paths that can happen. The unbounded loop might make this program to iterate an infinite number of times. Imagine now a program with two unbounded loops together. How many different possible paths does this program have?
 
-Achieving 100% path coverage might not always be feasible or too costly.
-The number of tests needed for full path coverage will grow exponentially with the number of conditions and unbounded loops.
+
+By aiming at achieving path coverage of our program, testers can indeed come up with good tests.
+However, the main issue is that achieving 100% path coverage might not always be feasible or too costly.
+The number of tests needed for full path coverage will grow exponentially with the number of conditions in a decision.
+
 
 {% set video_id = "hpE-aZYulmk" %}
 {% include "/includes/youtube.md" %}
+
+## Lazy vs eager operators (and how they affect test case design)
+
+Note that we have been avoiding lazy (short-circuit) operators (i.e., && and ||), on purpose, to make sure all conditions of the expression are evaluated. This allows us to devise test cases for each possible combination we see in the decision table. However, that might not be the case if we use lazy operators. Let's take as an example the same expression, but now using lazy operators: `(A && (B || C))`
+
+We make the truth table to find the combinations:
+
+| Tests | A | B | C  | Outcome |
+|-------|---|---|----|---------|
+| 1     | T | T | dc | T       |
+| 2     | T | F | T  | T       |
+| 3     | T | F | F  | F       |
+| 4     | F | X | dc | F       |
+
+('dc' represents "don't care" values.)
+
+For this particular example, if the A is false, then the rest of the expression will be not evaluated anymore, because the result of the entire statement will be automatically false. Moreover, for the second part of the expression, if B is true, then the entire proposition `(B || C)` is already true, so we "don't care" about the value of the C.
+
+Generically speaking, it might be not possible to devise test cases for all the combinations. As a tester, you just have to take such constraints into consideration.
 
 
 ## Loop boundary adequacy
@@ -543,7 +590,7 @@ If we take the decision block from path coverage example, `A && (B || C)`, MC/DC
   * In both test cases T3 and T4, variables A and B should be the same.
     
 Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is, on average, $$N+1$$, where $$N$$ is the number of conditions in the decision. 
-Note that $$N+1$$ is definitely smaller than $$2^N$$!
+Note that $$N+1$$ is definitely smaller than all the possible combinations ($$2^N$$)!
 
 Again, to devise a test suite that achieves 100% MC/DC coverage, we should devise $$N+1$$ test cases that, when combined, 
 exercise all the combinations independently from the others.
@@ -669,44 +716,6 @@ Formally, a strategy X subsumes strategy Y if all elements that Y exercises are 
 ![Criteria subsumption](img/structural-testing/subsumption.png)<!--{width=50%}-->
 
 For example, in the picture, one can see that branch coverage subsumes line coverage. This means that 100% of branch coverage always implies 100% line coverage. However, 100% line coverage does not imply 100% branch coverage. Moreover, 100% of branch + condition coverage always implies 100% branch coverage and 100% line coverage.
-
-
-## More examples of Control-Flow Graphs
-
-We can devise control-flow graphs for programs in any programming language. For example, see the piece of
-Python code below:
-
-```python
-# random_ads is a list of ads.
-# an ad contains three attributes:
-# * available: true/false indicating whether the ad 
-#   is still available.
-# * reached: true/false indicating 
-#   whether the number of paid prints was reached.
-# * prints: an integer indicating the 
-#   number of times that the ad was printed.
-def validate_ads(random_ads):
-01. valid_ads = []
-02. invalid_ads = []
-
-03. for random_ad in random_ads:
-04.   if random_ad.available and not random_ad.reached:
-05.     valid_ads.append(random_ad)
-06.   else:
-07.     invalid_ads.append(random_ad)
-
-08. for valid_ad in valid_ads:
-09.   valid_ad.prints += 1
-
-10. return valid_ads, invalid_ads
-```
-
-A CFG for this piece of code would look like:
-
-![CFG in Python](img/structural-testing/examples/cfg-python.png)
-
-We applied the same idea we have seen for Java programs in a Python program. The notions of basic and decision blocks are the same. A small difference to note is in the *foreach* loop (which is simply written using the `for` keyword in Python). Given that *foreach* loops do not follow the same format as traditional `for` loops, we modelled it differently: the *foreach* loop is fully represented by a single decision block (i.e., no blocks for the increment, or condition). As with any decision blocks, it has two outcomes, `true` and `false`.
-
 
 ## The effectiveness of structural testing
 
@@ -884,7 +893,7 @@ Given the source code of the `sameEnds` method. Which of the following statement
 
 Now consider this piece of code for the FizzBuzz problem.
 Given an integer `n`, it returns the string form of the number followed by `"!"`.
-So the integer 6 would yield `"6!"`.
+So the integer 8 would yield `"8!"`.
 Except if the number is divisible by 3 it returns "Fizz!" and if it is divisible by 5 it returns "Buzz!".
 If the number is divisible by both 3 and 5 it returns "FizzBuzz!"
 Based on a [CodingBat problem](https://codingbat.com/prob/p115243).
@@ -977,12 +986,16 @@ criterion if for every loop L:
 
 **Exercise 15.**
 Consider the expression `((A and B) or C)`.
-If we aim to achieve $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC), the **minimum** set of tests we should select is:
+Devise a test suite that achieves $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC).
 
-1. {2, 3, 4, 6}
-2. {1, 3, 4, 6}
-3. {2, 3, 5, 6}
-4. {3, 4, 7, 8}
+
+**Exercise 16.**
+Draw the truth table for expression `A and (A or B)`.
+
+Is it possible to achieve MC/DC coverage for this expression?
+Why (not)?
+
+What feedback should you give to the developer, that used this expression, about your finding?
 
 
 

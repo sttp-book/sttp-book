@@ -43,12 +43,12 @@ A program receives two numbers and returns the sum of these two integers. Number
 
 ### Strategy
 
-* X has 7 partitions, Y has 7 partitions.
-* All combinations would be 7 * 7 = 49.
+* X has 3 partitions, Y has 3 partitions.
+* All combinations would be 3 * 3 = 9 + 8 boundaries = 17.
 * Variables are independent (X does not affect the range of Y, and vice-versa).
 * 14 tests
-* 7 partitions of X, in point for Y,
-* 7 partitions of Y, in points for X.
+* 7 tests for X (3 partitions + 4 boundaries), in point for Y,
+* 7 tests for Y (3 partitions + 4 boundaries), in points for X.
 
 *In-point X = 50, In-point Y = 50.*
 
@@ -108,13 +108,13 @@ Final sum should be <= 165.
 
 ### Strategy
 
-* X has 7 partitions, Y has 7 partitions, Sum has 4 partitions.
-* All combinations would be 7 * 7 * 4 = 196.
+* X has 3 partitions, Y has 3 partitions, Sum has 2 partitions.
+* All combinations would be 3 * 3 * 2 = 18 + 10 boundaries = 28.
 * Variables are independent (X does not affect the range of Y, and vice-versa).
 * 16 tests
-* 7 partitions of X, in point for Y,
-* 7 partitions of Y, in points for X.
-* 2 for the extra boundary on sum.
+* 7 tests for X (3 partitions + 4 boundaries), in point for Y,
+* 7 tests for Y (3 partitions + 4 boundaries), in points for X.
+* 2 tests for the boundary on Sum.
 
 *In-point X = 50 (taking into consideration that X <= 165 - Y),
 In-point Y = 50 (taking into consideration that Y <= 165 - X).*
@@ -182,8 +182,8 @@ Boundaries seem to be enough.
 | T1        | 1             | false         |                |
 | T2        | 4.9           | false         |                |
 | T3        | 5             | true          |                |
-| T4        | 7.5           | true          |                |
-| T5        | 10            | true          | extra in-point |
+| T4        | 7.5           | true          | extra in-point |
+| T5        | 10            | true          |                |
 
 {% set video_id = "S_90_sYP7GA" %}
 {% include "/includes/youtube.md" %}
@@ -301,9 +301,17 @@ A student can only join the MSc if :
 
 ### Equivalence partitioning / Boundary Analysis
 
+The conditions from the requirements are really close with each other. Because of that, finding values that cross the boundary between partitions is challenging. We also note that the boundary that matters here is from (student being approved) -> (student not being approved). So, for each partition, we should find its boundary that would force the student not being approved.
+
+These boundary points can found through the following process. We first find the on-point of the boundary, for instance (35, 3.6), then discover the closest inputs that would make the student to fail. In this example, (34, 3.6) and (35, 3.5). Note that there exists one special case (= 36, >= 3.5). Since it contains an equality condition, we have two off-points to explore.
+
+Also note that we are using in-points that are on-points too. This is less common, but in the case of this problem choosing anohter in-point might make the final outcome to still not change between the boundary tests we devised.
+For example, if we choose a GPA in-point of 3.6, the 35 and 36 ACT will have the same outcome value (as the next rule will intervene).
+
 | Variable	| Equivalence classes	| Boundaries	| Remark	|
 | ---		| ---					| ---			| ---		|
 |(ACT, GPA)	| (= 36, >= 3.5)		| (35, in)		| in-point GPA = 3.5 	|
+|			| 						| (36, in)		| on-point			|
 |			| 						| (37, in)		| 			|
 |			| 						| (in, 3.5)		| in-point ACT = 36		|
 |			| 						| (in, 3.4)		| 			|
@@ -327,17 +335,12 @@ A student can only join the MSc if :
 |			| 						| (30, in)		| 			|
 |			| 						| (in, 4.0)		| in-point ACT = 31		|
 |			| 						| (in, 3.9)		| 			|
-|			| (= 36, >= 3.5)		| (35, in)		| in-point GPA = 3.5 	|
-|			| 						| (37, in)		| 			|
-|			| 						| (in, 3.5)		| in-point ACT = 36		|
-|			| 						| (in, 3.4)		| 			|
 |			| (< 0, < 0.0)			| (-1, in)		| in-point GPA = 0.1 	|
 |			| 						| (in, -0.1)	| in-point ACT = 1		|
 |			| (> 36, > 4.0)			| (37, in)		| in-point GPA = 4 		|
 |			| 						| (in, 4.1)		| in-point ACT = 36		|
 
-*Note that we are using in-points that are on-points too. This is less common, but in the case of this problem choosing anohter in-point might make the final outcome to still not change between the boundary tests we devised.*
-*For example, if we choose a GPA in-point of 3.6, the 35 and 37 ACT will have the same outcome value (as the next rule will intervene).*
+
 
 ### Strategy
 * There are 24 boundaries *(for conditions on valid inputs)*, but some are repeated. 14 boundary tests.
@@ -359,7 +362,7 @@ A student can only join the MSc if :
 | T12 			| 30 	| 4.0	| False		|
 | T13 			| 31 	| 3.9	| False		|
 | T14 			| -1 	| 4.0	| *Invalid*	|
-| T15 			| 40 	| 4.0	| *Invalid*	|
+| T15 			| 37 	| 3.5	| *Invalid*	|
 | T16 			| 36 	| -0.1	| *Invalid*	|
 | T17			| 36	| 4.1	| *Invalid* |
 
@@ -412,14 +415,15 @@ FN + MN + LN <= 68
 
 ### Strategy
 
-Each variable has 6 partitions, thus: 6 * 6 * 6 = 216 tests.
+* Each variable has 2 partitions, plus a restriction.
 
-Let's not combine "invalid strings" with them all. So: 3 tests for exceptional cases + 5 * 5 * 5 = 125 + 3 = 128.
+* Let's not combine "invalid strings" with them all. So: 3 tests for exceptional cases + 5 * 5 * 5 = 125 + 3 = 128.
 
-If we focus on the on-points and off-points, and in-points for others, we'd have 4 + 4 + 4 = 12 tests plus invalid cases: 15 tests.
+* If we focus on the on-points and off-points, and in-points for others, we'd have 4 + 4 + 4 = 12 tests plus invalid cases: 15 tests.
 
-In-points always taking the FN + MN + LN <= 68 restriction into account.
-Two tests for the extra restriction: 17 tests.
+* In-points always taking the FN + MN + LN <= 68 restriction into account.
+
+* Two tests for the extra restriction: 17 tests.
 
 | Test Case | FN             | MN             | LN             | (length) | output  |                          |
 |-----------|----------------|----------------|----------------|----------|---------|--------------------------|

@@ -1,7 +1,5 @@
 # Design for Testability
  
-## Introduction
- 
  
 We just learned how the use of mocks and stubs can help developers in being highly productive and efficient in writing test code.
 In our previous chapter, it was easy to pass an `IssuedInvoices` stub to the `InvoiceFilter` class. The refactoring operation we performed (where we made the class receive its dependencies via constructors) facilitated the testing of the `InvoiceFilter` class.
@@ -225,7 +223,7 @@ Reducing the complexity of such conditions, for example by breaking it into mult
 - **Private methods and testability**: A common question among developers is whether to test private methods or not.
 In principle, testers should test private methods only through their public methods. However, testers often feel the urge to test a particular private method in isolation. One common cause for this feeling is the lack of cohesion or the complexity of this private method. In other words, this method does something so different to the public method, and/or its task is so complex, that it has to be tested separately. This is a good example of when "the test speaks to the developer" (a common saying among Test-Driven Developers).
  
-In terms of the design this might mean that this private method does not belong in its current place. A common refactoring is to extract this method, maybe to a new brand new class. There, the former private method, now a public method, can be tested normally by the developer. The original class, where the private method used to be, should now depend on this new class.
+In terms of the design this might mean that this private method does not belong in its current place. A common refactoring is to extract this method, maybe to a brand new class. There, the former private method, now a public method, can be tested normally by the developer. The original class, where the private method used to be, should now depend on this new class.
  
 - **Static methods and testability**: As we have seen before, static methods adversely affect testability, as they can not be stubbed easily. Therefore, a good rule of thumb is to avoid the creation of static methods whenever possible.
 Exceptions to this rule are utility methods. As we saw before, utility methods are often not mocked.
@@ -323,10 +321,10 @@ The team wants to write unit tests for part of their code, but "that's really ha
 After some code review, the developers themselves listed the following
 problems in their codebase:
  
-1. Many classes mix infrastructure and business rules;
-2. The database has large tables and no indexes;
-3. Use of static methods;
-4. Some classes have too many attributes/fields.
+1. Many classes mix infrastructure and business rules
+2. The database has large tables and no indexes
+3. Use of static methods
+4. Some classes have too many attributes/fields
  
 To increase the testability, the team has a budget to work on two out of the four issues above.
 Which items should Sarah recommend them to tackle first?

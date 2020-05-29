@@ -118,6 +118,7 @@ are also part of the FIRST principles.
 * [Deterministic](https://www.youtube.com/watch?v=PwWyp-wpFiw): if nothing changes, the test result should not change.
 * [Predictive](https://www.youtube.com/watch?v=7o5qxxx7SmI): if the tests all pass, then the code under test should be suitable for production.
 
+For more interested readers, watch [Kent Beck talking about it in an open talk](https://www.youtube.com/watch?v=lXTwxMxNx-Y).
 
 
 ## Test code smells
@@ -143,7 +144,7 @@ list can be found in the xUnit Test Patterns book, by Meszaros.
 It is not surprising that code duplication might also happen in test code, 
 as it is very common in production code.
 Tests are often similar in structure. You might have noticed it in several of the code
-examples throughout this book. We even made use of JUnit's Parameterised Tests feature
+examples throughout this book. We even made use of JUnit's Parameterized Tests feature
 to reduce some of the duplication.
 A less attentive developer might end up writing duplicated code 
 (copying and pasting often happens in real life) instead of putting
@@ -782,21 +783,10 @@ If you want to find the exact cause of a flaky test,
 the author of the XUnit Test Patterns book has made a whole decision table.
 You can find it in the book or on Gerard Meszaros' website [here](http://xunitpatterns.com/Erratic%20Test.html).
 With the decision table you can find a probable cause for the flakiness of your test.
+
+We list several interesting research papers on flaky tests, their impact on software testing, and current state-of-the-art detection tools in our references section.
 {% endhint %}
 
-If you want to read more about flaky tests, we suggest the following papers and blog posts (including Google discussing how problematic flaky tests are for their development teams):
-
-- Luo, Q., Hariri, F., Eloussi, L., & Marinov, D. (2014, November). An empirical analysis of flaky tests. In Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering (pp. 643-653). ACM. 
-Authors' version: [http://mir.cs.illinois.edu/~eloussi2/publications/fse14.pdf](http://mir.cs.illinois.edu/~eloussi2/publications/fse14.pdf)
-- Bell, J., Legunsen, O., Hilton, M., Eloussi, L., Yung, T., & Marinov, D. (2018, May). DeFlaker: automatically detecting flaky tests. In Proceedings of the 40th International Conference on Software Engineering (pp. 433-444). ACM. 
-Authors' version: [http://mir.cs.illinois.edu/legunsen/pubs/BellETAL18DeFlaker.pdf](http://mir.cs.illinois.edu/legunsen/pubs/BellETAL18DeFlaker.pdf)
-- Lam, W., Oei, R., Shi, A., Marinov, D., & Xie, T. (2019, April). iDFlakies: A Framework for Detecting and Partially Classifying Flaky Tests. In 2019 12th IEEE Conference on Software Testing, Validation and Verification (ICST) (pp. 312-322). IEEE. 
-Authors' version: [http://taoxie.cs.illinois.edu/publications/icst19-idflakies.pdf](http://taoxie.cs.illinois.edu/publications/icst19-idflakies.pdf)
-- Listfield, J. Where do our flaky tests come from?  
-Link: [https://testing.googleblog.com/2017/04/where-do-our-flaky-tests-come-from.html](https://testing.googleblog.com/2017/04/where-do-our-flaky-tests-come-from.html), 2017.
-- Micco, J. Flaky tests at Google and How We Mitigate Them.  
-Link: [https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html](https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html), 2017.
-- Fowler, M. Eradicating Non-Determinism in Tests. Link: [https://martinfowler.com/articles/nonDeterminism.html](https://martinfowler.com/articles/nonDeterminism.html), 2011.
 
 {% set video_id = "-OQgBMSBL5c" %}
 {% include "/includes/youtube.md" %}
@@ -978,19 +968,26 @@ Which one of the following **is incorrect** about the test?
 
 ## References
 
+Test code best practices:
+
 - Chapter 5 of Pragmatic Unit Testing in Java 8 with Junit. Langr, Hunt, and Thomas. Pragmatic Programmers, 2015.
 - Meszaros, G. (2007). xUnit test patterns: Refactoring test code. Pearson Education.
+
+Empirical studies:
+
 - Pryce, N. Test Data Builders: an alternative to the Object Mother pattern. http://natpryce.com/articles/000714.html. Last accessed in March, 2020.
-- Listfield, J. Where do our flaky tests come from?  
-Link: https://testing.googleblog.com/2017/04/where-do-our-flaky-tests-come-from.html, 2017.
-- Micco, J. Flaky tests at Google and How We Mitigate Them.  
-Link: https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html, 2017.
-- Fowler, M. Eradicating Non-Determinism in Tests. Link: https://martinfowler.com/articles/nonDeterminism.html, 2011.
 - Bavota, G., Qusef, A., Oliveto, R., De Lucia, A., & Binkley, D. (2012, September). An empirical analysis of the distribution of unit test smells and their impact on software maintenance. In 2012 28th IEEE International Conference on Software Maintenance (ICSM) (pp. 56-65). IEEE.
+
+Flaky tests:
+
 - Luo, Q., Hariri, F., Eloussi, L., & Marinov, D. (2014, November). An empirical analysis of flaky tests. In Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering (pp. 643-653). ACM. 
+Authors' version: [http://mir.cs.illinois.edu/~eloussi2/publications/fse14.pdf](http://mir.cs.illinois.edu/~eloussi2/publications/fse14.pdf)
 - Bell, J., Legunsen, O., Hilton, M., Eloussi, L., Yung, T., & Marinov, D. (2018, May). DeFlaker: automatically detecting flaky tests. In Proceedings of the 40th International Conference on Software Engineering (pp. 433-444). ACM. 
+Authors' version: [http://mir.cs.illinois.edu/legunsen/pubs/BellETAL18DeFlaker.pdf](http://mir.cs.illinois.edu/legunsen/pubs/BellETAL18DeFlaker.pdf)
 - Lam, W., Oei, R., Shi, A., Marinov, D., & Xie, T. (2019, April). iDFlakies: A Framework for Detecting and Partially Classifying Flaky Tests. In 2019 12th IEEE Conference on Software Testing, Validation and Verification (ICST) (pp. 312-322). IEEE. 
-
-
-
-
+Authors' version: [http://taoxie.cs.illinois.edu/publications/icst19-idflakies.pdf](http://taoxie.cs.illinois.edu/publications/icst19-idflakies.pdf)
+- Listfield, J. Where do our flaky tests come from?  
+Link: [https://testing.googleblog.com/2017/04/where-do-our-flaky-tests-come-from.html](https://testing.googleblog.com/2017/04/where-do-our-flaky-tests-come-from.html), 2017.
+- Micco, J. Flaky tests at Google and How We Mitigate Them.  
+Link: [https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html](https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html), 2017.
+- Fowler, M. Eradicating Non-Determinism in Tests. Link: [https://martinfowler.com/articles/nonDeterminism.html](https://martinfowler.com/articles/nonDeterminism.html), 2011.
