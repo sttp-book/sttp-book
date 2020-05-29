@@ -377,7 +377,7 @@ Just to give you an example of what the tests may look like when using such a fr
 
 ## JavaScript unit testing (with React and Jest)
 In this example, we will rebuild the "date incrementer" application from the previous section in React.
- We create a new React application using the `create-react-app` NPM package. This creates a project structure with the necessary dependencies and includes the unit testing framework Jest. 
+ We create a new React application using the [Create React App](https://create-react-app.dev/) tool. This creates a project structure with the necessary dependencies and includes the unit testing framework Jest. 
 
 ### Implementation
 We can mostly reuse the utility functions that we built earlier (`dateUtils.js`):
@@ -409,7 +409,7 @@ Compared to what you saw before, we have made the following changes:
 
 1. We now have the JavaScript module feature at our disposal, so we wrote a `dateUtils` module and exported the functions we use elsewhere.
 2. We can now use modern JavaScript features like the `const` keyword (which creates a variable that cannot be changed through reassignment). The code gets transpiled to an older version of JavaScript (using `var` instead of `const`) which is understood by most browsers. (In our plain JavaScript example, we had to stay away from modern features in order to maintain browser compatibility.)
-3. As we will see later on in the example, React expects us to treat state as immutable. Therefore, we should not directly change the `date` with the `incrementDate()` function. We created a new function, `addOneDay()`, which circumvents the issue by creating a new `Date` instance and updating that one.
+3. As we will see later on in the example, React expects us to [treat state as immutable](https://reactjs.org/docs/react-component.html). Therefore, we should not directly change the `date` with the `incrementDate()` function. We created a new function, `addOneDay()`, which circumvents the issue by creating a new `Date` instance and updating that one.
 
 We use those utility functions in the UI component, `DateIncrementer.js`:
 
@@ -626,11 +626,11 @@ so that your tests can also run on your Continuous Integration (CI) system.
 ## End-to-end testing
 The goal of end-to-end testing is to test the flow through the application as a user might follow it, while integrating the various components of the web application (such as the front end, back end and database). For instance, when testing an e-commerce application, you could test the flow of a user searching for a product, adding the product to their cart, going to checkout, logging in, paying for their products and receiving a confirmation. You should make this as realistic as possible, so you use an actual browser and perform the tests on a production-like version of the application components; although of course you will want to simulate the payments to prevent you from having to pay for your own products every time you run the test... Similarly, you should be careful with sending out actual e-mails and can decide to send the e-mails to a drop folder instead of to an actual recipient.
 
-While performing these tests manually is possible and sometimes necessary, this can be automated too. A well-known tool for this is Selenium WebDriver. It basically acts as a "remote control" for your browser, so you can instruct it to "open this page, click this button, wait for that element to appear", etc. You write these tests in one the supported languages (such as Java) with your favourite unit testing framework. You can then also run these same tests on different browsers and in this way perform *cross-browser tests*.
+While performing these tests manually is possible and sometimes necessary, this can be automated too. A well-known tool for this is [Selenium WebDriver](https://www.selenium.dev/). It basically acts as a "remote control" for your browser, so you can instruct it to "open this page, click this button, wait for that element to appear", etc. You write these tests in one the supported languages (such as Java) with your favourite unit testing framework. You can then also run these same tests on different browsers and in this way perform *cross-browser tests*.
 
-The WebDriver API is now a W3C standard, and several implementations of it (other than Selenium) exist, such as WebDriverIO.
+The WebDriver API is now a W3C standard, and several implementations of it (other than Selenium) exist, such as [WebDriverIO](https://webdriver.io/).
 
-Another, more recent tool, which does not use WebDriver, is Cypress. It integrates more closely with the browser and eliminates some issues that you encounter when you use WebDriver. For instance, when you perform an asynchronous action (like fetching all matching products from a web service, after clicking a Search button) you have to wait for the results to appear. It is sometimes difficult to program this reliably and testers often resort to insert statements like "wait one second" hoping that that is enough for the web service to respond. Cypress solves this by automatically retrying to find an element until it appears, so you do not have to write that code. It also has many more features which go beyond the scope of this book.
+Another, more recent tool, which does not use WebDriver, is [Cypress](https://www.cypress.io/). It integrates more closely with the browser and eliminates some issues that you encounter when you use WebDriver. For instance, when you perform an asynchronous action (like fetching all matching products from a web service, after clicking a Search button) you have to wait for the results to appear. It is sometimes difficult to program this reliably and testers often resort to insert statements like "wait one second" hoping that that is enough for the web service to respond. Cypress solves this by automatically retrying to find an element until it appears, so you do not have to write that code. It also has many more features which go beyond the scope of this book.
 
 As discussed in the chapter on model-based testing, it is common to create an abstraction layer on top of the web application. In the context of web applications, the abstractions are called **Page Objects**.
 
@@ -673,11 +673,11 @@ Now the tests can be expressed in the application's context, using these three t
 The state objects are mostly used for end-to-end testing in web development.
 Another technique useful in end-to-end testing is behaviour-driven design.
 
-In **behaviour-driven design** the system is designed with scenario's in mind.
-These scenario's are written in natural language and describe the system's behaviour in a certain situation.
+In **behaviour-driven design** the system is designed with scenarios in mind.
+These scenarios are written in natural language and describe the system's behaviour in a certain situation.
 
-For these scenarios to be used by tools, an example of a tool for scenario's is [cucumber](https://cucumber.io), we need to follow a certain format.
-This is a standard format for scenario's, as it provides a very clear structure.
+For these scenarios to be used by tools, an example of a tool for scenarios is [cucumber](https://cucumber.io), we need to follow a certain format.
+This is a standard format for scenarios, as it provides a very clear structure.
 A scenario consists of the following:
 
 - Title of the scenario
@@ -710,7 +710,7 @@ Then the ATM should dispense $20
 ```
 
 The small introduction above the scenario itself is part of the user story.
-A user story usually consists of multiple scenario's with respect to the user introduced.
+A user story usually consists of multiple scenarios with respect to the user introduced.
 This user is the account holder in this example.
 
 
@@ -768,4 +768,15 @@ and help you find the parts with performance issues.
 
 
 ## References
+* QUnit's Introduction to Unit Testing. https://qunitjs.com/intro/
+* Vitali Zaidman. An Overview of JavaScript Testing in 2020. https://medium.com/welldone-software/an-overview-of-javascript-testing-7ce7298b9870
+* React.Component. https://reactjs.org/docs/react-component.html
+* React Testing Overview. https://reactjs.org/docs/testing.html#tools
+* Jest Documentation. https://jestjs.io/docs/en/getting-started
+* Kent C. Dodds. Making your UI tests resilient to change. https://kentcdodds.com/blog/making-your-ui-tests-resilient-to-change
+* Kent C. Dodds. The Merits of Mocking. https://kentcdodds.com/blog/the-merits-of-mocking
+* Martin Fowler. Page Object. https://martinfowler.com/bliki/PageObject.html
 * van Deursen, A. (2015). Beyond Page Objects: Testing Web Applications with State Objects. ACM Queue, 13(6), 20.
+* WebDriver (W3C Recommendation). https://www.w3.org/TR/webdriver1/
+* Introduction to Cypress. https://docs.cypress.io/guides/core-concepts/introduction-to-cypress.html
+* Web Content Accessibility Guidelines (WCAG) 2.1 (W3C Recommendation). https://www.w3.org/TR/WCAG21/
