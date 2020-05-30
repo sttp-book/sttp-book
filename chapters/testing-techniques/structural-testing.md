@@ -437,7 +437,7 @@ $$\text{C/DC coverage} = \frac{\text{conditions outcome covered + decisions outc
 
 
 {% hint style='tip' %}
-Another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in $$2^N$$ tests, given $$N$$ conditions.
+Another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in 2^N tests, given N conditions.
 {% endhint %}
 
 {% set video_id = "oWPprB9GBdE" %}
