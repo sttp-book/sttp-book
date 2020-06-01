@@ -360,7 +360,7 @@ You could solve all these issues by hand, but to avoid reinventing the wheel, it
 In the JavaScript world, there is an abundance of tools and frameworks to choose from. The same holds for unit testing frameworks: there are many options, and contrary to Java there is certainly no de facto standard framework. Moreover, new frameworks are developed and adopted every year.
 
 When working on an existing application that already has a testing framework in place, it probably makes sense to stick to that. 
-For new projects, it is useful to make yourself up-to-date with the currently popular JavaScript testing frameworks. 
+For new projects, it is useful to get yourself up-to-date with the currently popular JavaScript testing frameworks. 
 Articles like [An Overview of JavaScript Testing in 2020](https://medium.com/welldone-software/an-overview-of-javascript-testing-7ce7298b9870) give you a nice summary of the current state of affairs.
 
 Choosing a framework that is used by many people means that you are more likely to get support in their online community. 
