@@ -574,17 +574,17 @@ The input domain of a function is a set of all points (x, y) that meet the crite
 * `1 <= y <= 10`
 * `y <= 14 - x`
 
-## Variables
+### Variables
 | Variable | Type | Range |
 | -------- | ---- | ----- |
 | x | integer | `1 < x <= 10`
 | y | integer | `1 <= y <= 10`, `y <= 14 - x`
 
-## Dependency among variables
+### Dependency among variables
 
 * `x` and `y` are dependent, since the range in `y` varies according to `x`.
 
-## Equivalence Partitioning/Boundary Analysis
+### Equivalence Partitioning/Boundary Analysis
 | Variable | Equivalence classes | Invalid classes | Boundaries |
 | -------- | ------------------- | --------------- | ---------- |
 | x | `1 < x <= 10` | | |
@@ -604,7 +604,7 @@ The input domain of a function is a set of all points (x, y) that meet the crite
 | | | | `(11, 4)` |
 
 
-## Strategy
+### Strategy
 Make tests for all 12 boundaries
 
 | Test case | x | y | output |
@@ -622,7 +622,7 @@ Make tests for all 12 boundaries
 | T11 | 10 | 4 | true |
 | T12 | 11 | 4 | false |
 
-## Another approach
+### Another approach
 
 We might look at the plot of the function. In the plot, we identify 5 boundaries (one at each of the extremes of the figure). As a tester, we can exercise these boundaries.
 
