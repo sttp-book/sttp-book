@@ -74,7 +74,7 @@ You either have to write custom code to make your tests more robust, or use a to
 
 
 ## JavaScript unit testing (without a framework)
-We will now tackle several of the aforementioned challenges that relate to the front end of a web application. We show how to design your JavaScript and HTML for testability, how to write unit tests for JavaScript functions, and how to unit test UI components. We demonstrate this using both plain JavaScript and a more modern example that uses a JavaScript framework.
+We will now tackle several of the aforementioned challenges that relate to the front end of a web application by showing you how to design your JavaScript and HTML for testability, how to write unit tests for JavaScript functions, and how to unit test UI components. We will demonstrate this using both plain JavaScript and a more modern example that uses a JavaScript framework.
 
 ### Design for testability
 Let us look at an example of a very simple web application (without a back end) that looks like this: 
@@ -223,7 +223,7 @@ Some side notes about the code:
 At this point, you should apply the testing principles you have learned so far in this book to come up with a good set of tests for the implementation above. 
 In this section, we will just show a small number of tests to get you started.
 
-Before we discuss JavaScript unit testing frameworks, let us see how far we can get with a manual implementation. This should give us some insight into how those frameworks work and allows us to think about JavaScript testing without being biased by a particular framework.
+Before we discuss JavaScript unit testing frameworks, let us see how far we can get with a manual implementation. This should give us some insight into how those frameworks work and allow us to think about JavaScript testing without being biased by a particular framework.
 
 We first write some tests for the functions in `dateUtils.js` by creating an HTML file, calling the functions and doing some light-weight assertions:
 
@@ -360,7 +360,7 @@ You could solve all these issues by hand, but to avoid reinventing the wheel, it
 In the JavaScript world, there is an abundance of tools and frameworks to choose from. The same holds for unit testing frameworks: there are many options, and contrary to Java there is certainly no de facto standard framework. Moreover, new frameworks are developed and adopted every year.
 
 When working on an existing application that already has a testing framework in place, it probably makes sense to stick to that. 
-For new projects, it is useful to make yourself up-to-date with the currently popular JavaScript testing frameworks. 
+For new projects, it is useful to get yourself up-to-date with the currently popular JavaScript testing frameworks. 
 Articles like [An Overview of JavaScript Testing in 2020](https://medium.com/welldone-software/an-overview-of-javascript-testing-7ce7298b9870) give you a nice summary of the current state of affairs.
 
 Choosing a framework that is used by many people means that you are more likely to get support in their online community. 
@@ -658,7 +658,7 @@ Page objects give us an abstraction for single pages or even fragments of pages.
 This is already better than using the API for the HTML elements in the test, but we can take it a bit further.
 We can make the page objects correspond to the states in the navigational state machine.
 A navigational state machine is a state machine that describes the flow through a web application.
-Each page will be a represented as a state.
+Each page will be represented as a state.
 The events of the transitions between these states show how the user can go from one to another page.
 
 With this approach, the page objects each correspond to one of the states of the state machine.
@@ -690,7 +690,7 @@ A scenario consists of the following:
 Let's look at a scenario for an ATM.
 If we have a balance of $100, a valid card and enough money in the machine, we can give a certain amount of money requested by the user.
 Together with the money, the card should be given back, and the balance of the account should be decreased.
-This can be turned into the scenario 1 below:
+This can be turned into scenario 1 below:
 
 ```text
 Story: Account Holder withdraws cash
