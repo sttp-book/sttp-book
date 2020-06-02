@@ -74,7 +74,7 @@ You either have to write custom code to make your tests more robust, or use a to
 
 
 ## JavaScript unit testing (without a framework)
-We will now tackle several of the aforementioned challenges that relate to the front end of a web application. We show how to design your JavaScript and HTML for testability, how to write unit tests for JavaScript functions, and how to unit test UI components. We demonstrate this using both plain JavaScript and a more modern example that uses a JavaScript framework.
+We will now tackle several of the aforementioned challenges that relate to the front end of a web application and show you how to design your JavaScript and HTML for testability, how to write unit tests for JavaScript functions, and how to unit test UI components. We will demonstrate this using both plain JavaScript and a more modern example that uses a JavaScript framework.
 
 ### Design for testability
 Let us look at an example of a very simple web application (without a back end) that looks like this: 
@@ -360,7 +360,7 @@ You could solve all these issues by hand, but to avoid reinventing the wheel, it
 In the JavaScript world, there is an abundance of tools and frameworks to choose from. The same holds for unit testing frameworks: there are many options, and contrary to Java there is certainly no de facto standard framework. Moreover, new frameworks are developed and adopted every year.
 
 When working on an existing application that already has a testing framework in place, it probably makes sense to stick to that. 
-For new projects, it is useful to make yourself up-to-date with the currently popular JavaScript testing frameworks. 
+For new projects, it is useful to get yourself up-to-date with the currently popular JavaScript testing frameworks. 
 Articles like [An Overview of JavaScript Testing in 2020](https://medium.com/welldone-software/an-overview-of-javascript-testing-7ce7298b9870) give you a nice summary of the current state of affairs.
 
 Choosing a framework that is used by many people means that you are more likely to get support in their online community. 
