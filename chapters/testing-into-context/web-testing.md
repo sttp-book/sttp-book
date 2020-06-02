@@ -223,7 +223,7 @@ Some side notes about the code:
 At this point, you should apply the testing principles you have learned so far in this book to come up with a good set of tests for the implementation above. 
 In this section, we will just show a small number of tests to get you started.
 
-Before we discuss JavaScript unit testing frameworks, let us see how far we can get with a manual implementation. This should give us some insight into how those frameworks work and allows us to think about JavaScript testing without being biased by a particular framework.
+Before we discuss JavaScript unit testing frameworks, let us see how far we can get with a manual implementation. This should give us some insight into how those frameworks work and allow us to think about JavaScript testing without being biased by a particular framework.
 
 We first write some tests for the functions in `dateUtils.js` by creating an HTML file, calling the functions and doing some light-weight assertions:
 
