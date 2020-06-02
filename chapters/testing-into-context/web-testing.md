@@ -658,7 +658,7 @@ Page objects give us an abstraction for single pages or even fragments of pages.
 This is already better than using the API for the HTML elements in the test, but we can take it a bit further.
 We can make the page objects correspond to the states in the navigational state machine.
 A navigational state machine is a state machine that describes the flow through a web application.
-Each page will be a represented as a state.
+Each page will be represented as a state.
 The events of the transitions between these states show how the user can go from one to another page.
 
 With this approach, the page objects each correspond to one of the states of the state machine.
@@ -690,7 +690,7 @@ A scenario consists of the following:
 Let's look at a scenario for an ATM.
 If we have a balance of $100, a valid card and enough money in the machine, we can give a certain amount of money requested by the user.
 Together with the money, the card should be given back, and the balance of the account should be decreased.
-This can be turned into the scenario 1 below:
+This can be turned into scenario 1 below:
 
 ```text
 Story: Account Holder withdraws cash
