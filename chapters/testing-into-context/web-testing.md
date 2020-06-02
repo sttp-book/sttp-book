@@ -690,7 +690,7 @@ A scenario consists of the following:
 Let's look at a scenario for an ATM.
 If we have a balance of $100, a valid card and enough money in the machine, we can give a certain amount of money requested by the user.
 Together with the money, the card should be given back, and the balance of the account should be decreased.
-This can be turned into the scenario 1 below:
+This can be turned into scenario 1 below:
 
 ```text
 Story: Account Holder withdraws cash
