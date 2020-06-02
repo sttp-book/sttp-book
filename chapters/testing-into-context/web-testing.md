@@ -74,7 +74,7 @@ You either have to write custom code to make your tests more robust, or use a to
 
 
 ## JavaScript unit testing (without a framework)
-We will now tackle several of the aforementioned challenges that relate to the front end of a web application and show you how to design your JavaScript and HTML for testability, how to write unit tests for JavaScript functions, and how to unit test UI components. We will demonstrate this using both plain JavaScript and a more modern example that uses a JavaScript framework.
+We will now tackle several of the aforementioned challenges that relate to the front end of a web application by showing you how to design your JavaScript and HTML for testability, how to write unit tests for JavaScript functions, and how to unit test UI components. We will demonstrate this using both plain JavaScript and a more modern example that uses a JavaScript framework.
 
 ### Design for testability
 Let us look at an example of a very simple web application (without a back end) that looks like this: 
