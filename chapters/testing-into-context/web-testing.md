@@ -469,6 +469,14 @@ For the utility functions, we can again write similar code to what we did with o
 ```js
 import { addOneDay, dateToString } from './dateUtils';
 
+/*
+Some clarification about dates in JavaScript:
+Months are zero-based, meaning that month 0 is January, month 1 is february etc.
+This means that "new Date(2020, 1, 29)" actually constructs February 29th, instead
+of January 29th, which would seem more obvious. Take this into account for this
+and the following code snippets!
+*/
+
 describe('addOneDay', () => {
   test('handles February 29th', () => {
     const oldDate = new Date(2020, 1, 29);  // February 29th, 2020
