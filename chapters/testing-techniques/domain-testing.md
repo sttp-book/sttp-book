@@ -43,12 +43,10 @@ A program receives two numbers and returns the sum of these two integers. Number
 
 ### Strategy
 
-* X has 3 partitions, Y has 3 partitions.
-* All combinations would be 3 * 3 = 9 + 8 boundaries = 17.
 * Variables are independent (X does not affect the range of Y, and vice-versa).
-* 14 tests
-* 7 tests for X (3 partitions + 4 boundaries), in point for Y,
+* 7 tests for X (3 partitions + 4 boundaries), in point for Y.
 * 7 tests for Y (3 partitions + 4 boundaries), in points for X.
+* Total of 14 tests
 
 *In-point X = 50, In-point Y = 50.*
 
@@ -108,13 +106,11 @@ Final sum should be <= 165.
 
 ### Strategy
 
-* X has 3 partitions, Y has 3 partitions, Sum has 2 partitions.
-* All combinations would be 3 * 3 * 2 = 18 + 10 boundaries = 28.
 * Variables are independent (X does not affect the range of Y, and vice-versa).
-* 16 tests
 * 7 tests for X (3 partitions + 4 boundaries), in point for Y,
 * 7 tests for Y (3 partitions + 4 boundaries), in points for X.
 * 2 tests for the boundary on Sum.
+* Total of 16 tests
 
 *In-point X = 50 (taking into consideration that X <= 165 - Y),
 In-point Y = 50 (taking into consideration that Y <= 165 - X).*
