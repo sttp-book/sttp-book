@@ -242,19 +242,17 @@ We first write some tests for the functions in `dateUtils.js` by creating an HTM
     <script src="dateUtils.js"></script>
     <script>
         
-        /*
-        Some clarification about dates in JavaScript:
-        Months are zero-based, meaning that month 0 is January, month 1 is February etc.
-        This means that "new Date(2020, 1, 29)" actually constructs February 29th, instead
-        of January 29th, which would seem more obvious. Take this into account for this
-        and the following code snippets!
-        */
-        
         function assertEqual(expected, actual) {
             if (expected != actual) {
                 console.log("Expected " + expected + " but was " + actual);
             }
         }
+
+        /*
+        Be aware that in JavaScript Date objects, months are zero-based,
+        meaning that month 0 is January, month 1 is February, etc.
+        So "new Date(2020, 1, 29)" represents February 29th, 2020.
+        */
 
         // Test 1: incrementDate should add 1 day a given date object
         var date1 = new Date(2020, 1, 29);  // February 29th, 2020
