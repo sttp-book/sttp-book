@@ -1,3 +1,7 @@
+# Table of Contents
+
+[Principles of software testing](##principles-of-software-testing)
+
 # Answers to the exercises
 
 ## Principles of software testing
