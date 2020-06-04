@@ -2,12 +2,10 @@
 
 ## Index
 
-[Principles of software testing](#principles-of-software-testing)
-
-[Introduction to software testing automation](#introduction-to-software-testing-automation)
-
-[Specification-based testing](#specification-based-testing)
-[Boundary testing](#boundary-testing)
+[Principles of software testing](#principles-of-software-testing)  
+[Introduction to software testing automation](#introduction-to-software-testing-automation)  
+[Specification-based testing](#specification-based-testing)  
+[Boundary testing](#boundary-testing)  
 [Structural testing](#structural-testing)
 [Model-Based Testing](#model-based-testing)
 [Design-by-contracts](#design-by-contracts)
