@@ -308,7 +308,7 @@ This example shows a case where deriving good test cases becomes more challengin
 specifications being complex.
 
 {% hint style='tip' %}
-If you know some advanced features of JUnit, you might be wondering why we did not use something like Parameterized Tests. We will refactor this test code in a future chapter.
+If you know some advanced features of JUnit, you might be wondering why we did not use something like parameterised tests. We will refactor this test code in a future chapter.
 {% endhint %}
 
 {% set video_id = "T8caAUwgquQ" %}
