@@ -1,8 +1,6 @@
 # Summary
 
-* [Authors](chapters/preface/authors.md)
-
-* [Acknowledgements](chapters/preface/acknowledgements.md)
+* [Authors and Acknowledgements](chapters/preface/authors.md)
 
 * [Using this book](chapters/preface/use.md)
 
@@ -20,6 +18,8 @@
 	* [Why software testing?](chapters/getting-started/why-software-testing.md)
 	* [Principles of software testing](chapters/getting-started/testing-principles.md)
 	* [Software testing automation](chapters/getting-started/test-automation.md)
+	* [Testing vs writing tests](chapters/getting-started/testing-vs-writing-tests.md)
+	* [The developer testing workflow](chapters/getting-started/developer-testing-workflow.md)
 
 ----
 
@@ -42,20 +42,11 @@
 
 ----
 
-* [Intelligent testing](chapters/intelligent-testing/README.md)
-	* [Static testing](chapters/intelligent-testing/static-testing.md)
-	* [Mutation testing](chapters/intelligent-testing/mutation-testing.md)
-	* [Fuzz testing](chapters/intelligent-testing/fuzzing.md)
-	* [Search-based software testing](chapters/intelligent-testing/sbst.md) (soon)
-
-----
-
-* [Testing in the context](chapters/testing-into-context/README.md)
-	* [Web testing (soon)](chapters/testing-into-context/web-testing.md)
-	* Database testing (soon)
+* [Testing in context](chapters/testing-into-context/README.md)
+	* [Web testing](chapters/testing-into-context/web-testing.md)
+	* [SQL testing](chapters/testing-into-context/sql-testing.md)
+	* Web services testing (soon)
 	* Mobile testing (soon)
-	* Continuous experimentation (soon)
-	* Embedded software testing (soon)
 
 ----
 
@@ -63,16 +54,19 @@
 	* [Security testing](chapters/non-functional-testing/security-testing.md)
 	* Performance testing (soon)
 
----
+----
 
-* Software Quality
-	* Code reviews (soon)
-	* Code metrics (soon)
-	* Ethics and testing (soon)
+* [Intelligent testing](chapters/intelligent-testing/README.md)
+	* [Static testing](chapters/intelligent-testing/static-testing.md)
+	* [Mutation testing](chapters/intelligent-testing/mutation-testing.md)
+	* [Fuzz testing](chapters/intelligent-testing/fuzzing.md)
+	* [Search-based testing](chapters/intelligent-testing/sbst.md)
 
----
+----
 
 * Appendix
 	* [Answers to the exercises](chapters/appendix/answers.md)
 	* [Domain testing examples](chapters/testing-techniques/domain-testing.md)
+	* [2020 midterm mock exam](chapters/appendix/2020-midterm-preparation.md)
+	* [2020 midterm mock exam (answers)](chapters/appendix/2020-midterm-preparation-answers.md)
 	* [Change log](chapters/appendix/changelog.md)

@@ -260,7 +260,7 @@ We discuss more about such contracts in the design-by-contracts chapter.
  
 In the example above, it should be noted that the different tests for the different combinations are similar.
 The tests are the same but they operate on different values.
-To avoid the code duplication that comes with this approach to implementing decision table tests, we can use parameterised tests (as we have done before):
+To avoid the code duplication that comes with this approach to implementing decision table tests, we can use parameterized tests (as we have done before):
  
 ```java
 @ParameterizedTest
@@ -773,7 +773,7 @@ Here, the flow of the entire system is under test, from input to output.
 The system under test does not always provide a programming interface (API) to inspect the state or trigger the event for the transitions.
 A common example of such a system is a web application.
 In the end, the web application works through a browser.
-To access the state or to trigger the transitions you would then need to use a dedicated tool, like [webdriver](https://webdriver.io/).
+To access the state or to trigger the transitions you would then need to use a dedicated tool to control the browser.
 Using such a dedicated tool directly is not ideal, as you would have to specify each individual click on the web page to trigger events.
 What we need is an abstraction layer on top of the system being tested.
 This abstraction can be a Java class, with the methods that we need to be able to test the system as its state machine.
@@ -781,6 +781,7 @@ In this way, the abstraction layer will contain the inspection method to check t
  
 With this small abstraction layer, we can formulate the tests clearly.
 Triggering a transition is a single method call and checking the state also requires only one method call.
+An example of such an abstraction layer is discussed in the chapter on web testing.
  
  
 ## Another example of a real-world model
@@ -814,7 +815,9 @@ Derive the transition table of the *ColdHot* state machine.
 How many sneaky paths can be tested based on this transition table?
   
 **Exercise 4.**
-(Exercise removed)
+Draw the transition tree of the following state machine:
+
+![](img/model-based-testing/exercises/statemachine-order.png)
 
 
 **Exercise 5.**
@@ -823,12 +826,12 @@ With the transition tree you devised in the previous exercise and the state mach
  
 **Exercise 6.**
 Devise the transition table of the state machine that was given in the exercise above.
-Ignore the initial transition `Order placed`.
+(Note that the initial transition `Order placed` should not be represented in the transition table; this transition is there as a way to indicate the developer what "external action" has to happen for this state machine to start).
  
  
 **Exercise 7.**
 How many sneak paths are there in the state machine we used in the previous exercises?
-Again, ignore the initial `Order placed` transition.
+(Again, ignore the initial `Order placed` transition.)
  
  
 **Exercise 8.**
@@ -887,13 +890,8 @@ Devise a state transition tree for the microwave state machine.
 **Exercise 13.**
 Again, consider the state machine requirements for the microwave.
 There appears to be some redundancy in the defrosting and warming up functionality, which potentially can be described using super states (also called OR-states).
-Which effect does this have on the total number of states and transitions for the resulting diagram with a super state?
- 
-1. There will be one extra state, and two fewer transitions.
-2. There will be one state less, and the same number of transitions.
-3. The total number of states will remain the same, and there will be two fewer transitions.
-4. This has no effect on the total number of states and transitions.
- 
+
+Make use of super states and re-design the state machine.
  
  
 **Exercise 14.**

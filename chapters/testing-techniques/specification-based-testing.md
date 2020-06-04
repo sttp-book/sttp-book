@@ -116,12 +116,7 @@ Implementing this using JUnit gives the following code for the tests:
 ```java
 public class LeapYearTests {
 
-  private LeapYear leapYear;
-
-  @BeforeEach
-  public void setup() {
-    leapYear = new LeapYear();
-  }
+  private final LeapYear leapYear = new LeapYear();
 
   @Test
   public void leapYearsNotCenturialTest() {
@@ -319,23 +314,6 @@ If you know some advanced features of JUnit, you might be wondering why we did n
 {% include "/includes/youtube.md" %}
 
 
-
-## Random testing vs specification-based testing
-
-One might think: but what if, instead of looking at the requirements,
-a tester just keeps giving random inputs to the program?
-**Random testing** is indeed a popular black-box technique where programs are tested by generating random inputs. 
-
-Although random testing can definitely help us in finding bugs, it is not an effective way to find bugs in a large input space. 
-Developers/testers use their experience and knowledge of the program to test trouble-prone areas more effectively.
-However, they generate a limited number of tests in a specific time period such as a day,
-while computers can generate millions of tests in the same period of time.
-A combination of random testing and partition testing is therefore the most beneficial.
-
-{% hint style='tip' %}
-In future chapters, fuzzing testing and AI-based testing will be discussed, with information
-about automated random testing.
-{% endhint %}
 
 ## Exercises
 

@@ -242,7 +242,39 @@ The corresponding CFG:
 Note that we split the `for` loop into three blocks: the variable initialisation, the decision block, and the increment.
 
 
-As you can see, this CFG representation is quite generic. Even when you use a different programming language to write the same program, you might end up with the same CFG.
+**Control-Flow Graphs in other languages.** As you can see, this CFG representation is quite generic. Even when you use a different programming language to write the same program, you might end up with the same CFG. We can devise control-flow graphs for programs in any programming language. For example, see the piece of
+Python code below:
+
+```python
+# random_ads is a list of ads.
+# an ad contains three attributes:
+# * available: true/false indicating whether the ad 
+#   is still available.
+# * reached: true/false indicating 
+#   whether the number of paid prints was reached.
+# * prints: an integer indicating the 
+#   number of times that the ad was printed.
+def validate_ads(random_ads):
+01. valid_ads = []
+02. invalid_ads = []
+
+03. for random_ad in random_ads:
+04.   if random_ad.available and not random_ad.reached:
+05.     valid_ads.append(random_ad)
+06.   else:
+07.     invalid_ads.append(random_ad)
+
+08. for valid_ad in valid_ads:
+09.   valid_ad.prints += 1
+
+10. return valid_ads, invalid_ads
+```
+
+A CFG for this piece of code would look like:
+
+![CFG in Python](img/structural-testing/examples/cfg-python.png)
+
+We applied the same idea we have seen for Java programs in a Python program. The notions of basic and decision blocks are the same. A small difference to note is in the *foreach* loop (which is simply written using the `for` keyword in Python). Given that *foreach* loops do not follow the same format as traditional `for` loops, we modelled it differently: the *foreach* loop is fully represented by a single decision block (i.e., no blocks for the increment, or condition). As with any decision blocks, it has two outcomes, `true` and `false`.
 
 
 ## Block coverage
@@ -377,7 +409,7 @@ Imagine the following program and its respective CFG:
 
 ```java
 void hello(int a, int b) {
-  if(a > 10 && b > 20) {
+  if(a > 10 & b > 20) {
     System.out.println("Hello");
   } else {
     System.out.println("Hi");
@@ -399,20 +431,13 @@ In practice, whenever we use condition coverage, we actually perform **branch + 
 that we achieve 100% condition coverage (i.e., all the outcomes of all conditions are exercised) and 100% branch coverage (all the outcomes
 of the compound decisions are exercised).
 
-The formula to calculate branch+condition coverage might vary among tools. Some consider the same as in condition coverage:
-
-$$\text{C/DC coverage} = \frac{\text{conditions outcome covered}}{\text{conditions outcome total}} \cdot 100\%$$
-
-Others prefer to count, for each decision block, the number of outcomes per condition plus the number of outcomes per decision. For example, an `if(a>10 && b < 10)` would count as 6, as 2 for the `a>10` condition, 2 for the `b<10` condition, and 2 for the `a>10 && b<10`. This formula would give us a clear differentiation between basic condition and decision+condition coverage:
+The formula to calculate branch+condition coverage is as follows. Note how this formula gives us a clear differentiation between basic condition and decision+condition coverage:
 
 $$\text{C/DC coverage} = \frac{\text{conditions outcome covered + decisions outcome covered}}{\text{conditions outcome total + decisions outcome total}} \cdot 100\%$$
 
 
-From now on, whenever we mention **condition coverage**, we mean **condition + branch coverage**.
-
-
 {% hint style='tip' %}
-Another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in $$2^N$$ tests, given $$N$$ conditions.
+Another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in 2^N tests, given N conditions.
 {% endhint %}
 
 {% set video_id = "oWPprB9GBdE" %}
@@ -565,7 +590,7 @@ If we take the decision block from path coverage example, `A && (B || C)`, MC/DC
   * In both test cases T3 and T4, variables A and B should be the same.
     
 Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is, on average, $$N+1$$, where $$N$$ is the number of conditions in the decision. 
-Note that $$N+1$$ is definitely smaller than $$2^N$$!
+Note that $$N+1$$ is definitely smaller than all the possible combinations ($$2^N$$)!
 
 Again, to devise a test suite that achieves 100% MC/DC coverage, we should devise $$N+1$$ test cases that, when combined, 
 exercise all the combinations independently from the others.
@@ -691,44 +716,6 @@ Formally, a strategy X subsumes strategy Y if all elements that Y exercises are 
 ![Criteria subsumption](img/structural-testing/subsumption.png)<!--{width=50%}-->
 
 For example, in the picture, one can see that branch coverage subsumes line coverage. This means that 100% of branch coverage always implies 100% line coverage. However, 100% line coverage does not imply 100% branch coverage. Moreover, 100% of branch + condition coverage always implies 100% branch coverage and 100% line coverage.
-
-
-## More examples of Control-Flow Graphs
-
-We can devise control-flow graphs for programs in any programming language. For example, see the piece of
-Python code below:
-
-```python
-# random_ads is a list of ads.
-# an ad contains three attributes:
-# * available: true/false indicating whether the ad 
-#   is still available.
-# * reached: true/false indicating 
-#   whether the number of paid prints was reached.
-# * prints: an integer indicating the 
-#   number of times that the ad was printed.
-def validate_ads(random_ads):
-01. valid_ads = []
-02. invalid_ads = []
-
-03. for random_ad in random_ads:
-04.   if random_ad.available and not random_ad.reached:
-05.     valid_ads.append(random_ad)
-06.   else:
-07.     invalid_ads.append(random_ad)
-
-08. for valid_ad in valid_ads:
-09.   valid_ad.prints += 1
-
-10. return valid_ads, invalid_ads
-```
-
-A CFG for this piece of code would look like:
-
-![CFG in Python](img/structural-testing/examples/cfg-python.png)
-
-We applied the same idea we have seen for Java programs in a Python program. The notions of basic and decision blocks are the same. A small difference to note is in the *foreach* loop (which is simply written using the `for` keyword in Python). Given that *foreach* loops do not follow the same format as traditional `for` loops, we modelled it differently: the *foreach* loop is fully represented by a single decision block (i.e., no blocks for the increment, or condition). As with any decision blocks, it has two outcomes, `true` and `false`.
-
 
 ## The effectiveness of structural testing
 
@@ -906,7 +893,7 @@ Given the source code of the `sameEnds` method. Which of the following statement
 
 Now consider this piece of code for the FizzBuzz problem.
 Given an integer `n`, it returns the string form of the number followed by `"!"`.
-So the integer 6 would yield `"6!"`.
+So the integer 8 would yield `"8!"`.
 Except if the number is divisible by 3 it returns "Fizz!" and if it is divisible by 5 it returns "Buzz!".
 If the number is divisible by both 3 and 5 it returns "FizzBuzz!"
 Based on a [CodingBat problem](https://codingbat.com/prob/p115243).
@@ -1001,8 +988,14 @@ criterion if for every loop L:
 Consider the expression `((A and B) or C)`.
 Devise a test suite that achieves $$100\%$$ *Modified Condition / Decision Coverage* (MC/DC).
 
+
 **Exercise 16.**
-(removed)
+Draw the truth table for expression `A and (A or B)`.
+
+Is it possible to achieve MC/DC coverage for this expression?
+Why (not)?
+
+What feedback should you give to the developer, that used this expression, about your finding?
 
 
 
