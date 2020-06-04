@@ -758,7 +758,7 @@ To know what to test for, it is useful to consult resources like the Web Content
 You can use tools like "axe" to test your web pages for accessibility problems.
 However, at this stage, such tests often still need to be done manually.
 Install assistive technologies like a screen reader that reads aloud the pages
-you load in you browser,
+you load in your browser,
 and see whether you can still use the application without using your eyes.
 Or better yet, ask a user with a disability to use your application 
 and help you with identifying issues in it.
