@@ -43,12 +43,10 @@ A program receives two numbers and returns the sum of these two integers. Number
 
 ### Strategy
 
-* X has 3 partitions, Y has 3 partitions.
-* All combinations would be 3 * 3 = 9 + 8 boundaries = 17.
 * Variables are independent (X does not affect the range of Y, and vice-versa).
-* 14 tests
-* 7 tests for X (3 partitions + 4 boundaries), in point for Y,
+* 7 tests for X (3 partitions + 4 boundaries), in point for Y.
 * 7 tests for Y (3 partitions + 4 boundaries), in points for X.
+* Total of 14 tests
 
 *In-point X = 50, In-point Y = 50.*
 
@@ -108,13 +106,11 @@ Final sum should be <= 165.
 
 ### Strategy
 
-* X has 3 partitions, Y has 3 partitions, Sum has 2 partitions.
-* All combinations would be 3 * 3 * 2 = 18 + 10 boundaries = 28.
 * Variables are independent (X does not affect the range of Y, and vice-versa).
-* 16 tests
 * 7 tests for X (3 partitions + 4 boundaries), in point for Y,
 * 7 tests for Y (3 partitions + 4 boundaries), in points for X.
 * 2 tests for the boundary on Sum.
+* Total of 16 tests
 
 *In-point X = 50 (taking into consideration that X <= 165 - Y),
 In-point Y = 50 (taking into consideration that Y <= 165 - X).*
@@ -528,6 +524,43 @@ Test the boundaries (removing duplicates) → 10 tests
 {% set video_id = "IaWioXqM1g4" %}
 {% include "/includes/youtube.md" %}
 
+### Another approach
+
+One may argue that this functions is continuous in all of its boundaries, which makes the result the same for all
+(`on`, `off`) pairs.
+
+As, a consequence when looking just at the results at the boundaries we are not exercising them in the most efficient way.
+The whole purpose of boundary testing is to minimize the costs while maximizing fault detection capability.
+
+What can we do to make our test cases more efficient? We can observe that what is really changing when making
+the transition from one partition to another is not the result of the function itself, but its derivative. Thus, we can
+focus on looking at the derivative for `on` and `off` points.
+
+Let's recall the definition of the derivative of function `f` at point `a`: `f'(a) = lim h -> 0 ((f(a+h) - f(a)) / h)`
+To determine the derivative numerically we have to substitute `h` with sufficiently small number. For our case let `h = 0.01`.
+
+We can now look at the boundary between first and second partition. `off = 22099.99` `on = 22100`
+
+By substituting those values into the definition of the derivative, we can determine the derivative of `f` at `off` `on`:
+
+1. `f'(off) = (f(off+h) - f(off)) / h = (f(22099.99 + 0.01) - f(22099.99)) / 0.01 = (f(22100) - f (22099.99)) / 0.01`
+2. `f'(on) = (f(on+h) - f(a)) / h = (f(22100 + 0.01) - f(22100)) / 0.01 = (f(22100.01) - f (22100)) / 0.01`
+
+Now we find the expected derivatives for the corresponding off and on points from the specification:
+
+1. `f(off) = 0.15 * off` thus `f'(off) = 0.15`
+2. `f(on) = 3315 + 0.28 * (on - 22100)` thus `f'(a) = 0.28`
+
+Now in our tests we can check whether actual derivatives for on and off points are equal to the expectation. What is left
+to do is to repeat the whole process for all other boundaries.
+
+Note that if we decide to exercise the boundaries in this way, we have to remember to write the tests for the results too, as correct derivative does not imply correct function.
+Maybe the developer, during implementation, instead of `3315 + 0.28 * (on - 22100)` wrote `315 + 0.28 * (on - 22100)`,
+which by testing only for derivatives we will not spot.
+
+This example shows that as a software testers we, not only have to identify the boundaries between partitions, but also
+think about what is really changing when crossing those boundaries, in order to maximize the efficiency of our test cases.
+
 ## Exercise 8: The ATM
 
 {% set video_id = "A9sjzHGcpiA" %}
@@ -541,17 +574,17 @@ The input domain of a function is a set of all points (x, y) that meet the crite
 * `1 <= y <= 10`
 * `y <= 14 - x`
 
-## Variables
+### Variables
 | Variable | Type | Range |
 | -------- | ---- | ----- |
 | x | integer | `1 < x <= 10`
 | y | integer | `1 <= y <= 10`, `y <= 14 - x`
 
-## Dependency among variables
+### Dependency among variables
 
 * `x` and `y` are dependent, since the range in `y` varies according to `x`.
 
-## Equivalence Partitioning/Boundary Analysis
+### Equivalence Partitioning/Boundary Analysis
 | Variable | Equivalence classes | Invalid classes | Boundaries |
 | -------- | ------------------- | --------------- | ---------- |
 | x | `1 < x <= 10` | | |
@@ -571,7 +604,7 @@ The input domain of a function is a set of all points (x, y) that meet the crite
 | | | | `(11, 4)` |
 
 
-## Strategy
+### Strategy
 Make tests for all 12 boundaries
 
 | Test case | x | y | output |
@@ -589,7 +622,7 @@ Make tests for all 12 boundaries
 | T11 | 10 | 4 | true |
 | T12 | 11 | 4 | false |
 
-## Another approach
+### Another approach
 
 We might look at the plot of the function. In the plot, we identify 5 boundaries (one at each of the extremes of the figure). As a tester, we can exercise these boundaries.
 

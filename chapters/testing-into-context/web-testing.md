@@ -359,7 +359,7 @@ In the example above, you would have to add the line `<script src="dateUtils.js"
 
 Of course, the manual approach we followed here has obvious limitations.  We had to write the `assertEqual` function ourselves, and we would need to write similar methods for other kinds of assertions. 
 Our `assertEqual` implementation only logs to the console and does not provide any context when an assertion has failed (like the line number of the call to `assertEqual`). 
-The state of the UI is not reset after the UI tests; this becomes a problem when we create more than tests than the single one we created.
+The state of the UI is not reset after the UI tests; this becomes a problem when we create more tests than the single one we created.
 
 You could solve all these issues by hand, but to avoid reinventing the wheel, it is wise to use an existing unit testing framework.
 
@@ -633,7 +633,7 @@ so that your tests can also run on your Continuous Integration (CI) system.
 ## End-to-end testing
 The goal of end-to-end testing is to test the flow through the application as a user might follow it, while integrating the various components of the web application (such as the front end, back end and database). For instance, when testing an e-commerce application, you could test the flow of a user searching for a product, adding the product to their cart, going to checkout, logging in, paying for their products and receiving a confirmation. You should make this as realistic as possible, so you use an actual browser and perform the tests on a production-like version of the application components; although of course you will want to simulate the payments to prevent you from having to pay for your own products every time you run the test... Similarly, you should be careful with sending out actual e-mails and can decide to send the e-mails to a drop folder instead of to an actual recipient.
 
-While performing these tests manually is possible and sometimes necessary, this can be automated too. A well-known tool for this is [Selenium WebDriver](https://www.selenium.dev/). It basically acts as a "remote control" for your browser, so you can instruct it to "open this page, click this button, wait for that element to appear", etc. You write these tests in one the supported languages (such as Java) with your favourite unit testing framework. You can then also run these same tests on different browsers and in this way perform *cross-browser tests*.
+While performing these tests manually is possible and sometimes necessary, this can be automated too. A well-known tool for this is [Selenium WebDriver](https://www.selenium.dev/). It basically acts as a "remote control" for your browser, so you can instruct it to "open this page, click this button, wait for that element to appear", etc. You write these tests in one of the supported languages (such as Java) with your favourite unit testing framework. You can then also run these same tests on different browsers and in this way perform *cross-browser tests*.
 
 The WebDriver API is now a W3C standard, and several implementations of it (other than Selenium) exist, such as [WebDriverIO](https://webdriver.io/).
 
@@ -758,7 +758,7 @@ To know what to test for, it is useful to consult resources like the Web Content
 You can use tools like "axe" to test your web pages for accessibility problems.
 However, at this stage, such tests often still need to be done manually.
 Install assistive technologies like a screen reader that reads aloud the pages
-you load in you browser,
+you load in your browser,
 and see whether you can still use the application without using your eyes.
 Or better yet, ask a user with a disability to use your application 
 and help you with identifying issues in it.
