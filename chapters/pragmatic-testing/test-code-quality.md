@@ -810,7 +810,7 @@ Jeanette just heard that two tests are behaving strangely as when executed in is
 
 
 **Exercise 2.**
-RepoDriller is a project that extracts information from Git repositories. Its integration tests use lots of real Git repositories, each one with a different characteristic, e.g., one repository contains a merge commit, another repository contains a revert operation, etc.
+RepoDriller is a project that extracts information from Git repositories. Its integration tests use lots of real Git repositories (that are created solely for the purpose of the test), each one with a different characteristic, e.g., one repository contains a merge commit, another repository contains a revert operation, etc.
 
 Its tests look like this:
 
