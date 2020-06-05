@@ -1160,7 +1160,9 @@ Both tests are very slow.
 
 **Exercise 2**
 
-Mystery guest
+This test requires the existence of a Git repo to work. Although this is something explicit in the test, a developer might need to understand what this Git repo looks like in order to understand a possible test failure. This test then, in a way, suffers from the _mystery guest_.
+
+(This test is unlikely to be flaky. The git repository used in the test will never change; think of a Git repo created just for the test. It is also unlikely that Git will change its behavior. Everything runs in a single thread, so no real concurrency issues.)
 
 
 **Exercise 3**

@@ -838,7 +838,7 @@ public void test01() {
 ```
 
 
-Which test smell does this piece of code suffer from?
+Which test smell does this piece of code _might_ suffer from?
 
 1. Mystery guest.
 2. Condition logic in test.
