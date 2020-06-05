@@ -1,5 +1,25 @@
 # Answers to the exercises
 
+## Index
+
+[Principles of software testing](#principles-of-software-testing)  
+[Introduction to software testing automation](#introduction-to-software-testing-automation)  
+[Specification-based testing](#specification-based-testing)  
+[Boundary testing](#boundary-testing)  
+[Structural testing](#structural-testing)  
+[Model-Based Testing](#model-based-testing)  
+[Design-by-contracts](#design-by-contracts)  
+[Property-based testing](#property-based-testing)  
+[Testing pyramid](#testing-pyramid)  
+[Test doubles](#test-doubles)  
+[Design for Testability](#design-for-testability)  
+[Test-Driven Development](#test-driven-development)  
+[Test code quality](#test-code-quality)  
+[Static testing](#static-testing)  
+[Mutation testing](#mutation-testing)  
+[Security testing](#security-testing)  
+[Search-based software testing](#search-based-software-testing)
+
 ## Principles of software testing
 
 **Exercise 1**
