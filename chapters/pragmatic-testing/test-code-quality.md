@@ -99,7 +99,7 @@ the behaviour of development teams towards writing automated test code can still
 ## Test Desiderata
 
 Kent Beck, the "creator" of Test-Driven Development (and author of the 
-["Test-Driven Development: By Example"](https://www.amazon.com/Test-Driven-Development-Kent-Beck/dp/0321146530) book), recently wrote a list of eleven
+["Test-Driven Development: By Example"](https://www.amazon.com/Test-Driven-Development-Kent-Beck/dp/0321146530) book), recently wrote a list of twelve
 properties that good tests have (the [test desiderata](https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3)). 
 
 The following list comes directly from his blog post. Note how some of these properties
@@ -221,7 +221,7 @@ making sure that tests are being run in the correct environment.
 
 
 **Test Run War**:
-The war is an analogy for when two tests are "fighting" for the same resources.
+The war is an analogy for when two tests are "fighting" over the same resources.
 One can observe a test run war when tests start to fail as soon as more than one developer
 run their test suites.
 Imagine a test suite that uses a centralised database. When developer A runs the test, the test changes the state of the database. At the same time, 
@@ -231,7 +231,7 @@ This unexpected situation might cause the test to fail.
 
 _Isolation_ is key to avoid this test smell. In the example of a centralised database,
 one solution would be to make sure that each developer has their own instance of a database. That would
-avoid the fight for the same resource. (Related to this example, also see the chapter on database testing.)
+avoid the fight over the same resource. (Related to this example, also see the chapter on database testing.)
 
 
 **General Fixture**:
@@ -258,7 +258,7 @@ relevant for them. In practice, the developer would have to manually
 That is an unnecessary cost.
 Making sure that the fixture of a test is as specific and cohesive as possible helps
 developers to comprehend the essence of a test (which is often highly relevant when
-the test starts fail).
+the test starts to fail).
 
 Build patterns, with the focus of building test data, 
 might help developers in avoiding such a smell. More specifically, 
@@ -276,7 +276,7 @@ class `A` should solely focus on testing class `A`. Even if it depends on class
 The smell emerges when a test class focuses its efforts on testing many classes
 at once. 
 
-Less cohesive tests lead to less productivity. How do developers know where tests for a given `B` class
+Less cohesive tests lead to less productivity. How do developers know where tests for a given class `B` 
 are? If test classes focus on more than a single class, tests for `B` might be anywhere.
 Developers would have to look for them. 
 It is also expected that, without proper care, tests for a single class would live in
@@ -415,7 +415,7 @@ The wrong choice of an assertion instruction might give developers less informat
 about the failure, making the debugging process more difficult.
 
 Imagine an implementation of a `Cart` that receives products
-to be inserted into it. Products can not be repeated. A simple implementation might be:
+to be inserted into it. Products cannot be repeated. A simple implementation might be:
 
 ```java
 public class Cart {
@@ -587,7 +587,7 @@ important information present in a test is easy to understand.**
 
 Giving descriptive names to the information in the test code is helpful with this.
 Let us illustrate this in the example below.
-Suppose we have written a test for an `Invoice` class, that calculates the tax for
+Suppose we have written a test for an `Invoice` class, which calculates the tax for
 that invoice.
 
 ```java
@@ -632,7 +632,7 @@ class might have dozens of attributes. The name of the test as well as the name 
 the cryptic variable `v` do not clearly explain what they mean. For developers less fluent
 in JUnit, it may also be hard to understand what the 0.0001 means (it mitigates floating-point errors by making sure that both numbers are equal within the given delta).
 
-A better version for this test method could be:
+A better version of this test method could be:
 
 ```java
 @Test
@@ -649,7 +649,7 @@ void taxesForCompanies() {
 } 
 ```
 
-The usage of the `InvoiceBuilder` clearly expresses what
+The usage of the `InvoiceBuilder` (the implementation of which we will show shortly) clearly expresses what
 this invoice is about: it is an invoice for a company (as clearly stated by the `asCompany()` 
 method), "NL" is the country of that invoice, and the invoice has a value of 2500. The
 result of the behaviour now goes to a variable whose name says it all (`calculatedValue`). 
@@ -776,7 +776,7 @@ test methods.
 Suppose that test A somehow influences the result of test B, 
 possibly causing it to fail.
 
-As you might have noticed, some of these causes 
+As you may have noticed, some of these causes 
 correspond to scenarios we described when discussing the test smells 
 and emphasise again how important the quality of test code is.
 
