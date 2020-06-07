@@ -563,6 +563,69 @@ think about what is really changing when crossing those boundaries, in order to 
 
 ## Exercise 8: The ATM
 
+An ATM allows you to withdraw 20 to 200 euros (inclusive) in increments of 20.
+For the example purposes, the program returns true or false, depending whether the amount required is valid.
+
+### Variables
+| Variable |  Type   | Range |
+| -------- | ------- | ----- |
+|  Amount  | integer | {20, 40, 60, 80, 100, 120, 140, 160, 180, 200}|
+|  Valid   | boolean | `true`, `false`
+
+### Dependency among variables
+
+Valid depends on the Amount
+
+### Equivalence Partitioning/Boundary Analysis
+| Variable | Equivalence classes | Invalid classes | Boundaries |
+| -------- | ------------------- | --------------- | ---------- |
+|  Amount  | 20 | | 19 |
+| | | | 21 |
+| | 40 | | 39 |
+| | | | 41 |
+| | 60 | | 59 |
+| | | | 61 |
+| | 80 | | 79 |
+| | | | 81 |
+| | 100 | | 99 |
+| | | | 101 |
+| | 120 | | 119 |
+| | | | 121 |
+| | 140 | | 139 |
+| | | | 141 |
+| | 160 | | 159 |
+| | | | 161 |
+| | 180 | | 179 |
+| | | | 181 |
+| | 200 | | 199 |
+| | | | 201 |
+| | | -1 | |
+
+Note that `-1` may be impossible to test.
+
+### Strategy
+
+* Black-box testing: maybe all the on-points, off-points and invalid points.   
+* White-box testing: maybe just on-points, few-off points, invalid points.   
+Why? If you know the implementation, you know how hard you need to test it.
+
+| Test case | Amount | Valid (output) |
+| --------- | ------ | -------------- |
+| T1 | 20 | true |
+| T2 | 40 | true |
+| T3 | 60 | true |
+| T4 | 80 | true |
+| T5 | 100 | true |
+| T6 | 120 | true | 
+| T7 | 140 | true | 
+| T8 | 160 | true |
+| T9 | 180 | true |
+| T10 | 200 | true |
+| T11 | 19 | false |
+| T12 | 41 | false |
+| T13 | 61 | false |
+| T14 | -1 | false |
+
 {% set video_id = "A9sjzHGcpiA" %}
 {% include "/includes/youtube.md" %}
 
@@ -607,8 +670,8 @@ The input domain of a function is a set of all points (x, y) that meet the crite
 ### Strategy
 Make tests for all 12 boundaries
 
-| Test case | x | y | output |
-| --------- | - | - | ------ |
+| Test case |  x  |  y  | output |
+| --------- | --- | --- | ------ |
 | T1 | 1 | 5 | false |
 | T2 | 2 | 5 | true |
 | T3 | 10 | 2 | true |
@@ -628,8 +691,8 @@ We might look at the plot of the function. In the plot, we identify 5 boundaries
 
 ![Boundary testing chart](img/domain-testing/piecewise-boundary-chart.png)
 
-| Test case | x | y | output |
-| --------- | - | - | ------ |
+| Test case |  x  |  y  | output |
+| --------- | --- | --- | ------ |
 | T1 | 1 | 1 | false |
 | T2 | 2 | 1 | true |
 | T3 | 10 | 1 | true |
