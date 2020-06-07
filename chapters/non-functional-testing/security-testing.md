@@ -40,7 +40,7 @@ In this chapter, we investigate the threat landscape of Java applications becaus
 
 In order to understand the threat landscape for Java applications, we must analyze what kind of security vulnerabilities have been discovered in them over the years. There exist online repositories that consolidate such vulnerability information. The [NIST National Vulnerability Database](https://www.cvedetails.com/) is one such example.
 
-The [National Vulnerability Database](https://www.cvedetails.com/) is the largest repository of security vulnerabilities that are discovered in open source software. Each vulnerability is assigned a unique ***CVE (Common Vulnerability and Exposures)*** identifier, a ***CWE (Common Weakness Enumeration)*** that determines the _type_ of vulnerability, and a ***CVSS (Common Vulnerability Scoring System)*** score that determines the _severity_ of the vulnerability. Additionally, you can also view the products and their versions that are affected by the vulnerability.
+The [National Vulnerability Database](https://www.cvedetails.com/) is the largest repository of security vulnerabilities that are discovered in open source software. Each vulnerability is assigned a unique ***CVE (Common Vulnerabilities and Exposures)*** identifier, a ***CWE (Common Weakness Enumeration)*** that determines the _type_ of vulnerability, and a ***CVSS (Common Vulnerability Scoring System)*** score that determines the _severity_ of the vulnerability. Additionally, you can also view the products and their versions that are affected by the vulnerability.
 
 
 ### JRE vulnerabilities
@@ -88,7 +88,7 @@ socket = new Socket("host.example.org", 39544);
 readerInputStream = new InputStreamReader(socket.getInputStream(), "UTF-8");
 readerBuffered = new BufferedReader(readerInputStream);
 
-/* Read data usign an outbound tcp connection */
+/* Read data using an outbound tcp connection */
 String data = readerBuffered.readLine();
 
 Class<?> tempClass = Class.forName(data);

@@ -1202,6 +1202,12 @@ Static analysis produces over-generalized results with some false positives, so 
 
 Mutation testing.
 
+**Exercise 2.**   
+
+We can apply *Relational Operator Replacements*, *Assignment Operator Replacements*, and *Scalar Variable Replacements*.
+In the given method we have 2 instances of *relational operators*, 2 instances of *assignment operators*, and 9 instances of *scalar variables*. The total number of mutants becomes:
+
+$$ 2^6 \ \times \ 2^4 \ \times \ 3^9 = 20155392 $$
 
 
 

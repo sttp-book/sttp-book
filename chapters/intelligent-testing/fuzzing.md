@@ -15,7 +15,7 @@ There are two ways of generating fuzzing test cases:
 
 2. **Generation-based Fuzzing**, also known as *Protocol fuzzing*, regards the file format and protocol specification of the SUT when generating test cases. Generative fuzzers take a data model as input that specify the input format, and the fuzzer generates test cases that only alter the values while conforming to the specified format. For example, for an application that takes `JPEG` files as input, a generative fuzzer would fuzz the image pixel values while keeping the `JPEG` file format intact. _PeachFuzzer_ is an example of generative fuzzer.
 
-Compared to mutative fuzzers, generative fuzzers are _less generalizable_ and _difficult to set-up_ because they require input format specifications. However, they perform a more through testing by increasing code coverage and producing high-quality test cases.
+Compared to mutative fuzzers, generative fuzzers are _less generalizable_ and _more difficult to set-up_ because they require input format specifications. However, they perform a more through testing by increasing code coverage and producing high-quality test cases.
 
 
 ## Maximizing code coverage
