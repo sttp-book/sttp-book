@@ -1193,6 +1193,8 @@ Regular expressions cannot count instances.
 
 Static analysis produces over-generalized results with some false positives, so the analysis is Sound but Imprecise.
 
+**Exercise 3.**
+![Answer to the AST question](img/intelligent-testing/AST_answer.png)
 
 
 

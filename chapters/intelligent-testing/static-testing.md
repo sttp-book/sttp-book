@@ -91,6 +91,11 @@ Abstract Syntax Trees are used by compilers to find sematic errors &mdash; compi
 3. Unsound but Precise
 4. Unsound and Imprecise
 
+**Exercise 3.** Create an Abstract Syntax Tree for the following code snippet:
+```java
+(a + b) * (c - d)
+```
+
 
 ## References
 
