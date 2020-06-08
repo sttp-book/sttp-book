@@ -40,7 +40,7 @@ If the code structure is known (i.e. in a white-box setting), telemetry about co
 public String func(int a, int b){
     a  = a + b;
     b = a - b;
-    String str = new String();
+    String str = "No";
     if (a > 2)
         str = "Yes!";
     else if (b < 100)
