@@ -31,7 +31,7 @@ Tests are the safety net of a developer. Whenever developers perform any mainten
 or evolution in the source code, they use the feedback of the test suite to understand
 whether the system is still working as expected. 
 The faster the developer gets feedback from their test code, the better. 
-On the other hand, slower test suites force developers to simply run the tests less often,
+Additionally, slower test suites force developers to simply run the tests less often,
 making them less effective. Therefore, good tests are fast.
 There is no hard line that separates slow from fast tests. It is fundamental to apply common sense.
 Once you are facing a slow test, you might consider to:
