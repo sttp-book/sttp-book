@@ -409,7 +409,7 @@ Imagine the following program and its respective CFG:
 
 ```java
 void hello(int a, int b) {
-  if(a > 10 && b > 20) {
+  if(a > 10 & b > 20) {
     System.out.println("Hello");
   } else {
     System.out.println("Hi");
@@ -431,20 +431,13 @@ In practice, whenever we use condition coverage, we actually perform **branch + 
 that we achieve 100% condition coverage (i.e., all the outcomes of all conditions are exercised) and 100% branch coverage (all the outcomes
 of the compound decisions are exercised).
 
-The formula to calculate branch+condition coverage might vary among tools. Some consider the same as in condition coverage:
-
-$$\text{C/DC coverage} = \frac{\text{conditions outcome covered}}{\text{conditions outcome total}} \cdot 100\%$$
-
-Others prefer to count, for each decision block, the number of outcomes per condition plus the number of outcomes per decision. For example, an `if(a>10 && b < 10)` would count as 6, as 2 for the `a>10` condition, 2 for the `b<10` condition, and 2 for the `a>10 && b<10`. This formula would give us a clear differentiation between basic condition and decision+condition coverage:
+The formula to calculate branch+condition coverage is as follows. Note how this formula gives us a clear differentiation between basic condition and decision+condition coverage:
 
 $$\text{C/DC coverage} = \frac{\text{conditions outcome covered + decisions outcome covered}}{\text{conditions outcome total + decisions outcome total}} \cdot 100\%$$
 
 
-From now on, whenever we mention **condition coverage**, we mean **condition + branch coverage**.
-
-
 {% hint style='tip' %}
-Another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in $$2^N$$ tests, given $$N$$ conditions.
+Another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in 2^N tests, given N conditions.
 {% endhint %}
 
 {% set video_id = "oWPprB9GBdE" %}

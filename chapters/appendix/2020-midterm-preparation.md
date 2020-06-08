@@ -7,7 +7,7 @@ You are free to:
 * Consult your personal notes, labwork answers, and source code you have written throughout the course
 * Visit our lecture notes in https://sttp.site
 * Use Google (or any search engine) to search for documentation of the frameworks we use or classes under test.
-* Use WebLab's code editor or IntelliJ or any other IDE to write your code. We even provide you [an IntelliJ project to get started](resources/2020-midterm-skeleton.zip). However, your final answer must be delivered in WebLab. Make sure your tests are passing and everything compiles in WebLab.
+* Use WebLab's code editor or IntelliJ or any other IDE to write your code. We even provide you [an IntelliJ project to get started](https://sttp.site/chapters/appendix/resources/2020-midterm-skeleton.zip). However, your final answer must be delivered in WebLab. Make sure your tests are passing and everything compiles in WebLab.
 * Use any tool to draw CFGs, state machines, and transition trees. You are also allowed to draw it manually and upload a picture. Just make sure it’s legible enough.
 
 You must not:
@@ -243,7 +243,7 @@ We will now randomly give you a description of a state machine. In the following
 Draw the state machine to the requirement you received.
 
 You are free to:
-- Use any program to draw the CFG.
+- Use any program to draw the state machine.
 - Draw it manually and take a picture.
 
 Upload your answer here. You have to stick to common image formats (.jpg, .png, .pdf). Images should not be larger than 3 MB.
@@ -253,7 +253,7 @@ Upload your answer here. You have to stick to common image formats (.jpg, .png, 
 It is time to test the state machine. Given the state machine you just devised, build a **transition tree**.
 
 You are free to:
-- Use any program to draw the CFG.
+- Use any program to draw the Transition tree.
 - Draw it manually and take a picture.
 
 Upload your answer here. You have to stick to common image formats (.jpg, .png, .pdf). Images should not be larger than 3 MB.
