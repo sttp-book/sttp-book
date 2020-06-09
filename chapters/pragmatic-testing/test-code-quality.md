@@ -10,8 +10,7 @@ as with production code, **developers have to put extra effort
 into making high-quality test code bases, so that these can be maintained and developed in a
 sustainable way**.
 
-In this chapter, we address the following best practices 
-in test code engineering:
+In this chapter, we address the following best practices in test code engineering:
 
 * A set of principles that should guide developers when writing test code.
 For these, we discuss both the FIRST principles (from the Pragmatic Unit Testing book),
@@ -34,10 +33,10 @@ The faster the developer gets feedback from their test code, the better.
 Slower test suites force developers to simply run the tests less often,
 making them less effective. Therefore, good tests are fast.
 There is no hard line that separates slow from fast tests. It is fundamental to apply common sense.
-Once you are facing a slow test, you might consider to:
+Once you are facing a slow test, you may consider to:
     - Make use of mocks/stubs to replace slower components that are part of the test
     - Re-design the production code so that slower pieces of code can be tested separately from fast pieces of code
-    - Move slower tests to a different test suite, one that developers might run less often. 
+    - Move slower tests to a different test suite, one that developers may run less often. 
     It is not uncommon to see developers having sets of unit tests that run fast and all day long,
 	and sets of slower integration and system tests that run once or twice a day on the Continuous Integration server. 
 
@@ -65,7 +64,7 @@ code is always better.
 
 - **Repeatable**: A repeatable test is a test that gives the same result, no matter how many times it is executed.
 Developers tend to lose their trust in tests that present flaky behaviour (i.e., it sometimes passes, and sometimes fails without any changes in the system and/or in the test code).
-Flaky tests might happen for different reasons, and some of the causes can be tricky
+Flaky tests can happen for different reasons, and some of the causes can be tricky
 to identify. (Companies have reported extreme examples where a test presented flaky behaviour
 only once in a month.) Common causes are dependencies on external resources, not waiting long
 enough for an external resource to finish its task, and concurrency.
@@ -87,7 +86,7 @@ as possible. While less technical than the other principles in this list, changi
 the behaviour of development teams towards writing automated test code can still be challenging.
 
 	Leaving the test phase to the very end of the development process, as commonly done
-	in the past, might result in
+	in the past, can result in
 	unnecessary costs. After all, at that point, the system might be simply too hard to test.
 	Moreover, as we have seen, tests serve as a safety net for developers. Developing large
 	complex systems without such a net is highly unproductive and likely to fail.
@@ -142,16 +141,16 @@ list can be found in the xUnit Test Patterns book, by Meszaros.
 
 
 **Code Duplication**: 
-It is not surprising that code duplication might also happen in test code, 
+It is not surprising that code duplication can also happen in test code, 
 as it is very common in production code.
-Tests are often similar in structure. You might have noticed it in several of the code
+Tests are often similar in structure. You may have noticed it in several of the code
 examples throughout this book. We even made use of parameterised tests
 to reduce some of the duplication.
 A less attentive developer might end up writing duplicated code 
 (copying and pasting often happens in real life) instead of putting
 some effort into implementing a better solution. 
 
-Duplicated code might reduce the productivity of software testers.
+Duplicated code can reduce the productivity of software testers.
 After all, if there is a need for a change in a duplicated piece of code, a developer
 will have to apply the same change in all the places where the code was duplicated. 
 In practice, it is easy to forget one of these places, which causes one to end up with 
@@ -178,7 +177,7 @@ understand. To help with such cases, we recommend developers to:
 
 Interestingly, a common best practice that is often found in the test best practice literature is the "one assertion per method" strategy. While forcing developers to have a single assertion per test method is too extremist, the idea of minimising the number of assertions in a test method is valid.
 
-Note that a high number of simple assertions in a single test might be as harmful as a complex
+Note that a high number of simple assertions in a single test can be as harmful as a complex
 set of assertions. In such cases, we provide a similar recommendation: write a customised
 assertion instruction to abstract away the need for long sequences of assertions.
 
@@ -186,16 +185,16 @@ Empirically, we also observe that the number of assertions in a test is often la
 developers tend to write more than one test case in a single test method. We have done
 this in this book too (see the boundary testing chapter, where we test both sides of the boundary
 in a single test method). However, parsimony is fundamental. Splitting up a large test method
-that contains multiple test cases might reduce the cognitive load required by the developer
+that contains multiple test cases can reduce the cognitive load required by the developer
 to understand it.
 
 
 **Resource Optimism**:
-Resource optimism happens when a test assumes that a necessary resource (e.g., a database) is readily available at the start of its execution. This is related to the _isolated_ principle
-of the FIRST principles and of Beck's test desiderata.
+Resource optimism happens when a test assumes that a necessary resource (e.g., a database) is readily available at the start of its execution. 
+This is related to the _isolated_ principle of the FIRST principles and of Beck's test desiderata.
 
-To avoid resource optimism, a test should not assume that the resource is already in the correct state. The test should be the one responsible for setting up the state itself. This might mean that
-the test is the one responsible for populating a database, for writing the required files in the disk, or for starting up a Tomcat server. (This set up might require complex code, and developers
+To avoid resource optimism, a test should not assume that the resource is already in the correct state. The test should be the one responsible for setting up the state itself. 
+This can mean that the test is the one responsible for populating a database, for writing the required files in the disk, or for starting up a Tomcat server. (This set up might require complex code, and developers
 should also do their best effort in abstracting way such complexity by, e.g., moving such 
 code to other classes, like `DatabaseInitialization` or `TomcatLoader`, allowing the
 test code to focus on the test cases themselves).
@@ -227,7 +226,7 @@ run their test suites.
 Imagine a test suite that uses a centralised database. When developer A runs the test, the test changes the state of the database. At the same time, 
 developer B runs the same test, which also uses the same database. 
 Both tests are now using the same database at the same time. 
-This unexpected situation might cause the test to fail.
+This unexpected situation may cause the test to fail.
 
 _Isolation_ is key to avoid this test smell. In the example of a centralised database,
 one solution would be to make sure that each developer has their own instance of a database. That would
@@ -240,15 +239,16 @@ Fixtures are set up in the _arrange_ part of the test, which was discussed in a 
 As you may have noticed, fixtures are the "stars" of the test method, as they derive
 naturally from the test cases we devised using any of the techniques we have discussed.
 
-When testing more complex components, developers might need to make use of several
-different fixtures: one for each partition they want to exercise. These fixtures might
-then become complex. And to make the situation worse, while tests are different from each other, their fixtures
+When testing more complex components, developers may need to make use of several
+different fixtures: one for each partition they want to exercise. These fixtures can
+then become complex. 
+And to make the situation worse, while tests are different from each other, their fixtures
 might have some intersection. 
 
 Given this possible intersection amongst the different fixtures, as well as the difficulty
 with building these complex entities and fixtures, a less attentive developer
-might decide to declare a "large" fixture that works for many different tests. Each test
-would then use a small part of this large fixture. 
+could decide to declare a "large" fixture that works for many different tests. 
+Each test would then use a small part of this large fixture. 
 
 While this approach might work and the tests might correctly implement the test cases,
 they are hard to maintain. Once a test fails, developers who try
@@ -261,7 +261,7 @@ developers to comprehend the essence of a test (which is often highly relevant w
 the test starts to fail).
 
 Build patterns, with the focus of building test data, 
-might help developers in avoiding such a smell. More specifically, 
+can help developers in avoiding such a smell. More specifically, 
 the **[Test Data Builder](http://www.natpryce.com/articles/000714.html)** pattern is
 often used in test code of enterprise applications (we give an example
 of a Test Data Builder later in this chapter). Such applications
@@ -277,14 +277,14 @@ The smell emerges when a test class focuses its efforts on testing many classes
 at once. 
 
 Less cohesive tests lead to less productivity. How do developers know where tests for a given class `B` 
-are? If test classes focus on more than a single class, tests for `B` might be anywhere.
+are? If test classes focus on more than a single class, tests for `B` could be anywhere.
 Developers would have to look for them. 
 It is also expected that, without proper care, tests for a single class would live in
 many other test classes, e.g., tests for `B` might exist in `ATest`, `BTest`, `CTest`, etc.
 
 Tests, and more specifically, unit test classes and methods, should have a clear focus.
 They should test a single unit. If they have to depend on other classes, the use of
-mocks and stubs might help the developer in isolating that test and avoid _indirect
+mocks and stubs can help the developer in isolating that test and avoid _indirect
 testing_. If the use of mocks and stubs is not possible, make sure that assertions
 focus on the real class under test, and that failures caused by dependencies (and not 
 by the class under test) are clearly indicated in the outcome of the test method.
@@ -296,8 +296,8 @@ behaviours at once tend to be overly long and complex, making it harder for deve
 to comprehend them quickly.
 
 **Sensitive Equality**:
-Good assertions are fundamental in test cases. A bad assertion might cause a test
-to not fail when it should. However, a bad assertion might also cause a test _to fail
+Good assertions are fundamental in test cases. A bad assertion may cause a test
+to not fail when it should. However, a bad assertion may also cause a test _to fail
 when it should not_.
 Engineering a good assertion statement is challenging. Even more so when components
 produce fragile outputs, i.e., outputs that tend to change often. 
@@ -402,7 +402,7 @@ void qtyTimesIndividualPrice_lessSensitiveAssertion() {
 
 ```
 
-Remember our discussion regarding design for testability. It might be better to 
+Remember our discussion regarding design for testability. It may be better to 
 create a method with the sole purpose of facilitating the test (or, in this case, the assertion)
 rather than having to rely on sensitive assertions that will possibly break the test
 for the wrong reason in the future.
@@ -411,11 +411,13 @@ for the wrong reason in the future.
 difference between a good and a bad test case. While we have discussed how to derive
 good test cases (and therefore also good assertions), choosing the right implementation strategy
 for writing the assertion can affect the maintenance of the test in the long run.
-The wrong choice of an assertion instruction might give developers less information
+The wrong choice of an assertion instruction may give developers less information
 about the failure, making the debugging process more difficult.
 
 Imagine an implementation of a `Cart` that receives products
-to be inserted into it. Products cannot be repeated. A simple implementation might be:
+to be inserted into it. 
+Products cannot be repeated. 
+A simple implementation could be:
 
 ```java
 public class Cart {
@@ -468,7 +470,7 @@ Actual   :<false>
 ```
 
 The error message does not explicitly show the difference in the values. In this
-simple example, it might not seem very important, but with more 
+simple example, it may not seem very important, but with more 
 complicated test cases, a developer would have to add some debugging
 code (`System.out.println`s) to print the actual value that was produced by the method.
 
