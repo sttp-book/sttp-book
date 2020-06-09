@@ -567,14 +567,9 @@ Here, we define the abstract method that gives us a List.
 ```java
 public abstract class ListTest {
 
-  private List list;
+  protected final List list = createList();
 
   protected abstract List createList();
-
-  @BeforeEach
-  public void setUp() {
-    list = createList();
-  }
 
   // Common List tests using list
 }
@@ -752,6 +747,8 @@ Which of the following is a valid reason to use assertions in your code?
 1. To conduct user input validation.
 1. To make debugging easier.
 
+**Exercise 8.**
+Can static methods have invariants? Explain.
 
 
 ## References

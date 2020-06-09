@@ -7,4 +7,4 @@ Or, if you feel you are not ready to contribute but want to see some content
 here, just [open an issue](https://github.com/sttp-book/sttp-book/issues).
 
 Note that everything you create will be published under the same [license](license.md) as the rest of the book. We will
-add your name in the [acknowledgements](acknowledgements.md).
+add your name in the acknowledgements.

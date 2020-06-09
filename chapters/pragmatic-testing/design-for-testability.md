@@ -321,10 +321,10 @@ The team wants to write unit tests for part of their code, but "that's really ha
 After some code review, the developers themselves listed the following
 problems in their codebase:
  
-1. Many classes mix infrastructure and business rules;
-2. The database has large tables and no indexes;
-3. Use of static methods;
-4. Some classes have too many attributes/fields.
+1. Many classes mix infrastructure and business rules
+2. The database has large tables and no indexes
+3. Use of static methods
+4. Some classes have too many attributes/fields
  
 To increase the testability, the team has a budget to work on two out of the four issues above.
 Which items should Sarah recommend them to tackle first?
