@@ -88,15 +88,14 @@ The path predicate for the `else if` branch in the previous code snippet will be
 
 Note that it is not always possible to determine the potential values of a variable because of the *halting problem* — answering whether a loop terminates with certainty is an undecidable problem. So, for a code snippet given below, Symbolic execution may give an imprecise answer.
 
-``` java
-func(int a, bool b){
- a = 2;
- while(b == true) {
-   // some logic
- }
- a = 100;
+```java
+public void func(int a, boolean b){
+    a = 2;
+    while (b == true) {
+        // some logic
+    }
+    a = 100;
 }
-
 ```
 
 {% hint style='tip' %}
