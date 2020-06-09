@@ -1205,9 +1205,9 @@ Mutation testing.
 **Exercise 2.**   
 
 We can apply *Relational Operator Replacements*, *Assignment Operator Replacements*, and *Scalar Variable Replacements*.
-In the given method we have 2 instances of *relational operators*, 2 instances of *assignment operators*, and 9 instances of *scalar variables*. The total number of mutants becomes:
+In the given method we have 2 instances of *relational operators*, 2 instances of *assignment operators*, and 9 instances of *scalar variables*. The upper-bound estimate of the number of mutants becomes:
 
-$$6^2 \cdot 4^2 \cdot 3^9 = 11337408$$
+$$5^2 \cdot 3^2 \cdot 2^9 = 115200$$
 
 
 
