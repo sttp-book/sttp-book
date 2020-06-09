@@ -1,4 +1,4 @@
-﻿# Mutation testing
+# Mutation testing
 
 *How do we know if we have tested enough?*
 
