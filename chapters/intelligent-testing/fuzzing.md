@@ -1,4 +1,4 @@
-﻿# Fuzz testing
+# Fuzz testing
 
 Fuzzing is a popular dynamic testing technique used for automatically generating complex test cases. Fuzzers bombards the System Under Test (SUT) with randomly generated inputs in the hope to cause crashes. A crash can either originate from *failing assertions*, *memory leaks*, or *improper error handling*. Fuzzing has been successful in discovering [unknown bugs](https://lcamtuf.coredump.cx/afl/) in software.
 
