@@ -1,6 +1,6 @@
 # Security Testing
 
-In May of 2018, a [Code Injection Vulnerability was discovered in the Desktop Signal app](https://ivan.barreraoro.com.ar/signal-desktop-html-tag-injection/). An attacker could execute code on a victim's machine by sending a specially crafted message. The victim's app would hand over the `/etc/passwd` file, and even send all the chats in plain text, _without any human intervention_! This was ironic since Signal is known for its end-to-end encryption feature.
+In May of 2018, a [Code Injection Vulnerability was discovered in the Desktop Signal app](https://web.archive.org/web/20200427095259/https://ivan.barreraoro.com.ar/signal-desktop-html-tag-injection/). An attacker could execute code on a victim's machine by sending a specially crafted message. The victim's app would hand over the `/etc/passwd` file, and even send all the chats in plain text, _without any human intervention_! This was ironic since Signal is known for its end-to-end encryption feature.
 
 *Why did this vulnerability exist, and how we could have avoided it? In this chapter, we answer these questions and introduce the concept of security testing.*
 
