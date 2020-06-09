@@ -1178,7 +1178,7 @@ Flaky test.
 
 **Exercise 5**
 
-To avoid the flakiness, a developer could have mocked the random function. It does not make sense, the test is about testing the generator and its homogeneity; if we mock, the test looses its purposes.
+To avoid the flakiness, a developer could have mocked the random function. It does not make sense, the test is about testing the generator and its homogeneity; if we mock, the test loses its purposes.
 
 
 
