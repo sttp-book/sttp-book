@@ -294,7 +294,7 @@ Like with test execution, we want to **automate the mutation process**.
 There are various tools that generate mutants for mutant testing automatically, but they all use the same methodology.
 
 First we need mutation operators.
-A **mutation operator** is a grammatic rule that can be used to introduce a syntactic change.
+A **mutation operator** is a grammatical rule that can be used to introduce a syntactic change.
 This means that, if the generator sees a statement in the code that corresponds to the grammatic rule of the operator (e.g., `a + b`), then the mutation operator specifies how to change this statement with a syntactic change (e.g., turning it into `a - b`).
 
 We can identify two categories of mutation operators:
@@ -603,6 +603,38 @@ In the analogy above, we can replace crimes by bugs, city by software, and polic
 1. Fuzzing testing
 1. Search-based software testing
 1. Combinatorial testing
+
+**Exercise 2.**
+Take a look at the method `min(int a, final int b, final int c)` from `org.apache.commons.lang3.math.NumberUtils`:
+
+```java
+    /**
+     * <p>Gets the minimum of three {@code int} values.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the smallest of the values
+     */
+    public static int min(int a, final int b, final int c) {
+        if (b < a) {
+            a = b;
+        }
+        if (c < a) {
+            a = c;
+        }
+        return a;
+    }
+```
+
+Which of the following mutation operators can be applied to the method in order to obtain a *mutant*?
+1. Arithmetic Operator Replacement (`+`, `-`, `*`, `/`, `%`)
+2. Relational Operator Replacement (`<=`, `>=`, `!=`, `==`, `>`, `<`)
+3. Conditional Operator Replacement (`&&`, `||`, `&`, `|`, `!`, `^`)
+4. Assignment Operator Replacement (`=`, `+=`, `-=`, `/=`)
+5. Scalar Variable Replacement
+
+Provide an upper-bound estimate for the number of possible mutants of the method above. Assume that our tool replaces every instance of an operator/variable independently. Additionally, keep in mind that replacing an operator/variable by itself does not produce mutants. For example, for `b < a` you can consider 5 out of 6 possible mutations.
 
 {% hint style='working' %}
 We need to develop more exercises for this chapter
