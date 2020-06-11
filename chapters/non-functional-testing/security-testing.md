@@ -285,7 +285,7 @@ public void bad(HttpServletRequest request, HttpServletResponse response)
     /* Potential flaw: Display of data in web pages after using
     * replaceAll() to remove script tags,
     * will still allow XSS with string like <scr<script>ipt>. */
-    response.getWriter().println("<br>bad(): data = " + 
+    response.getWriter().println("<br>bad(): data = " +
     	data.replaceAll("(<script>)", ""));
   }
 }
@@ -341,7 +341,7 @@ Remember, if the value of a variable is controlled by a user-controlled paramete
 If a variable `X` copies its value to another variable `Y`, then the reaching definitions analysis dictates that the variable `Y` will receive all potential values of `X`, once they become known.
 Also, whether a loop terminates is an undecidable problem (also called the *halting problem*), so finding the actual values that a looping variable takes on is not possible using static analysis.
 
-The analysis results in the following values of the three variables. If you look closely, some values are impossible during actual run-time, but since we trace the data flow statically, we perform an over-estimation of the allowed values. This is why, static analysis, in particular DFA, is `Sound` but `Imprecise`.
+The analysis results in the following values of the three variables. If you look closely, some values are impossible during actual run-time, but since we trace the data flow statically, we perform an over-estimation of the allowed values. This is why, static analysis, in particular DFA, is `Sound` but `Incomplete`.
 
 ``` java
 a = {0, 1, 2, 3, ...}

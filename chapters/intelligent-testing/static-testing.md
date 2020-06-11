@@ -86,10 +86,10 @@ Abstract Syntax Trees are used by compilers to find sematic errors &mdash; compi
 4. Detect coding mistakes
 
 **Exercise 2.** Given that a static analysis tool can view the entire codebase, what is the quality of results that the analysis will produce?
-1. Sound and Precise
-2. Sound but Imprecise
-3. Unsound but Precise
-4. Unsound and Imprecise
+1. Sound and Complete
+2. Sound but Incomplete
+3. Unsound but Complete
+4. Unsound and Incomplete
 
 **Exercise 3.** Create an Abstract Syntax Tree for the following code snippet:
 ```java
