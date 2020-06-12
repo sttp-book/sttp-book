@@ -2,7 +2,7 @@
 
 In May of 2018, a [Code Injection Vulnerability was discovered in the Desktop Signal app](https://thehackernews.com/2018/05/signal-desktop-hacking.html). An attacker could execute code on a victim's machine by sending a specially crafted message. The victim's app would hand over the `/etc/passwd` file, and even send all the chats in plain text, _without any human intervention_! This was ironic since Signal is known for its end-to-end encryption feature.
 
-*Why did this vulnerability exist, and how we could have avoided it? In this chapter, we answer these questions and introduce the concept of security testing.*
+*Why did this vulnerability exist, and how could we have avoided it? In this chapter, we answer these questions and introduce the concept of security testing.*
 
 After reading this chapter, you should be able to:
 - Explain the key difference between traditional software testing and security testing,
@@ -19,7 +19,7 @@ We start this chapter with what you already know: *software testing*. The key di
 
 Security testing is all about finding those edge cases in which a software *can be made to* malfunction. What makes a security vulnerability different from a typical software bug is the assumption that *an intruder may exploit it to cause harm*. Often, a software bug is exploited to be used as a security vulnerability, e.g. entering a specially crafted input that triggers a buffer overflow may be used to extract sensitive information from a system's memory. This was done in the [Heartbleed vulnerability](https://heartbleed.com/) that made $$2/3^{rd}$$ of all web servers in the world leak passwords. However, security vulnerabilities are not necessarily software bugs, and are also not always functional, e.g. authentication cookies never being invalidated allows a [Cross Site Request Forgery](https://owasp.org/www-community/attacks/csrf) attack, in which an attacker exploits a valid cookie to forge a victim's action.  
 
- Similar to traditional testing, thoroughly testing software *does not* guarantee the absence of security vulnerabilities. In fact, new *variants of exploits* can pop up at any time and can hit even a time-tested software. This is why security testing is not a one-off event, but has to be incorporated in the whole Software Development Lifecycle.
+ Similar to traditional testing, thoroughly testing software *does not* guarantee the absence of security vulnerabilities. In fact, new *variants of exploits* can pop up at any time and can hit even a time-tested software. This is why security testing is not a one-off event, but has to be incorporated in the whole Software Development Life Cycle.
 
 {% hint style='tip' %}
 We discuss the **Secure Software Development Life Cycle** later in this chapter.
@@ -48,7 +48,7 @@ The [National Vulnerability Database](https://www.cvedetails.com/) is the larges
 ![Vulnerabilities reported in JRE](img/security-testing/jre-vuln.png)
 
 
-The plots show the number of vulnerabilities (left) and type of vulnerabilities (right) in the Java Runtime Environment (JRE) from 2007 to 2019. The spike in 2013 and 2014 is due to the exploitation of the *Type Confusion Vulnerability (explained later)*, that allows a user to bypass the Java Security Manager and perform high privileged actions.
+The plots show the number of vulnerabilities (left) and type of vulnerabilities (right) in the Java Runtime Environment (JRE) from 2007 to 2019. The spike in 2013 and 2014 is due to the exploitation of the *Type Confusion Vulnerability* (explained later), that allows a user to bypass the Java Security Manager and perform highly privileged actions.
 
 ### Android vulnerabilities
 
@@ -102,7 +102,7 @@ IO.writeLine(tempClassObject.toString());
 
 The `Class.forName(data)` is the root cause of the vulnerability. If you look closely, the object's value is loaded dynamically from `host.example.org:39544`. If the host is controlled by an attacker, they can freely introduce malicious code in the application logic at run-time. A famous version of this attack is an **Update attack** in Android applications, where a plugin seems benign, but it downloads malicious code at run-time.
 
-Static analysis tools often fail to detect this attack, since the malicious code is not part of the application logic at the checking time.
+Static analysis tools often fail to detect this attack, since the malicious code is not part of the application logic at compile time.
 >Due to the variations that Code Injection can present itself in, it is the top entry in the [OWASP Top 10 list of vulnerabilities](https://owasp.org/www-project-top-ten/). To limit its effect, developers can disallow 'untrusted' plugins, and can limit the privileges that a certain plugin has, e.g. by disallowing plugins to access sensitive folders.
 
 
@@ -195,13 +195,13 @@ You should already be familiar with _white/black-box_ testing, static testing an
 
 
 In the context of automated security testing, _static_ and _dynamic_ analysis are called _Static Application Security Testing (SAST)_ and _Dynamic Application Security Testing (DAST)_, respectively.
-Before we dive into further explanation of SAST and DAST techniques, let's look at the assessment criteria evaluating the quality of security testing techniques.
+Before we dive into further explanation of SAST and DAST techniques, let's look at the assessment criteria for evaluating the quality of security testing techniques.
 
 ### Quality assessment criteria
 The quality of testing tools is evaluated in a number of ways. You have already learnt about _code coverage_ in a previous chapter. Here, we discuss four new metrics that are often used in the context of security testing:
 Designing an ideal testing tool requires striking a balance between two measures: (a) Soundness, and (b) Completeness.
 
-**Soundness** dictates that there should be no False Negatives (FN) — no vulnerability should be skipped. This implies that no alarm is raised *IFF* there is no existing vulnerability in the *System Under Test (SUT)*. **Completeness** dictates that there should be no False Positives (FP) — no false alarm should be raised. This implies that an alarm is raised *IFF* a valid vulnerability is found.
+**Soundness** dictates that there should be no False Negatives (FN) — no vulnerability should be skipped. This implies that no alarm is raised *IF* there is no existing vulnerability in the *System Under Test (SUT)*. **Completeness** dictates that there should be no False Positives (FP) — no false alarm should be raised. This implies that an alarm is raised *IF* a valid vulnerability is found.
 
 A perfect testing tool is both sound and complete. However, this is an undecidable problem — given finite time, the tool will always be wrong for some input. In reality, tools often compromise of FPs or FNs.
 
@@ -242,7 +242,7 @@ Abstract Syntax Trees can also find security misconfigurations in the codebase, 
 ![AST rule enforcement](img/security-testing/ast-usecase2.png)
 
 
-This is an example of the famous *[Format string attack](https://owasp.org/www-community/attacks/Format_string_attack)*, which exploits a vulnerability in the `printf()` function family: in the absence of a format string parameter like `%s`, an attacker can supply their own format string parameter in the input, which will be evaluated as a pointer resulting in either arbitrary code execution or the denial of service.
+This is an example of the famous *[Format string attack](https://owasp.org/www-community/attacks/Format_string_attack)*, which exploits a vulnerability in the `printf()` function family: in the absence of a format string parameter like `%s`, an attacker can supply their own format string parameter in the input, which will be evaluated as a pointer resulting in either arbitrary code execution or a denial of service.
 
 
 ### Structural testing for security
@@ -341,7 +341,11 @@ Remember, if the value of a variable is controlled by a user-controlled paramete
 If a variable `X` copies its value to another variable `Y`, then the reaching definitions analysis dictates that the variable `Y` will receive all potential values of `X`, once they become known.
 Also, whether a loop terminates is an undecidable problem (also called the *halting problem*), so finding the actual values that a looping variable takes on is not possible using static analysis.
 
+<<<<<<< HEAD
+The analysis results in the following values of the three variables. If you look closely, some values are impossible during actual run-time, but since we trace the data flow statically, we perform an over-estimation of the allowed values. This is why static analysis, in particular DFA, is `Sound` but `Imprecise`.
+=======
 The analysis results in the following values of the three variables. If you look closely, some values are impossible during actual run-time, but since we trace the data flow statically, we perform an over-estimation of the allowed values. This is why, static analysis, in particular DFA, is `Sound` but `Incomplete`.
+>>>>>>> d1b69aafd51ac54bfeff18566ca3f05c16159a83
 
 ``` java
 a = {0, 1, 2, 3, ...}
@@ -352,9 +356,9 @@ c = {1, b} -> {0, 1, 10}  // 1, 10 are impossible
 ## Dynamic Application Security Testing (DAST)
 
 Application crashes and hangs leading to Denial of Service attacks are common security problems. They cannot be detected by static analysis since they are only triggered when the application is executed.
-DAST techniques execute an application and observe its behaviour. Since DAST tools typically do not have access to the source code, they can only test for functional code paths, and the analysis is only as good as the behaviour triggering mechanism. This is why, search-based algorithms have been proposed to maximize the code coverage, e.g. see [this work by Gross _et al._](https://dl.acm.org/doi/abs/10.1145/2338965.2336762) and [this work by Chen _et al._](https://ieeexplore.ieee.org/abstract/document/8418633).
+DAST techniques execute an application and observe its behaviour. Since DAST tools typically do not have access to the source code, they can only test for functional code paths, and the analysis is only as good as the behaviour triggering mechanism. This is why search-based algorithms have been proposed to maximize the code coverage, e.g. see [this work by Gross _et al._](https://dl.acm.org/doi/abs/10.1145/2338965.2336762) and [this work by Chen _et al._](https://ieeexplore.ieee.org/abstract/document/8418633).
 
-DAST tools are typically difficult to set-up, because they need to be hooked-up with the SUT, sometimes even requiring to modify the SUT's codebase, e.g. for instrumentation. They are also slower because of the added abstraction layer that monitors the application's behaviour. Nevertheless, they typically produce less false positives and more advanced results compared to SAST tools. Even when attackers obfuscate the codebase to the extent that it is not statically analysable anymore, dynamic testing can still monitor the behaviour and report strange activities. _BurpSuite_, _SonarQube_, and _OWASP's ZAP_ are some dynamic security testing tools.
+DAST tools are typically difficult to set up, because they need to be hooked-up with the SUT, sometimes even requiring to modify the SUT's codebase, e.g. for instrumentation. They are also slower because of the added abstraction layer that monitors the application's behaviour. Nevertheless, they typically produce less false positives and more advanced results compared to SAST tools. Even when attackers obfuscate the codebase to the extent that it is not statically analysable anymore, dynamic testing can still monitor the behaviour and report strange activities. _BurpSuite_, _SonarQube_, and _OWASP's ZAP_ are some dynamic security testing tools.
 
 In this section, we explain the following techniques for dynamic analysis:
 
@@ -387,7 +391,7 @@ To check the existence of such scenarios, they codify it in a property that _sto
 
 ### Penetration testing
 
-Penetration (or Pen) testing is the most commonly used type of security testing in organizations. It is sometimes also referred as ***Ethical hacking***. What makes pen testing different from others is that it is done from the perspective of an attacker — [pen-testers attempt to breach the security of the SUT just as an adversary might](https://www.ncsc.gov.uk/guidance/penetration-testing). Since it is done from the perspective of the attacker, it is generally black-box, but depending on the assumed knowledge of the attacker, it may also be white-box.
+Penetration (or Pen) testing is the most commonly used type of security testing in organizations. It is sometimes also referred to as ***Ethical hacking***. What makes pen testing different from others is that it is done from the perspective of an attacker — [pen-testers attempt to breach the security of the SUT just as an adversary might](https://www.ncsc.gov.uk/guidance/penetration-testing). Since it is done from the perspective of the attacker, it is generally black-box, but depending on the assumed knowledge of the attacker, it may also be white-box.
 
 Penetration testing checks the SUT in an end-to-end fashion, which means that it is done once the application is fully implemented, so it can only be done at the end of the SDLC. *MetaSploit* is an example of a powerful penetration testing framework. Most pen testing tools contain a ***Vulnerability Scanner*** module that either *runs existing exploits*, or allow the tester to *create an exploit*. They also contain ***Password Crackers*** that either *brute-force* passwords (i.e. tries all possible combinations given some valid character set), or perform a *dictionary attack* (i.e. chooses inputs from pre-existing password lists).
 
@@ -451,9 +455,9 @@ Behavioural logs are a good data source for forensic analysis of the SUT.
 
 ### Reverse Engineering (RE)
 
-Reverse Engineering is a related concept where the goal is to reveal the internal structure of an application. We can consider RE as a system-wide process that converts a black-box application into a white-box. RE is, strictly speaking, not a testing technique, but it is useful when (i) converting legacy software into a modern one, or (ii) understanding competitor's product.
+Reverse Engineering is a related concept where the goal is to reveal the internal structure of an application. We can consider RE as a system-wide process that converts a black-box application into a white-box. RE is, strictly speaking, not a testing technique, but it is useful when (i) converting legacy software into a modern one, or (ii) understanding a competitor's product.
 
-A use case for the behavioural logs from previous technique is to use them for automated reverse engineering that learns a model of the SUT. This model can then be used for, e.g. *Dynamic validation*, and/or to *guide path exploration* for better code coverage.
+A use case for the behavioural logs from the previous technique is to use them for automated reverse engineering that learns a model of the SUT. This model can then be used for, e.g. *Dynamic validation*, and/or to *guide path exploration* for better code coverage.
 
 For example, [TABOR](https://dl.acm.org/doi/abs/10.1145/3196494.3196546) learns a model of a water treatment plant in order to detect attacks. They learn an automata representing the _normal behaviour_ of the various sensors present in the plant. Anomalous incoming events that deviate from the normal models raise an alert.
 

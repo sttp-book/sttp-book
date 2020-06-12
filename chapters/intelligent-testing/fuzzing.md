@@ -47,7 +47,7 @@ For example, using a combination of a mutative and generative fuzzer can help to
 If the code structure is known (i.e., in a white-box setting), telemetry about code coverage can help constrain the applied mutations.   
 For example, for the `if` statement in the following code snippet, a heuristic based on ***branch coverage*** requires 3 test cases to fully cover it, while one based on ***statement coverage*** requires 2 test cases.
 Using branch coverage ensures that all three branches are tested at least once.
-While telemetry data does not directly help in generating valid test cases, it helps in selecting only those mutations that increase code coverage, for example. Code coverage metrics can also provide a stopping criteria for the fuzzer, reducing its the run-time.
+While telemetry data does not directly help in generating valid test cases, it helps in selecting only those mutations that increase code coverage, for example. Code coverage metrics can also provide a stopping criteria for the fuzzer, reducing its run-time.
 
 ```java
 public String func(int a, int b){
