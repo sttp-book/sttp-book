@@ -40,7 +40,7 @@ In this chapter, we investigate the threat landscape of Java applications becaus
 
 In order to understand the threat landscape for Java applications, we must analyse what kind of security vulnerabilities have been discovered in them over the years. There exist online repositories that consolidate such vulnerability information. The [NIST National Vulnerability Database](https://www.cvedetails.com/) is one such example.
 
-The [National Vulnerability Database](https://www.cvedetails.com/) is the largest repository of security vulnerabilities that are discovered in open source software. Each vulnerability is assigned a unique ***CVE (Common Vulnerability and Exposures)*** identifier, a ***CWE (Common Weakness Enumeration)*** that determines the _type_ of vulnerability, and a ***CVSS (Common Vulnerability Scoring System)*** score that determines the _severity_ of the vulnerability. Additionally, you can also view the products and their versions that are affected by the vulnerability.
+The [National Vulnerability Database](https://www.cvedetails.com/) is the largest repository of security vulnerabilities that are discovered in open source software. Each vulnerability is assigned a unique ***CVE (Common Vulnerabilities and Exposures)*** identifier, a ***CWE (Common Weakness Enumeration)*** that determines the _type_ of vulnerability, and a ***CVSS (Common Vulnerability Scoring System)*** score that determines the _severity_ of the vulnerability. Additionally, you can also view the products and their versions that are affected by the vulnerability.
 
 
 ### JRE vulnerabilities
@@ -88,7 +88,7 @@ socket = new Socket("host.example.org", 39544);
 readerInputStream = new InputStreamReader(socket.getInputStream(), "UTF-8");
 readerBuffered = new BufferedReader(readerInputStream);
 
-/* Read data usign an outbound tcp connection */
+/* Read data using an outbound tcp connection */
 String data = readerBuffered.readLine();
 
 Class<?> tempClass = Class.forName(data);
@@ -285,7 +285,7 @@ public void bad(HttpServletRequest request, HttpServletResponse response)
     /* Potential flaw: Display of data in web pages after using
     * replaceAll() to remove script tags,
     * will still allow XSS with string like <scr<script>ipt>. */
-    response.getWriter().println("<br>bad(): data = " + 
+    response.getWriter().println("<br>bad(): data = " +
     	data.replaceAll("(<script>)", ""));
   }
 }
@@ -341,7 +341,11 @@ Remember, if the value of a variable is controlled by a user-controlled paramete
 If a variable `X` copies its value to another variable `Y`, then the reaching definitions analysis dictates that the variable `Y` will receive all potential values of `X`, once they become known.
 Also, whether a loop terminates is an undecidable problem (also called the *halting problem*), so finding the actual values that a looping variable takes on is not possible using static analysis.
 
+<<<<<<< HEAD
 The analysis results in the following values of the three variables. If you look closely, some values are impossible during actual run-time, but since we trace the data flow statically, we perform an over-estimation of the allowed values. This is why static analysis, in particular DFA, is `Sound` but `Imprecise`.
+=======
+The analysis results in the following values of the three variables. If you look closely, some values are impossible during actual run-time, but since we trace the data flow statically, we perform an over-estimation of the allowed values. This is why, static analysis, in particular DFA, is `Sound` but `Incomplete`.
+>>>>>>> d1b69aafd51ac54bfeff18566ca3f05c16159a83
 
 ``` java
 a = {0, 1, 2, 3, ...}

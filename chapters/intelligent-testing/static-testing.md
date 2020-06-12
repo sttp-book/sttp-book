@@ -66,7 +66,7 @@ For example, for a rule _allowing at most 3 methods_, and the following code sni
 ![AST rule enforcement](img/static-testing/ast-usecase1.png)
 
 
-Abstract Syntax Trees are used by compilers to find sematic errors &mdash; compile-time errors associated to the _meaning_ of the program. ASTs can also be used for program verification, type-checking, and translating the program from one language to another.  
+Abstract Syntax Trees are used by compilers to find semantic errors &mdash; compile-time errors associated to the _meaning_ of the program. ASTs can also be used for program verification, type-checking, and translating the program from one language to another.  
 
 ## Performance of static analysis
 
@@ -86,10 +86,10 @@ Abstract Syntax Trees are used by compilers to find sematic errors &mdash; compi
 4. Detect coding mistakes
 
 **Exercise 2.** Given that a static analysis tool can view the entire codebase, what is the quality of results that the analysis will produce?
-1. Sound and Precise
-2. Sound but Imprecise
-3. Unsound but Precise
-4. Unsound and Imprecise
+1. Sound and Complete
+2. Sound but Incomplete
+3. Unsound but Complete
+4. Unsound and Incomplete
 
 **Exercise 3.** Create an Abstract Syntax Tree for the following code snippet:
 ```java

@@ -1,16 +1,16 @@
 # Fuzz testing
 
-Fuzzing is a popular dynamic testing technique used for automatically generating complex test cases. 
-Fuzzers bombard the System Under Test (SUT) with randomly generated inputs in the hope to cause crashes. 
-A crash can either originate from *failing assertions*, *memory leaks*, or *improper error handling*. 
+Fuzzing is a popular dynamic testing technique used for automatically generating complex test cases.
+Fuzzers bombard the System Under Test (SUT) with randomly generated inputs in the hope to cause crashes.
+A crash can either originate from *failing assertions*, *memory leaks*, or *improper error handling*.
 Fuzzing has been successful in discovering [unknown bugs](https://lcamtuf.coredump.cx/afl/) in software.
 
 {% hint style='tip' %}
 Note that fuzzing cannot identify flaws that do not trigger a crash.
 {% endhint %}
 
-**Random fuzzing** is the most primitive type of fuzzing, where the SUT is considered as a completely black box, with no assumptions about the type and format of the input. 
-It can be used for exploratory purposes, but it takes a long time to generate any meaningful test cases. 
+**Random fuzzing** is the most primitive type of fuzzing, where the SUT is considered as a completely black box, with no assumptions about the type and format of the input.
+It can be used for exploratory purposes, but it takes a long time to generate any meaningful test cases.
 In practice, most software takes some form of _structured input_ that is pre-specified, so we can exploit that knowledge to build more efficient fuzzers.
 
 
@@ -20,14 +20,14 @@ There are two ways of generating fuzzing test cases:
 
 2. **Generation-based Fuzzing**, also known as *Protocol fuzzing*, takes the file format and protocol specification of the SUT into account when generating test cases. Generative fuzzers take a data model as input that specifies the input format, and the fuzzer generates test cases that only alter the values while conforming to the specified format. For example, for an application that takes `JPEG` files as input, a generative fuzzer would fuzz the image pixel values while keeping the `JPEG` file format intact. _PeachFuzzer_ is an example of a generative fuzzer.
 
-Compared to mutative fuzzers, generative fuzzers are _less generalisable_ and _difficult to set up_ because they require input format specifications. 
+Compared to mutative fuzzers, generative fuzzers are _less generalisable_ and _more difficult to set up_ because they require input format specifications.
 However, they produce higher-quality test cases and result in better code coverage.
 
 
 ## Maximising code coverage
 
-One of the challenges of effective software testing is to generate test cases that not only _maximise the code coverage, but do so in a way that tests for a wide range of possible values_. 
-Fuzzing helps achieve this goal by generating wildly diverse test cases. 
+One of the challenges of effective software testing is to generate test cases that not only _maximise the code coverage, but do so in a way that tests for a wide range of possible values_.
+Fuzzing helps achieve this goal by generating wildly diverse test cases.
 For example, [this blog post by Regehr](https://blog.regehr.org/archives/896) describes the use of fuzzing in order to optimally test an ADT implementation.
 
 We want the fuzzer to generate these test cases in a reasonable time.
@@ -39,15 +39,15 @@ There are various ways in which we achieve maximal code coverage in less time:
 
 
 ### Multiple tools
-A simple yet effective way to maximise code coverage is to use multiple fuzzing tools. 
-Each fuzzer performs mutations in a different way, so they can be run together to cover different parts of the search space in parallel. 
+A simple yet effective way to maximise code coverage is to use multiple fuzzing tools.
+Each fuzzer performs mutations in a different way, so they can be run together to cover different parts of the search space in parallel.
 For example, using a combination of a mutative and generative fuzzer can help to generate diverse test cases while also ensuring valid inputs.
 
 ### Telemetry as heuristics
-If the code structure is known (i.e., in a white-box setting), telemetry about code coverage can help constrain the applied mutations. 
-For example, for the `if` statement in the following code snippet, a heuristic based on ***branch coverage*** requires 3 test cases to fully cover it, while one based on ***statement coverage*** requires 2 test cases. 
-Using branch coverage ensures that all three branches are tested at least once. 
-Such heuristics can be used to select only those mutations that increase code coverage.
+If the code structure is known (i.e., in a white-box setting), telemetry about code coverage can help constrain the applied mutations.   
+For example, for the `if` statement in the following code snippet, a heuristic based on ***branch coverage*** requires 3 test cases to fully cover it, while one based on ***statement coverage*** requires 2 test cases.
+Using branch coverage ensures that all three branches are tested at least once.
+While telemetry data does not directly help in generating valid test cases, it helps in selecting only those mutations that increase code coverage, for example. Code coverage metrics can also provide a stopping criteria for the fuzzer, reducing its the run-time.
 
 ```java
 public String func(int a, int b){
@@ -63,14 +63,14 @@ public String func(int a, int b){
 ```
 
 ### Symbolic execution
-We can specify the potential values of variables that allow the program to reach a desired path, using so-called **symbolic variables**. 
+We can specify the potential values of variables that allow the program to reach a desired path, using so-called **symbolic variables**.
 We assign symbolic values to these variables rather than explicitly enumerating each possible value.
 
-We can then construct the formula of a **path predicate** that answers this question: 
-_Given the path constraints, is there any input that satisfies the path predicate?_. 
-We then only fuzz the values that satisfy these constraints. 
-A popular tool for symbolic execution is _Z3_. 
-It is a combinatorial solver that, when given path constraints, can find all combinations of values that satisfy the constraints. 
+We can then construct the formula of a **path predicate** that answers this question:
+_Given the path constraints, is there any input that satisfies the path predicate?_.
+We then only fuzz the values that satisfy these constraints.
+A popular tool for symbolic execution is _Z3_.
+It is a combinatorial solver that, when given path constraints, can find all combinations of values that satisfy the constraints.
 The output of _Z3_ can be given as an input to a generative or mutative fuzzer to optimally test various code paths of the SUT.
 
 The path predicate for the `else if` branch in the previous code snippet will be: $$((N+M \leq 2) \& (N < 100))$$. The procedure to derive it is as follows:
