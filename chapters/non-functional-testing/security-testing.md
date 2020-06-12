@@ -100,8 +100,7 @@ IO.writeLine(tempClassObject.toString());
 
 ```
 
-The `Class.forName(data)` is the root cause of the vulnerability. If you look closely, the object's value is loaded dynamically from `host.example.org:39544`. If the host is controlled by an attacker, they can introduce new functions or overload existing ones with their malicious code in the class that is returned. This new code becomes part of the application's logic at run-time.
-A famous version of this attack is an **Update attack** in Android applications, where a plugin seems benign, but it downloads malicious code at run-time.
+The `Class.forName(data)` is the root cause of the vulnerability. If you look closely, the object's value is loaded dynamically from `host.example.org:39544`. If the host is controlled by an attacker, they can introduce new functions or overload existing ones with their malicious code in the class that is returned. This new code becomes part of the application's logic at run-time. A famous version of this attack is an **Update attack** in Android applications, where a plugin seems benign, but it downloads malicious code at run-time.
 
 Static analysis tools often fail to detect this attack, since the malicious code is not yet part of the application logic at the checking time.
 >Due to the variations that Code Injection can present itself in, it is the top entry in the [OWASP Top 10 list of vulnerabilities](https://owasp.org/www-project-top-ten/). To limit its effect, developers can disallow 'untrusted' plugins, and can limit the privileges that a certain plugin has, e.g. by disallowing plugins to access sensitive folders.
@@ -186,7 +185,7 @@ As such, the term *security testing* is very broad and it covers a number of ove
 
 |         |    White-box    |    Black-box    |
 |------------|----------------------------------------------------|-------------------------------------------------------------------------|
-|    **Static Application Security Testing**    | Code checking, Pattern matching, ASTs, CFGs,  DFDs  |  |
+|    **Static Application Security Testing**    | Code checking, Pattern matching, ASTs, CFGs,  DFDs  |  Reverse engineering|
 |    **Dynamic Application Security Testing**    | Tainting, Dynamic validation, Symbolic  execution | Penetration testing,  Reverse engineering, Behavioural analysis,  Fuzzing |
 
 You should already be familiar with _white/black-box_ testing, static testing and some of the mentioned techniques.
@@ -217,7 +216,7 @@ Additionally, an ideal testing tool is **interpretable**: an analyst can trace t
 
 SAST techniques aim to find security bugs without running the application. They can find bugs that can be observed in the source code and for which _signatures_ can be made, e.g. SQL Injection and basic Cross-Site Scripting. _SpotBugs_, _FindSecBugs_, and _Coverity_ are static analysis tools specially meant to test security problems in applications.
 
-SAST is not only limited to code checking — it includes any approach that does not require running the SUT. For example, **Risk-based testing**  is a business-level process where we model the worst-case scenarios (or abuse cases) using threat modelling. An application is tested against the generated abuse cases to check its resilience against them. *Risk-based testing can be done both statically and dynamically.*
+SAST is not only limited to code checking — it includes any approach that does not require running the SUT. For example, **Risk-based testing**  is a business-level process where we model the worst-case scenarios (or abuse cases) using threat modelling. An application is tested against the generated abuse cases to check its resilience against them. Risk-based testing can be done both statically (if the abuse-case targets problems found in source code) and dynamically (for run-time threats).
 
 Below, we discuss SAST techniques and provide examples of the security bugs that they can find.
 
