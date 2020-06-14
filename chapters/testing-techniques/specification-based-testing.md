@@ -2,21 +2,22 @@
 
 In this chapter, we explore **specification-based testing** techniques. These use the *requirements* of the program (often written as text; think of user stories and/or UML use cases) as input for testing.
 
-In simple terms, we devise a set
-of inputs, where each input tackles one part (or *partition*)
+In simple terms, we devise a set 
+of inputs, where each input tackles one part (or *partition*) 
 of the program.
 
-Given that specification-based techniques require no knowledge
-of how the software inside the “box” is structured
-(i.e., it does not matter if it is developed in Java or Python and concrete implementation details [such as usage of a particular data structure] are not of importance), these techniques are also referred to
-as **black box testing**.
+Given that specification-based techniques require no knowledge 
+of how the software inside the "box" is structured.
+For instance, it does not matter if the software was developed in Java or Python,
+or what particular data structures were used in the implementation.
+Therefore, these techniques are also referred to as **black box testing**.
 
 
 ## Partitioning the input space
 
 Programs are usually too complex to be tested with just a single test case.
 There are different cases in which the program is executed 
-and its execution often depends on various factors, such as the input
+and its execution often depends on various factors, such as the input 
 to the program.
 
 Let's use a small program as an example. The specification below talks about a program that decides whether a given year is a leap year or not. 
@@ -30,18 +31,18 @@ Let's use a small program as an example. The specification below talks about a p
 >
 >- the year is divisible by 4;
 >- and the year is not divisible by 100;
->- except when the year is divisible by 400 (because then it is still a leap year)
+>- except when the year is divisible by 400 (because then it is a leap year)
 
-To find a good set of test cases, often referred to as a *test suite*,
+To find a good set of test cases, often referred to as a *test suite*, 
 we split the program into *classes*.
-In other words, we divide the input space of
+In other words, we divide the input space of 
 the program in such a way that:
-1) Each class is different, i.e. it is unique, where
+1) Each class is different, i.e. it is unique, where 
 no two partitions represent/exercise the same behaviour;
 2) We can easily verify whether the behaviour for a given input is correct or not.
 
 
-By looking at the requirements above, we can derive the
+By looking at the requirements above, we can derive the 
 following classes/partitions:
 
 * Year is divisible by 4, but not divisible by 100 = `leap year, TRUE`
@@ -61,19 +62,19 @@ Note how each class above exercises the program in different ways.
 
 The partitions above are not test cases that we can implement directly because
 each partition might be instantiated by an infinite number of inputs. For example,
-for the partition "year not divisible by 4", there are infinitely many numbers
+for the partition "year not divisible by 4", there are infinitely many numbers 
 that are not divisible by 4 which we could use as concrete inputs to the program.
 So how do we know which concrete input to instantiate for each of the partitions?
 
 As we discussed earlier, each partition exercises the program in a certain way.
-In other words, all input values from one specific partition will make the program
+In other words, all input values from one specific partition will make the program 
 behave in the same way.
 Therefore, any input we select should give us the same result.
-We assume that, if the program behaves correctly for one given input,
+We assume that, if the program behaves correctly for one given input, 
 it will work correctly for all other inputs from that class.
-This idea of inputs being equivalent to each other
+This idea of inputs being equivalent to each other 
 is called **equivalence partitioning**.
-Thus, it does not matter which precise input we select and one test case per
+Thus, it does not matter which precise input we select and one test case per 
 partition will be enough.
 
 Let’s now write some JUnit tests for the leap year problem. Remember that the name of a test method
@@ -81,7 +82,7 @@ in JUnit can be anything. It is good to name your test method after the
 partition that the method tests.
 
 {% hint style='tip' %}
-We discuss more about test code quality and best practices in writing test code in
+We discuss more about test code quality and best practices in writing test code in 
 a future chapter.
 {% endhint %}
 
@@ -101,9 +102,9 @@ public class LeapYear {
 }
 ```
 
-With the classes we devised above, we have 4 test cases in total (i.e., one test case
+With the classes we devised above, we have 4 test cases in total (i.e., one test case 
 for each class/partition).
-As any input can be used for a given partition,
+As any input can be used for a given partition, 
 the following inputs will be used for the partitions:
 
 - 2016, divisible by 4, not divisible by 100.
@@ -116,33 +117,28 @@ Implementing this using JUnit gives the following code for the tests:
 ```java
 public class LeapYearTests {
 
-  private LeapYear leapYear;
-
-  @BeforeEach
-  public void setup() {
-    leapYear = new LeapYear();
-  }
+  private final LeapYear leapYear = new LeapYear();
 
   @Test
-  public void leapYearsNotCenturialTest() {
+  public void divisibleBy4_notDivisibleBy100() {
     boolean leap = leapYear.isLeapYear(2016);
     assertTrue(leap);
   }
 
   @Test
-  public void leapYearsCenturialTest() {
+  public void divisibleBy4_100_400() {
     boolean leap = leapYear.isLeapYear(2000);
     assertTrue(leap);
   }
 
   @Test
-  public void nonLeapYearsTest() {
+  public void notDivisibleBy4() {
     boolean leap = leapYear.isLeapYear(39);
     assertFalse(leap);
   }
 
   @Test
-  public void nonLeapYearsCenturialTest() {
+  public void divisibleBy4_and_100_not_400() {
     boolean leap = leapYear.isLeapYear(1900);
     assertFalse(leap);
   }
@@ -151,10 +147,9 @@ public class LeapYearTests {
 
 Note that each test method covers one of the partitions and the naming of the method refers to the partition it covers.
 
-For those who are learning JUnit: Note that the `setup` method is executed 
-before each test, thanks to the `BeforeEach` annotation.
-For each test, it creates a new `LeapYear` object.
-This object is then used by the tests to execute the method under test.
+For those who are learning JUnit: Note that a new instance of the test class is created before each test,
+so each test has a new `LeapYear` object. In this example, the `LeapYear` object has no state, so refreshing
+the object under test is not significant, but this is good practice to observe in general.
 In each test we first determine the result of the method.
 After the method returns a value, we assert that this is the expected value.
 
@@ -168,18 +163,18 @@ So far we have derived partitions by just looking at the specification of the pr
 We basically used our experience and knowledge to derive the test cases.
 In this chapter, we will discuss a more systematic way of deriving these partitions: the **Category-Partition** method.
 
-The method provides us with a systematic way of deriving test cases, based on the characteristics of the input parameters. It also reduces the number of tests to a feasible number.
+This method provides us with a systematic way of deriving test cases, based on the characteristics of the input parameters. It also reduces the number of tests to a practical number.
 
-We now set out the steps of this method and then we illustrate the process with an example.
+Here are the steps we follow for this method and then an example to illustrate the process.
 
-1. Identify the parameters, or the input of the program. For example, the parameters your classes and methods receive.
+1. Identify the parameters, or the input for the program. For example, the parameters your classes and methods receive.
 2. Derive characteristics of each parameter. For example, an `int year` should be a positive integer number between 0 and infinite. 
       - Some of these characteristics can be found directly in the specification of the program.
       - Others might not be found from specifications. For example, an input cannot be `null` if the method does not handle that well.
 
 3. Add constraints in order to minimise the test suite.
       - Identify invalid combinations. For some characteristics it might not be possible to combine them with other characteristics.
-      - Exceptional behaviour does not always have to be combined with all the different values of the other inputs. For example, trying a single `null` input might be enough to test that corner case.
+      - Exceptional behaviour does not always have to be combined with all of the values of the other inputs. For example, trying a single `null` input might be enough to test that corner case.
 
 4. Generate combinations of the input values. These are the test cases.
 
@@ -189,7 +184,7 @@ Let's apply the technique in the following program:
 > 
 > The system should give a 25% discount on the cart when it is Christmas.
 > The method has two input parameters: the total price of the products in the cart, and the date.
-> When it is not Christmas it just returns the original price; otherwise it applies the discount.
+> When it is not Christmas, it just returns the original price; otherwise it applies the discount.
 
 Following the category-partition method:
 
@@ -197,20 +192,20 @@ Following the category-partition method:
       - The current date
       - The total price
 
-2. Now for each parameter we define the characteristics as:
+2. For each parameter we define the characteristics as:
       - Based on the requirements, the only important characteristic is that the date can be either Christmas or not.
       - The price can be a positive number, or in certain circumstances it may be 0. Technically the price can also be a negative number. This is an exceptional case, as you cannot pay a negative amount.
 
 3. The number of characteristics and parameters is not too large in this case. As the negative price is an exceptional case, we can test this with just one combination, instead of with a date that is Christmas and a date that is not Christmas.
 
 4. We combine the other characteristics to get the following test cases:
-      - Positive price on Christmas
-      - Positive price not on Christmas
-      - Price of 0 on Christmas
-      - Price of 0 not on Christmas
-      - Negative price on Christmas
+      - Positive price at Christmas
+      - Positive price not at Christmas
+      - Price of 0 at Christmas
+      - Price of 0 not at Christmas
+      - Negative price at Christmas
 
-Now we can implement these test cases.
+We now implement these test cases.
 Each of the test cases corresponds to one of the partitions that we want to test.
 
 {% set video_id = "frzRmafsPBk" %}
@@ -220,10 +215,10 @@ Each of the test cases corresponds to one of the partitions that we want to test
 
 > **Requirement: Chocolate bars**
 >
-> A package stores a certain number of chocolate bars in kilos.
+> A package contains a certain number of chocolate bars in kilos.
 > A package is composed of small bars (1 kilo each) and big bars (5 kilos each).
 >
-> Assume that the package is always filled with the maximum number of big bars possible, return the number of small bars required to complete the package. 
+> Assuming that the package is always filled with the maximum number of big bars possible, return the number of small bars required to complete the package. 
 > Return -1 if it is not possible to fill the package completely.
 >
 > The input of the program is: the number of available small bars, the number of available big bars, and the total number of kilos of the package.
@@ -253,15 +248,15 @@ in order to derive the partitions.
 
 One way to perform the analysis is to consider how the input variables affect the output variables. We observe that:
 
-* There are three input variables: _number of small bars_, _number of big bars_, _number of kilos in a package_. They are all integers and values can range from 0 to infinite.
-* Given a valid _number of kilos in a package_, the outcome is then based on the _number of big bars_ and _number of small bars_. This means we can not analyse each variable separately, but only together.
+* There are three input variables: _number of small bars_, _number of big bars_, _number of kilos in a package_. They are all integers and values can range from 0 to infinity.
+* Given a valid _number of kilos in a package_, the outcome is then based on the _number of big bars_ and _number of small bars_. This means we can only analyse the variables together, instead of separately.
 
 We derive the following classes / partitions:
 
 * **Need only small bars**. A solution that only uses small bars (and does not use big bars).
 * **Need only big bars**. A solution that only uses the big bars (and does not use small bars).
 * **Need small + big bars**. A solution that has to use both small and big bars.
-* **Not enough bars**. A case in which it is impossible, because there are not enough bars.
+* **Not enough bars**. A case for which there is no solution, because there are not enough bars.
 
 We also derive an invalid class:
 
@@ -312,7 +307,7 @@ This example shows a case where deriving good test cases becomes more challengin
 specifications being complex.
 
 {% hint style='tip' %}
-If you know some advanced features of JUnit, you might be wondering why we did not use, e.g., Parameterized Tests. We will refactor this test code in a future chapter.
+If you know some advanced features of JUnit, you might be wondering why we did not use something like parameterised tests. We will refactor this test code in a future chapter.
 {% endhint %}
 
 {% set video_id = "T8caAUwgquQ" %}
@@ -320,33 +315,16 @@ If you know some advanced features of JUnit, you might be wondering why we did n
 
 
 
-## Random testing vs specification-based testing
-
-One might think: but what if, instead of looking at the requirements,
-a tester just keeps giving random inputs to the program?
-**Random testing** is indeed a popular black-box technique where programs are tested by generating random inputs. 
-
-Although random testing can definitely help us in finding bugs, it is not an effective way to find bugs in a large input space. 
-Developers/testers use their experience and knowledge of the program to test trouble-prone areas more effectively.
-However, they generate a limited number of tests in a specific time period such as a day,
-while computers can generate millions of tests in the same period of time.
-A combination of random testing and partition testing is therefore the most beneficial.
-
-{% hint style='tip' %}
-In future chapters, fuzzing testing and AI-based testing will be discussed, with information
-about automated random testing.
-{% endhint %}
-
 ## Exercises
 
 **Exercise 1.**
 What is an Equivalence Partition?
 
 
-1. A group of results that is produced by one method
-2. A group of results that is produced by one input passed into different methods
-3. A group of inputs that all make a method behave in the same way
-4. A group of inputs that gives exactly the same output in every method
+1. A group of results that is produced by one method.
+2. A group of results that is produced by one input passed into different methods.
+3. A group of inputs that all make a method behave in the same way.
+4. A group of inputs that gives exactly the same output in every method.
 
 **Exercise 2.**
 We have a program called FizzBuzz.
@@ -381,18 +359,18 @@ See a slightly modified version of the HashMap's `put` method Javadoc below. (So
 
 ```java
 /**
- * Puts the supplied value into the Map,
- * mapped by the supplied key.
- * If the key is already in the map, its
- * value will be replaced by the new value.
- *
- * NOTE: Nulls are not accepted as keys;
- *  a RuntimeException is thrown when key is null.
- *
- * @param key the key used to locate the value
- * @param value the value to be stored in the HashMap
- * @return the prior mapping of the key, or null if there was none.
- */
+* Puts the supplied value into the Map,
+* mapped by the supplied key.
+* If the key is already in the map, its
+* value will be replaced by the new value.
+*
+* NOTE: Nulls are not accepted as keys;
+*  a RuntimeException is thrown when key is null.
+*
+* @param key the key used to locate the value
+* @param value the value to be stored in the HashMap
+* @return the prior mapping of the key, or null if there was none.
+*/
 public V put(K key, V value) {
   // implementation here
 }
@@ -425,19 +403,19 @@ Apply the category/partition method. What are the **minimal and most suitable pa
 
 ```java
 /**
- * Adds the specified element to this set if it 
+* Adds the specified element to this set if it 
  * is not already present.
- * If this set already contains the element, 
+* If this set already contains the element, 
  * the call leaves the set unchanged
- * and returns false.
- *
- * If the specified element is NULL, the call leaves the
- * set unchanged and returns false.
- *
- * @param e element to be added to this set
- * @return true if this set did not already contain 
+* and returns false.
+*
+* If the specified element is NULL, the call leaves the
+* set unchanged and returns false.
+*
+* @param e element to be added to this set
+* @return true if this set did not already contain 
  *   the specified element
- */
+*/
 public boolean add(E e) {
     // implementation here
 }
@@ -449,19 +427,19 @@ Which of the following statements **is false** about applying the category/parti
 
 ```java
 /**
- * Puts the supplied value into the Map, 
+* Puts the supplied value into the Map, 
  * mapped by the supplied key.
- * If the key is already in the map, its
- * value will be replaced by the new value.
- *
- * NOTE: Nulls are not accepted as keys; 
+* If the key is already in the map, its
+* value will be replaced by the new value.
+*
+* NOTE: Nulls are not accepted as keys; 
  *  a RuntimeException is thrown when key is null.
- *
- * @param key the key used to locate the value
- * @param value the value to be stored in the HashMap
- * @return the prior mapping of the key, 
+*
+* @param key the key used to locate the value
+* @param value the value to be stored in the HashMap
+* @return the prior mapping of the key, 
  *  or null if there was none.
- */
+*/
 public V put(K key, V value) {
   // implementation here
 }
@@ -474,11 +452,11 @@ public V put(K key, V value) {
 
 3. In an object-oriented language, besides using the method's input parameters to explore partitions, we should also consider the internal state of the object (i.e., the class's attributes), as it can also affect the behaviour of the method.
 
-4. With the information in hands, it is not possible to perform the category/partition method, as the source code is required for the last step of the category/partition method: adding constraints.
+4. With the available information, it is not possible to perform the category/partition method, as the source code is required for the last step of the category/partition method: adding constraints.
 
 
 **Exercise 7.**
-Consider a `find` program that finds occurrences of a pattern in a file, the program has the following syntax:
+Consider a `find` program that finds occurrences of a pattern in a file. The program has the following syntax:
 
 ```
 find <pattern> <file>
@@ -500,23 +478,23 @@ What test cases should be created when taking both the partition of the input pa
 
 ```java
 /**
- * Adds the specified element to this set if it 
+* Adds the specified element to this set if it 
  * is not already present.
- * If this set already contains the element, 
+* If this set already contains the element, 
  * the call leaves the set unchanged
- * and returns false.
- *
- * If the specified element is NULL, the call leaves the
- * set unchanged and returns false.
- *
- * If the set is full, 
+* and returns false.
+*
+* If the specified element is NULL, the call leaves the
+* set unchanged and returns false.
+*
+* If the set is full, 
  * the call leaves the set unchanged and return false.
- * Use private method `isFull` to know whether the set is already full.
- *
- * @param e element to be added to this set
- * @return true if this set did not already contain 
+* Use private method `isFull` to know whether the set is already full.
+*
+* @param e element to be added to this set
+* @return true if this set did not already contain 
  *   the specified element
- */
+*/
 public boolean add(E e) {
     // implementation here
 }
@@ -532,4 +510,3 @@ public boolean add(E e) {
 * Ostrand, T. J., & Balcer, M. J. (1988). The category-partition method for specifying and generating functional tests. Communications of the ACM, 31(6), 676-686.
 
 * Pacheco, C., & Ernst, M. D. (2007, October). Randoop: feedback-directed random testing for Java. In Companion to the 22nd ACM SIGPLAN conference on Object-oriented programming systems and applications companion (pp. 815-816).
-

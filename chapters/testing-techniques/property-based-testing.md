@@ -202,20 +202,6 @@ public class FizzBuzzTest {
 
 You may see other examples in our [code repository](https://www.github.com/sttp-book/code-examples).
 
-## Property-based testing and AI
-
-A lot of today's research goes into creating AI for software testing that generates good input values for tests.
-We try to apply artificial intelligence to find inputs that exercise important parts of the system.
-
-While the research's results are very promising, there still exist difficulties with this testing approach.
-The main problem is that if the AI generates random inputs, how do we know for sure that the outcome is correct, i.e., how do we know that the problem behaved correctly for that random value?
-With the unit test we made so far, we manually took certain inputs, thought about the correct outcome, and made the assertion to expect that outcome.
-When generating random inputs, we cannot think about the outcome every time.
-The pre- and post-conditions, contracts, and properties we discussed in this chapter can help us solve the problem.
-By well-defining the system in these terms, we can use them as oracles in the test cases.
-The properties always have to be true, so we can use them in all the randomly generated test cases.
-
-We will discuss AI techniques more in a future chapter.
 
 ## Exercises
 

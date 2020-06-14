@@ -21,7 +21,7 @@ With self-testing, we "move" part of the test suite into the system itself.
 These assertions we insert into production code allows the system to check if it is running correctly by itself.
 We do not have to run the test suite, but instead the system can check (part of) its behaviour during its normal execution.
 Like with the test suite, if anything is not acting as expected, an error will be thrown.
-In software testing, the self-tests are used as an additional check in the system additional to the test suite.
+In software testing, the self-tests are used as an additional check in the system complementary to the test suite.
 
 ### Assertions
 
@@ -44,7 +44,7 @@ The program just continues its execution as everything is according to plan.
 However, if the `<condition>` yields false, the `assert` throws an `AssertionError`.
 
 Let us walk through an example.
-Suppose an implementation of a Stack, which we just show the `pop` method:
+Take the implementation of a Stack, of which we just show the `pop` method:
 
 ```java
 public class MyStack {
@@ -93,7 +93,7 @@ So far, we only used "value comparison" as oracle. Given an input that
 we devised, we knew what output to expect. For example, in a program that
 returns the square root of a number, given `n=4`, the value we expect as output
 is `2`.
-Instead of focusing on a specific instances, like we did so far, property checks, like the ones we are going to see in the remaining of this chapter, are more general rules (properties) that we assert on our code. For example, a program that, given $$n$$, returns $$n^2$$, has a property that it should never return a negative number.
+Instead of focusing on a specific instance, like we did so far, property checks, like the ones we are going to see in the remainder of this chapter, are more general rules (properties) that we assert on our code. For example, a program that, given $$n$$, returns $$n^2$$, has a property that it should never return a negative number.
 
 Assertions also serve as an extra safety measure.
 If it is crucial that a system runs correctly, we can use the asserts to add some additional testing during the system's execution.
@@ -179,7 +179,7 @@ The number of assumptions made before a method can be executed (and, with that, 
 One might want to *weaken the pre-conditions*, so that the method accepts/is able to handle more situations.
 To that aim, we can remove a pre-condition as the method itself can handle the situation where the pre-condition would be false.
 This makes the method more generally applicable, but also increases its complexity.
-The method always has to check some extra things to handle the cases that could had been pre-conditions.
+The method always has to check some extra things to handle the cases that could have been pre-conditions.
 Finding the balance between the number of pre-conditions and complexity of the method is part of designing the system.
 
 
@@ -226,7 +226,7 @@ public class FavoriteBooks {
 }
 ```
 
-Note that, although we increased the complexity of method by removing some of its pre-conditions and dealing with these cases in the implementation, the method is now also easier to be called by clients. After all, the method has less pre-conditions to be considered.
+Note that, although we increased the complexity of the method by removing some of its pre-conditions and dealing with these cases in the implementation, the method is now also easier to be called by clients. After all, the method has less pre-conditions to be considered.
 
 
 
@@ -261,14 +261,14 @@ public class FavoriteBooks {
 ```
 
 The other effect of the method is the notification that is sent.
-Unfortunately, we cannot easily formalise it as a post-condition.
+Unfortunately, we cannot easily formalise this as a post-condition.
 In a test suite, we would probably mock the `pushNotification` and then use `Mockito.verify` to verify that `booksAdded` was called.
 
 
 It is important to realise that these post-conditions only have to hold if the pre-conditions held when the method was called. **In other words, if the method's pre-conditions were not fully satisfied, the method might not guarantee its post-conditions.**
 
 You also saw in the example that we could not really write assertions for
-some of post-conditions of the method. 
+some of the post-conditions of the method. 
 Post-conditions (and pre-conditions for that matter) might not cover all the possible effects; however,
 hopefully they do cover a relevant subset of the possible behaviour.
 
@@ -567,14 +567,9 @@ Here, we define the abstract method that gives us a List.
 ```java
 public abstract class ListTest {
 
-  private List list;
+  protected final List list = createList();
 
   protected abstract List createList();
-
-  @BeforeEach
-  public void setUp() {
-    list = createList();
-  }
 
   // Common List tests using list
 }
@@ -699,7 +694,7 @@ Inspired by Bertrand Meyer's design by contracts, he also uses asserts to make s
 A second colleague comes in and expresses concerns about the design.
 How can you use the assertions provided to discuss the correctness of this design?
 
-Is the second colleagues concern justified?
+Is the second colleague's concern justified?
 What principle is violated, if any?
 Explain with the assertions shown in the code.
 
@@ -752,6 +747,8 @@ Which of the following is a valid reason to use assertions in your code?
 1. To conduct user input validation.
 1. To make debugging easier.
 
+**Exercise 8.**
+Can static methods have invariants? Explain.
 
 
 ## References

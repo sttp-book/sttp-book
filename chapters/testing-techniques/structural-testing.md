@@ -409,7 +409,7 @@ Imagine the following program and its respective CFG:
 
 ```java
 void hello(int a, int b) {
-  if(a > 10 && b > 20) {
+  if(a > 10 & b > 20) {
     System.out.println("Hello");
   } else {
     System.out.println("Hi");
@@ -431,20 +431,13 @@ In practice, whenever we use condition coverage, we actually perform **branch + 
 that we achieve 100% condition coverage (i.e., all the outcomes of all conditions are exercised) and 100% branch coverage (all the outcomes
 of the compound decisions are exercised).
 
-The formula to calculate branch+condition coverage might vary among tools. Some consider the same as in condition coverage:
-
-$$\text{C/DC coverage} = \frac{\text{conditions outcome covered}}{\text{conditions outcome total}} \cdot 100\%$$
-
-Others prefer to count, for each decision block, the number of outcomes per condition plus the number of outcomes per decision. For example, an `if(a>10 && b < 10)` would count as 6, as 2 for the `a>10` condition, 2 for the `b<10` condition, and 2 for the `a>10 && b<10`. This formula would give us a clear differentiation between basic condition and decision+condition coverage:
+The formula to calculate branch+condition coverage is as follows. Note how this formula gives us a clear differentiation between basic condition and decision+condition coverage:
 
 $$\text{C/DC coverage} = \frac{\text{conditions outcome covered + decisions outcome covered}}{\text{conditions outcome total + decisions outcome total}} \cdot 100\%$$
 
 
-From now on, whenever we mention **condition coverage**, we mean **condition + branch coverage**.
-
-
 {% hint style='tip' %}
-Another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in $$2^N$$ tests, given $$N$$ conditions.
+Another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in 2^N tests, given N conditions.
 {% endhint %}
 
 {% set video_id = "oWPprB9GBdE" %}
@@ -597,7 +590,7 @@ If we take the decision block from path coverage example, `A && (B || C)`, MC/DC
   * In both test cases T3 and T4, variables A and B should be the same.
     
 Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is, on average, $$N+1$$, where $$N$$ is the number of conditions in the decision. 
-Note that $$N+1$$ is definitely smaller than $$2^N$$!
+Note that $$N+1$$ is definitely smaller than all the possible combinations ($$2^N$$)!
 
 Again, to devise a test suite that achieves 100% MC/DC coverage, we should devise $$N+1$$ test cases that, when combined, 
 exercise all the combinations independently from the others.
@@ -900,7 +893,7 @@ Given the source code of the `sameEnds` method. Which of the following statement
 
 Now consider this piece of code for the FizzBuzz problem.
 Given an integer `n`, it returns the string form of the number followed by `"!"`.
-So the integer 6 would yield `"6!"`.
+So the integer 8 would yield `"8!"`.
 Except if the number is divisible by 3 it returns "Fizz!" and if it is divisible by 5 it returns "Buzz!".
 If the number is divisible by both 3 and 5 it returns "FizzBuzz!"
 Based on a [CodingBat problem](https://codingbat.com/prob/p115243).

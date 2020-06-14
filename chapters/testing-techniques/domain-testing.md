@@ -43,12 +43,10 @@ A program receives two numbers and returns the sum of these two integers. Number
 
 ### Strategy
 
-* X has 7 partitions, Y has 7 partitions.
-* All combinations would be 7 * 7 = 49.
 * Variables are independent (X does not affect the range of Y, and vice-versa).
-* 14 tests
-* 7 partitions of X, in point for Y,
-* 7 partitions of Y, in points for X.
+* 7 tests for X (3 partitions + 4 boundaries), in point for Y.
+* 7 tests for Y (3 partitions + 4 boundaries), in points for X.
+* Total of 14 tests
 
 *In-point X = 50, In-point Y = 50.*
 
@@ -108,13 +106,11 @@ Final sum should be <= 165.
 
 ### Strategy
 
-* X has 7 partitions, Y has 7 partitions, Sum has 4 partitions.
-* All combinations would be 7 * 7 * 4 = 196.
 * Variables are independent (X does not affect the range of Y, and vice-versa).
-* 16 tests
-* 7 partitions of X, in point for Y,
-* 7 partitions of Y, in points for X.
-* 2 for the extra boundary on sum.
+* 7 tests for X (3 partitions + 4 boundaries), in point for Y,
+* 7 tests for Y (3 partitions + 4 boundaries), in points for X.
+* 2 tests for the boundary on Sum.
+* Total of 16 tests
 
 *In-point X = 50 (taking into consideration that X <= 165 - Y),
 In-point Y = 50 (taking into consideration that Y <= 165 - X).*
@@ -182,8 +178,8 @@ Boundaries seem to be enough.
 | T1        | 1             | false         |                |
 | T2        | 4.9           | false         |                |
 | T3        | 5             | true          |                |
-| T4        | 7.5           | true          |                |
-| T5        | 10            | true          | extra in-point |
+| T4        | 7.5           | true          | extra in-point |
+| T5        | 10            | true          |                |
 
 {% set video_id = "S_90_sYP7GA" %}
 {% include "/includes/youtube.md" %}
@@ -301,9 +297,17 @@ A student can only join the MSc if :
 
 ### Equivalence partitioning / Boundary Analysis
 
+The conditions from the requirements are really close with each other. Because of that, finding values that cross the boundary between partitions is challenging. We also note that the boundary that matters here is from (student being approved) -> (student not being approved). So, for each partition, we should find its boundary that would force the student not being approved.
+
+These boundary points can found through the following process. We first find the on-point of the boundary, for instance (35, 3.6), then discover the closest inputs that would make the student to fail. In this example, (34, 3.6) and (35, 3.5). Note that there exists one special case (= 36, >= 3.5). Since it contains an equality condition, we have two off-points to explore.
+
+Also note that we are using in-points that are on-points too. This is less common, but in the case of this problem choosing anohter in-point might make the final outcome to still not change between the boundary tests we devised.
+For example, if we choose a GPA in-point of 3.6, the 35 and 36 ACT will have the same outcome value (as the next rule will intervene).
+
 | Variable	| Equivalence classes	| Boundaries	| Remark	|
 | ---		| ---					| ---			| ---		|
 |(ACT, GPA)	| (= 36, >= 3.5)		| (35, in)		| in-point GPA = 3.5 	|
+|			| 						| (36, in)		| on-point			|
 |			| 						| (37, in)		| 			|
 |			| 						| (in, 3.5)		| in-point ACT = 36		|
 |			| 						| (in, 3.4)		| 			|
@@ -327,17 +331,12 @@ A student can only join the MSc if :
 |			| 						| (30, in)		| 			|
 |			| 						| (in, 4.0)		| in-point ACT = 31		|
 |			| 						| (in, 3.9)		| 			|
-|			| (= 36, >= 3.5)		| (35, in)		| in-point GPA = 3.5 	|
-|			| 						| (37, in)		| 			|
-|			| 						| (in, 3.5)		| in-point ACT = 36		|
-|			| 						| (in, 3.4)		| 			|
 |			| (< 0, < 0.0)			| (-1, in)		| in-point GPA = 0.1 	|
 |			| 						| (in, -0.1)	| in-point ACT = 1		|
 |			| (> 36, > 4.0)			| (37, in)		| in-point GPA = 4 		|
 |			| 						| (in, 4.1)		| in-point ACT = 36		|
 
-*Note that we are using in-points that are on-points too. This is less common, but in the case of this problem choosing anohter in-point might make the final outcome to still not change between the boundary tests we devised.*
-*For example, if we choose a GPA in-point of 3.6, the 35 and 37 ACT will have the same outcome value (as the next rule will intervene).*
+
 
 ### Strategy
 * There are 24 boundaries *(for conditions on valid inputs)*, but some are repeated. 14 boundary tests.
@@ -359,7 +358,7 @@ A student can only join the MSc if :
 | T12 			| 30 	| 4.0	| False		|
 | T13 			| 31 	| 3.9	| False		|
 | T14 			| -1 	| 4.0	| *Invalid*	|
-| T15 			| 40 	| 4.0	| *Invalid*	|
+| T15 			| 37 	| 3.5	| *Invalid*	|
 | T16 			| 36 	| -0.1	| *Invalid*	|
 | T17			| 36	| 4.1	| *Invalid* |
 
@@ -412,14 +411,15 @@ FN + MN + LN <= 68
 
 ### Strategy
 
-Each variable has 6 partitions, thus: 6 * 6 * 6 = 216 tests.
+* Each variable has 2 partitions, plus a restriction.
 
-Let's not combine "invalid strings" with them all. So: 3 tests for exceptional cases + 5 * 5 * 5 = 125 + 3 = 128.
+* Let's not combine "invalid strings" with them all. So: 3 tests for exceptional cases + 5 * 5 * 5 = 125 + 3 = 128.
 
-If we focus on the on-points and off-points, and in-points for others, we'd have 4 + 4 + 4 = 12 tests plus invalid cases: 15 tests.
+* If we focus on the on-points and off-points, and in-points for others, we'd have 4 + 4 + 4 = 12 tests plus invalid cases: 15 tests.
 
-In-points always taking the FN + MN + LN <= 68 restriction into account.
-Two tests for the extra restriction: 17 tests.
+* In-points always taking the FN + MN + LN <= 68 restriction into account.
+
+* Two tests for the extra restriction: 17 tests.
 
 | Test Case | FN             | MN             | LN             | (length) | output  |                          |
 |-----------|----------------|----------------|----------------|----------|---------|--------------------------|
@@ -524,7 +524,107 @@ Test the boundaries (removing duplicates) → 10 tests
 {% set video_id = "IaWioXqM1g4" %}
 {% include "/includes/youtube.md" %}
 
+### Another approach
+
+One may argue that this functions is continuous in all of its boundaries, which makes the result the same for all
+(`on`, `off`) pairs.
+
+As, a consequence when looking just at the results at the boundaries we are not exercising them in the most efficient way.
+The whole purpose of boundary testing is to minimize the costs while maximizing fault detection capability.
+
+What can we do to make our test cases more efficient? We can observe that what is really changing when making
+the transition from one partition to another is not the result of the function itself, but its derivative. Thus, we can
+focus on looking at the derivative for `on` and `off` points.
+
+Let's recall the definition of the derivative of function `f` at point `a`: `f'(a) = lim h -> 0 ((f(a+h) - f(a)) / h)`
+To determine the derivative numerically we have to substitute `h` with sufficiently small number. For our case let `h = 0.01`.
+
+We can now look at the boundary between first and second partition. `off = 22099.99` `on = 22100`
+
+By substituting those values into the definition of the derivative, we can determine the derivative of `f` at `off` `on`:
+
+1. `f'(off) = (f(off+h) - f(off)) / h = (f(22099.99 + 0.01) - f(22099.99)) / 0.01 = (f(22100) - f (22099.99)) / 0.01`
+2. `f'(on) = (f(on+h) - f(a)) / h = (f(22100 + 0.01) - f(22100)) / 0.01 = (f(22100.01) - f (22100)) / 0.01`
+
+Now we find the expected derivatives for the corresponding off and on points from the specification:
+
+1. `f(off) = 0.15 * off` thus `f'(off) = 0.15`
+2. `f(on) = 3315 + 0.28 * (on - 22100)` thus `f'(a) = 0.28`
+
+Now in our tests we can check whether actual derivatives for on and off points are equal to the expectation. What is left
+to do is to repeat the whole process for all other boundaries.
+
+Note that if we decide to exercise the boundaries in this way, we have to remember to write the tests for the results too, as correct derivative does not imply correct function.
+Maybe the developer, during implementation, instead of `3315 + 0.28 * (on - 22100)` wrote `315 + 0.28 * (on - 22100)`,
+which by testing only for derivatives we will not spot.
+
+This example shows that as a software testers we, not only have to identify the boundaries between partitions, but also
+think about what is really changing when crossing those boundaries, in order to maximize the efficiency of our test cases.
+
 ## Exercise 8: The ATM
+
+An ATM allows you to withdraw 20 to 200 euros (inclusive) in increments of 20.
+For the example purposes, the program returns true or false, depending whether the amount required is valid.
+
+### Variables
+| Variable |  Type   | Range |
+| -------- | ------- | ----- |
+|  Amount  | integer | {20, 40, 60, 80, 100, 120, 140, 160, 180, 200}|
+|  Valid   | boolean | `true`, `false`
+
+### Dependency among variables
+
+Valid depends on the Amount
+
+### Equivalence Partitioning/Boundary Analysis
+| Variable | Equivalence classes | Invalid classes | Boundaries |
+| -------- | ------------------- | --------------- | ---------- |
+|  Amount  | 20 | | 19 |
+| | | | 21 |
+| | 40 | | 39 |
+| | | | 41 |
+| | 60 | | 59 |
+| | | | 61 |
+| | 80 | | 79 |
+| | | | 81 |
+| | 100 | | 99 |
+| | | | 101 |
+| | 120 | | 119 |
+| | | | 121 |
+| | 140 | | 139 |
+| | | | 141 |
+| | 160 | | 159 |
+| | | | 161 |
+| | 180 | | 179 |
+| | | | 181 |
+| | 200 | | 199 |
+| | | | 201 |
+| | | -1 | |
+
+Note that `-1` may be impossible to test.
+
+### Strategy
+
+* Black-box testing: maybe all the on-points, off-points and invalid points.   
+* White-box testing: maybe just on-points, few-off points, invalid points.   
+Why? If you know the implementation, you know how hard you need to test it.
+
+| Test case | Amount | Valid (output) |
+| --------- | ------ | -------------- |
+| T1 | 20 | true |
+| T2 | 40 | true |
+| T3 | 60 | true |
+| T4 | 80 | true |
+| T5 | 100 | true |
+| T6 | 120 | true | 
+| T7 | 140 | true | 
+| T8 | 160 | true |
+| T9 | 180 | true |
+| T10 | 200 | true |
+| T11 | 19 | false |
+| T12 | 41 | false |
+| T13 | 61 | false |
+| T14 | -1 | false |
 
 {% set video_id = "A9sjzHGcpiA" %}
 {% include "/includes/youtube.md" %}
@@ -537,17 +637,17 @@ The input domain of a function is a set of all points (x, y) that meet the crite
 * `1 <= y <= 10`
 * `y <= 14 - x`
 
-## Variables
+### Variables
 | Variable | Type | Range |
 | -------- | ---- | ----- |
 | x | integer | `1 < x <= 10`
 | y | integer | `1 <= y <= 10`, `y <= 14 - x`
 
-## Dependency among variables
+### Dependency among variables
 
 * `x` and `y` are dependent, since the range in `y` varies according to `x`.
 
-## Equivalence Partitioning/Boundary Analysis
+### Equivalence Partitioning/Boundary Analysis
 | Variable | Equivalence classes | Invalid classes | Boundaries |
 | -------- | ------------------- | --------------- | ---------- |
 | x | `1 < x <= 10` | | |
@@ -567,11 +667,11 @@ The input domain of a function is a set of all points (x, y) that meet the crite
 | | | | `(11, 4)` |
 
 
-## Strategy
+### Strategy
 Make tests for all 12 boundaries
 
-| Test case | x | y | output |
-| --------- | - | - | ------ |
+| Test case |  x  |  y  | output |
+| --------- | --- | --- | ------ |
 | T1 | 1 | 5 | false |
 | T2 | 2 | 5 | true |
 | T3 | 10 | 2 | true |
@@ -585,14 +685,14 @@ Make tests for all 12 boundaries
 | T11 | 10 | 4 | true |
 | T12 | 11 | 4 | false |
 
-## Another approach
+### Another approach
 
 We might look at the plot of the function. In the plot, we identify 5 boundaries (one at each of the extremes of the figure). As a tester, we can exercise these boundaries.
 
 ![Boundary testing chart](img/domain-testing/piecewise-boundary-chart.png)
 
-| Test case | x | y | output |
-| --------- | - | - | ------ |
+| Test case |  x  |  y  | output |
+| --------- | --- | --- | ------ |
 | T1 | 1 | 1 | false |
 | T2 | 2 | 1 | true |
 | T3 | 10 | 1 | true |
