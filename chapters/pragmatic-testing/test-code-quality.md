@@ -856,7 +856,7 @@ In the code below, we present the source code of an automated test.
 @Test
 public void flightMileage() {
   // setup fixture
-  // exercise contructor
+  // exercise constructor
   Flight newFlight = new Flight(validFlightNumber);
   // verify constructed object
   assertEquals(validFlightNumber, newFlight.number);
@@ -864,7 +864,7 @@ public void flightMileage() {
   assertNull(newFlight.airline);
   // setup mileage
   newFlight.setMileage(1122);
-  // exercise mileage translater
+  // exercise mileage translator
   int actualKilometres = newFlight.getMileageAsKm();    
   // verify results
   int expectedKilometres = 1810;
