@@ -332,7 +332,7 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "Product " + name + " times" + qty + " = " + finalAmount();
+		return "Product " + name + " times " + qty + " = " + finalAmount();
 	}
 }
 ```
