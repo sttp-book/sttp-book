@@ -22,7 +22,7 @@ The regular expression that results in the following automata is '**bug**'. An i
 ![FSM for bug](img/static-testing/regex1.png)
 
 
-Regex also have options to introduce wildcard characters. For example, the regular expression '**.*bug**' results in the following automata. `.` denotes any possible character, and `*` denotes *0 or many times*. Hence, the following strings will be accepted by this pattern: `bug` and `this is a bug`. The following strings will be rejected by this pattern: `bug!`, `bugs`, `bad bug`.
+Regex also have options to introduce wildcard characters. For example, the regular expression '**.\*bug**' results in the following automata. `.` denotes any possible character, and `*` denotes *0 or many times*. Hence, the following strings will be accepted by this pattern: `bug`, `bad bug` and `this is a bug`. The following strings will be rejected by this pattern: `bug!`, `bugs`.
 
 
 
