@@ -120,25 +120,25 @@ public class LeapYearTests {
   private final LeapYear leapYear = new LeapYear();
 
   @Test
-  public void divisible_by_4_not_divisible_by_100() {
+  public void divisibleBy4_notDivisibleBy100() {
     boolean leap = leapYear.isLeapYear(2016);
     assertTrue(leap);
   }
 
   @Test
-  public void divisible_by_4_100_400() {
+  public void divisibleBy4_100_400() {
     boolean leap = leapYear.isLeapYear(2000);
     assertTrue(leap);
   }
 
   @Test
-  public void not_divisible_by_4() {
+  public void notDivisibleBy4() {
     boolean leap = leapYear.isLeapYear(39);
     assertFalse(leap);
   }
 
   @Test
-  public void divisible_by_4_and_100_not_400() {
+  public void divisibleBy4_and_100_not_400() {
     boolean leap = leapYear.isLeapYear(1900);
     assertFalse(leap);
   }
