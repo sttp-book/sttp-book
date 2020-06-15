@@ -634,7 +634,7 @@ Which of the following mutation operators can be applied to the method in order 
 4. Assignment Operator Replacement (`=`, `+=`, `-=`, `/=`)
 5. Scalar Variable Replacement
 
-Provide an upper-bound estimate for the number of possible mutants of the method above. Assume that our tool replaces every instance of an operator/variable independently. Additionally, keep in mind that replacing an operator/variable by itself does not produce mutants. For example, for `b < a` you can consider 5 out of 6 possible mutations.
+Provide an upper-bound estimate for the number of possible mutants of the method above. Assume that our tool replaces every instance of an operator/variable independently.
 
 {% hint style='working' %}
 We need to develop more exercises for this chapter
