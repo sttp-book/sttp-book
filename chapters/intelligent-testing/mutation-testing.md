@@ -283,7 +283,7 @@ public class Fraction {
 ```
 
 We see that, again, the test suite catches this error.
-The test `testInvertZero()` will fail, as it expects an exception but none is thrown in the mutant, and `testInvert()` will also fail since it has a 1 as the numerator which wrongly triggers an exception.
+The test `testInvertZero()` will fail, as it expects an exception but none is thrown in the mutant, and `testInvert()` will also fail since it has a 1 in the numerator which wrongly triggers an exception.
 
 
 ## Automation
