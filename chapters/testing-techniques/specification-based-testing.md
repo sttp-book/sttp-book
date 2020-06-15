@@ -120,25 +120,25 @@ public class LeapYearTests {
   private final LeapYear leapYear = new LeapYear();
 
   @Test
-  public void leapYearsNotCenturialTest() {
+  public void divisibleBy4_notDivisibleBy100() {
     boolean leap = leapYear.isLeapYear(2016);
     assertTrue(leap);
   }
 
   @Test
-  public void leapYearsCenturialTest() {
+  public void divisibleBy4_100_400() {
     boolean leap = leapYear.isLeapYear(2000);
     assertTrue(leap);
   }
 
   @Test
-  public void nonLeapYearsTest() {
+  public void notDivisibleBy4() {
     boolean leap = leapYear.isLeapYear(39);
     assertFalse(leap);
   }
 
   @Test
-  public void nonLeapYearsCenturialTest() {
+  public void divisibleBy4_and_100_not_400() {
     boolean leap = leapYear.isLeapYear(1900);
     assertFalse(leap);
   }
@@ -147,10 +147,9 @@ public class LeapYearTests {
 
 Note that each test method covers one of the partitions and the naming of the method refers to the partition it covers.
 
-For those who are learning JUnit: Note that the `setup` method is executed
-before each test, thanks to the `BeforeEach` annotation.
-For each test, it creates a new `LeapYear` object.
-This object is then used by the tests to execute the method under test.
+For those who are learning JUnit: Note that a new instance of the test class is created before each test,
+so each test has a new `LeapYear` object. In this example, the `LeapYear` object has no state, so refreshing
+the object under test is not significant, but this is good practice to observe in general.
 In each test we first determine the result of the method.
 After the method returns a value, we assert that this is the expected value.
 
