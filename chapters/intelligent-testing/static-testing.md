@@ -13,28 +13,28 @@ The classical approach underlying static analysis is checking the code for poten
 
 Pattern matching is a code checking approach that searches for pre-defined patterns in code. A **Regular expression** or RegEx is a sequence of characters that represent a pattern. Simply put, a regex engine reads code character-by-character and upon every character-match, progresses through the regular expression until no more characters remain. Depending on the logic, either a positive/negative reaction is returned indicating whether the final state was an accepting/rejecting state, or all code snippets that matched the pattern are returned.
 
-Regular expressions are usually represented using ***Finite State Automaton***. Each _node_ represents a state. We move from one state to the next by taking the _transition_ that matches the input symbol. Below you see a few examples of regular expressions and their corresponding finite state automata. The node with an arrow is called the _starting state_. _Green states_ are accepting states, and _red states_ are rejecting states.
+Regular expressions are usually represented using ***Finite State Automaton***. Each _node_ represents a state. We move from one state to the next by taking the _transition_ that matches the input symbol. Below you see a few examples of regular expressions and their corresponding finite state automata. The node with a black arrow is called the _starting state_. _Green states_ are accepting states, and _red states_ are rejecting states.
 
-The regular expression that results in the following automata is '**bug**'. An input of the string `bug` will transition from left to right, until we end up in the green state. However, an input of `bag` will move from first state to the second state, and then to the red state. Since there is no transition out of this state, we will stay here until the input finishes.
+The automata for the regular expression '**bug**' is shown below. An input string `bug` will transition from left to right, until we end up in the green state. However, the string `bag` will move from first state to the second state, and then to the red state. Since there is no transition out of this state, we will stay here until the input finishes.
 
 
 
 ![FSM for bug](img/static-testing/regex1.png)
 
 
-Regex also have options to introduce wildcard characters. For example, the regular expression '**.\*bug**' results in the following automata. `.` denotes any possible character, and `*` denotes *0 or many times*. Hence, the following strings will be accepted by this pattern: `bug`, `bad bug` and `this is a bug`. The following strings will be rejected by this pattern: `bug!`, `bugs`.
+Regex also have options to introduce wildcard characters. For example, the regular expression '**.*bug**' results in the following automata. `.` denotes any possible character, and `*` denotes *0 or many times*. Hence, it accepts any string that ends in _bug_. The following strings will be accepted by this pattern: `bug`, `this is a bug`, `bad bug`, and `bugbug`. `bug!` will be rejected by this pattern. Note that this is a non-deterministic automata since there are two possible transitions for the symbol `b` in the first state.
 
 
 
 ![FSM for .*bug](img/static-testing/regex2.png)
 
 
-The automata for '**.\*bug.\***' is given below. It will accept any string that contains the characters `b`, `u`, `g` consecutively, at least once, before the occurrence of `b`, `u`, or `g` separately.
+The automata for '**.\*bug.\***' is given below. It will accept any string that contains `b`, `u`, `g` consecutively, at least once. In this case, even `bug!` will be accepted.
 
 
 ![FSM for .*bug.*](img/static-testing/regex3.png)
 
-Regular expressions have some limitations: First, they cannot count, so we need to explicitly program each scenario in the regex, which reduces flexibility. For example, if we wanted to _allow at most 3 methods_, we would need to create a regex with three explicit sub-patterns, one for each function occurrence. Second, regular expressions don't take semantics into account, so they create many false positives. For example, consider the following code snippet. Suppose that the regular expression, `(\s)*System.out.println\(.*\);`, searches for all print statements in the code to remove them before deployment. It will find three occurrences in the code snippet, which are all FPs because the code is already disabled by a flag.
+While regular expressions are a fast and powerful pattern matching technique, they do have some serious limitations: First, they cannot count, so we need to explicitly program each scenario in the regex, which reduces flexibility. For example, if we wanted to _allow at most 3 methods_, we would need to create a regex with three explicit sub-patterns, one for each function occurrence. Second, regular expressions don't take semantics into account, so they create many false positives. For example, consider the following code snippet. Suppose that the regular expression, `(\s)*System.out.println\(.*\);`, searches for all print statements in the code to remove them before deployment. It will find three occurrences in the code snippet, which are all FPs because the code is already disabled by a flag.
 
 ```java
 boolean DEBUG = false;
@@ -66,7 +66,7 @@ For example, for a rule _allowing at most 3 methods_, and the following code sni
 ![AST rule enforcement](img/static-testing/ast-usecase1.png)
 
 
-Abstract Syntax Trees are used by compilers to find sematic errors &mdash; compile-time errors associated to the _meaning_ of the program. ASTs can also be used for program verification, type-checking, and translating the program from one language to another.  
+Abstract Syntax Trees are used by compilers to find semantic errors &mdash; compile-time errors associated to the _meaning_ of the program. ASTs can also be used for program verification, type-checking, and translating the program from one language to another.  
 
 ## Performance of static analysis
 
@@ -86,10 +86,15 @@ Abstract Syntax Trees are used by compilers to find sematic errors &mdash; compi
 4. Detect coding mistakes
 
 **Exercise 2.** Given that a static analysis tool can view the entire codebase, what is the quality of results that the analysis will produce?
-1. Sound and Precise
-2. Sound but Imprecise
-3. Unsound but Precise
-4. Unsound and Imprecise
+1. Sound and Complete
+2. Sound but Incomplete
+3. Unsound but Complete
+4. Unsound and Incomplete
+
+**Exercise 3.** Create an Abstract Syntax Tree for the following code snippet:
+```java
+(a + b) * (c - d)
+```
 
 
 ## References

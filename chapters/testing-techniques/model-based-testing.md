@@ -773,7 +773,7 @@ Here, the flow of the entire system is under test, from input to output.
 The system under test does not always provide a programming interface (API) to inspect the state or trigger the event for the transitions.
 A common example of such a system is a web application.
 In the end, the web application works through a browser.
-To access the state or to trigger the transitions you would then need to use a dedicated tool, like [webdriver](https://webdriver.io/).
+To access the state or to trigger the transitions you would then need to use a dedicated tool to control the browser.
 Using such a dedicated tool directly is not ideal, as you would have to specify each individual click on the web page to trigger events.
 What we need is an abstraction layer on top of the system being tested.
 This abstraction can be a Java class, with the methods that we need to be able to test the system as its state machine.
@@ -781,6 +781,7 @@ In this way, the abstraction layer will contain the inspection method to check t
  
 With this small abstraction layer, we can formulate the tests clearly.
 Triggering a transition is a single method call and checking the state also requires only one method call.
+An example of such an abstraction layer is discussed in the chapter on web testing.
  
  
 ## Another example of a real-world model

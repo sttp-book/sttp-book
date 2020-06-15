@@ -295,7 +295,7 @@ interactions among partitions.
 
 
 
-## Automating boundary testing with JUnit (via Parameterized Tests)
+## Automating boundary testing with JUnit (via parameterised tests)
 
 You might have noticed that in the domain matrix we always have a certain number of input values and, implicitly, an expected output value.
 We could just implement the boundary tests by making a separate method for each test, or by
@@ -306,10 +306,10 @@ Moreover, the code in these test methods will be largely the same,
 as they all have the same structure, only with different input and output values.
 
 Luckily, JUnit offers a solution where we can generalise the implementation of a test
-method, and run it with different inputs and expected outputs: **Parameterized Tests**.
-As the name suggests, with a parameterized test, developers 
+method, and run it with different inputs and expected outputs: **parameterised Tests**.
+As the name suggests, with a parameterised test, developers 
 can define a test method with parameters.
-To define a parameterized test, you make use of the `@ParameterizedTest` annotation, 
+To define a parameterised test, you make use of the `@ParameterizedTest` annotation, 
 instead of the usual `@Test` annotation.
 
 For each parameter you want to pass to the "template test method", you define a 
@@ -349,7 +349,7 @@ it would look like the following: `@CsvSource({"value11, value12", "value21, val
     }
 ```
 
-Some developers prefer not to pass a list of CSV/strings. For those, JUnit provides a `@MethodSource` option, which allows developers to provide the input for the parameterized test through a method. The developer simply needs to define a method that returns a `Stream<Arguments>` (and set the name of this method in the `@MethodSource` annotation). See the implementation below:
+Some developers prefer not to pass a list of CSV/strings. For those, JUnit provides a `@MethodSource` option, which allows developers to provide the input for the parameterised test through a method. The developer simply needs to define a method that returns a `Stream<Arguments>` (and set the name of this method in the `@MethodSource` annotation). See the implementation below:
 
 ```java
 public class ChocolateBarsTest {

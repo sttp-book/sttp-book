@@ -1,5 +1,25 @@
 # Answers to the exercises
 
+## Index
+
+[Principles of software testing](#principles-of-software-testing)  
+[Introduction to software testing automation](#introduction-to-software-testing-automation)  
+[Specification-based testing](#specification-based-testing)  
+[Boundary testing](#boundary-testing)  
+[Structural testing](#structural-testing)  
+[Model-Based Testing](#model-based-testing)  
+[Design-by-contracts](#design-by-contracts)  
+[Property-based testing](#property-based-testing)  
+[Testing pyramid](#testing-pyramid)  
+[Test doubles](#test-doubles)  
+[Design for Testability](#design-for-testability)  
+[Test-Driven Development](#test-driven-development)  
+[Test code quality](#test-code-quality)  
+[Static testing](#static-testing)  
+[Mutation testing](#mutation-testing)  
+[Security testing](#security-testing)  
+[Search-based software testing](#search-based-software-testing)
+
 ## Principles of software testing
 
 **Exercise 1**
@@ -1140,7 +1160,9 @@ Both tests are very slow.
 
 **Exercise 2**
 
-Mystery guest
+This test requires the existence of a Git repo to work. Although this is something explicit in the test, a developer might need to understand what this Git repo looks like in order to understand a possible test failure. This test then, in a way, suffers from the _mystery guest_.
+
+(This test is unlikely to be flaky. The git repository used in the test will never change; think of a Git repo created just for the test. It is also unlikely that Git will change its behavior. Everything runs in a single thread, so no real concurrency issues.)
 
 
 **Exercise 3**
@@ -1156,7 +1178,7 @@ Flaky test.
 
 **Exercise 5**
 
-To avoid the flakiness, a developer could have mocked the random function. It does not make sense, the test is about testing the generator and its homogeneity; if we mock, the test looses its purposes.
+To avoid the flakiness, a developer could have mocked the random function. It does not make sense, the test is about testing the generator and its homogeneity; if we mock, the test loses its purposes.
 
 
 
@@ -1171,6 +1193,8 @@ Regular expressions cannot count instances.
 
 Static analysis produces over-generalized results with some false positives, so the analysis is Sound but Imprecise.
 
+**Exercise 3.**
+![Answer to the AST question](img/intelligent-testing/AST_answer.png)
 
 
 
@@ -1180,7 +1204,14 @@ Static analysis produces over-generalized results with some false positives, so 
 
 Mutation testing.
 
+**Exercise 2.**   
 
+We can apply *Relational Operator Replacements*, *Assignment Operator Replacements*, and *Scalar Variable Replacements*.
+In the given method we have 2 instances of *relational operators*, 2 instances of *assignment operators*, and 9 instances of *scalar variables*. The upper-bound estimate of the number of mutants becomes:
+
+$$6^2 \cdot 4^2 \cdot 3^9 - 1 = 11337407$$
+
+We calculate all the possible variants and then subtract $1$ for the original method so that we are left with only the mutants.
 
 
 ## Security testing

@@ -1,17 +1,15 @@
-﻿
 # Mutation testing
 
-*How do we know if we tested enough?*
+*How do we know if we have tested enough?*
+
 In the structural testing chapter, we discussed line coverage, branch coverage, and MC/DC.
 In the model-based testing chapter, we discussed transition coverage and path coverage.
-All these *adequacy criteria* measure how much of the program is exercised 
-by the tests we devised.
+All these *adequacy criteria* measure how much of the program is exercised by the tests we devised.
 
-However, these criteria alone might not be enough to determine the 
-quality of the test cases.
+However, these criteria alone might not be enough to determine the quality of the test cases.
 In practice, we can exercise large parts of the system, while testing very little.
 
-Suppose a class with a single method:
+Consider the following class with a single method:
 
 ```java
 public class Division {
@@ -27,7 +25,7 @@ public class Division {
 }
 ```
 
-Now, imagine a tester writing the following test cases:
+Imagine a tester writing the following test cases:
 
 ```java
 @Test
@@ -41,9 +39,7 @@ public void testZero() {
 }
 ```
 
-These tests give us 100% branch coverage.
-However, you probably also noticed that something is missing in these tests: 
-**the assertions**! These tests will never fail!
+While these tests give us 100% branch coverage, you probably also noticed that these tests will never fail as there are no **assertions**! 
 
 ## Fault Detection Capability
 
@@ -58,9 +54,8 @@ For a test to be adequate according to this criterion, it has to have a meaningf
 The fault detection capability, as a test adequacy criterion, is the fundamental idea behind **mutation testing**.
 In mutation testing, we change small parts of the code, and check if the tests can find the introduced fault.
 
-
-In the previous example, we made a test suite that was not adequate at all, according to the fault detection capability.
-As there were no assertions, the tests would never find any faults in the code.
+In the previous example, we made a test suite that was not adequate in terms of its fault detection capability, 
+because there were no assertions, and so the tests would never find any faults in the code.
 
 Tests with assertions check if the result of the method is what we expect. We have a **test oracle** now.
 
@@ -97,10 +92,10 @@ public void testGetValuesDifferent() {
 }
 ```
 
-For the fault detection capability, we want to see if the tests catch any faults that could be in the code.
+For the fault detection capability, we want to see if the tests detect any faults in the code.
 
 This means we have to go back to the source code and introduce an error. 
-We replace the division by a multiplication; a clear bug:
+We replace the division by a multiplication: a clear bug.
 
 ```java
 public class Division {
@@ -119,9 +114,9 @@ public class Division {
 If we run our tests with the buggy code, we see that the test with the values 1 and 1 (the `testGetValuesOnes()` test) still passes, but the other test (the `testGetValuesDifferent()`) fails.
 This indicates that the second test has a higher fault detection capability.
 
-Even though both tests exercise the method in the same way and execute the same lines, we see a difference in the fault detection capability.
-This is because of the different input values for the method and the different test oracles (assertions) in the tests.
-In this case, the input values and test oracle of the `testGetValuesDifferent()` test can better detect that bug.
+Even though both tests exercise the method in the same way and execute the same lines, we see a difference in the fault detection capability. 
+This is because of the different input values for the method and the different test oracles (assertions) in the tests. 
+In this case, the input values and test oracle of the `testGetValuesDifferent()` test can detect the bug better.
 
 
 {% set video_id = "QYbqz-gFWAk" %}
@@ -149,27 +144,24 @@ Here, we assume that the program is written by a competent programmer.
 More importantly, this means that given a certain specification, the programmer creates a program that is either correct, or it differs from a correct program by a combination of simple errors.
 
 * **The Coupling Effect**:
-The coupling effect hypothesis states that simple faults are coupled to more complex faults.
+The coupling effect hypothesis states that simple faults are coupled with more complex faults.
 In other words, test cases that detect simple faults, will also detect complex faults.
 
-Based on these two hypotheses, we can determine the size 
-that the mutants should have.
-Realistically, following the competent programmer hypothesis, 
-the faults in the actual code will be small.
+Based on these two hypotheses, we can determine the size that the mutants should have.
+Realistically, following the competent programmer hypothesis, the faults in the actual code will be small.
 This indicates that the mutants' size should be small as well.
-Considering the coupling effect, test cases that detect 
-small errors, will also be able to detect larger, more complex errors.
+Considering the coupling effect, test cases that detect small errors will also be able to detect larger, more complex errors.
 
 
 ## Terminology
 
-To talk about mutation testing in an in-depth way, let us define some terms:
+Before we talk about mutation testing in an in-depth way, we define some terms:
 
 - **Mutant**: Given a program $$P$$, a mutant called $$P'$$ is obtained by introducing a *syntactic change* to $$P$$. A mutant is killed if a test fails when executed with the mutant.
 - **Syntactic Change**: A small *change* in the code. Such a small change should make the code still valid, i.e., the code can still compile and run.
-- **Change**: A change, or alternation, to the code that mimic typical human mistakes. We will see some examples of these mistakes later.
+- **Change**: A change, or alteration, to the code that mimics typical human mistakes. We will see some examples of these mistakes later.
 
-We illustrate mutation testing with these concepts in the example below.
+The example below illustrates mutation testing with these concepts.
 
 Suppose we have a `Fraction` class with a method `invert()`.
 
@@ -195,7 +187,7 @@ public class Fraction {
 }
 ```
 
-We have a test suite for this method as well:
+Here is a test suite for this method:
 
 ```java
 @Test
@@ -226,8 +218,8 @@ public void testInvertMinValue(){
 }
 ```
 
-We have two tests for corner cases that throw an exception, and two more "happy path" tests.
-Now, let us determine the quality of our test suite, using mutation testing.
+The test suite contains two tests for corner cases that throw an exception, and two "happy path" tests.
+We will now determine the quality of our test suite using mutation testing.
 
 First, we have to create a *mutant* by applying a *syntactic change* to the original method.
 Keep in mind that, because of the two hypotheses, we want the syntactic change to be small: one operation/variable should be enough.
@@ -261,7 +253,7 @@ public class Fraction {
 }
 ```
 
-If we would execute the test suite on this mutant, the `testInvertNegative()` test will fail, as `result.getFloat()` would be positive instead of negative.
+If we execute the test suite on this mutant, the `testInvertNegative()` test will fail, as `result.getFloat()` would be positive instead of negative.
 
 Another mistake could be made in line 1.
 When we studied boundary analysis, we saw that it is important to test the boundaries due to off-by-one errors.
@@ -296,22 +288,22 @@ The test `testInvertZero()` will fail, as it expects an exception, but none is t
 
 ## Automation
 
-Manually writing the mutations of our programs might take a lot of time. 
+Writing the mutations of our programs manually might take a lot of time. 
 Moreover, we probably would only think of the cases that are already tested.
 Like with test execution, we want to **automate the mutation process**.
-There are various tools that automatically generate mutants for mutant testing, but they all use the same methodology.
+There are various tools that generate mutants for mutant testing automatically, but they all use the same methodology.
 
 First we need mutation operators.
-A **mutation operator** is a grammatic rule that can be used to introduce a syntactic change.
+A **mutation operator** is a grammatical rule that can be used to introduce a syntactic change.
 This means that, if the generator sees a statement in the code that corresponds to the grammatic rule of the operator (e.g., `a + b`), then the mutation operator specifies how to change this statement with a syntactic change (e.g., turning it into `a - b`).
 
-We distinguish two categories of mutation operators:
+We can identify two categories of mutation operators:
 
 - **Real fault based operators**: Operators that are very similar to defects seen in the past for the same kind of code. Such operators look like common mistakes made by programmers in similar code.
-- **Language-specific operators**: Mutations that are made specifically for a certain programming language. For example, changes related to the inheritance feature we have in Java, or changes regarding pointer manipulations in C, which we cannot simply apply to all the languages.
+- **Language-specific operators**: Mutations that are made specifically for a certain programming language. For example, changes related to the inheritance feature we have in Java, or changes regarding pointer manipulations in C.
 
 Most mutation testing tools include various basic mutation operators for real fault based operators.
-We briefly go over some common mutation operators:
+Here are brief descriptions of some common mutation operators:
 
 - **AOR - Arithmetic Operator Replacement**: Replaces an arithmetic operator by another arithmetic operator. Arithmetic operators are `+`, `-`, `*`, `/`, `%`.
 - **ROR - Relational Operator Replacement**: Replaces a relational operator by another relational operator. Relational operators are `<=`, `>=`, `!=`, `==`, `>`, `<`.
@@ -320,8 +312,7 @@ We briefly go over some common mutation operators:
 - **SVR - Scalar Variable Replacement**: Replaces each variable reference by another variable reference that has been declared in the code.
 
 
-For each of the mutation operators, we provide an example.
-We first show the original code, and then the mutant that could be given by the mutant operator.
+Here are examples for each of the mutation operators with first of all the original code, and then a mutant that could be produced by applying the mutation operator:
 
 **Arithmetic Operator Replacement**
 
@@ -330,7 +321,7 @@ Original:
 int c = a + b;
 ```
 
-Example of a mutant:
+Mutant example:
 ```java
 int c = a - b;
 ```
@@ -344,7 +335,7 @@ if (c == 0) {
 }
 ```
 
-Example of a mutant:
+Mutant example:
 ```java
 if (c > 0) {
   return -1;
@@ -360,7 +351,7 @@ if (a == null || a.length == 0) {
 }
 ```
 
-Example of a mutant:
+Mutant example:
 ```java
 if (a == null && a.length == 0) {
   return new int[0];
@@ -374,7 +365,7 @@ Original:
 c = a + b;
 ```
 
-Example of a mutant:
+Mutant example:
 ```java
 c -= a + b;
 ```
@@ -397,7 +388,7 @@ public class Division {
 }
 ```
 
-Example of a mutant:
+Mutant example:
 ```java
 public class Division {
   public static int[] getValues(int a, int b) {
@@ -414,9 +405,9 @@ public class Division {
 ```
 
 
-Specifically to Java, there are a lot of language-specific operators.
+In Java, there are a lot of language-specific operators.
 We can, for example, change the inheritance of the class, remove an overriding method, or change some declaration types.
-We will not go into detail about these language-specific mutant operators, but some examples are:
+Without going into detail about these language-specific mutant operators, here are some examples:
 
 - Access Modifier Change
 - Hiding Variable Deletion
@@ -425,7 +416,7 @@ We will not go into detail about these language-specific mutant operators, but s
 - Parent Constructor Deletion
 - Declaration Type Change
 
-Of course, there exist many more mutant operators that are used by mutant generators.
+Of course, there are many more mutant operators that are used by mutant generators.
 For now, you should at least have an idea what mutation operators are, how they work and what we can use them for.
 
 {% set video_id = "KXQTWLyR5CA" %}
@@ -434,46 +425,42 @@ For now, you should at least have an idea what mutation operators are, how they 
 ## Mutation Analysis and Testing
 
 Our goal is to use mutation testing to determine the quality of our test suite.
-We have seen that we first have to create the mutants and that it is best to do this in an automated way with the help of mutant operators.
-Then, we run the test suite against the created mutants with an execution engine.
-If one of the tests fails, we say that the test suite kills the mutant.
-This is good, as it suggests that our test suite has some fault detection capability.
-If none of the tests in our test suite fails when executed against the mutant, this mutant stays alive.
+As we saw before, we have to create the mutants first and it is best to do this in an automated way with the help of mutation operators.
+Then, we run the test suite against each of the mutants with an execution engine.
+If any test fails when executed against a mutant, we say that the test suite kills the mutant.
+This is good, because it shows that our test suite has some fault detection capability.
+If none of the tests fail, the mutant stay alive.
 
 This process is illustrated in the diagram below:
 
 ![Mutation Testing Process](img/mutation-testing/mutation_analysis_process.png)
 
-When performing mutation testing, we count the number of mutants our test suite killed and the number of mutants that were still alive.
+When performing mutation testing, we count the number of mutants our test suite killed and the number of mutants that are still alive.
 By counting the number of each of these mutant groups, we can give a value to the quality of our test suite.
 
-We define the **Mutation Score** as:
+We define the **mutation score** as:
 
-$$\text{Mutation score } = \frac{\text{killed mutants}}{\text{mutants}}$$
+$$\text{mutation score } = \frac{\text{killed mutants}}{\text{mutants}}$$
 
-Computing this mutation score is what we call **mutation analysis**. More formally, mutation analysis means assessing the quality of a test suite, by computing its mutation score.
+Assessing the quality of a test suite by computing its mutation score is called **mutation analysis**.
 
-When the mutation score is low, we might want to change or add new test cases in our test suite.
-This is called **mutation testing**.
-Again, the definition:
-mutation testing means improving the quality of the test suite using mutants (by adding and/or changing test cases).
+**Mutation testing** then means using this mutation analysis to improve the quality of the test suite by adding and/or changing test cases.
 
-These concepts are very related to each other.
-To do mutation testing, you have to compute the mutation score first.
+These concepts are highly interconnected.
+Before mutation testing is carried out, you have to compute the mutation score.
 This then indicates whether the test suite should be changed.
 If the mutation score is low, there are a lot of mutants that are not killed by the test suite.
-Then, it is indeed our job to improve the test suite.
+You then have to improve the test suite.
 
 ### Equivalent Mutants
 
-Calculating the mutation score is, in practice, challenging.
+Calculating the mutation score is challenging.
 The mutation score increases when less mutants are alive.
 This suggests that the best scenario is to have all the mutants killed by the test suite.
-While this is indeed the best scenario, it is often unrealistic.
-Some of the mutants are impossible to kill and will then always stay alive.
+While this is indeed the best scenario, it is often unrealistic because some of the mutants may be impossible to kill.
 
 Mutants that cannot be killed are called equivalent mutants.
-An **equivalent mutant** is a mutant that always behaves as the original program.
+An **equivalent mutant** is a mutant that always behaves in the same way as the original program.
 If the mutant behaves like the normal code, it will always give the same output as the original program for any given input.
 Clearly, this makes this mutant (which is basically the same program as the one under test) impossible to be killed by the tests.
 
@@ -481,7 +468,7 @@ Here, the equivalence is related to the definition of program equivalence.
 Program equivalence roughly means that two programs are functionally equivalent when they produce the same output for every possible input.
 This is also the equivalence between the normal code and an equivalent mutant.
 
-Let's have a look at the following method. We left some irrelevant parts out.
+Let's have a look at the following method (with some irrelevant parts left out).
 
 ```java
 public void foo(int a) {
@@ -495,8 +482,7 @@ public void foo(int a) {
 }
 ```
 
-Our mutation testing tool generates a mutant using relational operator replacement.
-The mutant is as follows:
+Our mutation testing tool generates the following mutant using relational operator replacement:
 
 ```java
 public void foo(int a) {
@@ -522,25 +508,24 @@ We do not want to take the equivalent mutants into account, as there is nothing 
 
 The new formula becomes:
 
-$$\text{Mutation score} = \frac{\text{killed mutants}}{\text{non-equivalent mutants}}$$
+$$\text{mutation score} = \frac{\text{killed mutants}}{\text{non-equivalent mutants}}$$
 
-For the denominator, we just count the number of non-equivalent mutants, instead of all the mutants.
-To compute this new mutation score automatically, we would need a way to automatically determine whether a mutant is an equivalent mutant.
-Unfortunately, we cannot do this automatically,
-as **detecting equivalent mutations is an undecidable problem**. We can never be sure that a mutant behaves the same as the original program for every possible input.
+For the denominator, we used the number of non-equivalent mutants, instead of the total number of mutants.
+To compute this new mutation score automatically, we need a way to determine automatically if a mutant is an equivalent mutant.
+Unfortunately, we cannot do this automatically, as **detecting equivalent mutations is an undecidable problem**. We can never be sure that a mutant behaves the same as the original program for every possible input.
 
 ## Application
 
 Mutation testing sounds like a great way to analyse and improve our test suites.
-The question is, however, if we can actually use mutation testing in practice.
+However, the question remains whether we can use mutation testing in practice.
 For example, we can ask ourselves whether a test suite with a higher mutation score actually finds more errors.
 
-A lot of research done in software engineering tries to bring some insights to this problem.
-All the existing studies about mutation testing showed that mutants can indeed give a good indication for a test suite's fault detection capability, as long as the mutant operators are carefully selected and the equivalent mutants are removed.
+A lot of research in software engineering tries to gain some insight into this problem.
+So far all the studies about mutation testing have shown that mutants can provide a good indication of a test suite's fault detection capability, as long as the mutation operators are carefully selected and the equivalent mutants are removed.
 
 More specifically, a study by Just et al. shows that mutant detection is positively correlated with real fault detection.
 In other words, the more mutants a test suite detects, the more real faults the test suite can detect as well.
-Even more interesting is that this correlation is independent from the coverage.
+Even more interesting is that this correlation is independent of the coverage.
 Furthermore, the correlation between mutant detection and fault detection is higher than the correlation between statement coverage and fault detection.
 So, the mutation score provides a better measure for the fault detection capability than the test coverage.
 
@@ -548,9 +533,9 @@ So, the mutation score provides a better measure for the fault detection capabil
 
 Mutation testing is not without its costs.
 We have to generate the mutants, possibly remove the equivalent mutants, and execute the tests with each mutant.
-In fact, mutation testing is quite expensive, i.e., it takes a long time to perform.
+This makes mutation testing quite expensive, i.e., it takes a long time to perform.
 
-Let's assume we want to do some mutation testing.
+Assume we want to do some mutation testing.
 We have:
 
 - A code base with 300 Java classes
@@ -566,7 +551,7 @@ Per class, we need $$20 \cdot 10 \cdot 0.2 = 40$$ seconds.
 In total, the mutation testing will take $$300 \cdot 40 = 12000$$ seconds, or 3 hours and 20 minutes.
 
 Because of this cost, researchers have tried to find ways to make mutation testing faster for a long time.
-Based on some observations, they came up with a couple of heuristics.
+Based on some observations, they came up with the following heuristics.
 
 * The first observation is that a test case can never kill a mutant if it does not cover the statement that changed (also known as the *reachability condition*).
 Based on this observation, we only have to run the test cases that cover the changed statement.
@@ -575,16 +560,16 @@ Furthermore, once a test case kills a mutant, we do not have to run the other te
 This is because the test suite needs at least one test case that kills the mutant.
 The exact number of test cases killing the same mutant does not really matter.
 
-* A second observation is that mutants generated by the same operator and injected at the same location are likely to be coupled to the same type of fault.
+* A second observation is that mutants generated by the same operator and inserted at the same location are likely to be coupled with the same type of fault.
 This means that when we use a certain mutation operator (e.g., Arithmetic Operator Replacement) and we replace the same statement with this mutant operator, we get two mutants that represent the same fault in the code.
-It is then highly likely that if the test suite kills one of the mutants, it will also kill the others.
+It is then highly probable that if the test suite kills one of the mutants, it will also kill the others.
 A heuristic that follows from this observation is to run the test suite against a subset of all the mutants (a technique also known as *do fewer*).
 Obviously, when we run the test suite against a smaller number of mutations, the overall testing will take less time.
 The simplest way of selecting the subset of mutants is by means of random sampling.
-As the name suggests, we just pick random mutants to consider.
+As the name suggests, we select random mutants to consider.
 This is a very simple, yet effective way to reduce the execution time.
 
-There exist other heuristics to decrease the execution time, like e-selective or cluster mutants and operators, but we will not go into detail of those heuristics.
+There are other heuristics to decrease the execution time, like e-selective or cluster mutants and operators, but we will not go into detail about those heuristics here.
 
 ## Tools
 
@@ -592,7 +577,7 @@ To perform mutation testing you can use one of many publicly available tools.
 These tools are often made for specific programming languages.
 One of the most mature mutation testing tools for Java is called [PIT](http://pitest.org).
 
-PIT can be run from the command line, but it is also integrated in most popular IDEs (like Eclipse or IntelliJ).
+PIT can be run from the command line, but it is also integrated into most popular IDEs (like Eclipse or IntelliJ).
 Project management tools like Maven or Gradle can also be configured to run PIT.
 
 As PIT is a mutation testing tool, it generates the mutants and runs the test suites against these mutants.
@@ -609,9 +594,8 @@ Finally, you can also see more detailed results in the source code and check whi
 
 ## Exercises
 
-
 **Exercise 1.**
-"*Crimes* happen in a *city*. One way for us to know that the *police* is actually able to detect these *crimes* is to *simulate crimes* and see whether the *police* is able to detect them."
+"*Crimes* happen in a *city*. One way for us to know that the *police* is able to detect these *crimes* is to *simulate crimes* and see whether the *police* is able to detect them."
 
 In the analogy above, we can replace crimes by bugs, city by software, and police by test suite. What should we replace **simulate crimes** by?
 
@@ -620,14 +604,44 @@ In the analogy above, we can replace crimes by bugs, city by software, and polic
 1. Search-based software testing
 1. Combinatorial testing
 
+**Exercise 2.**
+Take a look at the method `min(int a, final int b, final int c)` from `org.apache.commons.lang3.math.NumberUtils`:
+
+```java
+    /**
+     * <p>Gets the minimum of three {@code int} values.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the smallest of the values
+     */
+    public static int min(int a, final int b, final int c) {
+        if (b < a) {
+            a = b;
+        }
+        if (c < a) {
+            a = c;
+        }
+        return a;
+    }
+```
+
+Which of the following mutation operators can be applied to the method in order to obtain a *mutant*?
+1. Arithmetic Operator Replacement (`+`, `-`, `*`, `/`, `%`)
+2. Relational Operator Replacement (`<=`, `>=`, `!=`, `==`, `>`, `<`)
+3. Conditional Operator Replacement (`&&`, `||`, `&`, `|`, `!`, `^`)
+4. Assignment Operator Replacement (`=`, `+=`, `-=`, `/=`)
+5. Scalar Variable Replacement
+
+Provide an upper-bound estimate for the number of possible mutants of the method above. Assume that our tool replaces every instance of an operator/variable independently.
+
 {% hint style='working' %}
 We need to develop more exercises for this chapter
 {% endhint %}
-
 
 
 ## References
 
 - Chapter 16 of the Software Testing and Analysis: Process, Principles, and Techniques. Mauro Pezzè, Michal Young, 1st edition, Wiley, 2007.
 - Just, R., Jalali, D., Inozemtseva, L., Ernst, M. D., Holmes, R., & Fraser, G. (2014, November). Are mutants a valid substitute for real faults in software testing?. In Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering (pp. 654-665). ACM.
-

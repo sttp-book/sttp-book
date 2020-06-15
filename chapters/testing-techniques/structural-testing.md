@@ -409,7 +409,7 @@ Imagine the following program and its respective CFG:
 
 ```java
 void hello(int a, int b) {
-  if(a > 10 && b > 20) {
+  if(a > 10 & b > 20) {
     System.out.println("Hello");
   } else {
     System.out.println("Hi");
@@ -437,7 +437,7 @@ $$\text{C/DC coverage} = \frac{\text{conditions outcome covered + decisions outc
 
 
 {% hint style='tip' %}
-Another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in $$2^N$$ tests, given $$N$$ conditions.
+Another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in 2^N tests, given N conditions.
 {% endhint %}
 
 {% set video_id = "oWPprB9GBdE" %}
