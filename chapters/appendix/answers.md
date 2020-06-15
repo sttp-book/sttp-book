@@ -1178,7 +1178,7 @@ Flaky test.
 
 **Exercise 5**
 
-To avoid the flakiness, a developer could have mocked the random function. It does not make sense, the test is about testing the generator and its homogeneity; if we mock, the test looses its purposes.
+To avoid the flakiness, a developer could have mocked the random function. It does not make sense, the test is about testing the generator and its homogeneity; if we mock, the test loses its purposes.
 
 
 
@@ -1204,7 +1204,14 @@ Static analysis produces over-generalized results with some false positives, so 
 
 Mutation testing.
 
+**Exercise 2.**   
 
+We can apply *Relational Operator Replacements*, *Assignment Operator Replacements*, and *Scalar Variable Replacements*.
+In the given method we have 2 instances of *relational operators*, 2 instances of *assignment operators*, and 9 instances of *scalar variables*. The upper-bound estimate of the number of mutants becomes:
+
+$$6^2 \cdot 4^2 \cdot 3^9 - 1 = 11337407$$
+
+We calculate all the possible variants and then subtract $1$ for the original method so that we are left with only the mutants.
 
 
 ## Security testing

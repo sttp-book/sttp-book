@@ -2,7 +2,7 @@
 
 Imagine a computer program that looks at your code implementation and, based on what it sees, it automatically generates (JUnit) test cases that achieve 100% branch coverage. If this sounds like sci-fi to you, you should know it is not. In fact, automated test case generation tools are getting better by the day.
 
-In this chapter, we will explore how it works. More specifically, we will discuss random and search-based test case generation. Finally, we will show you some tools. Note that _search-based software testing_ is a complex topic and rquires an entire book on it. Here, we only illustrate the main ideas behind it.
+In this chapter, we will explore how it works. More specifically, we will discuss random and search-based test case generation. Finally, we will show you some tools. Note that _search-based software testing_ is a complex topic and requires an entire book on it. Here, we only illustrate the main ideas behind it.
 
 ## Random test case generation
 
