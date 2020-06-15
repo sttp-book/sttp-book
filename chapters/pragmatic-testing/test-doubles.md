@@ -90,14 +90,24 @@ public class InvoiceFilter {
 
 }
 ```
-Without stubbing the `IssuedInvoices` class, the `InvoiceFilter` test would need to also handle the database (making the unit testing more expensive). Note how the tests need to open and close the connection (see the `open()` and `close()` methods) and save invoices to the database (see the many calls to `invoices.save()` in the `filterInvoices` test).
+Without stubbing the `IssuedInvoices` class, the `InvoiceFilter` test would need to also handle the database (making the unit testing more expensive). Note how the tests need to open and close the connection (see the `@BeforeEach` and `@AfterEach` methods) and save invoices to the database (see the many calls to `invoices.save()` in the `filterInvoices` test).
 
 ```java
 public class InvoiceFilterTest {
-  private final IssuedInvoices invoices = new IssuedInvoices();
+  private IssuedInvoices invoices;
+  private DatabaseConnection dbConnection;
+
+  @BeforeEach public void open() {
+    dbConnection = new DatabaseConnection();
+    invoices = new InvoiceDao(dbConnection.getConnection());
+
+    // we need to clean up all the tables,
+    // to make sure old data doesn't interfere with the test.
+    dbConnection.resetDatabase();
+  }
 
   @AfterEach public void close() {
-    if (invoices != null) invoices.close();
+    if (dbConnection != null) dbConnection.close();
   }
 
   @Test
@@ -118,7 +128,7 @@ public class InvoiceFilterTest {
 }
 ```
 
-This test is not even complete. We also need to reset the database after every test. Otherwise, the test will fail in its second run, as there will now be four invoices with an amount smaller than 100 stored in the database because the database persists data across the sessions&mdash;that's what databases are for. So far, we have never had to "clean up our mess" in test code, as all the objects we created were in-memory only and recreated between each test.
+Note also the `dbConnection.resetDatabase();` that resets the database at the beginning of every test. This is a common thing to do in tests that involve databases, in order to avoid "old data" (i.e., data that was inserted by previous test cases) interfering with the current test. So far, we have never had to "clean up our mess" in test code, as all the objects we created were in-memory only and recreated between each test.
 
 {% hint style='tip'%}
 Did you notice the `assertThat...containsExactlyInAnyOrder` assertion we used? This ensures that the list contains exactly the objects we pass, and in any order.
