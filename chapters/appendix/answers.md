@@ -1206,12 +1206,20 @@ Mutation testing.
 
 **Exercise 2.**   
 
-We can apply *Relational Operator Replacements*, *Assignment Operator Replacements*, and *Scalar Variable Replacements*.
-In the given method we have 2 instances of *relational operators*, 2 instances of *assignment operators*, and 9 instances of *scalar variables*. The upper-bound estimate of the number of mutants becomes:
+There are two possible answers for this exercise. If we consider single-order mutation, i.e., mutants are composed of single mutations, we end up with $$5*2+3*2+9*2 = 34$$ possible mutants: 
 
-$$6^2 \cdot 4^2 \cdot 3^9 - 1 = 11337407$$
+* The 5 possible "Relational Operator Replacement" operators can be applied in two places (the two ifs)
+* The 3 possible "Assignment Operator Replacement" operators can be applied in two places (`a=b` and `a=c`)
+* Finally, "Scalar Variable Replacement" mutations can be applied in the 9 places where a variable is used (and the can replace them by any of the other two available variables).
+
+
+We can also consider higher-order mutation. There, all the combinations of mutants can be applied. Again, on the given method we have 2 instances of *relational operators*, 2 instances of *assignment operators*, and 9 instances of *scalar variables*. The upper-bound estimate of the number of mutants becomes:
+
+$$6^2 \cdot 4^2 \cdot 3^9 - 1 = 11337407$$ mutants
 
 We calculate all the possible variants and then subtract $1$ for the original method so that we are left with only the mutants.
+
+As you can see, the number of all possible mutants is quite significant (and too expensive to be used in practice).
 
 
 ## Security testing

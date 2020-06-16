@@ -571,6 +571,12 @@ This is a very simple, yet effective way to reduce the execution time.
 
 There are other heuristics to decrease the execution time, like e-selective or cluster mutants and operators, but we will not go into detail about those heuristics here.
 
+{% hint style='tip' %}
+Note that, for now, we talked about _first-order mutation_. Mutants are created by just a single mutation operator. In other words, each mutant contains just a single mistake. However, we can also consider _higher-order mutations_, where we apply more than a single mutation operator to generate a mutant exists. The idea is that, by combining different mutation operations, we end up with mutants that are harder to be killed.
+
+For interested readers, we suggest the paper [_Higher Order Mutation Testing_](https://www.sciencedirect.com/science/article/abs/pii/S0950584909000688) by Jia and Harman.
+{% endhint %}
+
 ## Tools
 
 To perform mutation testing you can use one of many publicly available tools.
