@@ -519,12 +519,12 @@ Note that we have been avoiding lazy (short-circuit) operators (i.e., && and ||)
 
 We make the truth table to find the combinations:
 
-| Tests | A | B | C  | Outcome |
-|-------|---|---|----|---------|
-| 1     | T | T | dc | T       |
-| 2     | T | F | T  | T       |
-| 3     | T | F | F  | F       |
-| 4     | F | X | dc | F       |
+| Tests | A | B  | C  | Outcome |
+|-------|---|----|----|---------|
+| 1     | T | T  | dc | T       |
+| 2     | T | F  | T  | T       |
+| 3     | T | F  | F  | F       |
+| 4     | F | dc | dc | F       |
 
 ('dc' represents "don't care" values.)
 
