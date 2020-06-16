@@ -257,7 +257,7 @@ If we execute the test suite on this mutant, the `testInvertNegative()` test wil
 
 Another mistake could be made in line 1.
 When we studied boundary analysis, we saw that it is important to test the boundaries due to off-by-one errors.
-We can make a syntactic change by introducing such an off-by-on error.
+We can make a syntactic change by introducing such an off-by-one error.
 Instead of `numerator == 0`, in our new mutant we make it `numerator == 1`:
 
 ```java
