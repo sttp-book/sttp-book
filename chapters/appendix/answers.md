@@ -1187,7 +1187,7 @@ To avoid the flakiness, a developer could have mocked the random function. It do
 
 **Exercise 1.**
 
-Regular expressions cannot count instances.
+Regular expressions cannot detect code semantics.
 
 **Exercise 2.**
 

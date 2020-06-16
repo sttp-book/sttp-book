@@ -34,7 +34,7 @@ The automata for '**.\*bug.\***' is given below. It will accept any string that 
 
 ![FSM for .*bug.*](img/static-testing/regex3.png)
 
-While regular expressions are a fast and powerful pattern matching technique, they do have some serious limitations: First, they cannot count, so we need to explicitly program each scenario in the regex, which reduces flexibility. For example, if we wanted to _allow at most 3 methods_, we would need to create a regex with three explicit sub-patterns, one for each function occurrence. Second, regular expressions don't take semantics into account, so they create many false positives. For example, consider the following code snippet. Suppose that the regular expression, `(\s)*System.out.println\(.*\);`, searches for all print statements in the code to remove them before deployment. It will find three occurrences in the code snippet, which are all FPs because the code is already disabled by a flag.
+While regular expressions are a fast and powerful pattern matching technique, their biggest limitation is that they don't take semantics into account, ending up with many false positives. For example, consider the following code snippet. Suppose that the regular expression, `\s*System.out.println\(.*\);`, searches for all print statements in the code to remove them before deployment. It will find three occurrences in the code snippet, which are all FPs because the code is already disabled by a flag.
 
 ```java
 boolean DEBUG = false;
@@ -81,7 +81,7 @@ Abstract Syntax Trees are used by compilers to find semantic errors &mdash; comp
 
 **Exercise 1.** Regular expressions _CANNOT DO_ which of the following tasks?
 1. Matching patterns
-2. Count instances
+2. Detect semantics
 3. Define wild cards
 4. Detect coding mistakes
 
