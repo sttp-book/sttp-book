@@ -945,6 +945,9 @@ See https://martinfowler.com/bliki/TestPyramid.html !
 
 **Exercise 8**
 
+We have two answers for this exercise, provided by two different students:
+
+_Answer 1:_
 Suppose that you have designed your system in a way that domain/business code can be easily tested via unit tests.
 Therefore, database access is, for example, hidden in a Data Access Object class.
 This class can easily be mocked, which enables you to apply all testing techniques in your domain we have discussed so far.
@@ -973,9 +976,7 @@ On the other hand, with a real database, you can better simulate situations like
 
 (We discuss more about it in the "SQL testing" chapter.)
 
-
-**Exercise 8**
-
+_Answer 2:_
 At some point, it's important to test code with external dependencies, such as a database, against those dependencies. 
 Apart from testing the SQL, which in principle is just more code, we need to check, for example
 that the schema is aligned and that we're using the right connection. 

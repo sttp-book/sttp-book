@@ -352,7 +352,6 @@ What is the main reason for the number of recommended system tests in the testin
 
 
 **Exercise 8.**
-
 How would you test code that make use of databases and SQL queries?
 
 
