@@ -81,7 +81,7 @@ Abstract Syntax Trees are used by compilers to find semantic errors &mdash; comp
 
 **Exercise 1.** Regular expressions _CANNOT DO_ which of the following tasks?
 1. Matching patterns
-2. Count instances
+2. Detect semantics
 3. Define wild cards
 4. Detect coding mistakes
 
