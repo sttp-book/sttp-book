@@ -131,7 +131,7 @@ If we have a good test suite, at least one of the tests will fail on this change
 Following this procedure, we get a sense of the fault error capability of our test suite.
 
 In mutation testing, we use **mutants**.
-The mutants are the defects, or faults, that we introduce in the source code and then use to determine the quality of the test suite.
+Mutants are the modified programs which contain the defects, or faults that we introduce in the source code to be then used for determining the quality of the test suite.
 
 A big question regarding the mutants is what their size should be.
 We can change single operations, whole lines or even multiple lines of code.
@@ -283,7 +283,7 @@ public class Fraction {
 ```
 
 We see that, again, the test suite catches this error.
-The test `testInvertZero()` will fail, as it expects an exception, but none is thrown in the mutant.
+The test `testInvertZero()` will fail, as it expects an exception but none is thrown in the mutant, and `testInvert()` will also fail since it has a 1 in the numerator which wrongly triggers an exception.
 
 
 ## Automation
