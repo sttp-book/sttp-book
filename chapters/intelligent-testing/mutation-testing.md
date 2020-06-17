@@ -429,7 +429,7 @@ As we saw before, we have to create the mutants first and it is best to do this 
 Then, we run the test suite against each of the mutants with an execution engine.
 If any test fails when executed against a mutant, we say that the test suite kills the mutant.
 This is good, because it shows that our test suite has some fault detection capability.
-If none of the tests fail, the mutant stay alive.
+If none of the tests fail, the mutant stays alive.
 
 This process is illustrated in the diagram below:
 
