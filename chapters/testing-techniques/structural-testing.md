@@ -402,10 +402,28 @@ to achieve 100% condition coverage.
 
 ## Condition + Branch coverage
 
-Let's think carefully about condition coverage. If we only focus on exercising the individual conditions themselves, but do not
-think of the overall decision, we might end up in a situation like the one below.
+Let's first look at this block of code.
 
-Imagine the following program and its respective CFG:
+```java
+void hello(int a, int b) {
+  if(a > 10 && b > 20) {
+    System.out.println("Hello");
+  } else {
+    System.out.println("Hi");
+  }
+}
+```
+
+
+
+From this block of code you would create a new CFG to reflect the extra conditions inside the if-statement `a > 10 && b > 20` like this:
+
+![Simple CFG from simple example](img/structural-testing/examples/cond_plus_branch.png)
+
+ When running `T1 = (20, 10)`, the first block `a > 10` would be true and the second block `b > 20` false - "Hi" will be printed. A test `T2 = (5, 30)` makes the first condition `false`, and therefore would also print "Hi". The condition coverage will be $$\frac{3}{4} \cdot 100\% = 75\%$$.
+
+
+Now look at this other block of code, which almost looks the same.
 
 ```java
 void hello(int a, int b) {
@@ -417,15 +435,29 @@ void hello(int a, int b) {
 }
 ```
 
-![Example of why condition+branch coverage is needed, when compared to basic condition coverage](img/structural-testing/examples/cond_plus_branch.png)
+
+Did you spot the difference? On line 2 the `&&` was swapped for an `&`. In Java, when there are two conditions being evaluated, there is a difference between having one symbol or two. One symbol means that the JVM will evaluate both conditions no matter what. However, there is no need to evaluate both conditions. For instance when the JVM tests `a > 10` first and that evaluates to false, then there is no need to compare `b > 20` as the whole condition is false anyways. This is done using lazy-operators: `&&` and `||`. Yet, when someone wants Java to explicitly test both conditions, `&` and `|` are used. This does influence the condition coverage as more conditions are being tested, even though the functionality of the code doesn't change. Thus the CFG of second code block remains the same as the decision CFG:
+
+![Example of why condition+branch coverage is needed, when compared to basic condition coverage](img/structural-testing/examples/non-lazy-op.png)
 
 
 A test `T1 = (20, 10)` causes the first condition `a > 10` to be `true`, and the
-second condition `b > 20` to be `false`. A test `T2 = (5, 30)` makes the first condition `false`, and the second condition `true`. Note that T1 and T2 together achieve 100% **basic condition** coverage. After all, both conditions `a` and `b` have been exercised as both `true` and `false`. 
+second condition `b > 20` to be `false`. A test `T2 = (5, 30)` makes the first condition `false`, and the second condition `true`. T1 and T2 together achieve 100% **basic condition** coverage. After all, both conditions `a` and `b` have been exercised as both `true` and `false`. 
 
 However, the final outcome of the entire decision was `false` in both tests. We never saw this program printing "Hello". We found a case where
 we achieved 100% basic condition coverage, but only 50% branch coverage. This is not a smart testing strategy. This is why looking only at the conditions themselves while ignoring the overall outcome of the decision block is called
 **basic condition coverage**.
+
+{% hint style='tip' %}
+For most cases when encountering **basic condition coverage**, it is good enough to create a new CFG with all the compound conditions split into separate blocks and counting the arrows being evaluated by the tests. The exception is these non lazy-operators `&` and `|`. In that case you should construct a table for each CFG block which contains a non lazy-operator. Check for each condition if it's being evaluated or not. <br>For test `T1 = (20, 10)` and `T2 = (5, 30)`:
+
+|  	| True 	| False 	|
+|-	|-	|-	|
+| a > 10 	| ✔ 	| ✔ 	|
+| b > 20 	| ✔ 	| ✔ 	|
+
+Thus as mentioned above: $$\frac{4}{4} = 100\%$$ **basic condition coverage**
+{% endhint %}
 
 In practice, whenever we use condition coverage, we actually perform **branch + condition coverage**. In other words, we make sure
 that we achieve 100% condition coverage (i.e., all the outcomes of all conditions are exercised) and 100% branch coverage (all the outcomes
@@ -435,6 +467,8 @@ The formula to calculate branch+condition coverage is as follows. Note how this 
 
 $$\text{C/DC coverage} = \frac{\text{conditions outcome covered + decisions outcome covered}}{\text{conditions outcome total + decisions outcome total}} \cdot 100\%$$
 
+The branch+condition coverage of the first code block is: $$\frac{3 + 1}{4 + 2} = \frac{4}{6}$$ <br>
+The branch+condition coverage of the second code block is: $$\frac{4 + 1}{4 + 2} = \frac{5}{6}$$
 
 {% hint style='tip' %}
 While there is some confusion among the different terms, in this book, whenever we mention condition coverage or full condition coverage, we mean condition+branch coverage.
@@ -915,10 +949,9 @@ public String fizzString(int n) {
 **Exercise 9.**
 Assume we have two test cases with an input integer: T1 = 15 and T2 = 8.
 
-What is the branch+condition coverage these test cases give combined?
+What is the decision coverage of these test cases give combined?
 
-What is the decision coverage?
-
+What is the branch+condition coverage ?
 
 
 ----

@@ -449,10 +449,22 @@ For the other answers we can come up with a test case: `"aXYa"`
 
 **Exercise 9**
 
+First the decision coverage. We have 6 decisions:
 
-First the condition coverage.
-When talking about condition coverage, we first have to split the condition on line 1 (n % 3 == 0 && n % 5 == 0)
-into two decision blocks for the CFG. In total, we will have 8 conditions:
+1. Line 1: `n % 3 == 0 && n % 5 == 0`, true and false
+2. Line 3: `n % 3 == 0`, true and false
+3. Line 5: `n % 5 == 0`, true and false
+
+T1 makes decision 1 true and does not cover the other decisions.
+T2 makes all the decisions false.
+Therefore, the decision coverage is $$\frac{4}{6} \cdot 100\% = 66\%$$.
+
+Now the branch+condition coverage. For that we first need the basic condition coverage. Let's first create a CFG of this method:
+
+![Control Flow Graph Exercise 9](img/structural-testing/exercises/CFG-exercise-9.png)
+
+When talking about basic condition coverage, we first have to split the condition on line 1 (n % 3 == 0 && n % 5 == 0)
+into two decision blocks for the CFG, since we're using a lazy-operator in the code. In total, we will have 8 conditions:
 
 1. Line 1: `n % 3 == 0`, true and false
 2. Line 1: `n % 5 == 0`, true and false
@@ -466,26 +478,18 @@ T1 makes conditions 1 and 2 true and then does not cover the other conditions. T
 * condition 3 = [true: not exercised, false: not exercised]
 * condition 4 = [true: not exercised, false: not exercised].
 
-At this moment, condition coverage = 2/8.
+At this moment, basic condition coverage = 2/8.
 
-For T2, the input number 8 is neither divisible by 3, nor divisible by 5. However, since the && operator only evaluates the second condition when the first one is true, condition 2 is not reached. Therefore this test covers condition 1, 3 and 4 as false. We now have:
+For T2, the input number 8 is neither divisible by 3, nor divisible by 5. However, since the `&&` operator only evaluates the second condition when the first one is true, condition 2 is not reached. Therefore this test covers condition 1, 3 and 4 as false. We now have:
 
 * condition 1 = [true: exercised, false: exercised]
 * condition 2 = [true: exercised, false: not exercised]
 * condition 3 = [true: not exercised, false: exercised]
 * condition 4 = [true: not exercised, false: exercised].
 
-In total, these test cases then cover $$2 + 3 = 5$$ conditions so the condition coverage is $$\frac{5}{8} \cdot 100\% = 62.5\%$$
+In total, these test cases then cover $$2 + 3 = 5$$ conditions so the basic condition coverage is $$\frac{5}{8} \cdot 100\% = 62.5\%$$
 
-Now the decision coverage. We have 6 decisions:
-
-1. Line 1: `n % 3 == 0 && n % 5 == 0`, true and false
-2. Line 3: `n % 3 == 0`, true and false
-3. Line 5: `n % 5 == 0`, true and false
-
-Now T1 makes decision 1 true and does not cover the other decisions.
-T2 makes all the decisions false.
-Therefore, the coverage is $$\frac{4}{6} \cdot 100\% = 66\%$$.
+For branch+condition coverage we need to combine the above two which evaluates to $$\frac{5 + 4}{8 + 6} = \frac{9}{14} \approx 64\%$$
 
 
 **Exercise 10**
