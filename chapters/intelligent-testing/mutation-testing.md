@@ -131,7 +131,7 @@ If we have a good test suite, at least one of the tests will fail on this change
 Following this procedure, we get a sense of the fault error capability of our test suite.
 
 In mutation testing, we use **mutants**.
-The mutants are the defects, or faults, that we introduce in the source code and then use to determine the quality of the test suite.
+Mutants are modified programs which contain the defects, or faults that we introduce in the source code to be then used for determining the quality of the test suite.
 
 A big question regarding the mutants is what their size should be.
 We can change single operations, whole lines or even multiple lines of code.
@@ -257,7 +257,7 @@ If we execute the test suite on this mutant, the `testInvertNegative()` test wil
 
 Another mistake could be made in line 1.
 When we studied boundary analysis, we saw that it is important to test the boundaries due to off-by-one errors.
-We can make a syntactic change by introducing such an off-by-on error.
+We can make a syntactic change by introducing such an off-by-one error.
 Instead of `numerator == 0`, in our new mutant we make it `numerator == 1`:
 
 ```java
@@ -283,7 +283,7 @@ public class Fraction {
 ```
 
 We see that, again, the test suite catches this error.
-The test `testInvertZero()` will fail, as it expects an exception, but none is thrown in the mutant.
+The test `testInvertZero()` will fail, as it expects an exception but none is thrown in the mutant. The test `testInvert()` will also fail since it has a 1 in the numerator which wrongly triggers an exception.
 
 
 ## Automation
@@ -571,6 +571,12 @@ This is a very simple, yet effective way to reduce the execution time.
 
 There are other heuristics to decrease the execution time, like e-selective or cluster mutants and operators, but we will not go into detail about those heuristics here.
 
+{% hint style='tip' %}
+Note that, for now, we talked about _first-order mutation_. Mutants are created by just a single mutation operator. In other words, each mutant contains just a single mistake. However, we can also consider _higher-order mutations_, where we apply more than a single mutation operator to generate a mutant exists. The idea is that, by combining different mutation operations, we end up with mutants that are harder to be killed.
+
+For interested readers, we suggest the paper [_Higher Order Mutation Testing_](https://www.sciencedirect.com/science/article/abs/pii/S0950584909000688) by Jia and Harman.
+{% endhint %}
+
 ## Tools
 
 To perform mutation testing you can use one of many publicly available tools.
@@ -634,7 +640,7 @@ Which of the following mutation operators can be applied to the method in order 
 4. Assignment Operator Replacement (`=`, `+=`, `-=`, `/=`)
 5. Scalar Variable Replacement
 
-Provide an upper-bound estimate for the number of possible mutants of the method above. Assume that our tool replaces every instance of an operator/variable independently. Additionally, keep in mind that replacing an operator/variable by itself does not produce mutants. For example, for `b < a` you can consider 5 out of 6 possible mutations.
+Provide an upper-bound estimate for the number of possible mutants of the method above. Assume that our tool replaces every instance of an operator/variable independently.
 
 {% hint style='working' %}
 We need to develop more exercises for this chapter

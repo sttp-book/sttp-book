@@ -201,35 +201,28 @@ The dependency inversion principle (note the _inversion_ and not _injection_) he
 We end this chapter with a couple of practical tips that will help you to devise testable systems/classes:
  
 - **Cohesion and testability**: cohesive classes are classes that do only one thing.
-Cohesive classes tend to be easier to test. This is because fewer responsibilities imply fewer test cases and fewer responsibilities often imply fewer dependencies (as you need fewer to compose the required functionality) which in turn incurs lower testing costs.
- 
-On the other hand, a non-cohesive class tends to consume a large amount of testing effort from developers. You might notice that a non-cohesive class requires so many test cases, that you often feel like "the testing is never-ending".
- 
+Cohesive classes tend to be easier to test. This is because fewer responsibilities imply fewer test cases and fewer responsibilities often imply fewer dependencies (as you need fewer to compose the required functionality) which in turn incurs lower testing costs.<br><br>
+On the other hand, a non-cohesive class tends to consume a large amount of testing effort from developers. You might notice that a non-cohesive class requires so many test cases, that you often feel like "the testing is never-ending".<br><br>
 Refactoring non-cohesive classes is therefore an important task when it comes to testability. A common way to do this is by splitting the non-cohesive class into several smaller-but-cohesive classes. Each small class can then be tested separately, and the class that combines them  might rely either on mock objects to assert the correctness of the interactions among the dependencies or on an integration test (or both).
  
 - **Coupling and testability**: Coupling refers to the number of classes that a class depends on. A highly coupled class requires several other
-classes to do its work. Coupling decreases testability. A tester trying to test a highly dependent class ends up having to test all its dependencies together. If the tester then decides to use stubs/mocks, the costs of setting them up will also be higher than it needed to be (just imagine yourself setting up 10 or 15 stubs/mocks to test a single class). Moreover, the number of test cases that would be required to achieve a minimum amount of coverage is too high, as each dependency probably brings together a whole set of requirements and conditions.
- 
+classes to do its work. Coupling decreases testability. A tester trying to test a highly dependent class ends up having to test all its dependencies together. If the tester then decides to use stubs/mocks, the costs of setting them up will also be higher than it needed to be (just imagine yourself setting up 10 or 15 stubs/mocks to test a single class). Moreover, the number of test cases that would be required to achieve a minimum amount of coverage is too high, as each dependency probably brings together a whole set of requirements and conditions.<br><br>
 Reducing coupling, however, is often tricky, and maybe one of the biggest challenges in software design.
 A common coupling-related refactoring is to group dependencies together into a higher and meaningful abstraction.
 Imagine that class A depends on B, C, D and E. After inspection, you notice that B interacts with C, and D interacts with E.
 Devising a new class that handles the communication between B and C (let us call it BC), and other one that handles the communication between D and E (let us call it DE), already reduces A's coupling. After all, it now depends only on BC, and DE. In general, pushing responsibilities and dependencies to smaller classes and later connecting them via larger abstractions is the way to go.
  
 - **Complex conditions and testability**: We have seen in previous chapters that conditions that are very complex (e.g., an `if` statement composed of multiple Boolean operations) require great effort from testers. For example, the number of tests one might devise after applying some boundary testing or condition+branch coverage criteria might be
-too high. 
- 
+too high. <br><br>
 Reducing the complexity of such conditions, for example by breaking it into multiple smaller conditions, will not reduce the overall complexity of the problem, but will "spread" it.
  
 - **Private methods and testability**: A common question among developers is whether to test private methods or not.
-In principle, testers should test private methods only through their public methods. However, testers often feel the urge to test a particular private method in isolation. One common cause for this feeling is the lack of cohesion or the complexity of this private method. In other words, this method does something so different to the public method, and/or its task is so complex, that it has to be tested separately. This is a good example of when "the test speaks to the developer" (a common saying among Test-Driven Developers).
- 
+In principle, testers should test private methods only through their public methods. However, testers often feel the urge to test a particular private method in isolation. One common cause for this feeling is the lack of cohesion or the complexity of this private method. In other words, this method does something so different to the public method, and/or its task is so complex, that it has to be tested separately. This is a good example of when "the test speaks to the developer" (a common saying among Test-Driven Developers).<br><br>
 In terms of the design this might mean that this private method does not belong in its current place. A common refactoring is to extract this method, maybe to a brand new class. There, the former private method, now a public method, can be tested normally by the developer. The original class, where the private method used to be, should now depend on this new class.
  
 - **Static methods and testability**: As we have seen before, static methods adversely affect testability, as they can not be stubbed easily. Therefore, a good rule of thumb is to avoid the creation of static methods whenever possible.
-Exceptions to this rule are utility methods. As we saw before, utility methods are often not mocked.
- 
-If your system has to depend on a specific static method, e.g., because it comes with the framework your software depends on, adding an abstraction on top of it, similar to what we did with the `Calendar` class in the previous chapter, might be a good decision to facilitate testability.
- 
+Exceptions to this rule are utility methods. As we saw before, utility methods are often not mocked.<br><br> 
+If your system has to depend on a specific static method, e.g., because it comes with the framework your software depends on, adding an abstraction on top of it, similar to what we did with the `Calendar` class in the previous chapter, might be a good decision to facilitate testability.<br><br>
 The same recommendation applies when your system needs code from others or external dependencies.
 Again, creating layers/classes that abstract away the dependency might help you in increasing testability.
 We emphasise that developers should not be afraid to create these extra layers. While it might seem that these layers will increase the overall complexity of the design, the increased testability pays off.

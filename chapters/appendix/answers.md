@@ -945,6 +945,9 @@ See https://martinfowler.com/bliki/TestPyramid.html !
 
 **Exercise 8**
 
+We have two answers for this exercise, provided by two different students:
+
+_Answer 1:_
 Suppose that you have designed your system in a way that domain/business code can be easily tested via unit tests.
 Therefore, database access is, for example, hidden in a Data Access Object class.
 This class can easily be mocked, which enables you to apply all testing techniques in your domain we have discussed so far.
@@ -973,9 +976,7 @@ On the other hand, with a real database, you can better simulate situations like
 
 (We discuss more about it in the "SQL testing" chapter.)
 
-
-**Exercise 8**
-
+_Answer 2:_
 At some point, it's important to test code with external dependencies, such as a database, against those dependencies. 
 Apart from testing the SQL, which in principle is just more code, we need to check, for example
 that the schema is aligned and that we're using the right connection. 
@@ -1187,7 +1188,7 @@ To avoid the flakiness, a developer could have mocked the random function. It do
 
 **Exercise 1.**
 
-Regular expressions cannot count instances.
+Regular expressions cannot detect code semantics.
 
 **Exercise 2.**
 
@@ -1206,11 +1207,20 @@ Mutation testing.
 
 **Exercise 2.**   
 
-We can apply *Relational Operator Replacements*, *Assignment Operator Replacements*, and *Scalar Variable Replacements*.
-In the given method we have 2 instances of *relational operators*, 2 instances of *assignment operators*, and 9 instances of *scalar variables*. The upper-bound estimate of the number of mutants becomes:
+There are two possible answers for this exercise. If we consider single-order mutation, i.e., mutants are composed of single mutations, we end up with $$5*2+3*2+9*2 = 34$$ possible mutants: 
 
-$$5^2 \cdot 3^2 \cdot 2^9 = 115200$$
+* The 5 possible "Relational Operator Replacement" operators can be applied in two places (the two ifs)
+* The 3 possible "Assignment Operator Replacement" operators can be applied in two places (`a=b` and `a=c`)
+* Finally, "Scalar Variable Replacement" mutations can be applied in the 9 places where a variable is used (and the can replace them by any of the other two available variables).
 
+
+We can also consider higher-order mutation. There, all the combinations of mutants can be applied. Again, on the given method we have 2 instances of *relational operators*, 2 instances of *assignment operators*, and 9 instances of *scalar variables*. The upper-bound estimate of the number of mutants becomes:
+
+$$6^2 \cdot 4^2 \cdot 3^9 - 1 = 11337407$$ mutants
+
+We calculate all the possible variants and then subtract $1$ for the original method so that we are left with only the mutants.
+
+As you can see, the number of all possible mutants is quite significant (and too expensive to be used in practice).
 
 
 ## Security testing

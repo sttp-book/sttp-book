@@ -437,7 +437,9 @@ $$\text{C/DC coverage} = \frac{\text{conditions outcome covered + decisions outc
 
 
 {% hint style='tip' %}
-Another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in 2^N tests, given N conditions.
+While there is some confusion among the different terms, in this book, whenever we mention condition coverage or full condition coverage, we mean condition+branch coverage.
+
+In addition, another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in 2^N tests, given N conditions.
 {% endhint %}
 
 {% set video_id = "oWPprB9GBdE" %}
@@ -519,12 +521,12 @@ Note that we have been avoiding lazy (short-circuit) operators (i.e., && and ||)
 
 We make the truth table to find the combinations:
 
-| Tests | A | B | C  | Outcome |
-|-------|---|---|----|---------|
-| 1     | T | T | dc | T       |
-| 2     | T | F | T  | T       |
-| 3     | T | F | F  | F       |
-| 4     | F | X | dc | F       |
+| Tests | A | B  | C  | Outcome |
+|-------|---|----|----|---------|
+| 1     | T | T  | dc | T       |
+| 2     | T | F  | T  | T       |
+| 3     | T | F  | F  | F       |
+| 4     | F | dc | dc | F       |
 
 ('dc' represents "don't care" values.)
 
@@ -913,7 +915,7 @@ public String fizzString(int n) {
 **Exercise 9.**
 Assume we have two test cases with an input integer: T1 = 15 and T2 = 8.
 
-What is the condition coverage these test cases give combined?
+What is the branch+condition coverage these test cases give combined?
 
 What is the decision coverage?
 
