@@ -872,7 +872,7 @@ public void flightMileage() {
   // now try it with a canceled flight
   newFlight.cancel();
   boolean flightCanceledStatus = newFlight.isCancelled();
-  assertFalse(flightCanceledStatus);
+  assertTrue(flightCanceledStatus);
 }
 ```
 
