@@ -654,14 +654,14 @@ Consider the following class `MyMath` with the method `distanceToInt()` and its 
      * @return  the difference between value a and the nearest whole integer.
      */
     public class MyMath {
-        public static double distanceToInt(double v) {
-            if (v < 0) {
-                v *= -1;
+        public static double distanceToInt(double a) {
+            if (a < 0) {
+                a *= -1;
             }
-            if (v % 1 <= 0.5) {
-                return v % 1;
+            if (a % 1 <= 0.5) {
+                return a % 1;
             } else {
-                double fractional = v % 1;
+                double fractional = a % 1;
                 return 1 - fractional;
             }
         }
@@ -671,14 +671,14 @@ Consider the following class `MyMath` with the method `distanceToInt()` and its 
 A mutant of `distanceToInt()`:
 
 ```java
-    public static double distanceToInt(double v) {
-        if (v < 0) {
-            v /= -1;
+    public static double distanceToInt(double a) {
+        if (a < 0) {
+            a /= -1;
         }
-        if (v % 1 < 0.5) {
-            return v % 1;
+        if (a % 1 < 0.5) {
+            return a % 1;
         } else {
-            double fractional = v % 1;
+            double fractional = a % 1;
             return 1 - fractional;
         }
     }
