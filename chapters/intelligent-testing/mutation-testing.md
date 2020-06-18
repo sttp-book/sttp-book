@@ -429,7 +429,7 @@ As we saw before, we have to create the mutants first and it is best to do this 
 Then, we run the test suite against each of the mutants with an execution engine.
 If any test fails when executed against a mutant, we say that the test suite kills the mutant.
 This is good, because it shows that our test suite has some fault detection capability.
-If none of the tests fail, the mutant stays alive.
+If none of the tests fail, the mutant stay alive.
 
 This process is illustrated in the diagram below:
 
@@ -641,6 +641,55 @@ Which of the following mutation operators can be applied to the method in order 
 5. Scalar Variable Replacement
 
 Provide an upper-bound estimate for the number of possible mutants of the method above. Assume that our tool replaces every instance of an operator/variable independently.
+
+**Exercise 3.**
+Consider the following class `MyMath` with the method `distanceToInt()` and its mutant below:
+
+```java
+    /**
+     * <p>Computes the difference between the given number and the nearest whole integer.
+     * The nearest whole integer can be greater than or less than the input.</p>
+     *
+     * @param a  value a
+     * @return  the difference between value a and the nearest whole integer.
+     */
+    public class MyMath {
+        public static double distanceToInt(double v) {
+            if (v < 0) {
+                v *= -1;
+            }
+            if (v % 1 <= 0.5) {
+                return v % 1;
+            } else {
+                double fractional = v % 1;
+                return 1 - fractional;
+            }
+        }
+    }
+```
+
+A mutant of `distanceToInt()`:
+
+```java
+    public static double distanceToInt(double v) {
+        if (v < 0) {
+            v /= -1;
+        }
+        if (v % 1 < 0.5) {
+            return v % 1;
+        } else {
+            double fractional = v % 1;
+            return 1 - fractional;
+        }
+    }
+```
+
+Which one of the following statements is **not correct**?
+
+1. The mutant is impossible to kill.
+2. Adding this mutant to the set of mutants when testing will not affect the mutation score.
+3. The mutant behaves differently from the original program.
+4. The mutant was created by applying syntactic changes.
 
 {% hint style='working' %}
 We need to develop more exercises for this chapter

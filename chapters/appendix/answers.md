@@ -1218,10 +1218,17 @@ We can also consider higher-order mutation. There, all the combinations of mutan
 
 $$6^2 \cdot 4^2 \cdot 3^9 - 1 = 11337407$$ mutants
 
-We calculate all the possible variants and then subtract $1$ for the original method so that we are left with only the mutants.
+We calculate all the possible variants and then subtract $$1$$ for the original method so that we are left with only the mutants.
 
 As you can see, the number of all possible mutants is quite significant (and too expensive to be used in practice).
 
+**Exercise 3.**
+
+Statement 3 is incorrect. Instead, the mutant behaves the same as the original program because it is an equivalent mutant. Note the two differences: the assignment operator in the body of the first `if` statement and the relational operator in the second `if` condition. The former has no effect because division by $$-1$$ still produces the opposite number giving us the absolute value of `a`. The latter also has no effect because when the fractional part of the number is `0.5` the mutant will calculate the difference to the larger integer instead of simply returning the fractional part, but this does not matter as it still returns the same output for all possible inputs.
+
+1. Correct — the mutant is indeed impossible to kill because it is an equivalent mutant.
+2. Correct — equivalent mutants are not considered when calculating the mutation score.
+4. Correct — The mutant was created by applying two syntactic changes as explained above.
 
 ## Security testing
 
