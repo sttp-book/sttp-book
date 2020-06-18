@@ -1230,6 +1230,59 @@ Statement 3 is incorrect. Instead, the mutant behaves the same as the original p
 2. Correct — equivalent mutants are not considered when calculating the mutation score.
 4. Correct — The mutant was created by applying two syntactic changes as explained above.
 
+**Exercise 4.**
+
+The test suite will not kill this mutant:
+
+```java
+  public static double distanceToInt(double a) {
+    if (a < 0) {
+      a *= -1;
+    }
+    if (a % 1 <= 0.5) {
+      return a % 1;
+    } else {
+      double fractional = a % 1;
+      return 1 - a;
+    }
+  }
+```
+
+The mutant was obtained by applying a scalar variable replacement operator to the original method, at the second return statement.
+
+**Exercise 5.**
+
+Adding the following two test cases will improve the test suite:
+
+```java
+  @Test
+  void testDistanceToGreaterInt() {
+    assertEquals(0.2, MyMath.distanceToInt(7.8), 0.00001);
+  }
+
+  @Test
+  void testDistanceToSmallerIntNegative() {
+    assertEquals(0.2, MyMath.distanceToInt(-4.8), 0.00001);
+  }
+```
+
+The mutant correctly calculated the difference to the closest integer when the provided value was closer to the smaller positive integer (e.g. $$7.3$$) or the larger negative integer (e.g. $$-4.1$$), but not when it was closer to the larger positive integer (e.g. $$7.8$$) or the smaller negative integer (e.g. $$-4.8$$).
+
+Try running the program and the test suite yourself to better understand why the program gives incorrect outputs in these cases.
+
+**Exercise 6.**
+
+The mutant from exercise 3 is an equivalent mutant, so it is not considered in the mutation score calculation.
+The mutant from exercise 5 is killed by our improved test suite.
+Our improved test suite from exercise 5 manages to kill the non-equivalent mutant from exercise 4 and it also kills the two new mutants.
+
+In total we consider 3 mutants to consider, of which all 3 are killed by our test suite. Therefore the mutation score is 100%:
+
+$$\text{mutation score} = \frac{\text{3 killed mutants}}{\text{3 non-equivalent mutants}}$$
+
+Note that although we achieved a mutation score of 100%, this does not mean that our test suite is perfect. That is because we did not consider all the possible mutants (perhaps to decrease the execution time of our test suite).
+
+
 ## Security testing
 
 **Exercise 1.**
