@@ -1218,7 +1218,7 @@ We can also consider higher-order mutation. There, all the combinations of mutan
 
 $$6^2 \cdot 4^2 \cdot 3^9 - 1 = 11337407$$ mutants
 
-We calculate all the possible variants and then subtract $1$ for the original method so that we are left with only the mutants.
+We calculate all the possible variants and then subtract $$1$$ for the original method so that we are left with only the mutants.
 
 As you can see, the number of all possible mutants is quite significant (and too expensive to be used in practice).
 
