@@ -1,7 +1,7 @@
 # Test code quality and engineering
 
 You probably noticed that, once _test infected_, 
-the amount of JUnit code that a software development team writes and maintain
+the amount of JUnit code that a software development team writes and maintains
 is quite significant. In practice,
 test code bases tend to grow quickly. Empirically, we have been observing
 that Lehman's laws of evolution also apply to test code: code tends to rot, unless
