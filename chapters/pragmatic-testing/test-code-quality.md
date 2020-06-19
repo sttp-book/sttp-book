@@ -383,7 +383,7 @@ Suddenly, our `qtyTimesIndividualPrice` test fails:
 ```
 org.opentest4j.AssertionFailedError: 
 Expected :Product Playstation IV with 64 GB and super wi-fi times 3 = 1799.97
-Actual   :Product Playstatio times 3 = 1799.97
+Actual   :Product Playstation times 3 = 1799.97
 ```
 
 A better assertion for this would be to assert precisely what is wanted from that behaviour.
