@@ -829,14 +829,14 @@ The boundary 'strictly positive even numbers' is a boundary with an infinite set
 - 4 is not a lot (low time consumption) so I decide to test the 2 boundaries concerning the 'even number partition' again with bigger values. (This decision is tightly dependent on your time budget & test design)
 - Total of 6 tests
 
-| Test case | `array` | `array.length` | output (median) | Comment |
+| Test case | array | array.length | output (median) | Comment |
 |:---:|---|---|---|---|
 | T1 | {} | 0 | `invalid` | on-point for invalid partition |
 | T2 | {100} | 1 | 100 | off-point for invalid partition |
-| T3 | {20, 100} | 2 | 60 | on-point for `n % 2 != 0` |
-| T4 | {1, 1, 3} | 3 | 1 | off-point for `n % 2 != 0` |
-| T5 | {2, 4, 6, 6, 6, 10, 10, 16, 20, 20} | 10 | 8 | big on-point for `n % 2 != 0` |
-| T6 | {1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21} | 11 | 11 | big off-point for `n % 2 != 0` |
+| T3 | {20, 100} | 2 | 60 | on-point for even integers |
+| T4 | {1, 1, 3} | 3 | 1 | off-point for even integers |
+| T5 | {2, 4, 6, 6, 6, 10, 10, 16, 20, 20} | 10 | 8 | big on-point for even integers |
+| T6 | {1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21} | 11 | 11 | big off-point for even integers |
 
 ### Automated unit tests
 ```java
