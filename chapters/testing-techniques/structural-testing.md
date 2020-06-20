@@ -999,7 +999,27 @@ Why (not)?
 
 What feedback should you give to the developer, that used this expression, about your finding?
 
+**Exercise 17.**
+Draw the CFG corresponding to the following code snippet:
+```java
+/**
+  * Returns a new String containing all the characters of the parameter string in the same order but with
+  * uppercase characters in even positions and lowercase characters in odd positions.
+  *
+  * @param string - String from which to alternate characters case.
+  * @return new String with alternating character case.
+  */
+public static String alternateCaps(String string) {
+    if (string == null) return null;
 
+    char[] characters = string.toCharArray();
+    for (int i = 0; i < string.length(); i++) {
+        if (i % 2 == 0) characters[i] = Character.toUpperCase(characters[i]);
+        else characters[i] = Character.toLowerCase(characters[i]);
+    }
+    return new String(characters);
+}
+```
 
 
 ## References
