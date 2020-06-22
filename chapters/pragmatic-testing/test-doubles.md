@@ -288,7 +288,7 @@ We now expect the SAP mock to have its `send` method invoked precisely two times
 
 > You might be asking yourself now: _Why did you not put this new SAP sending functionality inside of the existing `InvoiceFilter` class_?
 > 
-> If we were do it, the `lowValueInvoices` method would then be both a "command" and a "query". By "query", we mean that the method returns data to the caller while with "command", we mean that the method also performs an action in the system. Mixing both concepts in a single method is not a good idea, as it may confuse developers who will eventually call this method. How would they know this method had some extra side-effect, besides just returning the list of invoices?
+> If we were to do it, the `lowValueInvoices` method would then be both a "command" and a "query". By "query", we mean that the method returns data to the caller while with "command", we mean that the method also performs an action in the system. Mixing both concepts in a single method is not a good idea, as it may confuse developers who will eventually call this method. How would they know this method had some extra side-effect, besides just returning the list of invoices?
 > 
 > If you want to read more about this, search for _Command-Query Separation_, or CQS, a concept devised by Bertrand Meyer.
 

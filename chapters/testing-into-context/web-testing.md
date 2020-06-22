@@ -29,7 +29,7 @@ The **programming paradigms** may be different, so principles like "inversion of
 Also, you will have to pay special attention to the structure of your code.
 It is very easy to mix JavaScript with HTML in such a way that you end up with something that is difficult to test.
 Make sure you **design for testability** and apply some kind of modular design, creating small, independent components that are easily tested.
-When starting a new project from scratch, is helpful to use a JavaScript library or framework (like Vue.js, React or Angular) in order to achieve such a structure.
+When starting a new project from scratch, it is helpful to use a JavaScript library or framework (like Vue.js, React or Angular) in order to achieve such a structure.
 If you are dealing with existing code for which there are no unit tests, you will probably have to do a significant amount of refactoring to make the code testable. 
 
 ### The application follows the client-server model
