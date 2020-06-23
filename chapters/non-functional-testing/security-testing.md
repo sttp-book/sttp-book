@@ -443,7 +443,7 @@ Below you see an example of a log file resulting from one run of the fuzzer.
 ![behavioural log screenshot](img/security-testing/behav-log-screenshot.png)
 
 
-In the figure below, the plots on the right show how the value of `score` variable changes overtime. It is apparent that something goes wrong with `Scorer 2`, since the score is typically programmed to increase monotonically.
+In the figure below, the plots on the right show how the value of `score` variable changes over time. It is apparent that something goes wrong with `Scorer 2`, since the score is typically programmed to increase monotonically.
 
 ![JPacman and scorers](img/security-testing/jpacman-screenshot.png)
 
