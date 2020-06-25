@@ -206,7 +206,7 @@ Designing an ideal testing tool requires striking a balance between two measures
 
 A perfect testing tool is both sound and complete. However, this is an undecidable problem — given finite time, the tool will always be wrong for some input. In reality, tools often compromise of FPs or FNs.
 
-Low FNs are ideal for security critical applications where a missed vulnerability can cause significant loss, e.g. banking apps. Low FPs are ideal for applications that don't have a lot of manpower to evaluate the correctness of each result.
+Low FPs are ideal for security critical applications where a missed vulnerability can cause significant loss, e.g. banking apps. Low FNs are ideal for applications that don't have a lot of manpower to evaluate the correctness of each result.
 
 Additionally, an ideal testing tool is **interpretable**: an analyst can trace the results to a solid cause, and are **scalable**: the tool can be used for large applications without compromising heavily on performance.
 
