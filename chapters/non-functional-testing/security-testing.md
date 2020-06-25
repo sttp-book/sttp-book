@@ -202,7 +202,7 @@ Before we dive into further explanation of SAST and DAST techniques, let's look 
 The quality of testing tools is evaluated in a number of ways. You have already learnt about _code coverage_ in a previous chapter. Here, we discuss four new metrics that are often used in the context of security testing:
 Designing an ideal testing tool requires striking a balance between two measures: (a) Soundness, and (b) Completeness.
 
-**Soundness** dictates that there should be no False Negatives (FN) — no vulnerability should be skipped. This implies that no alarm is raised *IF* there is no existing vulnerability in the *System Under Test (SUT)*. **Completeness** dictates that there should be no False Positives (FP) — no false alarm should be raised. This implies that an alarm is raised *IF* a valid vulnerability is found.
+**Soundness** dictates that there should be no False Negatives (FN) — no false alarm should be raised. This implies that no alarm is raised *IF* there is no existing vulnerability in the *System Under Test (SUT)*. **Completeness** dictates that there should be no False Positives (FP) — no vulnerability should be skipped. This implies that an alarm is raised *IF* a valid vulnerability is found.
 
 A perfect testing tool is both sound and complete. However, this is an undecidable problem — given finite time, the tool will always be wrong for some input. In reality, tools often compromise of FPs or FNs.
 
