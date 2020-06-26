@@ -200,15 +200,17 @@ Before we dive into further explanation of SAST and DAST techniques, let's look 
 
 ### Quality assessment criteria
 The quality of testing tools is evaluated in a number of ways. You have already learnt about _code coverage_ in a previous chapter. Here, we discuss four new metrics that are often used in the context of security testing:
-Designing an ideal testing tool requires striking a balance between two measures: (a) Soundness, and (b) Completeness.
 
+Designing an ideal testing tool requires striking a balance between two measures: (a) Soundness, and (b) Completeness. 
 **Soundness** dictates that there should be no False Negatives (FN) — no vulnerability should be skipped. This implies that no alarm is raised *IF* there is no existing vulnerability in the *System Under Test (SUT)*. **Completeness** dictates that there should be no False Positives (FP) — no false alarm should be raised. This implies that an alarm is raised *IF* a valid vulnerability is found.
+
+>Here, a 'positive' instance indicates a _bug_ and a 'negative' instance indicates _benign code_. So, True Positives (TP) are _actual bugs_, and True Negatives (TN) are _actual benign code snippets_. Similarly, False Positives (FP) are _false bugs_ (or _false alarms_), and False Negatives (FN) are _bugs that weren't found_ (or _missed bugs_).
 
 A perfect testing tool is both sound and complete. However, this is an undecidable problem — given finite time, the tool will always be wrong for some input. In reality, tools often compromise of FPs or FNs.
 
 Low FNs are ideal for security critical applications where a missed vulnerability can cause significant loss, e.g. banking apps. Low FPs are ideal for applications that don't have a lot of manpower to evaluate the correctness of each result.
 
-Additionally, an ideal testing tool is **interpretable**: an analyst can trace the results to a solid cause, and are **scalable**: the tool can be used for large applications without compromising heavily on performance.
+Additionally, an ideal testing tool is (c) **interpretable**: an analyst can trace the results to a solid cause, and are (d) **scalable**: the tool can be used for large applications without compromising heavily on performance.
 
 
 
