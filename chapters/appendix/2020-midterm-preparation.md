@@ -10,6 +10,8 @@ You are free to:
 * Use WebLab's code editor or IntelliJ or any other IDE to write your code. We even provide you [an IntelliJ project to get started](https://sttp.site/chapters/appendix/resources/2020-midterm-skeleton.zip). However, your final answer must be delivered in WebLab. Make sure your tests are passing and everything compiles in WebLab.
 * Use any tool to draw CFGs, state machines, and transition trees. You are also allowed to draw it manually and upload a picture. Just make sure it’s legible enough.
 
+* [Endterm skeleton](https://sttp.site/chapters/appendix/resources/2020-endterm-skeleton.zip).
+
 You must not:
 
 * Ask questions to any other person. All the knowledge should come from you.
