@@ -611,6 +611,25 @@ In the analogy above, we can replace crimes by bugs, city by software, and polic
 1. Combinatorial testing
 
 **Exercise 2.**
+Why do we use mutation testing?
+
+1. To quickly generate many different test cases
+2. To test the quality of the test suite
+3. To find more efficient (refactored) version of methods
+4. To find sneaky paths in the SUT
+
+**Exercise 3.**
+During a board meeting, Alice claims that, due to the test suite written for a software reaching a 98% mutation score, the test suite should be able to catch almost all errors of the SUT. Bob disagrees, claiming that the score merely demonstrates that the test suite can detect simple errors, but not complex ones. Who is (more) correct and why?
+
+**Exercise 4.**
+What is **not** an example of a language-specific operator in Java?
+
+1. Changes in lambda functions
+2. Variable access modifier changes
+3. Changing `+` to `-`
+4. Removing semicolons
+
+**Exercise 5.**
 Take a look at the method `min(int a, final int b, final int c)` from `org.apache.commons.lang3.math.NumberUtils`:
 
 ```java
@@ -641,6 +660,12 @@ Which of the following mutation operators can be applied to the method in order 
 5. Scalar Variable Replacement
 
 Provide an upper-bound estimate for the number of possible mutants of the method above. Assume that our tool replaces every instance of an operator/variable independently.
+
+**Exercise 6.**
+Can the process of determining the mutation score be fully automated and remain accurate? Why or why not?
+
+**Exercise 7.**
+Why is it critical to weed out similar mutants?
 
 {% hint style='working' %}
 We need to develop more exercises for this chapter
