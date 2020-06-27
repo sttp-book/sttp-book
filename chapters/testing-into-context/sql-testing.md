@@ -150,7 +150,7 @@ public class InvoiceDaoIntegrationTest {
 
 Let us understand it:
 
-* Before each test, a clean up operation happens. We clean the entire database to make sure our tests will not be flaky. It is easy to imagine that, if a database has unkwnown data, a SQL query will return unexpected results. Note that, in here, we are doing a simple `truncate table`. In more complex systems, you might want to extract this "reset database" logic to an specialized class (or even to make use of framework).
+* Before each test, a clean up operation happens. We clean the entire database to make sure our tests will not be flaky. It is easy to imagine that, if a database has unknown data, an SQL query will return unexpected results. Note that, in here, we are doing a simple `truncate table`. In more complex systems, you might want to extract this "reset database" logic to an specialized class (or even to make use of framework).
 * After each class, we close the connection, to avoid connection leaks. In this example, a simple `Connection#close` suffices. In real life, you might want to use some professional connection pool (not only for your test code, but also for your production code!)
 * The `save()` test method exercises both `save()` and `all()` methods. It inserts values to the database and ensures they are persisted correctly afterwards.
 * The `atLeast` exercises the `allWithAtLeast` method. Note how it also exercises the boundaries of the `value>?` condition. 

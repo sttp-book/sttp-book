@@ -301,7 +301,7 @@ The conditions from the requirements are really close with each other. Because o
 
 These boundary points can found through the following process. We first find the on-point of the boundary, for instance (35, 3.6), then discover the closest inputs that would make the student to fail. In this example, (34, 3.6) and (35, 3.5). Note that there exists one special case (= 36, >= 3.5). Since it contains an equality condition, we have two off-points to explore.
 
-Also note that we are using in-points that are on-points too. This is less common, but in the case of this problem choosing anohter in-point might make the final outcome to still not change between the boundary tests we devised.
+Also note that we are using in-points that are on-points too. This is less common, but in the case of this problem choosing another in-point might make the final outcome to still not change between the boundary tests we devised.
 For example, if we choose a GPA in-point of 3.6, the 35 and 36 ACT will have the same outcome value (as the next rule will intervene).
 
 | Variable	| Equivalence classes	| Boundaries	| Remark	|
