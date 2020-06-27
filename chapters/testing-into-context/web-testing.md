@@ -773,6 +773,20 @@ when used by lots of people.
 Various tools exist to put a lot of load on your system 
 and help you find the parts with performance issues.
 
+### Automated visual regression testing (screenshot testing)
+
+Screenshot testing is a technique that helps developers find visual regressions in web applications. Screenshot tests work in a similar way to snapshot tests.
+
+1. A page of the web application is visited.
+2. A screenshot of the page is taken and compared with the previously taken screenshot of that page.
+3. If there is not a screenshot to compare to the test passes and saves the image as a baseline. If there are differences between the images the test fails and the difference can be manually inspected and verified to see if the results were intended or not.
+
+Screenshot tests can be less brittle compared to other UI tests because the assertion is made on the end visual result that the user sees and it does not depend on the implementation details of the UI.
+
+A popular tool in the web ecosystem to create and run automated visual regression tests is [BackstopJS](https://github.com/garris/BackstopJS). After running a screenshot test suite the tools generates a report. The report displays the differences between the baseline and the new screenshots. This difference can then be inspected manually and verified as expected or unexpected. An example of the report can be seen in the image below.
+
+![Automated visual regression testing with BackstopJS](img/web-testing/backstopjs.png)
+
 
 ## References
 * QUnit's Introduction to Unit Testing. https://qunitjs.com/intro/
@@ -787,3 +801,5 @@ and help you find the parts with performance issues.
 * WebDriver (W3C Recommendation). https://www.w3.org/TR/webdriver1/
 * Introduction to Cypress. https://docs.cypress.io/guides/core-concepts/introduction-to-cypress.html
 * Web Content Accessibility Guidelines (WCAG) 2.1 (W3C Recommendation). https://www.w3.org/TR/WCAG21/
+* Automated Visual Testing. https://storybook.js.org/docs/testing/automated-visual-testing/
+* BackstopJS. https://github.com/garris/BackstopJS
