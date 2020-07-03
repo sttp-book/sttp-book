@@ -1222,6 +1222,15 @@ We calculate all the possible variants and then subtract $$1$$ for the original 
 
 As you can see, the number of all possible mutants is quite significant (and too expensive to be used in practice).
 
+**Exercise 3.**
+
+Mutant created by mutation testing tool is an equivalent mutant, which means that it behaves exactly the same as our
+original method. With, properly written, test suite this mutant will not be killed.
+
+We should not count this (non-killed) mutant when calculating mutation score, as the purpose of mutation score is to see
+whether our test suite is able to catch mistakes made by changes in the behaviour of the method. Here this mutant
+behaves exactly the same (no change in the behaviour).
+
 
 ## Security testing
 
