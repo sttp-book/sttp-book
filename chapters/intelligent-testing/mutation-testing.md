@@ -642,6 +642,23 @@ Which of the following mutation operators can be applied to the method in order 
 
 Provide an upper-bound estimate for the number of possible mutants of the method above. Assume that our tool replaces every instance of an operator/variable independently.
 
+**Exercise 3.**
+Take a look at the method `sum(int[] array)` that sums all integers in the array:
+
+```java
+public static void sum(int[] array) {
+    int sum = 0;
+    for (int i = 0; i < array.length; i++) {
+        sum += array[i];
+    }
+    return sum;
+}
+```
+
+Our mutation testing tool created a mutant by replacing `i < array.length` by `i != array.length`.
+
+Explain why your, properly written test suite, won't kill this mutant. Will you count this mutant when calculating the mutation score?
+
 {% hint style='working' %}
 We need to develop more exercises for this chapter
 {% endhint %}
