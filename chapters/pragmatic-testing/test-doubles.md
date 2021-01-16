@@ -1,5 +1,5 @@
 ﻿
-# Test doubles
+# 3.2 Test doubles
 
 
 While testing single units is simpler than testing entire systems, we still face challenges when unit testing classes that depend on other classes or on external infrastructure.

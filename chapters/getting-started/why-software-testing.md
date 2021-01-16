@@ -1,4 +1,4 @@
-# Why software testing?
+# 1.1 Why software testing?
 
 
 Why should we actually care about software testing?

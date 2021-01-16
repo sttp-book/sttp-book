@@ -1,4 +1,4 @@
-# Web testing
+# 4.1 Web testing
 
 Web applications are ubiquitous nowadays: whether you check your e-mail, file your tax return or play a simple online game, chances are high that you are using a web application.
 They are all client-server applications, where the server is located somewhere on the Internet, and the client runs in your web browser. 

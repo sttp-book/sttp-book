@@ -1,4 +1,4 @@
-# The Testing Pyramid
+# 3.1 The Testing Pyramid
 
 In previous chapters, we studied different techniques to derive test cases for requirements with single responsibilities (tested via specification-based techniques) and source code that could fit into a single unit/class (tested via structural techniques).
 

@@ -1,4 +1,4 @@
-# Specification-Based Testing
+# 2.1 Specification-Based Testing
 
 In this chapter, we explore **specification-based testing** techniques. These use the *requirements* of the program (often written as text; think of user stories and/or UML use cases) as input for testing.
 

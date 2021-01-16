@@ -1,4 +1,4 @@
-# Testing vs Writing Tests
+# 1.4 Testing vs Writing Tests
 
 **TL;DR: Testing is different from writing tests. Developers write tests as a a way to give them space to think and confidence for refactoring. Testing focuses on finding bugs. Both should be done.**
 

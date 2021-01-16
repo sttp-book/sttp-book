@@ -1,4 +1,4 @@
-# Search-based software testing
+# 6.4 Search-based software testing
 
 Imagine a computer program that looks at your code implementation and, based on what it sees, it automatically generates (JUnit) test cases that achieve 100% branch coverage. If this sounds like sci-fi to you, you should know it is not. In fact, automated test case generation tools are getting better by the day.
 
