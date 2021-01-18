@@ -1,6 +1,6 @@
 # 1.4 Testing vs Writing Tests
 
-**TL;DR: Testing is different from writing tests. Developers write tests as a a way to give them space to think and confidence for refactoring. Testing focuses on finding bugs. Both should be done.**
+**TL;DR: Testing is different from writing tests. Developers write tests as a way to give them space to think and confidence for refactoring. Testing focuses on finding bugs. Both should be done.**
 
 We are right now at a point where developers do know that they need to write automated tests. After all, ideas such as Kent Beck's [Extreme Programming](https://en.wikipedia.org/wiki/Extreme_programming) and [Test-Driven Development](https://sttp.site/chapters/pragmatic-testing/tdd.html), Michael Feather's on the [synergy between testing and design](https://medium.com/r/?url=https%3A%2F%2Fvimeo.com%2F15007792), Steve Freeman's and Nat Pryce's on [how to grow an Object-Oriented software guided by tests](https://medium.com/r/?url=https%3A%2F%2Fwww.amazon.de%2FGrowing-Object-Oriented-Software-Addison-Wesley-Signature%2Fdp%2F0321503627), DHH and Ruby on Rails on [making sure that a web framework comes with a testing framework](https://medium.com/r/?url=http%3A%2F%2Fguides.rubyonrails.org%2Ftesting.html), etc, really stuck.
 
