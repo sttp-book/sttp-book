@@ -1,4 +1,4 @@
-# Structural Testing
+# 2.3 Structural Testing
 
 In a previous chapter, we discussed how to test software using requirements as the main element to guide the testing. 
 In this chapter, we will use the source code itself as a source of information to create tests. 

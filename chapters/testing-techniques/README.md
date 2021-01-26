@@ -1,4 +1,4 @@
-# Testing techniques
+# Section 2: Testing techniques
 
 In a simplified view of a software testing process, 
 developers perform two distinct tasks: **designing 
@@ -44,17 +44,17 @@ software development process.
 
 More specifically, we will discuss the following topics:
 
-* **Specification-based testing**: Techniques to derive tests from textual requirements. Understanding the _category/partition method_ and _equivalence partitioning_.
+* **2.1 Specification-based testing**: Techniques to derive tests from textual requirements. Understanding the _category/partition method_ and _equivalence partitioning_.
 
-* **Boundary testing**: Deriving tests that exercise the boundaries of our requirement.
+* **2.2 Boundary testing**: Deriving tests that exercise the boundaries of our requirement.
 
-* **Structural testing**: Test cases based on the structure of the source code.
+* **2.3 Structural testing**: Test cases based on the structure of the source code.
 
-* **Model-based testing**: Leveraging more formal documentation such as state machines and decision tables to derive tests.
+* **2.4 Model-based testing**: Leveraging more formal documentation such as state machines and decision tables to derive tests.
 
-* **Design-by-contracts**: Devising explicit contracts for methods and classes to ensure that they behave correctly when these contracts are (and are not) met.
+* **2.5 Design-by-contracts**: Devising explicit contracts for methods and classes to ensure that they behave correctly when these contracts are (and are not) met.
 
-* **Property-based testing**: Deriving properties of the system (similar to contracts) and using them to automatically generate test cases.
+* **2.6 Property-based testing**: Deriving properties of the system (similar to contracts) and using them to automatically generate test cases.
 
 
 

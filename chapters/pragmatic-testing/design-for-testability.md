@@ -1,4 +1,4 @@
-# Design for Testability
+# 3.3 Design for Testability
  
  
 We just learned how the use of mocks and stubs can help developers in being highly productive and efficient in writing test code.

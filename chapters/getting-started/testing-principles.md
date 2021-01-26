@@ -1,4 +1,4 @@
-# Principles of software testing
+# 1.2 Principles of software testing
 
 In this chapter, we first define some terminology. Using the right
 terms helps us understand each other better. We then discuss the differences

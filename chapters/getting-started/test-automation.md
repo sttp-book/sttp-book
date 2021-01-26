@@ -1,4 +1,4 @@
-# Software testing automation (with JUnit)
+# 1.3 Software testing automation (with JUnit)
 
 Before we dive into the different testing techniques, let us first get used
 to software testing automation frameworks. In this book, we will use JUnit, as
