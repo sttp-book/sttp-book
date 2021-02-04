@@ -263,18 +263,18 @@ As we last step we can identify duplicate tests and remove those.
   - If `lives >= 10`, we can test this with just one combination.
 1. Test cases: Tests can be divided in 3 categories: is a cat, not a cat, exceptional cases.
   - **Cat**
-    1. 2, true, 6, true, "miauws" --> cat
+    1. 2, true, 6, true, "miauw" --> cat
   - **Not a cat**
-    1. 3, true, 6, true, "miauws" --> not a cat
-    2. 4, false, 6, true, "miauws" --> not a cat
-    3. 6, true, 11, true, "miauws" --> not a cat
-    4. 8, true, 4, false, "miauws" --> not a cat
+    1. 3, true, 6, true, "miauw" --> not a cat
+    2. 4, false, 6, true, "miauw" --> not a cat
+    3. 6, true, 11, true, "miauw" --> not a cat
+    4. 8, true, 4, false, "miauw" --> not a cat
     5. 2, true, 3, true, "woof" --> not a cat
   - **Exceptional**
-    1. 0, true, 2, false, "miauws" --> cat or invalid depending on the context of the program.
-    2. 2, true, 11, true, "miauws" --> not a cat
-    3. 3, true, 8, true, "miauws" --> not a cat
-    4. 4, true, 0, true, "miauws" --> not a cat or invalid depending on the context of the program.
+    1. 0, true, 2, false, "miauw" --> cat or invalid depending on the context of the program.
+    2. 2, true, 11, true, "miauw" --> not a cat
+    3. 3, true, 8, true, "miauw" --> not a cat
+    4. 4, true, 0, true, "miauw" --> not a cat or invalid depending on the context of the program.
 
 
 Note that some tests can be combined! For example:
