@@ -409,7 +409,7 @@ Imagine the following program and its respective CFG:
 
 ```java
 void hello(int a, int b) {
-  if(a > 10 & b > 20) {
+  if(a > 10 && b > 20) {
     System.out.println("Hello");
   } else {
     System.out.println("Hi");
