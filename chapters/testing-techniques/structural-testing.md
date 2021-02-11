@@ -634,7 +634,7 @@ In this case, we have 3 decisions and $$2^3$$ is 8, therefore we have tests that
 
 Our goal will be to apply the MC/DC criterion to these test cases,
 and select $$N+1$$, in this case $$3+1=4$$, tests.
-In this case, the 4 four tests that satisfy that MC/DC coverage is {2, 3, 4, 6}.
+In this case, the four tests that satisfy that MC/DC coverage is {2, 3, 4, 6}.
 
 How did we find them?
 We go test by test, condition by condition.
