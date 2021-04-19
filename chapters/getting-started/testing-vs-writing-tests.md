@@ -30,7 +30,7 @@ I recently asked my 1st year CS students on what kinds of mistakes they have don
 Regardless of your experience, I am sure you also have faced some of these bugs before. _But how often do developers actually explore and write such test cases?_
 I feel not that much. (If you are an empirical software engineering researcher, this is a good question to answer).
 
-[Robert Binder in his 2000 book](https://www.amazon.de/Testing-Object-Oriented-Systems-Addison-wesley-Technology/dp/0201809389) (p.45) makes a distinction between "fault-directed" versus" "conformance directed" testing:
+[Robert Binder in his 2000 book](https://www.amazon.de/Testing-Object-Oriented-Systems-Addison-wesley-Technology/dp/0201809389) (p.45) makes a distinction between "fault-directed" versus "conformance directed" testing:
 
 * Fault directed: Intent to reveal faults through failures.
 * Conformance directed: Intent to demonstrate conformance to required capabilities (e.g. Meets a user story, focus on good weather behavior).
