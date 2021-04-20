@@ -142,7 +142,7 @@ Possible actions:
 
 **Exercise 8**
 
-This focus of this exercise is for you to see that the internal state of the object should also be taken into account in the partitions (and not only the direct input variables).
+The focus of this exercise is for you to see that the internal state of the object should also be taken into account in the partitions (and not only the direct input variables).
 
 Input parameter e:
 * P1: Element not present in the set
@@ -207,7 +207,7 @@ An on-point is the (single) number on the boundary. It may or may not make the c
 
 on point = 1024, off point = 1025, in point = 1028, out point = 512
 
-The on point is the number precisely in the boundary = 1024. off point is the closest number to the boundary and has the opposite result of on point. In this case, 1024 makes the condition false, so the off point should make it true. 1025. In point makes conditions true, e.g., 1028. Out point makes the condition false, e.g., 512.
+The on point is the number precisely in the boundary = 1024. Off point is the closest number to the boundary and has the opposite result of on point. In this case, 1024 makes the condition false, so the off point should make it true. 1025. In point makes conditions true, e.g., 1028. Out point makes the condition false, e.g., 512.
 
 
 **Exercise 6**
