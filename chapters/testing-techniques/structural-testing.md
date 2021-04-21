@@ -1,4 +1,4 @@
-# Structural Testing
+# 2.3 Structural Testing
 
 In a previous chapter, we discussed how to test software using requirements as the main element to guide the testing. 
 In this chapter, we will use the source code itself as a source of information to create tests. 
@@ -588,8 +588,8 @@ If we take the decision block from path coverage example, `A && (B || C)`, MC/DC
 * For condition C:
   * There must be one test case where `C=true` (say T5). 
   * There must be one test case where `C=false` (say T6).
-  * T3 and T4 have different outcomes,
-  * In both test cases T3 and T4, variables A and B should be the same.
+  * T5 and T6 have different outcomes,
+  * In both test cases T5 and T6, variables A and B should be the same.
     
 Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that conditions only have binary outcomes (i.e., `true` or `false`), the number of tests required to achieve 100% MC/DC coverage is, on average, $$N+1$$, where $$N$$ is the number of conditions in the decision. 
 Note that $$N+1$$ is definitely smaller than all the possible combinations ($$2^N$$)!
@@ -634,7 +634,7 @@ In this case, we have 3 decisions and $$2^3$$ is 8, therefore we have tests that
 
 Our goal will be to apply the MC/DC criterion to these test cases,
 and select $$N+1$$, in this case $$3+1=4$$, tests.
-In this case, the 4 four tests that satisfy that MC/DC coverage is {2, 3, 4, 6}.
+In this case, the four tests that satisfy that MC/DC coverage is {2, 3, 4, 6}.
 
 How did we find them?
 We go test by test, condition by condition.

@@ -142,7 +142,7 @@ Possible actions:
 
 **Exercise 8**
 
-This focus of this exercise is for you to see that the internal state of the object should also be taken into account in the partitions (and not only the direct input variables).
+The focus of this exercise is for you to see that the internal state of the object should also be taken into account in the partitions (and not only the direct input variables).
 
 Input parameter e:
 * P1: Element not present in the set
@@ -207,7 +207,7 @@ An on-point is the (single) number on the boundary. It may or may not make the c
 
 on point = 1024, off point = 1025, in point = 1028, out point = 512
 
-The on point is the number precisely in the boundary = 1024. off point is the closest number to the boundary and has the opposite result of on point. In this case, 1024 makes the condition false, so the off point should make it true. 1025. In point makes conditions true, e.g., 1028. Out point makes the condition false, e.g., 512.
+The on point is the number precisely in the boundary = 1024. Off point is the closest number to the boundary and has the opposite result of on point. In this case, 1024 makes the condition false, so the off point should make it true. 1025. In point makes conditions true, e.g., 1028. Out point makes the condition false, e.g., 512.
 
 
 **Exercise 6**
@@ -263,18 +263,18 @@ As we last step we can identify duplicate tests and remove those.
   - If `lives >= 10`, we can test this with just one combination.
 1. Test cases: Tests can be divided in 3 categories: is a cat, not a cat, exceptional cases.
   - **Cat**
-    1. 2, true, 6, true, "miauws" --> cat
+    1. 2, true, 6, true, "miauw" --> cat
   - **Not a cat**
-    1. 3, true, 6, true, "miauws" --> not a cat
-    2. 4, false, 6, true, "miauws" --> not a cat
-    3. 6, true, 11, true, "miauws" --> not a cat
-    4. 8, true, 4, false, "miauws" --> not a cat
+    1. 3, true, 6, true, "miauw" --> not a cat
+    2. 4, false, 6, true, "miauw" --> not a cat
+    3. 6, true, 11, true, "miauw" --> not a cat
+    4. 8, true, 4, false, "miauw" --> not a cat
     5. 2, true, 3, true, "woof" --> not a cat
   - **Exceptional**
-    1. 0, true, 2, false, "miauws" --> cat or invalid depending on the context of the program.
-    2. 2, true, 11, true, "miauws" --> not a cat
-    3. 3, true, 8, true, "miauws" --> not a cat
-    4. 4, true, 0, true, "miauws" --> not a cat or invalid depending on the context of the program.
+    1. 0, true, 2, false, "miauw" --> cat or invalid depending on the context of the program.
+    2. 2, true, 11, true, "miauw" --> not a cat
+    3. 3, true, 8, true, "miauw" --> not a cat
+    4. 4, true, 0, true, "miauw" --> not a cat or invalid depending on the context of the program.
 
 
 Note that some tests can be combined! For example:
@@ -1205,7 +1205,19 @@ Static analysis produces over-generalized results with some false positives, so 
 
 Mutation testing.
 
-**Exercise 2.**   
+**Exercise 2.** 
+
+2.
+
+**Exercise 3.** 
+
+The Coupling Effect suggests that simple faults are intertwined with more complex ones, meaning that a test suite with a high mutation score should catch even non-simple errors.
+
+**Exercise 4.** 
+
+3.
+
+**Exercise 5.**   
 
 There are two possible answers for this exercise. If we consider single-order mutation, i.e., mutants are composed of single mutations, we end up with $$5*2+3*2+9*2 = 34$$ possible mutants: 
 
@@ -1230,6 +1242,74 @@ original method. With, properly written, test suite this mutant will not be kill
 We should not count this (non-killed) mutant when calculating mutation score, as the purpose of mutation score is to see
 whether our test suite is able to catch mistakes made by changes in the behaviour of the method. Here this mutant
 behaves exactly the same (no change in the behaviour).
+
+**Exercise 6.** 
+
+No, it cannot be fully automated while being accurate, as an accurate score depends on weeding out equivalent mutations, which is an undecidable/NP-hard problem.
+
+**Exercise 7.**   
+
+If similar mutants are not discarded, the runtime of mutation testing would be very long, greatly reducing usability. Not discarding similar mutants also skews the mutation score.
+
+**Exercise 3.**
+
+Statement 3 is incorrect. Instead, the mutant behaves the same as the original program because it is an equivalent mutant. Note the two differences: the assignment operator in the body of the first `if` statement and the relational operator in the second `if` condition. The former has no effect because division by $$-1$$ still produces the opposite number giving us the absolute value of `a`. The latter also has no effect because when the fractional part of the number is `0.5` the mutant will calculate the difference to the larger integer instead of simply returning the fractional part, but this does not matter as it still returns the same output for all possible inputs.
+
+1. Correct — the mutant is indeed impossible to kill because it is an equivalent mutant.
+2. Correct — equivalent mutants are not considered when calculating the mutation score.
+4. Correct — The mutant was created by applying two syntactic changes as explained above.
+
+**Exercise 4.**
+
+The test suite will not kill this mutant:
+
+```java
+  public static double distanceToInt(double a) {
+    if (a < 0) {
+      a *= -1;
+    }
+    if (a % 1 <= 0.5) {
+      return a % 1;
+    } else {
+      double fractional = a % 1;
+      return 1 - a;
+    }
+  }
+```
+
+The mutant was obtained by applying a scalar variable replacement operator to the original method, at the second return statement.
+
+**Exercise 5.**
+
+Adding the following two test cases will improve the test suite:
+
+```java
+  @Test
+  void testDistanceToGreaterInt() {
+    assertEquals(0.2, MyMath.distanceToInt(7.8), 0.00001);
+  }
+
+  @Test
+  void testDistanceToSmallerIntNegative() {
+    assertEquals(0.2, MyMath.distanceToInt(-4.8), 0.00001);
+  }
+```
+
+The mutant correctly calculated the difference to the closest integer when the provided value was closer to the smaller positive integer (e.g. $$7.3$$) or the larger negative integer (e.g. $$-4.1$$), but not when it was closer to the larger positive integer (e.g. $$7.8$$) or the smaller negative integer (e.g. $$-4.8$$).
+
+Try running the program and the test suite yourself to better understand why the program gives incorrect outputs in these cases.
+
+**Exercise 6.**
+
+The mutant from exercise 3 is an equivalent mutant, so it is not considered in the mutation score calculation.
+The mutant from exercise 5 is killed by our improved test suite.
+Our improved test suite from exercise 5 manages to kill the non-equivalent mutant from exercise 4 and it also kills the two new mutants.
+
+In total we consider 3 mutants to consider, of which all 3 are killed by our test suite. Therefore the mutation score is 100%:
+
+$$\text{mutation score} = \frac{\text{3 killed mutants}}{\text{3 non-equivalent mutants}}$$
+
+Note that although we achieved a mutation score of 100%, this does not mean that our test suite is perfect. That is because we did not consider all the possible mutants (perhaps to decrease the execution time of our test suite).
 
 
 ## Security testing

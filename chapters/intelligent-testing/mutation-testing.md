@@ -1,4 +1,4 @@
-# Mutation testing
+# 6.2 Mutation testing
 
 *How do we know if we have tested enough?*
 
@@ -611,6 +611,25 @@ In the analogy above, we can replace crimes by bugs, city by software, and polic
 1. Combinatorial testing
 
 **Exercise 2.**
+Why do we use mutation testing?
+
+1. To quickly generate many different test cases
+2. To test the quality of the test suite
+3. To find more efficient (refactored) version of methods
+4. To find sneaky paths in the SUT
+
+**Exercise 3.**
+During a board meeting, Alice claims that, due to the test suite written for a software reaching a 98% mutation score, the test suite should be able to catch almost all errors of the SUT. Bob disagrees, claiming that the score merely demonstrates that the test suite can detect simple errors, but not complex ones. Who is (more) correct and why?
+
+**Exercise 4.**
+What is **not** an example of a language-specific operator in Java?
+
+1. Changes in lambda functions
+2. Variable access modifier changes
+3. Changing `+` to `-`
+4. Removing semicolons
+
+**Exercise 5.**
 Take a look at the method `min(int a, final int b, final int c)` from `org.apache.commons.lang3.math.NumberUtils`:
 
 ```java
@@ -659,10 +678,129 @@ Our mutation testing tool created a mutant by replacing `i < array.length` by `i
 
 Explain why your, properly written test suite, won't kill this mutant. Will you count this mutant when calculating the mutation score?
 
-{% hint style='working' %}
-We need to develop more exercises for this chapter
-{% endhint %}
+**Exercise 6.**
+Can the process of determining the mutation score be fully automated and remain accurate? Why or why not?
 
+**Exercise 7.**
+Why is it critical to weed out similar mutants?
+
+**Exercise 3.**
+Consider the following class `MyMath` with the method `distanceToInt()` and its mutant below:
+
+```java
+    /**
+     * <p>Computes the difference between the given number and the nearest whole integer.
+     * The nearest whole integer can be greater than or less than the input.</p>
+     *
+     * @param a  value a
+     * @return  the difference between value a and the nearest whole integer.
+     */
+    public class MyMath {
+        public static double distanceToInt(double a) {
+            if (a < 0) {
+                a *= -1;
+            }
+            if (a % 1 <= 0.5) {
+                return a % 1;
+            } else {
+                double fractional = a % 1;
+                return 1 - fractional;
+            }
+        }
+    }
+```
+
+A mutant of `distanceToInt()`:
+
+```java
+    public static double distanceToInt(double a) {
+        if (a < 0) {
+            a /= -1;
+        }
+        if (a % 1 < 0.5) {
+            return a % 1;
+        } else {
+            double fractional = a % 1;
+            return 1 - fractional;
+        }
+    }
+```
+
+Which one of the following statements is **not correct**?
+
+1. The mutant is impossible to kill.
+2. Adding this mutant to the set of mutants when testing will not affect the mutation score.
+3. The mutant behaves differently from the original program.
+4. The mutant was created by applying syntactic changes.
+
+**Exercise 4.**
+To test the `distanceToInt()` method from the previous exercise, a developer writes the following test suite:
+
+```java
+@Test
+void testDistanceToInt() {
+    assertEquals(0.3, MyMath.distanceToInt(7.3), 0.00001);
+}
+@Test
+void testDistanceToIntNegative() {
+    assertEquals(0.1, MyMath.distanceToInt(-4.1), 0.00001);
+}
+
+@Test
+void testDistanceToIntHalf() {
+    assertEquals(0.5, MyMath.distanceToInt(2.5), 0.00001);
+}
+
+@Test
+void testDistanceToIntWhole() {
+    assertEquals(0, MyMath.distanceToInt(12));
+}
+
+@Test
+void testDistanceToIntNegativeWhole() {
+    assertEquals(0, MyMath.distanceToInt(-8));
+}
+```
+
+Create a non-equivalent mutant which this test suite would not kill.
+
+**Exercise 5.**
+Improve the test suite from the previous exercise to kill the mutant you created.
+
+**Exercise 6.**
+Given the mutant from exercise 3, the mutant you created in exercise 4 and the following two mutants, perform mutation analysis by assessing the quality of your improved test suite from exercise 5.
+
+Third mutant:
+
+```java
+    public static double distanceToInt(double a) {
+        if (a < 0) {
+            a %= -1;
+        }
+        if (a % 1 <= 0.5) {
+            return a % 1;
+        } else {
+            double fractional = a % 1;
+            return 1 - fractional;
+        }
+    }
+```
+
+Fourth mutant:
+
+```java
+    public static double distanceToInt(double a) {
+        if (a < 0) {
+            a *= -1;
+        }
+        if (a % 1 <= 0.5) {
+            return a % 1;
+        } else {
+            double fractional = a + 1;
+            return 1 - fractional;
+        }
+    }
+```
 
 ## References
 

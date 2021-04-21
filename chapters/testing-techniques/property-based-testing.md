@@ -1,4 +1,4 @@
-# Property-Based Testing
+# 2.6 Property-Based Testing
 
 We briefly mentioned property checks when talking about design-by-contracts.
 There, we used properties in assertions.
