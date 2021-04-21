@@ -642,10 +642,127 @@ Which of the following mutation operators can be applied to the method in order 
 
 Provide an upper-bound estimate for the number of possible mutants of the method above. Assume that our tool replaces every instance of an operator/variable independently.
 
+**Exercise 3.**
+Consider the following class `MyMath` with the method `distanceToInt()` and its mutant below:
+
+```java
+    /**
+     * <p>Computes the difference between the given number and the nearest whole integer.
+     * The nearest whole integer can be greater than or less than the input.</p>
+     *
+     * @param a  value a
+     * @return  the difference between value a and the nearest whole integer.
+     */
+    public class MyMath {
+        public static double distanceToInt(double a) {
+            if (a < 0) {
+                a *= -1;
+            }
+            if (a % 1 <= 0.5) {
+                return a % 1;
+            } else {
+                double fractional = a % 1;
+                return 1 - fractional;
+            }
+        }
+    }
+```
+
+A mutant of `distanceToInt()`:
+
+```java
+    public static double distanceToInt(double a) {
+        if (a < 0) {
+            a /= -1;
+        }
+        if (a % 1 < 0.5) {
+            return a % 1;
+        } else {
+            double fractional = a % 1;
+            return 1 - fractional;
+        }
+    }
+```
+
+Which one of the following statements is **not correct**?
+
+1. The mutant is impossible to kill.
+2. Adding this mutant to the set of mutants when testing will not affect the mutation score.
+3. The mutant behaves differently from the original program.
+4. The mutant was created by applying syntactic changes.
+
 {% hint style='working' %}
 We need to develop more exercises for this chapter
 {% endhint %}
 
+**Exercise 4.**
+To test the `distanceToInt()` method from the previous exercise, a developer writes the following test suite:
+
+```java
+@Test
+void testDistanceToInt() {
+    assertEquals(0.3, MyMath.distanceToInt(7.3), 0.00001);
+}
+@Test
+void testDistanceToIntNegative() {
+    assertEquals(0.1, MyMath.distanceToInt(-4.1), 0.00001);
+}
+
+@Test
+void testDistanceToIntHalf() {
+    assertEquals(0.5, MyMath.distanceToInt(2.5), 0.00001);
+}
+
+@Test
+void testDistanceToIntWhole() {
+    assertEquals(0, MyMath.distanceToInt(12));
+}
+
+@Test
+void testDistanceToIntNegativeWhole() {
+    assertEquals(0, MyMath.distanceToInt(-8));
+}
+```
+
+Create a non-equivalent mutant which this test suite would not kill.
+
+**Exercise 5.**
+Improve the test suite from the previous exercise to kill the mutant you created.
+
+**Exercise 6.**
+Given the mutant from exercise 3, the mutant you created in exercise 4 and the following two mutants, perform mutation analysis by assessing the quality of your improved test suite from exercise 5.
+
+Third mutant:
+
+```java
+    public static double distanceToInt(double a) {
+        if (a < 0) {
+            a %= -1;
+        }
+        if (a % 1 <= 0.5) {
+            return a % 1;
+        } else {
+            double fractional = a % 1;
+            return 1 - fractional;
+        }
+    }
+```
+
+Fourth mutant:
+
+```java
+    public static double distanceToInt(double a) {
+        if (a < 0) {
+            a *= -1;
+        }
+        if (a % 1 <= 0.5) {
+            return a % 1;
+        } else {
+            double fractional = a + 1;
+            return 1 - fractional;
+        }
+    }
+```
 
 ## References
 
