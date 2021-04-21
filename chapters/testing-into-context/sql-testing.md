@@ -1,4 +1,4 @@
-# SQL Testing
+# 4.2 SQL Testing
 
 As we discussed in the _Testing Pyramid_ chapter, parts of our system only make sense to be tested by means of integration testing. A common case for integration testing are classes that talk to databases. Business applications are often composed of many [Data Access Objects](https://en.wikipedia.org/wiki/Data_access_object) (DAOs) that perform complex SQL queries. A lot of business knowledge are encapsulated in these queries, requiring testers to spend some energy in making sure that produce the expected outcomes.
 

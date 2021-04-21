@@ -1,4 +1,4 @@
-# Intelligent testing
+# Section 6: Intelligent testing
 
 Up to this point, _automation_ meant the _automation of the text execution_. Once we manually devised the test cases, we wrote them down as JUnit tests, which were executed by the machine. 
 

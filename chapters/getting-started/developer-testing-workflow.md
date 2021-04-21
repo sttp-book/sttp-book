@@ -1,4 +1,4 @@
-# The developer testing workflow
+# 1.5 The developer testing workflow
 
 Modern software testing is about **testing and designing, designing and testing**. It is only when we combine both perspectives and their respective techniques that we achieve high-quality systems. 
 

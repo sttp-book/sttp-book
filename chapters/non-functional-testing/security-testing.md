@@ -1,4 +1,4 @@
-# Security Testing
+# 5.1 Security Testing
 
 In May of 2018, a [Code Injection Vulnerability was discovered in the Desktop Signal app](https://thehackernews.com/2018/05/signal-desktop-hacking.html). An attacker could execute code on a victim's machine by sending a specially crafted message. The victim's app would hand over the `/etc/passwd` file, and even send all the chats in plain text, _without any human intervention_! This was ironic since Signal is known for its end-to-end encryption feature.
 

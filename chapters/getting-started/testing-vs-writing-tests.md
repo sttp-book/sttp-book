@@ -1,6 +1,6 @@
-# Testing vs Writing Tests
+# 1.4 Testing vs Writing Tests
 
-**TL;DR: Testing is different from writing tests. Developers write tests as a a way to give them space to think and confidence for refactoring. Testing focuses on finding bugs. Both should be done.**
+**TL;DR: Testing is different from writing tests. Developers write tests as a way to give them space to think and confidence for refactoring. Testing focuses on finding bugs. Both should be done.**
 
 We are right now at a point where developers do know that they need to write automated tests. After all, ideas such as Kent Beck's [Extreme Programming](https://en.wikipedia.org/wiki/Extreme_programming) and [Test-Driven Development](https://sttp.site/chapters/pragmatic-testing/tdd.html), Michael Feather's on the [synergy between testing and design](https://medium.com/r/?url=https%3A%2F%2Fvimeo.com%2F15007792), Steve Freeman's and Nat Pryce's on [how to grow an Object-Oriented software guided by tests](https://medium.com/r/?url=https%3A%2F%2Fwww.amazon.de%2FGrowing-Object-Oriented-Software-Addison-Wesley-Signature%2Fdp%2F0321503627), DHH and Ruby on Rails on [making sure that a web framework comes with a testing framework](https://medium.com/r/?url=http%3A%2F%2Fguides.rubyonrails.org%2Ftesting.html), etc, really stuck.
 
@@ -30,7 +30,7 @@ I recently asked my 1st year CS students on what kinds of mistakes they have don
 Regardless of your experience, I am sure you also have faced some of these bugs before. _But how often do developers actually explore and write such test cases?_
 I feel not that much. (If you are an empirical software engineering researcher, this is a good question to answer).
 
-[Robert Binder in his 2000 book](https://www.amazon.de/Testing-Object-Oriented-Systems-Addison-wesley-Technology/dp/0201809389) (p.45) makes a distinction between "fault-directed" versus" "conformance directed" testing:
+[Robert Binder in his 2000 book](https://www.amazon.de/Testing-Object-Oriented-Systems-Addison-wesley-Technology/dp/0201809389) (p.45) makes a distinction between "fault-directed" versus "conformance directed" testing:
 
 * Fault directed: Intent to reveal faults through failures.
 * Conformance directed: Intent to demonstrate conformance to required capabilities (e.g. Meets a user story, focus on good weather behavior).
