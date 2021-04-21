@@ -572,7 +572,9 @@ We should recommend the developer to restructure the expression without using `B
 
 This example shows that software testers can contribute to the code quality not only by spotting bugs, but also by suggesting changes that result in better maintainability.
 
+**Exercise 17**
 
+![LinkedList exercise CFG](img/structural-testing/exercises/CFG-alternateCaps.svg)
 
 
 ## Model-Based Testing

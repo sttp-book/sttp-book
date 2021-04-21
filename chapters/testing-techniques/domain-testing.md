@@ -771,6 +771,114 @@ A package should store a total number of kilograms. There are small bars (1 kg e
 {% set video_id = "9ij_kqj78eA" %}
 {% include "/includes/youtube.md" %}
 
+## Exercise 11: Median
+
+A method takes a sorted int array as its only parameter and returns the median of the integers.
+
+(You may assume that the parameter array is non-null and sorted)
+
+For a sorted array of integers S the median is calculated as follows:
+- if the length of S is odd, the median is the middle element of S.
+- if the length of S is even, the median is computed as the average of the 2 middle integers of S.
+
+A possible implementation could look like this:
+```java
+/**
+* Finds the median of a sorted int array.
+*
+* If the length of the array is odd, the method returns the element in the middle of the array as the median.
+* If the length of the array is even, the method returns the average of the two middle elements of the array.
+*
+* @param array - The integer array to find the median from
+* @return int - The median of the array
+*/
+public static int getMedian(int[] array) {
+    // compute the median
+    int n = array.length;
+    if (n % 2 != 0) 
+        return array[n / 2];
+    return (array[n / 2 - 1] + array[n / 2]) / 2;
+}
+```
+
+It becomes clear (by intuition) that the length of the array is of significant importance to the outcome. That's why I choose the length of the array as my variable.
+
+| Variable | Type | Range |
+|---------|---------|--------|
+| array.length | integer | [0, positive infinity)
+
+### Dependencies among variables
+There is only 1 variable (1 parameter) so no other variable is present to even possibly influence this variable.
+--> No dependenies
+
+### Equivalence partitioning + boundary analysis
+
+The boundary 'strictly positive even numbers' is a boundary with an infinite set of on- & off-points (think about the modulo operator!)
+
+
+| Variable | Equivalence class/es | Invalid class/es | Boundaries | Boundary comment |
+|---------|---------|---------|---------|---------|
+| array.length | [1, positive infinity) | 0 | 0 | on-point for invalid class |
+|  |  |  | 1 | off-point for invalid class |
+|  |  |  | strictly positive even integers | on-point for even integers |
+|  |  |  | strictly positive odd integers | off-point for even integers |
+
+### Strategy
+- There are no dependencies to take into account.
+- array.length has 4 boundaries to explore/test.
+- 4 is not a lot (low time consumption) so I decide to test the 2 boundaries concerning the 'even number partition' again with bigger values. (This decision is tightly dependent on your time budget & test design)
+- Total of 6 tests
+
+| Test case | array | array.length | output (median) | Comment |
+|:---:|---|---|---|---|
+| T1 | {} | 0 | `invalid` | on-point for invalid partition |
+| T2 | {100} | 1 | 100 | off-point for invalid partition |
+| T3 | {20, 100} | 2 | 60 | on-point for even integers |
+| T4 | {1, 1, 3} | 3 | 1 | off-point for even integers |
+| T5 | {2, 4, 6, 6, 6, 10, 10, 16, 20, 20} | 10 | 8 | big on-point for even integers |
+| T6 | {1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21} | 11 | 11 | big off-point for even integers |
+
+### Automated unit tests
+```java
+/**
+* Generates test cases for {@link #getMedian(String, int[], int)}.
+*
+* @return Stream of test cases
+*/
+private static Stream<Arguments> generator() {
+    var t1 = Arguments.of("array length 1", new int[]{100}, 100);
+    var t2 = Arguments.of("array length 2", new int[]{20, 100}, 60);
+    var t3 = Arguments.of("array length 3", new int[]{1, 1, 3}, 1);
+    var t4 = Arguments.of("array length 10", new int[]{2, 4, 6, 6, 6, 10, 10, 16, 20, 20}, 8);
+    var t5 = Arguments.of("array length 11", new int[]{1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21}, 11);
+
+    return Stream.of(t1, t2, t3, t4, t5);
+}
+
+/**
+  * Parameterized test that uses {@link #generator()} to generate test cases.
+  *
+  * @param description Short description of the test case
+  * @param array       Array in which to find the index of value
+  * @param median      The expected median of array
+  */
+@ParameterizedTest(name = "{0}")
+@MethodSource("generator")
+void getMedian(String description, int[] array, int median) {
+    assertThat(Training.getMedian(array)).isEqualTo(median);
+}
+
+/**
+  * Checks if the IndexOutOfBounds exception is thrown when an empty array is provided.
+  */
+@Test
+void arrayLengthZero() {
+    assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> {
+        int median = Training.getMedian(new int[]{});
+    });
+}
+```
+
 
 ## References
 
