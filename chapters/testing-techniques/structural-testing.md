@@ -144,7 +144,7 @@ independent of the developers' personal code styles.
 
 {% hint style='tip' %}
 Some coverage tools measure coverage at statement level. Statements are the unique instructions that your
-JVM, for example, executes. This is a bit better, as splitting one line of code in two would not make a difference, but it is still not good enough.
+JVM, for example, executes. This is a bit better, as splitting one line of code in two does not lead to a change in perceived coverage, but it is still not good enough.
 {% endhint %}
 
 {% set video_id = "iQECMbKLez0" %}
@@ -439,7 +439,7 @@ $$\text{C/DC coverage} = \frac{\text{conditions outcome covered + decisions outc
 {% hint style='tip' %}
 While there is some confusion among the different terms, in this book, whenever we mention condition coverage or full condition coverage, we mean condition+branch coverage.
 
-In addition, another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ its possible combinations. That would imply in 2^N tests, given N conditions.
+In addition, another common criterion is the _Multiple Condition Coverage_, or MCC. To satisfy the MCC criterion, a condition needs to be exercised in _all_ of its possible combinations. This would result in 2^N tests, given N conditions.
 {% endhint %}
 
 {% set video_id = "oWPprB9GBdE" %}
@@ -595,7 +595,7 @@ Cost-wise, a relevant characteristic of MC/DC coverage is that, supposing that c
 Note that $$N+1$$ is definitely smaller than all the possible combinations ($$2^N$$)!
 
 Again, to devise a test suite that achieves 100% MC/DC coverage, we should devise $$N+1$$ test cases that, when combined, 
-exercise all the combinations independently from the others.
+exercise all the combinations independently of the others.
 
 The question is how to select such test cases. See the example below.
 
@@ -681,7 +681,7 @@ of them would fit. However, we want to reduce the total amount
 of tests in the test suite (and again, we know we only need 4 in this case).
 
 If we were to pick either test 1 or test 5 we would have to include either test 5 or test 1 as well, 
-as they are their opposites, but therefore unneccesarily increasing our number of tests.
+as they are their opposites, but therefore unnecessarily increasing our number of tests.
 In order to keep our test cases in accordance to $$N+1$$ or in this case $$3+1$$, thus 4 test cases we can 
 either add test 6 or test 7, as their opposites (test 2 or 3) are already included in our test cases.
 Randomly, we pick test 6.
@@ -740,7 +740,7 @@ Zhu, H., Hall, P. A., & May, J. H. (1997). Software unit test coverage and adequ
 
 ## Structural testing vs structural coverage
 
-A common misconception among practitioners to *confuse structural testing with structural coverage*.
+A common misconception among practitioners is to *confuse structural testing with structural coverage*.
 
 Structural testing means *leveraging the structure of the source code to systematically exercise the system under test*. When compared to specification-based testing, we note that structural testing is: 
 
@@ -758,7 +758,7 @@ Therefore, do not aim at 100% coverage. Use structural testing to complement you
 
 ## Exercises
 
-For the first couple of exercises we will use the following code:
+For the first four exercises we will use the following code:
 
 ```java
 public boolean remove(Object o) {
@@ -924,7 +924,7 @@ What is the branch+condition coverage?
 
 ----
 
-The next couple of exercises use Java's implementation of the LinkedList's `computeIfPresent()` method.
+The next three of exercises use Java's implementation of the LinkedList's `computeIfPresent()` method.
 
 ```java
 public V computeIfPresent(K key, BiFunction<? super K, ? super V, ? extends V> rf) {

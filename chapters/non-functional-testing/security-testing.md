@@ -257,7 +257,7 @@ For security testers, a CFG is an overall picture of an application's behaviour,
 * *an unintended transition going from a low- to a high- privileged code block*, or
 * *certain unreachable pieces of code* that can result in application hanging and eventually, a denial of service.
 
-Existing literature has used CFGs to detect the maliciousness of an application based on how its CFG looks like. For example, [this work by Bruschi _et al._](https://link.springer.com/chapter/10.1007/11790754_8) detects self-mutating malware by comparing its CFG with CFGs of known malwares, and [this work by Sun _et al._](https://link.springer.com/chapter/10.1007/978-3-642-55415-5_12) uses CFGs to measure code reuse as a means to detect malware variants.
+Existing literature has used CFGs to detect the maliciousness of an application based on how its CFG looks like. For example, [this work by Bruschi _et al._](https://link.springer.com/chapter/10.1007/11790754_8) detects self-mutating malware by comparing its CFG with CFGs of known malware, and [this work by Sun _et al._](https://link.springer.com/chapter/10.1007/978-3-642-55415-5_12) uses CFGs to measure code reuse as a means to detect malware variants.
 
 #### Data Flow Diagram (DFD)
 
@@ -398,7 +398,7 @@ Penetration testing checks the SUT in an end-to-end fashion, which means that it
 
 Given a software that may contain modules from unknown sources, behavioural analysis aims to gain insights about the software by generating behavioural logs and analysing them. This can be particularly helpful for finding abnormal behaviours (security problems, in particular) when neither the source code, nor the binary are accessible. The logs can be compared with known-normal behaviour in order to debug the SUT.
 
-An example here is of JPacman that currently has support for two point calculator modules (`Scorer 1` and `Scorer 2`) that calculate the score in different ways. The goal is to find what the malicious module (`Scorer 2`) does. We have implemented a ***Naïve Fuzzer*** that automatically runs various instances of JPacman to generate behavioural logs. At each iteration, it randomly picks a move (from the list of acceptable moves) until Pacman dies, and logs the values of different interesting variables. The fuzzing code is given below.
+An example here is of JPacman that currently has support for two point calculator modules (`Scorer 1` and `Scorer 2`) that calculate the score in different ways. The goal is to find what the malicious module (`Scorer 2`) does. We have implemented a ***Naive Fuzzer*** that automatically runs various instances of JPacman to generate behavioural logs. At each iteration, it randomly picks a move (from the list of acceptable moves) until Pacman dies, and logs the values of different interesting variables. The fuzzing code is given below.
 
 ```java
   /**
@@ -507,7 +507,7 @@ Finally, [Sage](https://dl.acm.org/doi/pdf/10.1145/2090147.2094081) is a white-b
 
 **Exercise 4.** What is the underlying defect that enables arbitrary code execution?
 1. Buffer overflows
-2. Deserialising bugs
+2. Deserializing bugs
 3. Type confusion
 4. All of the above
 

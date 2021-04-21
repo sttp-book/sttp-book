@@ -295,7 +295,7 @@ There are various tools that generate mutants for mutant testing automatically, 
 
 First we need mutation operators.
 A **mutation operator** is a grammatical rule that can be used to introduce a syntactic change.
-This means that, if the generator sees a statement in the code that corresponds to the grammatic rule of the operator (e.g., `a + b`), then the mutation operator specifies how to change this statement with a syntactic change (e.g., turning it into `a - b`).
+This means that, if the generator sees a statement in the code that corresponds to the grammatical rule of the operator (e.g., `a + b`), then the mutation operator specifies how to change this statement with a syntactic change (e.g., turning it into `a - b`).
 
 We can identify two categories of mutation operators:
 

@@ -39,7 +39,7 @@ When it comes to devising test cases, while our experience helps us a lot in fin
 
 The following chapters aim at exploring different techniques to test a software system effectively, rigorously, and systematically, 
 and how to automate as many steps as possible along the way. 
-These techniques will rely on the different artefacts that are present during the 
+These techniques will rely on the different artifacts that are present during the 
 software development process.
 
 More specifically, we will discuss the following topics:

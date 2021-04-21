@@ -523,8 +523,8 @@ This gives us a minimum of 4 tests.
 
 **Exercise 13**
 
-
-MC/DC does subsume statement coverage. Basic condition coverage does not subsume branch coverage; full condition coverage does.
+Only option one is correct: MC/DC subsumes statement coverage. 
+Statement four, about basic condition coverage, is false although "full condition coverage" does subsume branch coverage as it's the combination of both branch and conditional coverage. 
 
 
 **Exercise 14**
@@ -973,7 +973,7 @@ Using boundary analysis techniques you would create a test-product where `price 
 These tests will actually create this data in the database. 
 As SQL queries are full of predicates, you can include branch/condition coverage in your tests. Likewise, including code coverage.
 
-Avoid flakyness in your integration tests. Make sure your test suite cleans up the database after each test.
+Avoid flakiness in your integration tests. Make sure your test suite cleans up the database after each test.
 Therefore, giving each test a new fresh database instance. 
 
 One could also opt to use fake databases. For example, in Java, HSQLDB, is a full-fledged database that works in memory.
@@ -994,7 +994,7 @@ values for each test. The test harness then runs that access code against the te
 should only be used for these integration tests and rebuilt each time. There should be no test flakiness at this stage.
 
 Some teams have found benefit from using an in-memory  database for this stage, in terms of speed and flexibility. 
-This also encourages the use of standard features and keeping the database focussed just on managing data, which is what it's there for.  
+This also encourages the use of standard features and keeping the database focused just on managing data, which is what it's there for.  
 
 One advantage of such tests is that data access can be tested in isolation, after the unit tests but before incurring the cost
 of a full system deployment and test.

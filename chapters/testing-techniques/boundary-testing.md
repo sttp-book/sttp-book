@@ -546,7 +546,7 @@ It works as follows:
 
 First, do boundary analysis on the inputs.
 Think of on and off points for each of the conditions (while picking in points for the others).
-Next, appply the category/partition method.
+Next, apply the category/partition method.
 What are the minimal and most suitable partitions?
 
 ```java

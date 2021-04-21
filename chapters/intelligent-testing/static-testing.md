@@ -48,7 +48,7 @@ if (DEBUG){
 
 ## Syntax analysis
 
-A more advanced code checking approach is syntax analysis. It works by deconstructing input code into a stream of characters, that are eventually turned into a Parse Tree. _Tokens_ are hierarchal data structures that are put together according to the code's logical structure.
+A more advanced code checking approach is syntax analysis. It works by deconstructing input code into a stream of characters, that are eventually turned into a Parse Tree. _Tokens_ are hierarchical data structures that are put together according to the code's logical structure.
 
 ![Parser pipeline](img/static-testing/lexer.png)
 
@@ -101,5 +101,5 @@ Abstract Syntax Trees are used by compilers to find semantic errors &mdash; comp
 
 * Grune, D., Van Reeuwijk, K., Bal, H.E., Jacobs, C.J. and Langendoen, K., 2012. Modern compiler design. Springer Science & Business Media.
 * Abstract Syntax Trees. https://en.wikipedia.org/wiki/Abstract_syntax_tree
-* Sematic analysis. https://www.cs.usfca.edu/~galles/cs414S05/lecture/old2/lecture7.java.pdf
+* Semantic analysis. https://www.cs.usfca.edu/~galles/cs414S05/lecture/old2/lecture7.java.pdf
 * Regular expressions in Java. https://www.tutorialspoint.com/java/java_regular_expressions.htm
