@@ -1205,7 +1205,19 @@ Static analysis produces over-generalized results with some false positives, so 
 
 Mutation testing.
 
-**Exercise 2.**   
+**Exercise 2.** 
+
+2.
+
+**Exercise 3.** 
+
+The Coupling Effect suggests that simple faults are intertwined with more complex ones, meaning that a test suite with a high mutation score should catch even non-simple errors.
+
+**Exercise 4.** 
+
+3.
+
+**Exercise 5.**   
 
 There are two possible answers for this exercise. If we consider single-order mutation, i.e., mutants are composed of single mutations, we end up with $$5*2+3*2+9*2 = 34$$ possible mutants: 
 
@@ -1221,6 +1233,14 @@ $$6^2 \cdot 4^2 \cdot 3^9 - 1 = 11337407$$ mutants
 We calculate all the possible variants and then subtract $$1$$ for the original method so that we are left with only the mutants.
 
 As you can see, the number of all possible mutants is quite significant (and too expensive to be used in practice).
+
+**Exercise 6.** 
+
+No, it cannot be fully automated while being accurate, as an accurate score depends on weeding out equivalent mutations, which is an undecidable/NP-hard problem.
+
+**Exercise 7.**   
+
+If similar mutants are not discarded, the runtime of mutation testing would be very long, greatly reducing usability. Not discarding similar mutants also skews the mutation score.
 
 **Exercise 3.**
 
