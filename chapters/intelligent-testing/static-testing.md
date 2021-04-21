@@ -1,4 +1,4 @@
-# Static testing
+# 6.1 Static testing
 
 Static testing analyses the code characteristics without executing the application. It can be considered as an automated code review. It checks the style and structure of the code, and can be used to _statically_ evaluate all possible code paths in the System Under Test (SUT).
 Static analysis can quickly find _low-hanging fruit_ bugs that can be found in the source code, e.g. using deprecated functions. Static analysis tools are scalable and generally require less time to set up. _PMD_, _Checkstyle_, _Checkmarx_ are some common static analysis tools.
@@ -13,9 +13,9 @@ The classical approach underlying static analysis is checking the code for poten
 
 Pattern matching is a code checking approach that searches for pre-defined patterns in code. A **Regular expression** or RegEx is a sequence of characters that represent a pattern. Simply put, a regex engine reads code character-by-character and upon every character-match, progresses through the regular expression until no more characters remain. Depending on the logic, either a positive/negative reaction is returned indicating whether the final state was an accepting/rejecting state, or all code snippets that matched the pattern are returned.
 
-Regular expressions are usually represented using ***Finite State Automaton***. Each _node_ represents a state. We move from one state to the next by taking the _transition_ that matches the input symbol. Below you see a few examples of regular expressions and their corresponding finite state automata. The node with a black arrow is called the _starting state_. _Green states_ are accepting states, and _red states_ are rejecting states.
+Regular expressions are usually represented using ***Finite State Automaton***. Each _node_ represents a state. We move from one state to the next by taking the _transition_ that matches the input symbol. Below you see a few examples of regular expressions and their corresponding finite state automata. The node with a black arrow is called the _starting state_. _Green states_ are accepting states. Any state other than accepting states is a rejecting state, e.g. _red_ and _gray states_ are rejecting states in the examples below. Note that while traversing the automaton, if the final state is not an accepting state, the string is considered rejected.
 
-The automata for the regular expression '**bug**' is shown below. An input string `bug` will transition from left to right, until we end up in the green state. However, the string `bag` will move from first state to the second state, and then to the red state. Since there is no transition out of this state, we will stay here until the input finishes.
+The automata for the regular expression '**bug**' is shown below. An input string `bug` will transition from left to right, until we end up in the green state. However, the string `bag` will move from first state to the second state, and then to the red state. Since there is no transition out of this state, we will stay here until the input finishes. Similarly, the string `bu` will also be rejected since its final state is not a green state.
 
 
 
@@ -48,7 +48,7 @@ if (DEBUG){
 
 ## Syntax analysis
 
-A more advanced code checking approach is syntax analysis. It works by deconstructing input code into a stream of characters, that are eventually turned into a Parse Tree. _Tokens_ are hierarchal data structures that are put together according to the code's logical structure.
+A more advanced code checking approach is syntax analysis. It works by deconstructing input code into a stream of characters, that are eventually turned into a Parse Tree. _Tokens_ are hierarchical data structures that are put together according to the code's logical structure.
 
 ![Parser pipeline](img/static-testing/lexer.png)
 
@@ -101,5 +101,5 @@ Abstract Syntax Trees are used by compilers to find semantic errors &mdash; comp
 
 * Grune, D., Van Reeuwijk, K., Bal, H.E., Jacobs, C.J. and Langendoen, K., 2012. Modern compiler design. Springer Science & Business Media.
 * Abstract Syntax Trees. https://en.wikipedia.org/wiki/Abstract_syntax_tree
-* Sematic analysis. https://www.cs.usfca.edu/~galles/cs414S05/lecture/old2/lecture7.java.pdf
+* Semantic analysis. https://www.cs.usfca.edu/~galles/cs414S05/lecture/old2/lecture7.java.pdf
 * Regular expressions in Java. https://www.tutorialspoint.com/java/java_regular_expressions.htm

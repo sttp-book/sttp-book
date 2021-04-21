@@ -1,4 +1,4 @@
-# Design for Testability
+# 3.3 Design for Testability
  
  
 We just learned how the use of mocks and stubs can help developers in being highly productive and efficient in writing test code.
@@ -106,7 +106,7 @@ If you want to understand more advanced OOP concepts, we suggest reading more ab
 ## Domain vs infrastructure
  
 A general recommendation to design for testability comes down to separating _domain_ from _infrastructure_.
-The _domain_ is where the core of the system lies, i.e. where all the business rules, logics, entities, services, etc, reside.
+The _domain_ is where the core of the system lies, i.e. where all the business rules, logic, entities, services, etc, reside.
 Throughout this book we have been using business systems as examples. Entities like `Invoice`, `ChristmasDiscountCalculator`
 are examples of domain classes.
  
@@ -279,7 +279,7 @@ Which techniques can we apply? What would the new implementation look like? Thin
 Consider the following requirement and implementation.
  
 ```text
-A webshop gives a discount of 15% on King's Day.
+A web shop gives a discount of 15% on King's Day.
 ```
  
 ```java

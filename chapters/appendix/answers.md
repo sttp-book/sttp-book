@@ -142,7 +142,7 @@ Possible actions:
 
 **Exercise 8**
 
-This focus of this exercise is for you to see that the internal state of the object should also be taken into account in the partitions (and not only the direct input variables).
+The focus of this exercise is for you to see that the internal state of the object should also be taken into account in the partitions (and not only the direct input variables).
 
 Input parameter e:
 * P1: Element not present in the set
@@ -207,7 +207,7 @@ An on-point is the (single) number on the boundary. It may or may not make the c
 
 on point = 1024, off point = 1025, in point = 1028, out point = 512
 
-The on point is the number precisely in the boundary = 1024. off point is the closest number to the boundary and has the opposite result of on point. In this case, 1024 makes the condition false, so the off point should make it true. 1025. In point makes conditions true, e.g., 1028. Out point makes the condition false, e.g., 512.
+The on point is the number precisely in the boundary = 1024. Off point is the closest number to the boundary and has the opposite result of on point. In this case, 1024 makes the condition false, so the off point should make it true. 1025. In point makes conditions true, e.g., 1028. Out point makes the condition false, e.g., 512.
 
 
 **Exercise 6**
@@ -263,18 +263,18 @@ As we last step we can identify duplicate tests and remove those.
   - If `lives >= 10`, we can test this with just one combination.
 1. Test cases: Tests can be divided in 3 categories: is a cat, not a cat, exceptional cases.
   - **Cat**
-    1. 2, true, 6, true, "miauws" --> cat
+    1. 2, true, 6, true, "miauw" --> cat
   - **Not a cat**
-    1. 3, true, 6, true, "miauws" --> not a cat
-    2. 4, false, 6, true, "miauws" --> not a cat
-    3. 6, true, 11, true, "miauws" --> not a cat
-    4. 8, true, 4, false, "miauws" --> not a cat
+    1. 3, true, 6, true, "miauw" --> not a cat
+    2. 4, false, 6, true, "miauw" --> not a cat
+    3. 6, true, 11, true, "miauw" --> not a cat
+    4. 8, true, 4, false, "miauw" --> not a cat
     5. 2, true, 3, true, "woof" --> not a cat
   - **Exceptional**
-    1. 0, true, 2, false, "miauws" --> cat or invalid depending on the context of the program.
-    2. 2, true, 11, true, "miauws" --> not a cat
-    3. 3, true, 8, true, "miauws" --> not a cat
-    4. 4, true, 0, true, "miauws" --> not a cat or invalid depending on the context of the program.
+    1. 0, true, 2, false, "miauw" --> cat or invalid depending on the context of the program.
+    2. 2, true, 11, true, "miauw" --> not a cat
+    3. 3, true, 8, true, "miauw" --> not a cat
+    4. 4, true, 0, true, "miauw" --> not a cat or invalid depending on the context of the program.
 
 
 Note that some tests can be combined! For example:
@@ -449,10 +449,21 @@ For the other answers we can come up with a test case: `"aXYa"`
 
 **Exercise 9**
 
+First the decision coverage. We have 6 decisions:
 
-First the condition coverage.
-When talking about condition coverage, we first have to split the condition on line 1 (n % 3 == 0 && n % 5 == 0)
-into two decision blocks for the CFG. In total, we will have 8 conditions:
+1. Line 1: `n % 3 == 0 && n % 5 == 0`, true and false
+2. Line 3: `n % 3 == 0`, true and false
+3. Line 5: `n % 5 == 0`, true and false
+
+Now T1 makes decision 1 true and does not cover the other decisions.
+T2 makes all the decisions false.
+Therefore, the decision coverage is $$\frac{4}{6} \cdot 100\% = 66\%$$.
+
+Now the branch+condition coverage: <br>
+
+We already know the decision coverage, so we only have to calculate the basic condition coverage. <br>
+First, split the condition on line 1 (n % 3 == 0 && n % 5 == 0)
+into two decision blocks for the CFG. <br>In total, we will have 8 conditions:
 
 1. Line 1: `n % 3 == 0`, true and false
 2. Line 1: `n % 5 == 0`, true and false
@@ -466,7 +477,7 @@ T1 makes conditions 1 and 2 true and then does not cover the other conditions. T
 * condition 3 = [true: not exercised, false: not exercised]
 * condition 4 = [true: not exercised, false: not exercised].
 
-At this moment, condition coverage = 2/8.
+At this moment, basic condition coverage = 2/8.
 
 For T2, the input number 8 is neither divisible by 3, nor divisible by 5. However, since the && operator only evaluates the second condition when the first one is true, condition 2 is not reached. Therefore this test covers condition 1, 3 and 4 as false. We now have:
 
@@ -475,17 +486,10 @@ For T2, the input number 8 is neither divisible by 3, nor divisible by 5. Howeve
 * condition 3 = [true: not exercised, false: exercised]
 * condition 4 = [true: not exercised, false: exercised].
 
-In total, these test cases then cover $$2 + 3 = 5$$ conditions so the condition coverage is $$\frac{5}{8} \cdot 100\% = 62.5\%$$
+In total, these test cases then cover $$2 + 3 = 5$$ conditions so the basic condition coverage is $$\frac{5}{8} \cdot 100\% = 62.5\%$$
 
-Now the decision coverage. We have 6 decisions:
+To get the branch+condition coverage, we have to combine the above two: $$\frac{5 + 4}{8 + 6} = \frac{9}{14} = 64.3\%$$
 
-1. Line 1: `n % 3 == 0 && n % 5 == 0`, true and false
-2. Line 3: `n % 3 == 0`, true and false
-3. Line 5: `n % 5 == 0`, true and false
-
-Now T1 makes decision 1 true and does not cover the other decisions.
-T2 makes all the decisions false.
-Therefore, the coverage is $$\frac{4}{6} \cdot 100\% = 66\%$$.
 
 
 **Exercise 10**
@@ -519,8 +523,8 @@ This gives us a minimum of 4 tests.
 
 **Exercise 13**
 
-
-MC/DC does subsume statement coverage. Basic condition coverage does not subsume branch coverage; full condition coverage does.
+Only option one is correct: MC/DC subsumes statement coverage. 
+Statement four, about basic condition coverage, is false although "full condition coverage" does subsume branch coverage as it's the combination of both branch and conditional coverage. 
 
 
 **Exercise 14**
@@ -574,6 +578,7 @@ This example shows that software testers can contribute to the code quality not 
 
 **Exercise 17**
 
+![LinkedList exercise CFG](img/structural-testing/exercises/CFG-alternateCaps.svg)
 
 
 
@@ -972,7 +977,7 @@ Using boundary analysis techniques you would create a test-product where `price 
 These tests will actually create this data in the database. 
 As SQL queries are full of predicates, you can include branch/condition coverage in your tests. Likewise, including code coverage.
 
-Avoid flakyness in your integration tests. Make sure your test suite cleans up the database after each test.
+Avoid flakiness in your integration tests. Make sure your test suite cleans up the database after each test.
 Therefore, giving each test a new fresh database instance. 
 
 One could also opt to use fake databases. For example, in Java, HSQLDB, is a full-fledged database that works in memory.
@@ -993,7 +998,7 @@ values for each test. The test harness then runs that access code against the te
 should only be used for these integration tests and rebuilt each time. There should be no test flakiness at this stage.
 
 Some teams have found benefit from using an in-memory  database for this stage, in terms of speed and flexibility. 
-This also encourages the use of standard features and keeping the database focussed just on managing data, which is what it's there for.  
+This also encourages the use of standard features and keeping the database focused just on managing data, which is what it's there for.  
 
 One advantage of such tests is that data access can be tested in isolation, after the unit tests but before incurring the cost
 of a full system deployment and test.
@@ -1210,7 +1215,19 @@ Static analysis produces over-generalized results with some false positives, so 
 
 Mutation testing.
 
-**Exercise 2.**   
+**Exercise 2.** 
+
+2.
+
+**Exercise 3.** 
+
+The Coupling Effect suggests that simple faults are intertwined with more complex ones, meaning that a test suite with a high mutation score should catch even non-simple errors.
+
+**Exercise 4.** 
+
+3.
+
+**Exercise 5.**   
 
 There are two possible answers for this exercise. If we consider single-order mutation, i.e., mutants are composed of single mutations, we end up with $$5*2+3*2+9*2 = 34$$ possible mutants: 
 
@@ -1223,9 +1240,85 @@ We can also consider higher-order mutation. There, all the combinations of mutan
 
 $$6^2 \cdot 4^2 \cdot 3^9 - 1 = 11337407$$ mutants
 
-We calculate all the possible variants and then subtract $1$ for the original method so that we are left with only the mutants.
+We calculate all the possible variants and then subtract $$1$$ for the original method so that we are left with only the mutants.
 
 As you can see, the number of all possible mutants is quite significant (and too expensive to be used in practice).
+
+**Exercise 6.**
+
+Mutant created by mutation testing tool is an equivalent mutant, which means that it behaves exactly the same as our
+original method. With, properly written, test suite this mutant will not be killed.
+
+We should not count this (non-killed) mutant when calculating mutation score, as the purpose of mutation score is to see
+whether our test suite is able to catch mistakes made by changes in the behaviour of the method. Here this mutant
+behaves exactly the same (no change in the behaviour).
+
+**Exercise 7.** 
+
+No, it cannot be fully automated while being accurate, as an accurate score depends on weeding out equivalent mutations, which is an undecidable/NP-hard problem.
+
+**Exercise 8.**   
+
+If similar mutants are not discarded, the runtime of mutation testing would be very long, greatly reducing usability. Not discarding similar mutants also skews the mutation score.
+
+**Exercise 9.**
+
+Statement 3 is incorrect. Instead, the mutant behaves the same as the original program because it is an equivalent mutant. Note the two differences: the assignment operator in the body of the first `if` statement and the relational operator in the second `if` condition. The former has no effect because division by $$-1$$ still produces the opposite number giving us the absolute value of `a`. The latter also has no effect because when the fractional part of the number is `0.5` the mutant will calculate the difference to the larger integer instead of simply returning the fractional part, but this does not matter as it still returns the same output for all possible inputs.
+
+1. Correct — the mutant is indeed impossible to kill because it is an equivalent mutant.
+2. Correct — equivalent mutants are not considered when calculating the mutation score.
+4. Correct — The mutant was created by applying two syntactic changes as explained above.
+
+**Exercise 10.**
+
+The test suite will not kill this mutant:
+
+```java
+  public static double distanceToInt(double a) {
+    if (a < 0) {
+      a *= -1;
+    }
+    if (a % 1 <= 0.5) {
+      return a % 1;
+    } else {
+      double fractional = a % 1;
+      return 1 - a;
+    }
+  }
+```
+
+The mutant was obtained by applying a scalar variable replacement operator to the original method, at the second return statement.
+
+**Exercise 11.**
+
+Adding the following two test cases will improve the test suite:
+
+```java
+  @Test
+  void testDistanceToGreaterInt() {
+    assertEquals(0.2, MyMath.distanceToInt(7.8), 0.00001);
+  }
+
+  @Test
+  void testDistanceToSmallerIntNegative() {
+    assertEquals(0.2, MyMath.distanceToInt(-4.8), 0.00001);
+  }
+```
+
+The mutant correctly calculated the difference to the closest integer when the provided value was closer to the smaller positive integer (e.g. $$7.3$$) or the larger negative integer (e.g. $$-4.1$$), but not when it was closer to the larger positive integer (e.g. $$7.8$$) or the smaller negative integer (e.g. $$-4.8$$).
+
+Try running the program and the test suite yourself to better understand why the program gives incorrect outputs in these cases.
+
+**Exercise 12.**
+
+The mutant from exercise 9 is an equivalent mutant, so it is not considered in the mutation score calculation.
+Our improved test suite from exercise 11 manages to kill the non-equivalent mutant from exercise 10 and it also kills the two new mutants.
+
+In total we have 3 mutants to consider, of which all 3 are killed by our test suite. Therefore the mutation score is 100%:
+
+$$\text{mutation score} = \frac{\text{3 killed mutants}}{\text{3 non-equivalent mutants}}$$
+
+Note that although we achieved a mutation score of 100%, this does not mean that our test suite is perfect. That is because we did not consider all the possible mutants (perhaps to decrease the execution time of our test suite).
 
 
 ## Security testing

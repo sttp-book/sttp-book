@@ -1,4 +1,4 @@
-# Security Testing
+# 5.1 Security Testing
 
 In May of 2018, a [Code Injection Vulnerability was discovered in the Desktop Signal app](https://thehackernews.com/2018/05/signal-desktop-hacking.html). An attacker could execute code on a victim's machine by sending a specially crafted message. The victim's app would hand over the `/etc/passwd` file, and even send all the chats in plain text, _without any human intervention_! This was ironic since Signal is known for its end-to-end encryption feature.
 
@@ -200,15 +200,17 @@ Before we dive into further explanation of SAST and DAST techniques, let's look 
 
 ### Quality assessment criteria
 The quality of testing tools is evaluated in a number of ways. You have already learnt about _code coverage_ in a previous chapter. Here, we discuss four new metrics that are often used in the context of security testing:
-Designing an ideal testing tool requires striking a balance between two measures: (a) Soundness, and (b) Completeness.
 
+Designing an ideal testing tool requires striking a balance between two measures: (a) Soundness, and (b) Completeness. 
 **Soundness** dictates that there should be no False Negatives (FN) — no vulnerability should be skipped. This implies that no alarm is raised *IF* there is no existing vulnerability in the *System Under Test (SUT)*. **Completeness** dictates that there should be no False Positives (FP) — no false alarm should be raised. This implies that an alarm is raised *IF* a valid vulnerability is found.
+
+>Here, a 'positive' instance indicates a _bug_ and a 'negative' instance indicates _benign code_. So, True Positives (TP) are _actual bugs_, and True Negatives (TN) are _actual benign code snippets_. Similarly, False Positives (FP) are _false bugs_ (or _false alarms_), and False Negatives (FN) are _bugs that weren't found_ (or _missed bugs_).
 
 A perfect testing tool is both sound and complete. However, this is an undecidable problem — given finite time, the tool will always be wrong for some input. In reality, tools often compromise of FPs or FNs.
 
 Low FNs are ideal for security critical applications where a missed vulnerability can cause significant loss, e.g. banking apps. Low FPs are ideal for applications that don't have a lot of manpower to evaluate the correctness of each result.
 
-Additionally, an ideal testing tool is **interpretable**: an analyst can trace the results to a solid cause, and are **scalable**: the tool can be used for large applications without compromising heavily on performance.
+Additionally, an ideal testing tool is (c) **interpretable**: an analyst can trace the results to a solid cause, and are (d) **scalable**: the tool can be used for large applications without compromising heavily on performance.
 
 
 
@@ -255,7 +257,7 @@ For security testers, a CFG is an overall picture of an application's behaviour,
 * *an unintended transition going from a low- to a high- privileged code block*, or
 * *certain unreachable pieces of code* that can result in application hanging and eventually, a denial of service.
 
-Existing literature has used CFGs to detect the maliciousness of an application based on how its CFG looks like. For example, [this work by Bruschi _et al._](https://link.springer.com/chapter/10.1007/11790754_8) detects self-mutating malware by comparing its CFG with CFGs of known malwares, and [this work by Sun _et al._](https://link.springer.com/chapter/10.1007/978-3-642-55415-5_12) uses CFGs to measure code reuse as a means to detect malware variants.
+Existing literature has used CFGs to detect the maliciousness of an application based on how its CFG looks like. For example, [this work by Bruschi _et al._](https://link.springer.com/chapter/10.1007/11790754_8) detects self-mutating malware by comparing its CFG with CFGs of known malware, and [this work by Sun _et al._](https://link.springer.com/chapter/10.1007/978-3-642-55415-5_12) uses CFGs to measure code reuse as a means to detect malware variants.
 
 #### Data Flow Diagram (DFD)
 
@@ -396,7 +398,7 @@ Penetration testing checks the SUT in an end-to-end fashion, which means that it
 
 Given a software that may contain modules from unknown sources, behavioural analysis aims to gain insights about the software by generating behavioural logs and analysing them. This can be particularly helpful for finding abnormal behaviours (security problems, in particular) when neither the source code, nor the binary are accessible. The logs can be compared with known-normal behaviour in order to debug the SUT.
 
-An example here is of JPacman that currently has support for two point calculator modules (`Scorer 1` and `Scorer 2`) that calculate the score in different ways. The goal is to find what the malicious module (`Scorer 2`) does. We have implemented a ***Naïve Fuzzer*** that automatically runs various instances of JPacman to generate behavioural logs. At each iteration, it randomly picks a move (from the list of acceptable moves) until Pacman dies, and logs the values of different interesting variables. The fuzzing code is given below.
+An example here is of JPacman that currently has support for two point calculator modules (`Scorer 1` and `Scorer 2`) that calculate the score in different ways. The goal is to find what the malicious module (`Scorer 2`) does. We have implemented a ***Naive Fuzzer*** that automatically runs various instances of JPacman to generate behavioural logs. At each iteration, it randomly picks a move (from the list of acceptable moves) until Pacman dies, and logs the values of different interesting variables. The fuzzing code is given below.
 
 ```java
   /**
@@ -443,7 +445,7 @@ Below you see an example of a log file resulting from one run of the fuzzer.
 ![behavioural log screenshot](img/security-testing/behav-log-screenshot.png)
 
 
-In the figure below, the plots on the right show how the value of `score` variable changes overtime. It is apparent that something goes wrong with `Scorer 2`, since the score is typically programmed to increase monotonically.
+In the figure below, the plots on the right show how the value of `score` variable changes over time. It is apparent that something goes wrong with `Scorer 2`, since the score is typically programmed to increase monotonically.
 
 ![JPacman and scorers](img/security-testing/jpacman-screenshot.png)
 
@@ -505,7 +507,7 @@ Finally, [Sage](https://dl.acm.org/doi/pdf/10.1145/2090147.2094081) is a white-b
 
 **Exercise 4.** What is the underlying defect that enables arbitrary code execution?
 1. Buffer overflows
-2. Deserialising bugs
+2. Deserializing bugs
 3. Type confusion
 4. All of the above
 

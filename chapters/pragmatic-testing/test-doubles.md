@@ -1,5 +1,5 @@
 ﻿
-# Test doubles
+# 3.2 Test doubles
 
 
 While testing single units is simpler than testing entire systems, we still face challenges when unit testing classes that depend on other classes or on external infrastructure.
@@ -284,11 +284,11 @@ verify(sap, times(1)).send(steve);
 ```
 
 These expectations are more restrictive than the ones we had before.
-We now expect the SAP mock to have its `send` method invoked precisely two times (for any given `Invoice`). We then expect the `send` method to called once for the `mauricio` invoice and once for the `steve` invoice. We point the reader to Mockito's manual for more details on how to configure expectations.
+We now expect the SAP mock to have its `send` method invoked precisely two times (for any given `Invoice`). We then expect the `send` method to called once for the `mauricio` invoice and once for the `steve` invoice. Suppose we wanted to design an exclusive condition that that the `send` method was never called for `john`. For this we could use `verify(sap, times(0)).send(john)`. For better readability, `verify(sap, never())` is used which serves the same purpose. Another tool to test and control the interactions of the mock is `VerifyNoMoreInteractions(<mock>)` which enforces that the particular mock did not have any other interactions after this point. Imagine that there was a mistake in the code and instead of sending only to Mauricio and Steve as we expected, `send` was executed for multiple unwanted people. The snippet above isn't enough. Addition of `VerifyNoMoreInteractions(sap)` would make this a better test suite. We point the reader to Mockito's manual for more details on how to configure expectations.
 
 > You might be asking yourself now: _Why did you not put this new SAP sending functionality inside of the existing `InvoiceFilter` class_?
 > 
-> If we were do it, the `lowValueInvoices` method would then be both a "command" and a "query". By "query", we mean that the method returns data to the caller while with "command", we mean that the method also performs an action in the system. Mixing both concepts in a single method is not a good idea, as it may confuse developers who will eventually call this method. How would they know this method had some extra side-effect, besides just returning the list of invoices?
+> If we were to do it, the `lowValueInvoices` method would then be both a "command" and a "query". By "query", we mean that the method returns data to the caller while with "command", we mean that the method also performs an action in the system. Mixing both concepts in a single method is not a good idea, as it may confuse developers who will eventually call this method. How would they know this method had some extra side-effect, besides just returning the list of invoices?
 > 
 > If you want to read more about this, search for _Command-Query Separation_, or CQS, a concept devised by Bertrand Meyer.
 

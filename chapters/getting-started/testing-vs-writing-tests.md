@@ -1,11 +1,11 @@
-# Testing vs Writing Tests
+# 1.4 Testing vs Writing Tests
 
-**TL;DR: Testing is different from writing tests. Developers write tests as a a way to give them space to think and confidence for refactoring. Testing focuses on finding bugs. Both should be done.**
+**TL;DR: Testing is different from writing tests. Developers write tests as a way to give them space to think and confidence for refactoring. Testing focuses on finding bugs. Both should be done.**
 
 We are right now at a point where developers do know that they need to write automated tests. After all, ideas such as Kent Beck's [Extreme Programming](https://en.wikipedia.org/wiki/Extreme_programming) and [Test-Driven Development](https://sttp.site/chapters/pragmatic-testing/tdd.html), Michael Feather's on the [synergy between testing and design](https://medium.com/r/?url=https%3A%2F%2Fvimeo.com%2F15007792), Steve Freeman's and Nat Pryce's on [how to grow an Object-Oriented software guided by tests](https://medium.com/r/?url=https%3A%2F%2Fwww.amazon.de%2FGrowing-Object-Oriented-Software-Addison-Wesley-Signature%2Fdp%2F0321503627), DHH and Ruby on Rails on [making sure that a web framework comes with a testing framework](https://medium.com/r/?url=http%3A%2F%2Fguides.rubyonrails.org%2Ftesting.html), etc, really stuck.
 
 These ideas stuck with me as well. I have been trying to write as many automated tests as I can for the software systems I work since 2007 (I can later tell the history of how traumatic my 2006 project was). In 2012, I thought I had enough experience with the topic, so I decided to [write a book about how I was practicing TDD](https://medium.com/r/?url=https%3A%2F%2Fwww.casadocodigo.com.br%2Fproducts%2Flivro-tdd) (unfortunately, only available in Brazilian Portuguese).
-After many years of development and consultancy, I see developers using automated test code as a sort of _support net_. The tests enable them to clearly think about what they want to implement, and support them throughout the innumerous refactorings they apply.
+After many years of development and consultancy, I see developers using automated test code as a sort of _support net_. The tests enable them to clearly think about what they want to implement, and support them throughout the countless refactorings they apply.
 
 In fact, research has shown quite a few times that doing TDD can improve your class design (see [Janzen](http://digitalcommons.calpoly.edu/cgi/viewcontent.cgi?article=1039&context=csse_fac), [Janzen and Saiedian](http://digitalcommons.calpoly.edu/cgi/viewcontent.cgi?article=1030&context=csse_fac), [George and Williams](https://www.semanticscholar.org/paper/An-Initial-Investigation-of-Test-Driven-Development-George-Williams/66869075d20858a2e9af144b2749a055c6b03177), [Langr](http://eisc.univalle.edu.co/materias/TPS/archivos/articulosPruebas/test_first_design.pdf), [Dogsa and Batic](https://link.springer.com/article/10.1007/s11219-011-9130-2), [Munir](https://pdfs.semanticscholar.org/16d4/2a1eaefb1f404f6da91b12d6c0e710dacb9d.pdf), [Moyaaed and Petersen](https://pdfs.semanticscholar.org/16d4/2a1eaefb1f404f6da91b12d6c0e710dacb9d.pdf), [myself](https://journal-bcs.springeropen.com/articles/10.1186/s13173-015-0034-z), among others). Recently, [Fucci et al.](https://arxiv.org/pdf/1611.05994.pdf) even argued that the important part is to write tests (and it doesn't matter whether it's before or after). This is also the perception of practitioners, where I quote a recent blog post from Feathers: _"That's the magic, and it's why unit testing works also. When you write unit tests, TDD-style or after your development, you scrutinize, you think, and often you prevent problems without even encountering a test failure."_
 
@@ -30,7 +30,7 @@ I recently asked my 1st year CS students on what kinds of mistakes they have don
 Regardless of your experience, I am sure you also have faced some of these bugs before. _But how often do developers actually explore and write such test cases?_
 I feel not that much. (If you are an empirical software engineering researcher, this is a good question to answer).
 
-[Robert Binder in his 2000 book](https://www.amazon.de/Testing-Object-Oriented-Systems-Addison-wesley-Technology/dp/0201809389) (p.45) makes a distinction between "fault-directed" versus" "conformance directed" testing:
+[Robert Binder in his 2000 book](https://www.amazon.de/Testing-Object-Oriented-Systems-Addison-wesley-Technology/dp/0201809389) (p.45) makes a distinction between "fault-directed" versus "conformance directed" testing:
 
 * Fault directed: Intent to reveal faults through failures.
 * Conformance directed: Intent to demonstrate conformance to required capabilities (e.g. Meets a user story, focus on good weather behavior).
@@ -57,7 +57,7 @@ As a developer, if you want to take your testing to the next level, you should d
 
 Writing tests is different from testing. They both provide developers with different outcomes. The former gives confidence and support throughout development. The latter makes sure the software will really work in all cases. While they are both important, it's about time for both communities to get aligned:
 
-* Developers to get more familiar with more advanced software testing techniques (which researchers have been providing). They are definitely a good addition to their seatbelts and will help them to better test their softwares.
+* Developers to get more familiar with more advanced software testing techniques (which researchers have been providing). They are definitely a good addition to their seat belts and will help them to better test their software.
 * Educators to teach both perspectives. My perception is that universities teach testing techniques in an abstract way (developers need to learn how to use the tools!), while practitioners only teach how to use the automated tools (developers need to learn how to properly test!).
 * Researchers to better understand how practitioners have been evolving the software testing field from their perspective as well as to better share their results, as developers do not read papers. [Research lingo is for researchers](https://twitter.com/mauricioaniche/status/997498070395949057).
 

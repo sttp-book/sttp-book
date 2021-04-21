@@ -1,4 +1,4 @@
-# Model-Based Testing
+# 2.4 Model-Based Testing
  
  
 In software testing, a model is a simpler way to describe the program under test.
