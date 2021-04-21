@@ -1001,7 +1001,8 @@ Why (not)?
 What feedback should you give to the developer, that used this expression, about your finding?
 
 **Exercise 17.**
-Draw the CFG to the following code snippet:
+Draw the CFG corresponding to the following code snippet:
+
 ```java
 /**
   * Returns a new String containing all the characters of the parameter string in the same order but with

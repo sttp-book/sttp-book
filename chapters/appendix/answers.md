@@ -581,6 +581,10 @@ This example shows that software testers can contribute to the code quality not 
 ![LinkedList exercise CFG](img/structural-testing/exercises/CFG-alternateCaps.svg)
 
 
+
+![LinkedList exercise CFG](img/structural-testing/exercises/CFG-alternateCaps.svg)
+
+
 ## Model-Based Testing
 
 **Exercise 1**
