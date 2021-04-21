@@ -915,9 +915,10 @@ public String fizzString(int n) {
 **Exercise 9.**
 Assume we have two test cases with an input integer: T1 = 15 and T2 = 8.
 
-What is the branch+condition coverage these test cases give combined?
+What is the decision coverage these test cases give combined?
 
-What is the decision coverage?
+What is the branch+condition coverage?
+
 
 
 
