@@ -1240,7 +1240,7 @@ We calculate all the possible variants and then subtract $$1$$ for the original 
 
 As you can see, the number of all possible mutants is quite significant (and too expensive to be used in practice).
 
-**Exercise 3.**
+**Exercise 6.**
 
 Mutant created by mutation testing tool is an equivalent mutant, which means that it behaves exactly the same as our
 original method. With, properly written, test suite this mutant will not be killed.
@@ -1249,15 +1249,15 @@ We should not count this (non-killed) mutant when calculating mutation score, as
 whether our test suite is able to catch mistakes made by changes in the behaviour of the method. Here this mutant
 behaves exactly the same (no change in the behaviour).
 
-**Exercise 6.** 
+**Exercise 7.** 
 
 No, it cannot be fully automated while being accurate, as an accurate score depends on weeding out equivalent mutations, which is an undecidable/NP-hard problem.
 
-**Exercise 7.**   
+**Exercise 8.**   
 
 If similar mutants are not discarded, the runtime of mutation testing would be very long, greatly reducing usability. Not discarding similar mutants also skews the mutation score.
 
-**Exercise 3.**
+**Exercise 9.**
 
 Statement 3 is incorrect. Instead, the mutant behaves the same as the original program because it is an equivalent mutant. Note the two differences: the assignment operator in the body of the first `if` statement and the relational operator in the second `if` condition. The former has no effect because division by $$-1$$ still produces the opposite number giving us the absolute value of `a`. The latter also has no effect because when the fractional part of the number is `0.5` the mutant will calculate the difference to the larger integer instead of simply returning the fractional part, but this does not matter as it still returns the same output for all possible inputs.
 
@@ -1265,7 +1265,7 @@ Statement 3 is incorrect. Instead, the mutant behaves the same as the original p
 2. Correct — equivalent mutants are not considered when calculating the mutation score.
 4. Correct — The mutant was created by applying two syntactic changes as explained above.
 
-**Exercise 4.**
+**Exercise 10.**
 
 The test suite will not kill this mutant:
 
@@ -1285,7 +1285,7 @@ The test suite will not kill this mutant:
 
 The mutant was obtained by applying a scalar variable replacement operator to the original method, at the second return statement.
 
-**Exercise 5.**
+**Exercise 11.**
 
 Adding the following two test cases will improve the test suite:
 
@@ -1305,13 +1305,12 @@ The mutant correctly calculated the difference to the closest integer when the p
 
 Try running the program and the test suite yourself to better understand why the program gives incorrect outputs in these cases.
 
-**Exercise 6.**
+**Exercise 12.**
 
-The mutant from exercise 3 is an equivalent mutant, so it is not considered in the mutation score calculation.
-The mutant from exercise 5 is killed by our improved test suite.
-Our improved test suite from exercise 5 manages to kill the non-equivalent mutant from exercise 4 and it also kills the two new mutants.
+The mutant from exercise 9 is an equivalent mutant, so it is not considered in the mutation score calculation.
+Our improved test suite from exercise 11 manages to kill the non-equivalent mutant from exercise 10 and it also kills the two new mutants.
 
-In total we consider 3 mutants to consider, of which all 3 are killed by our test suite. Therefore the mutation score is 100%:
+In total we have 3 mutants to consider, of which all 3 are killed by our test suite. Therefore the mutation score is 100%:
 
 $$\text{mutation score} = \frac{\text{3 killed mutants}}{\text{3 non-equivalent mutants}}$$
 

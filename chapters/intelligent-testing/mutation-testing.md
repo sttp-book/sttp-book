@@ -661,7 +661,7 @@ Which of the following mutation operators can be applied to the method in order 
 
 Provide an upper-bound estimate for the number of possible mutants of the method above. Assume that our tool replaces every instance of an operator/variable independently.
 
-**Exercise 3.**
+**Exercise 6.**
 Take a look at the method `sum(int[] array)` that sums all integers in the array:
 
 ```java
@@ -678,13 +678,13 @@ Our mutation testing tool created a mutant by replacing `i < array.length` by `i
 
 Explain why your, properly written test suite, won't kill this mutant. Will you count this mutant when calculating the mutation score?
 
-**Exercise 6.**
+**Exercise 7.**
 Can the process of determining the mutation score be fully automated and remain accurate? Why or why not?
 
-**Exercise 7.**
+**Exercise 8.**
 Why is it critical to weed out similar mutants?
 
-**Exercise 3.**
+**Exercise 9.**
 Consider the following class `MyMath` with the method `distanceToInt()` and its mutant below:
 
 ```java
@@ -733,7 +733,7 @@ Which one of the following statements is **not correct**?
 3. The mutant behaves differently from the original program.
 4. The mutant was created by applying syntactic changes.
 
-**Exercise 4.**
+**Exercise 10.**
 To test the `distanceToInt()` method from the previous exercise, a developer writes the following test suite:
 
 ```java
@@ -764,11 +764,11 @@ void testDistanceToIntNegativeWhole() {
 
 Create a non-equivalent mutant which this test suite would not kill.
 
-**Exercise 5.**
+**Exercise 11.**
 Improve the test suite from the previous exercise to kill the mutant you created.
 
-**Exercise 6.**
-Given the mutant from exercise 3, the mutant you created in exercise 4 and the following two mutants, perform mutation analysis by assessing the quality of your improved test suite from exercise 5.
+**Exercise 12.**
+Given the mutant from exercise 9, the mutant you created in exercise 10 and the following two mutants, perform mutation analysis by assessing the quality of your improved test suite from exercise 11.
 
 Third mutant:
 
