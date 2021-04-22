@@ -526,7 +526,7 @@ Test the boundaries (removing duplicates) → 10 tests
 
 ### Another approach
 
-One may argue that this functions is continuous in all of its boundaries, which makes the result the same for all
+One may argue that this function is continuous in all of its boundaries, which makes the result the same for all
 (`on`, `off`) pairs.
 
 As, a consequence when looking just at the results at the boundaries we are not exercising them in the most efficient way.
@@ -755,8 +755,8 @@ A package should store a total number of kilograms. There are small bars (1 kg e
 
 | Test cases	| (Small bars, Big bars, Total weight)	| Used small bars (output)	| Remark	|
 | ---			| ---									| ---						| ---		|
-| T2			| (10, 2, 10)							| 0							| small and big bars ->	|
-| T1			| (10, 1, 10)							| 5							| only big bars			|
+| T1			| (10, 1, 10)							| 5							| small and big bars ->	|
+| T2			| (10, 2, 10)							| 0							| only big bars			|
 | T3			| (10, 1, 10)							| 5							| small and big bars ->	|
 | T4			| (10, 0, 10)							| 10						| only small bars		|
 | T5			| (5, 0, 5)								| 5							| only small bars ->	|
