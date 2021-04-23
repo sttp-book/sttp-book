@@ -508,7 +508,7 @@ To satisfy all the criteria we studied so far, we would need to exercise the `sh
 
 
 By aiming at achieving path coverage of our program, testers can indeed come up with good tests.
-However, the main issue is that achieving 100% path coverage might not always be feasible or too costly.
+However, the main issue is that achieving 100% path coverage might not always be feasible or it might be too costly.
 The number of tests needed for full path coverage will grow exponentially with the number of conditions in a decision.
 
 
