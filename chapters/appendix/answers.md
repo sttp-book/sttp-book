@@ -433,9 +433,9 @@ L\<number\> represents the line numbers that the code blocks cover.
 **Exercise 7**
 
 
-A lot of input strings give $$100%$$ line coverage.
+A lot of input strings give 100% line coverage.
 A very simple one is `"aa"`.
-As long as the string is longer than one character and makes the condition in line 9 true, it will give $$100%$$ line coverage.
+As long as the string is longer than one character and makes the condition in line 9 true, it will give 100% line coverage.
 For `"aa"` the expected output is `"a"`.
 
 
@@ -443,7 +443,7 @@ For `"aa"` the expected output is `"a"`.
 
 
 Option 4 is the incorrect one.
-The loop in the method makes it impossible to achieve $$100%$$ path coverage.
+The loop in the method makes it impossible to achieve 100% path coverage.
 This would require us to test all possible number of iterations.
 For the other answers we can come up with a test case: `"aXYa"`
 
