@@ -21,7 +21,7 @@ There are two ways of generating fuzzing test cases:
 2. **Generation-based Fuzzing**, also known as *Protocol fuzzing*, takes the file format and protocol specification of the SUT into account when generating test cases. Generative fuzzers take a data model as input that specifies the input format, and the fuzzer generates test cases that only alter the values while conforming to the specified format. For example, for an application that takes `JPEG` files as input, a generative fuzzer would fuzz the image pixel values while keeping the `JPEG` file format intact. _PeachFuzzer_ is an example of a generative fuzzer.
 
 Compared to mutative fuzzers, generative fuzzers are _less generalisable_ and _more difficult to set up_ because they require input format specifications.
-However, they produce higher-quality test cases and result in better code coverage.
+However, they produce higher-quality test cases.
 
 
 ## Maximising code coverage
@@ -30,8 +30,7 @@ One of the challenges of effective software testing is to generate test cases th
 Fuzzing helps achieve this goal by generating wildly diverse test cases.
 For example, [this blog post by Regehr](https://blog.regehr.org/archives/896) describes the use of fuzzing in order to optimally test an ADT implementation.
 
-We want the fuzzer to generate these test cases in a reasonable time.
-There are various ways in which we achieve maximal code coverage in less time:
+Fuzzers can be used in a variety of ways to achieve high code coverage in a reasonable time:
 
 1. Multiple tools
 2. Telemetry as heuristics
@@ -39,15 +38,15 @@ There are various ways in which we achieve maximal code coverage in less time:
 
 
 ### Multiple tools
-A simple yet effective way to maximise code coverage is to use multiple fuzzing tools.
+A simple yet effective way to cover large parts of the codebase in a short time is to use multiple fuzzing tools.
 Each fuzzer performs mutations in a different way, so they can be run together to cover different parts of the search space in parallel.
 For example, using a combination of a mutative and generative fuzzer can help to generate diverse test cases while also ensuring valid inputs.
 
 ### Telemetry as heuristics
-If the code structure is known (i.e., in a white-box setting), telemetry about code coverage can help constrain the applied mutations.   
+If the code structure is known (i.e., in a white-box setting), telemetry about code coverage can be used to halt fuzzing prematurely. While telemetry data does not directly help in generating valid test cases, it helps in selecting only those mutations that increase code coverage.
 For example, for the `if` statement in the following code snippet, a heuristic based on ***branch coverage*** requires 3 test cases to fully cover it, while one based on ***statement coverage*** requires 2 test cases.
-Using branch coverage ensures that all three branches are tested at least once.
-While telemetry data does not directly help in generating valid test cases, it helps in selecting only those mutations that increase code coverage, for example. Code coverage metrics can also provide a stopping criteria for the fuzzer, reducing its run-time.
+Using branch coverage ensures that all three branches are tested at least once. Upon the generation of such test cases, the fuzzer can stop.
+
 
 ```java
 public String func(int a, int b){
@@ -63,7 +62,7 @@ public String func(int a, int b){
 ```
 
 ### Symbolic execution
-We can specify the potential values of variables that allow the program to reach a desired path, using so-called **symbolic variables**.
+We can limit the search-space covered by a fuzzer with the help of symbolic execution. We can specify bounds on variable values that ensure the coverage of a desired path, using so-called **symbolic variables**.
 We assign symbolic values to these variables rather than explicitly enumerating each possible value.
 
 We can then construct the formula of a **path predicate** that answers this question:
