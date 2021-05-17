@@ -16,7 +16,7 @@ In practice, most software takes some form of _structured input_ that is pre-spe
 
 There are two ways of generating fuzzing test cases:
 
-1. **Mutation-based Fuzzing** creates permutations from example inputs to be given as testing inputs to the SUT. These mutations can be anything ranging from *replacing characters* to *appending characters*. Since mutation-based fuzzing does not consider the specifications of the input format, the resulting mutants may not always be valid inputs. However, it still generates better test cases than the purely random case. _ZZuf_ is a popular mutation-based application fuzzer that uses random bit flipping. _American Fuzzy Lop (AFL)_ is a fast and efficient security fuzzer that uses genetic algorithms to increase code coverage and find better test cases.
+1. **Mutation-based Fuzzing** creates permutations from example inputs to be given as testing inputs to the SUT. These mutations can be anything ranging from *replacing characters* to *appending characters*. Since mutation-based fuzzing does not consider the specifications of the input format, the resulting mutants may not always be valid inputs. However, it still generates better test cases than the purely random case. _ZZuf_ is a popular mutation-based application fuzzer that uses random bit flipping. _American Fuzzy Lop (AFL)_ is a fast and efficient security fuzzer that uses genetic algorithms to increase code coverage for finding better test cases. Similarly, _Jazzer_ is a new Java fuzzer, which integrates into the OSS-Fuzz project managed by Google. Jazzer builds upon libFuzzer, which also uses genetic algorithms to improve coverage.
 
 2. **Generation-based Fuzzing**, also known as *Protocol fuzzing*, takes the file format and protocol specification of the SUT into account when generating test cases. Generative fuzzers take a data model as input that specifies the input format, and the fuzzer generates test cases that only alter the values while conforming to the specified format. For example, for an application that takes `JPEG` files as input, a generative fuzzer would fuzz the image pixel values while keeping the `JPEG` file format intact. _PeachFuzzer_ is an example of a generative fuzzer.
 
@@ -105,3 +105,4 @@ For interested readers, we recommend the "fuzzing book": [https://www.fuzzingboo
 ## References
 
 * Fuzzing for bug hunting. https://www.welcometothejungle.com/en/articles/btc-fuzzing-bugs
+* Fuzzing Java in OSS-Fuzz. https://security.googleblog.com/2021/03/fuzzing-java-in-oss-fuzz.html
