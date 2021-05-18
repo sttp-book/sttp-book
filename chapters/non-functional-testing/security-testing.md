@@ -1,8 +1,8 @@
 # 5.1 Security Testing
 
-In May of 2018, a [Code Injection Vulnerability was discovered in the Desktop Signal app](https://thehackernews.com/2018/05/signal-desktop-hacking.html). An attacker could execute code on a victim's machine by sending a specially crafted message. The victim's app would hand over the `/etc/passwd` file, and even send all the chats in plain text, _without any human intervention_! This was ironic since Signal is known for its end-to-end encryption feature.
+In May of 2018, a [Code Injection Vulnerability was discovered in the Desktop version of the Signal app](https://thehackernews.com/2018/05/signal-desktop-hacking.html). An attacker could execute code on a victim's machine by sending a specially crafted message. Depending on the payload, the victim's app could be made to hand over the `/etc/passwd` file, or even send all the chats in plain text, _without any human intervention_! This was ironic since Signal is known for its end-to-end encryption feature. Since that time, [multiple vulnerabilities](https://www.cvedetails.com/vulnerability-list/vendor_id-17912/Signal.html) have been discovered in the app (specifically, its Desktop version), which Signal has been quick to fix.
 
-*Why did this vulnerability exist, and how could we have avoided it? In this chapter, we answer these questions and introduce the concept of security testing.*
+*Why did these vulnerabilities exist, and what could they have done to prevent it? In this chapter, we answer these questions and introduce the concept of security testing.*
 
 After reading this chapter, you should be able to:
 - Explain the key difference between traditional software testing and security testing,
@@ -15,18 +15,18 @@ After reading this chapter, you should be able to:
 
 We start this chapter with what you already know: *software testing*. The key difference between *software testing* and *security testing* is as follows:
 
-> The goal of software testing is to check the correctness of the implemented functionality, while the goal of security testing is to find bugs (i.e. vulnerabilities) that can potentially allow an *intruder* to make the software behave insecurely.
+> The goal of software testing is to check the correctness of the implemented functionality, while the goal of security testing is to find bugs (i.e. vulnerabilities) that can potentially allow an *intruder* to make the software misbehave.
 
-Security testing is all about finding those edge cases in which a software *can be made to* malfunction. What makes a security vulnerability different from a typical software bug is the assumption that *an intruder may exploit it to cause harm*. Often, a software bug is exploited to be used as a security vulnerability, e.g. entering a specially crafted input that triggers a buffer overflow may be used to extract sensitive information from a system's memory. This was done in the [Heartbleed vulnerability](https://heartbleed.com/) that made $$2/3^{rd}$$ of all web servers in the world leak passwords. However, security vulnerabilities are not necessarily software bugs, and are also not always functional, e.g. authentication cookies never being invalidated allows a [Cross Site Request Forgery](https://owasp.org/www-community/attacks/csrf) attack, in which an attacker exploits a valid cookie to forge a victim's action.  
+Security testing is all about finding those edge cases in which a software *can be made to* malfunction. What makes a security vulnerability different from a typical software bug is the assumption that *an intruder may exploit it to cause harm*. Often, a software bug is exploited to be used as a security vulnerability, e.g. a specially crafted input that triggers a buffer overflow may be used to extract sensitive information from a system's memory. This was done in the [Heartbleed vulnerability](https://heartbleed.com/) that made $$2/3^{rd}$$ of all web servers in the world leak passwords. On the other hand, not all security vulnerabilities are software bugs, and sometimes may even be non-functional, e.g. authentication cookies never being invalidated allows a [Cross Site Request Forgery](https://owasp.org/www-community/attacks/csrf) attack, in which an attacker exploits a valid cookie to forge a victim's action.  
 
- Similar to traditional testing, thoroughly testing software *does not* guarantee the absence of security vulnerabilities. In fact, new *variants of exploits* can pop up at any time and can hit even a time-tested software. This is why security testing is not a one-off event, but has to be incorporated in the whole Software Development Life Cycle.
+ Similar to traditional software testing, thorough testing *does not* guarantee the absence of security vulnerabilities. In fact, new *variants of exploits* can pop up at any time and can hit even a time-tested software. This is why security testing is not a one-off event, but has to be incorporated in the whole Software Development Life Cycle.
 
 {% hint style='tip' %}
 We discuss the **Secure Software Development Life Cycle** later in this chapter.
 {% endhint %}
 
-Security testers are always at an arms-race with the attackers. Their aim is to find and fix the vulnerabilities before the adversary gets the chance to exploit them.
-You can think of the attack surface as the surface of a rubber balloon, as shown in the figure: there are endless points on this surface that, when pricked by a needle (exploit analogy) will pop the balloon. The goal of security testing is to limit the exposed attack surface and to increase the efforts required by the attackers to exploit it.
+Security testers are always at an arms-race with the attackers. Their aim is to find and fix the vulnerabilities before an adversary gets the chance to exploit them.
+In this sense, security testers have to protect a large *attack surface* (see figure), all at the same time, while an adversary only needs to find one entry-way (i.e. via an exploit) to defeat the defense. The goal of security testing is to limit the exposed attack surface and to increase the efforts required by attackers to exploit it.
 
 
 ![Representation of attack surface and exploits](img/security-testing/attack-surface.png)
@@ -34,13 +34,13 @@ You can think of the attack surface as the surface of a rubber balloon, as shown
 
 ## Understanding Java vulnerabilities
 
-In this chapter, we investigate the threat landscape of Java applications because of its popularity: 3 billion devices run Java globally [according to Oracle](https://www.oracle.com/java/). Also, Java is often considered to be a more mature language: Java handles memory management and garbage collection itself, unlike C that requires developers to handle these tasks manually. However, the added abstraction layers might make Java code slower than native C code; this is why some Java components are built upon native code for optimization purposes.
+In this chapter, we investigate the threat landscape of Java applications because of its popularity: 3 billion devices run Java globally [according to Oracle](https://www.oracle.com/java/). Additionally, Java is memory-safe: it handles memory management and garbage collection itself, unlike C that requires developers to handle these tasks themselves. This is a common reason to assume that Java apps do not suffer from, e.g. buffer overflows. However, several core Java components are built upon native C code for optimization purposes, making them potential targets.
 
 > The Java Virtual Machine, the sandbox that enables Java programs to execute platform-independently, is itself written in C.
 
-In order to understand the threat landscape for Java applications, we must analyse what kind of security vulnerabilities have been discovered in them over the years. There exist online repositories that consolidate such vulnerability information. The [NIST National Vulnerability Database](https://www.cvedetails.com/) is one such example.
+In order to understand the threat landscape for Java applications, we must analyse the kind of security vulnerabilities that have been discovered over the years. There exist online repositories that consolidate such vulnerability information. The [NIST National Vulnerability Database](https://www.cvedetails.com/) is one such example.
 
-The [National Vulnerability Database](https://www.cvedetails.com/) is the largest repository of security vulnerabilities that are discovered in open source software. Each vulnerability is assigned a unique ***CVE (Common Vulnerabilities and Exposures)*** identifier, a ***CWE (Common Weakness Enumeration)*** that determines the _type_ of vulnerability, and a ***CVSS (Common Vulnerability Scoring System)*** score that determines the _severity_ of the vulnerability. Additionally, you can also view the products and their versions that are affected by the vulnerability.
+The [National Vulnerability Database](https://www.cvedetails.com/) is the largest repository of security vulnerabilities found in open source software. Each vulnerability is assigned a unique ***CVE (Common Vulnerabilities and Exposures)*** identifier, a ***CWE (Common Weakness Enumeration)*** that determines the _type_ of vulnerability, and a ***CVSS (Common Vulnerability Scoring System)*** score that determines the _severity_ of the vulnerability. Additionally, the products including their affected versions are also listed.
 
 
 ### JRE vulnerabilities
@@ -48,7 +48,7 @@ The [National Vulnerability Database](https://www.cvedetails.com/) is the larges
 ![Vulnerabilities reported in JRE](img/security-testing/jre-vuln.png)
 
 
-The plots show the number of vulnerabilities (left) and type of vulnerabilities (right) in the Java Runtime Environment (JRE) from 2007 to 2019. The spike in 2013 and 2014 is due to the exploitation of the *Type Confusion Vulnerability* (explained later), that allows a user to bypass the Java Security Manager and perform highly privileged actions.
+The plots show the number of vulnerabilities (left) and type of vulnerabilities (right) in the Java Runtime Environment (JRE) from 2007 to 2019. The spike in 2013 and 2014 is due to the exploitation of the *Type Confusion Vulnerability* (explained later), that allows a user to bypass the Java Security Manager and perform highly privileged actions. Functional bugs, such as uncaught exceptions, are common causes of crashing apps in Java.
 
 ### Android vulnerabilities
 
@@ -69,7 +69,7 @@ Let's take the following commonly exploited vulnerabilities in Java applications
   * Bypassing Java Security Manager
 3. Buffer overflow vulnerability
 4. Arbitrary Code Execution (ACE)
-5. Remote Code execution (RCE)
+5. Remote Code Execution (RCE)
 
 ### Code injection vulnerability
 
@@ -100,7 +100,7 @@ IO.writeLine(tempClassObject.toString());
 
 ```
 
-The `Class.forName(data)` is the root cause of the vulnerability. If you look closely, the object's value is loaded dynamically from `host.example.org:39544`. If the host is controlled by an attacker, they can introduce new functions or overload existing ones with their malicious code in the class that is returned. This new code becomes part of the application's logic at run-time. A famous version of this attack is an **Update attack** in Android applications, where a plugin seems benign, but it downloads malicious code at run-time.
+The `Class.forName(data)` is the root cause of the vulnerability. If you look closely, the object's value is loaded dynamically from `host.example.org:39544`. If the host is controlled by an attacker, they can introduce new functions or overload existing ones with their malicious code in the class that is returned. This new code becomes part of the application's logic at run-time. A famous version of this attack is an **Update attack** in Android applications, where a plugin seems benign, but it downloads malicious code at run-time. A recent example of update attack is the [CamScanner app](https://www.kaspersky.com/blog/camscanner-malicious-android-app/28156/) -- a famous phone-based document scanner app, which at some point started downloading malicious modules.
 
 
 Static analysis tools often fail to detect this attack, since the malicious code is not part of the application logic at compile time.
@@ -135,12 +135,12 @@ Suppose that an attacker wants to execute the `makeLimenade()` method of the `Li
 
 For the sake of brevity, consider that the output of `throwEx()` is an input to `handleEx()`. In the old and vulnerable version of Java, these type mismatches did not raise any alerts, so an attacker could send a `lemon` object that was then cast into a `Lime` type object, hence allowing them to call the `makeLimenade()` function from *(what was originally)* a `lemon`.
 
-In a real setting, an attacker can use this _type confusion_ vulnerability to escalate their privileges by **bypassing the Java Security Manager (JSM)**. The attacker's goal is to access `System.security` object and set it to `null`, which will disable the JSM. However, the `security` field is private and cannot be accessed by an object that the attacker has (let's call it `Obj`). So, they will exploit the _type confusion_ vulnerability to cast `Obj` into something that does have higher privileges and access to the `System.security` field. Once the JSM is bypassed, the attacker can execute whatever code they want to.
+In a real setting, an attacker can use this _type confusion_ vulnerability to escalate their privileges by **bypassing the Java Security Manager (JSM)**. The attacker's goal is to access `System.security` object and set it to `null`, which will disable the JSM. However, the `security` field is private and cannot be accessed by just any object, e.g. let's suppose that an attacker has access to an object called `Obj`. So, they will exploit the _type confusion_ vulnerability to cast `Obj` into an object with higher privileges that has access to the `System.security` field. Once the JSM is bypassed, the attacker can execute whatever code they want to.
 
 
 ### Arbitrary Code Execution (ACE)
 
-A common misconception is that Java, unlike C, is not vulnerable to **Buffer overflows**. In fact, any component implemented in native code is as much vulnerable to exploits as the original C code would be. An interesting example here is of graphics libraries that often use native code for fast rendering.
+A common misconception is that Java, unlike C, is not vulnerable to **Buffer overflows**. In fact, any component implemented in native C code is just as vulnerable to exploits as the original C code would be. An interesting example here is of graphics libraries that often use native code for fast rendering.
 
 An earlier version of a GIF library in the Sun JVM contained a memory corruption vulnerability: A valid GIF component with the block's width set to 0 caused a _buffer overflow_ when the parser copied data to the under-allocated memory chunk. This overflow caused multiple pointers to be corrupted, and resulted in **Arbitrary Code Execution** (see [CVE-2007-0243](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-0243) for more details).
 
@@ -166,7 +166,7 @@ The figure below shows the Secure-SDLC variant of the traditional SDLC taken fro
 
 At the *planning phase*, risk assessment should be done and potential abuse cases should be designed that the application will be protected against. In the *analysis phase*, the threat landscape should be explored, and attacker modelling should be done.
 
->For example, an attacker model is that the vendor that supplies the plugins has been infected, so all plugins received from the vendor might be malicious.
+>An example of an attacker model is that the vendor supplying app-plugins has been infected, so all plugins received from the vendor might be malicious.
 
 The *design* and *implementation* plans of the application should include insights from the attacker model and abuse cases.
 
@@ -176,7 +176,7 @@ Security testing should be a part of the *testing and integration* phases. Code 
 
 *Just like the traditional SDLC is not a one-time process, the Secure-SDLC is also a continuous process*. Therefore, security testing should also be integrated into the *Continuous Integration* framework as well.
 
-Currently, most companies solely do *penetration testing* which tests the entire application at the very end of the SDLC. The problem with penetration testing is that it tests the application as a whole, and does not stress-test each individual component. When security is not an integral part of the design phase, the vulnerabilities discovered in the penetration testing phase are patched in an ad-hoc manner that increase the risk of them falling apart after deployment.
+Currently, most companies solely do *penetration testing* which tests the entire application at the very end of the SDLC. The problem with penetration testing is that it tests the application as a whole, and does not stress-test each individual component. When security is not an integral part of the design phase, the vulnerabilities discovered in the penetration testing phase are patched in an ad-hoc manner that increase the risk of them falling apart after deployment (*e.g. refer to the Signal app's desktop version*).
 
 
 
@@ -199,16 +199,16 @@ In the context of automated security testing, _static_ and _dynamic_ analysis ar
 Before we dive into further explanation of SAST and DAST techniques, let's look at the assessment criteria for evaluating the quality of security testing techniques.
 
 ### Quality assessment criteria
-The quality of testing tools is evaluated in a number of ways. You have already learnt about _code coverage_ in a previous chapter. Here, we discuss four new metrics that are often used in the context of security testing:
+The quality of testing tools is evaluated in a number of ways. You have already learnt about _code coverage_ in a previous chapter. Here, we discuss four new metrics that are often used in the context of security testing.
 
-Designing an ideal testing tool requires striking a balance between two measures: (a) Soundness, and (b) Completeness. 
+Designing an ideal testing tool requires striking a balance between two measures: (a) Soundness, and (b) Completeness.
 **Soundness** dictates that there should be no False Negatives (FN) — no vulnerability should be skipped. This implies that no alarm is raised *IF* there is no existing vulnerability in the *System Under Test (SUT)*. **Completeness** dictates that there should be no False Positives (FP) — no false alarm should be raised. This implies that an alarm is raised *IF* a valid vulnerability is found.
 
 >Here, a 'positive' instance indicates a _bug_ and a 'negative' instance indicates _benign code_. So, True Positives (TP) are _actual bugs_, and True Negatives (TN) are _actual benign code snippets_. Similarly, False Positives (FP) are _false bugs_ (or _false alarms_), and False Negatives (FN) are _bugs that weren't found_ (or _missed bugs_).
 
-A perfect testing tool is both sound and complete. However, this is an undecidable problem — given finite time, the tool will always be wrong for some input. In reality, tools often compromise of FPs or FNs.
+A perfect testing tool is both sound and complete. However, this is an undecidable problem — given finite time, the tool will always be wrong for some input. In reality, tools often compromise on either FPs or FNs.
 
-Low FNs are ideal for security critical applications where a missed vulnerability can cause significant loss, e.g. banking apps. Low FPs are ideal for applications that don't have a lot of manpower to evaluate the correctness of each result.
+Low FNs are ideal for security critical applications where a missed vulnerability can cause significant loss, e.g. banking apps. Low FPs are ideal for applications that do not have a lot of manpower to evaluate the correctness of each result.
 
 Additionally, an ideal testing tool is (c) **interpretable**: an analyst can trace the results to a solid cause, and are (d) **scalable**: the tool can be used for large applications without compromising heavily on performance.
 
@@ -340,14 +340,14 @@ If a variable is not used in the block, or the value remains the same, nothing i
 | **b5** | - | - | **b** |
 | **b6** | - | - | - |
 
-Remember, if the value of a variable is controlled by a user-controlled parameter, it cannot be resolved until run-time, so it is written as it is.
+Remember, if the value of a variable is controlled by a user-controlled parameter, it cannot be resolved until run-time, so it is written as is.
 If a variable `X` copies its value to another variable `Y`, then the reaching definitions analysis dictates that the variable `Y` will receive all potential values of `X`, once they become known.
 Also, whether a loop terminates is an undecidable problem (also called the *halting problem*), so finding the actual values that a looping variable takes on is not possible using static analysis.
 
 The analysis results in the following values of the three variables. If you look closely, some values are impossible during actual run-time, but since we trace the data flow statically, we perform an over-estimation of the allowed values. This is why, static analysis, in particular DFA, is `Sound` but `Incomplete`.
 
 ``` java
-a = {0, 1, 2, 3, ...}
+a = {0, 1, 2, 3, ...}       // 3 and above are impossible
 b = {0, 10}                // 0 is impossible       
 c = {1, b} -> {0, 1, 10}  // 1, 10 are impossible
 ```
@@ -372,7 +372,7 @@ In this section, we explain the following techniques for dynamic analysis:
 
 Taint analysis is the dynamic version of Data Flow Analysis. In taint analysis, we track the values of variables that we want to *taint*, by maintaining a so-called *taint table*. For each tainted variable, we analyse how the value propagates throughout the codebase and affects other statements and variables. To enable tainting, ***code instrumentation*** is done by adding hooks to variables that are of interest. _Pin_ is an instrumentation tool from Intel, which allows taint analysis of binaries.
 
-An example here is of the tool [Panorama](https://dl.acm.org/doi/abs/10.1145/1315245.1315261) that detects malicious software like _keyloggers_ (that log keystrokes in order to steal credentials) and _spyware_ (that stealthily collects and sends user data to $$3^{rd}$$ parties) using dynamic taint analysis. Panorama works on the intuition that benign software does not interfere with OS-specific information transfer, while information-stealing malware attempts to access the sensitive information being transferred. Similarly, malicious plugins collect and share user information with $$3^{rd}$$ parties while benign plugins don't send information out. These behaviours can be detected using the source/sink principles of taint analysis.  
+An example here is of the tool [Panorama](https://dl.acm.org/doi/abs/10.1145/1315245.1315261) that detects malicious software like _keyloggers_ (that log keystrokes in order to steal credentials) and _spyware_ (that stealthily collects and sends user data to $$3^{rd}$$ parties) using dynamic taint analysis. Panorama works on the intuition that benign software does not interfere with OS-specific information transfer, while information-stealing malware attempts to access the sensitive information being transferred. Similarly, malicious plugins collect and share user information with $$3^{rd}$$ parties while benign plugins do not send information out. These behaviours can be detected using the source/sink principles of taint analysis.  
 
 ### Dynamic validation
 
@@ -388,17 +388,20 @@ Files.readAllLines("foo.txt");
 
 To check the existence of such scenarios, they codify it in a property that _stops a program from passing the same filename to two system calls on the same path_. Once codified in a model checker, they run it on various applications and report on deviations from this property.   
 
+{% hint style='tip' %} It is important to note that not all security properties can be codified into specifications. Additionally, such specifications need to be updated regularly to detect new vulnerabilities and to reduce false alarms. {% endhint %}
+
+
 ### Penetration testing
 
-Penetration (or Pen) testing is the most commonly used type of security testing in organizations. It is sometimes also referred to as ***Ethical hacking***. What makes pen testing different from others is that it is done from the perspective of an attacker — [pen-testers attempt to breach the security of the SUT just as an adversary might](https://www.ncsc.gov.uk/guidance/penetration-testing). Since it is done from the perspective of the attacker, it is generally black-box, but depending on the assumed knowledge of the attacker, it may also be white-box.
+Penetration (or Pen) testing is the most common type of security testing for organizations. It is sometimes also referred to as ***Ethical hacking***. What makes pen testing different from others is that it is done from the perspective of an attacker — [pen-testers attempt to breach the security of the SUT just as an adversary might](https://www.ncsc.gov.uk/guidance/penetration-testing). Since it is done from the perspective of the attacker, it is generally black-box, but depending on the assumed knowledge of the attacker, it may also be white-box.
 
-Penetration testing checks the SUT in an end-to-end fashion, which means that it is done once the application is fully implemented, so it can only be done at the end of the SDLC. *MetaSploit* is an example of a powerful penetration testing framework. Most pen testing tools contain a ***Vulnerability Scanner*** module that either *runs existing exploits*, or allow the tester to *create an exploit*. They also contain ***Password Crackers*** that either *brute-force* passwords (i.e. tries all possible combinations given some valid character set), or perform a *dictionary attack* (i.e. chooses inputs from pre-existing password lists).
+Penetration testing checks the SUT in an end-to-end fashion, which means that it is done once the application is fully implemented, so it can only be done at the end of the SDLC. *MetaSploit* is an example of a powerful penetration testing framework. Most pen testing tools contain a ***Vulnerability Scanner*** module that either *runs existing exploits*, or allow the tester to *create an exploit*. They also contain ***Password Crackers*** that either *brute-force* passwords (i.e. try all possible combinations given some valid character set), or perform a *dictionary attack* (i.e. choose inputs from pre-existing password lists).
 
 ### Behavioural analysis
 
 Given a software that may contain modules from unknown sources, behavioural analysis aims to gain insights about the software by generating behavioural logs and analysing them. This can be particularly helpful for finding abnormal behaviours (security problems, in particular) when neither the source code, nor the binary are accessible. The logs can be compared with known-normal behaviour in order to debug the SUT.
 
-An example here is of JPacman that currently has support for two point calculator modules (`Scorer 1` and `Scorer 2`) that calculate the score in different ways. The goal is to find what the malicious module (`Scorer 2`) does. We have implemented a ***Naive Fuzzer*** that automatically runs various instances of JPacman to generate behavioural logs. At each iteration, it randomly picks a move (from the list of acceptable moves) until Pacman dies, and logs the values of different interesting variables. The fuzzing code is given below.
+An example here is of JPacman that currently has support for two point calculator modules (`Scorer 1` and `Scorer 2`) that calculate the score in different ways. The goal is to find what the malicious module (`Scorer 2`) does. We have implemented an automated agent (called *fuzzer*) that runs various instances of JPacman to generate behavioural logs. At each iteration, it randomly picks a move (from the list of acceptable moves) until Pacman dies, and logs the values of interesting variables. The agent's code is given below.
 
 ```java
   /**
@@ -458,7 +461,7 @@ Reverse Engineering is a related concept where the goal is to reveal the interna
 
 A use case for the behavioural logs from the previous technique is to use them for automated reverse engineering that learns a model of the SUT. This model can then be used for, e.g. *Dynamic validation*, and/or to *guide path exploration* for better code coverage.
 
-For example, [TABOR](https://dl.acm.org/doi/abs/10.1145/3196494.3196546) learns a model of a water treatment plant in order to detect attacks. They learn an automata representing the _normal behaviour_ of the various sensors present in the plant. Anomalous incoming events that deviate from the normal models raise an alert.
+For example, [TABOR](https://dl.acm.org/doi/abs/10.1145/3196494.3196546) learns a model of a water treatment plant in order to detect attacks. They learn an automaton representing the _normal behaviour_ of the various sensors present in the plant. Anomalous incoming events that deviate from the normal model raise alerts.
 
 ### Fuzzing
 
@@ -478,7 +481,7 @@ Finally, [Sage](https://dl.acm.org/doi/pdf/10.1145/2090147.2094081) is a white-b
 ## Chapter Summary
 
 - Software testing checks correctness of the software, while security testing finds potential defects that may be exploited by an intruder.
-- Even though Java handles memory management itself, Java applications still have a large attack surface.
+- Even though Java is memory-safe, Java applications still have a large attack surface.
 - Security testing is much more than penetration testing, and must be integrated at each step of the SDLC.
 - Threat modelling can derive effective test cases.
 - Perfect (security) testing is impossible.
@@ -486,8 +489,8 @@ Finally, [Sage](https://dl.acm.org/doi/pdf/10.1145/2090147.2094081) is a white-b
 - SAST is fast, but generates many false positives. DAST is operationally expensive, but generates insightful and high-quality results.
 - Pattern matching finds limited but easy to find security problems.
 - ASTs make the code structure analysis easy. CFGs and DFDs are better at finding security vulnerabilities.
-- Behavioural logs are very useful for forensic analysis of the SUT.
-- Combining fuzzing with Symbolic execution leads to finding optimal test cases that can maximize code coverage and find maximum security problems.
+- Behavioural logs are useful for forensic analysis of the SUT.
+- Combining fuzzing with symbolic execution leads to finding optimal test cases that can maximize code coverage and find maximum security problems.
 
 ## Exercises
 
